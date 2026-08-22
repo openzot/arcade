@@ -1,6 +1,6 @@
 # One shift of the arcade: zot makes a new game, the workflow commits it to
-# main and publishes site/ to GitHub Pages. Runs every 30 minutes; a shift
-# that is still going when the next is due makes the next one wait.
+# main and publishes site/ to GitHub Pages. Runs every 30 minutes; a shift that
+# is still going when the next is due makes the next one wait.
 name: shift
 
 on:
@@ -8,6 +8,15 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
 
+# Queue rather than skip, and never cancel. A shift takes most of an hour, so
+# the next one usually arrives mid-game: parking it means it starts the moment
+# the current shift ends, and the runner is never idle. Skipping instead would
+# idle until the next half-hour boundary and cost about a quarter of the games.
+#
+# The default `queue: single` is what we want, not a backlog: one shift waiting
+# is enough to keep the runner busy, and `queue: max` would bank up to a hundred
+# of them to be worked through later - a burst of near-identical shifts rather
+# than a steady arcade.
 concurrency:
   group: arcade-shift
   cancel-in-progress: false
@@ -73,9 +82,23 @@ jobs:
           rerun: true                 # the standing order runs every shift
           provider: openrouter
           model: stealth/ox-alpha
-          max-iterations: 250
+          # no max-iterations: zot's own default is the cap, and the step
+          # timeout below is the bound that actually decides a shift's length
           cache-sessions: true
           cache-key: arcade-sessions
+          # zot's catalogue has never heard of this model, so it assumes the
+          # model cannot be shown images and withholds the `view` tool. This
+          # one can see, and the shift depends on it: a game is playtested by
+          # screenshotting it, and a screenshot zot cannot look at is one it
+          # has to decode pixel by pixel to guess at.
+          config: |
+            default_provider: openrouter
+            providers:
+              openrouter:
+                api_key: $OPENROUTER_API_KEY
+                models:
+                  stealth/ox-alpha:
+                    vision: true
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 

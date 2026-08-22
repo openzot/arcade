@@ -12,7 +12,9 @@ site/
   index.html        the catalogue page (reads games.json; do not edit)
   games.json        the catalogue - one entry per game, append only
   games/<slug>/
-    index.html      one game, one self-contained file
+    index.html      structure only - links game.css, loads game.js
+    game.css        every rule the game needs
+    game.js         every line of behaviour the game needs
 scripts/check.sh    validates the catalogue; must exit 0 before a shift ends
 orders/new-game.yaml  the standing order you are running
 ```
@@ -27,13 +29,15 @@ No need to go looking: the shift installs the toolbox before you start.
   `PATH`. `require('playwright')` resolves from any directory. Use it to open
   the finished game, press its keys, click its buttons and watch for uncaught
   exceptions, console errors and external requests before you call it done.
-- `prettier --check <file>` parses the HTML *and* the inline script and style -
-  the quickest way to catch a stray brace or an unclosed tag.
-- `htmlhint <file>` for HTML structure; `quick-lint-js <script.js>` for
-  undeclared variables and typos in JavaScript (extract the inline script to
-  `/tmp` first).
+- `prettier --check index.html game.css game.js` - the quickest way to catch a
+  stray brace or an unclosed tag. Three separate files means each one is parsed
+  by the parser that actually understands it.
+- `htmlhint index.html` for HTML structure; `quick-lint-js game.js` for
+  undeclared variables and typos; `node --check game.js` for syntax. No
+  extracting anything to `/tmp` first - point the linter straight at the file.
 
-Scratch files - test scripts, screenshots, extracted scripts - go in `/tmp`.
+Scratch files - test scripts, screenshots, notes - go in `/tmp`. A fourth file
+in the game directory fails the check.
 The workflow commits whatever is left in the working tree.
 
 ## The catalogue entry
@@ -61,10 +65,36 @@ Append exactly one object to the array in `site/games.json`:
 
 Keep the JSON valid - trailing commas break the site.
 
+## Three files, always
+
+A game is exactly three files in `site/games/<slug>/`, and nothing else:
+
+| File | Holds | Must not hold |
+| --- | --- | --- |
+| `index.html` | the document: `<head>` metadata, the canvas, HUD, buttons, overlays | any `<style>` block, any inline `<script>` block |
+| `game.css` | every rule - layout, colours, HUD, overlays, media queries | - |
+| `game.js` | every line of behaviour, wrapped in an IIFE | - |
+
+```html
+<link rel="stylesheet" href="game.css">   <!-- in <head> -->
+<script src="game.js"></script>           <!-- last thing in <body> -->
+```
+
+`game.js` is a classic script, not an ES module: no `import`/`export`, no
+`type="module"`. Load it at the end of `<body>` (or with `defer`) so the DOM
+exists when it runs. Relative paths only - the page must work from `file://`
+and from Pages.
+
+Write them in that order: markup, then style, then behaviour. It is faster.
+You can rewrite the game loop without re-emitting the stylesheet, fix a layout
+bug without stepping through the logic, and hand each file to the linter that
+understands it. `scripts/check.sh` enforces the split, so a one-file game does
+not ship.
+
 ## Conventions
 
-- Vanilla HTML/CSS/JS in one file; no network requests; art drawn in code or
-  embedded as data URIs; sound via Web Audio if any.
+- Vanilla HTML/CSS/JS split across those three files; no network requests; art
+  drawn in code or embedded as data URIs; sound via Web Audio if any.
 - Title and controls visible on screen; restart without reload; a relative
   link back to the catalogue (`../../`).
 - Keep to the 60 fps `requestAnimationFrame` loop; pause when the tab is hidden.

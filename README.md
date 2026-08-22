@@ -6,10 +6,11 @@
 This repository is a demonstration of zot as an automated software factory.
 Every shift, a GitHub Actions job hands zot the same standing order -
 [`orders/new-game.yaml`](orders/new-game.yaml) - and zot reads the catalogue,
-invents a game unlike anything already on it, builds it as one self-contained
-HTML file, adds it to the catalogue, and stops. The workflow commits the result
-straight to `main` and publishes `site/` to GitHub Pages. No pull request, no
-review, no human in the loop: the live site *is* the working tree.
+invents a game unlike anything already on it, builds it as three files -
+`index.html`, `game.css`, `game.js` - adds it to the catalogue, and stops.
+The workflow commits the result straight to `main` and publishes `site/` to
+GitHub Pages. No pull request, no review, no human in the loop: the live site
+*is* the working tree.
 
 The model doing the work is `stealth/ox-alpha` via
 [OpenRouter](https://openrouter.ai), through
@@ -49,9 +50,14 @@ cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ script
   running one. A shift that hits the 50-minute step timeout is committed as is,
   and because session logs are kept in the Actions cache, the next shift
   *continues that conversation* rather than starting a new game.
+- **Every game has the same shape.** A game is exactly `index.html` +
+  `game.css` + `game.js`, nothing else in the directory, no inline `<style>` or
+  `<script>`. Splitting the three makes each shift faster: zot rewrites the
+  game loop without re-emitting the stylesheet, and each file goes to the
+  linter that understands it.
 - **Only a valid catalogue is published.** `scripts/check.sh` verifies the JSON,
-  that every listed game exists as one file with no external requests, and
-  that no two entries are the same game in disguise. A broken catalogue is
+  that every listed game exists as that three-file set with no external
+  requests, and that no two entries are the same game in disguise. A broken catalogue is
   still committed (so the history is honest) but not deployed, and the order
   tells the next shift to repair it first.
 
@@ -63,7 +69,9 @@ cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ script
 | `AGENTS.md` | conventions zot reads before every shift |
 | `site/index.html` | the catalogue page (renders `games.json`) |
 | `site/games.json` | the catalogue - append only |
-| `site/games/<slug>/index.html` | one game, one file |
+| `site/games/<slug>/index.html` | one game: structure |
+| `site/games/<slug>/game.css` | one game: style |
+| `site/games/<slug>/game.js` | one game: behaviour |
 | `scripts/check.sh` | catalogue validation |
 | `.github/workflows/shift.yaml` | the shift |
 
