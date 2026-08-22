@@ -1,0 +1,415 @@
+/* Cloud Shears — a rooftop bonsai pruning game.
+   Slate roof, paper panels, verdigris and shear-steel. All styling lives here. */
+
+:root {
+  --slate-1: #22282b;
+  --slate-2: #2e3639;
+  --tile: #39444a;
+  --paper: #f4ead2;
+  --paper-2: #eadcb8;
+  --ink: #2c2418;
+  --ink-soft: #6a5a40;
+  --leaf: #3e7c5b;
+  --verdigris: #4e8f7b;
+  --shear-red: #b5432f;
+  --gold: #c69f3d;
+  --line: rgba(244, 234, 210, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: repeating-linear-gradient(
+      180deg,
+      var(--tile) 0 26px,
+      var(--slate-2) 26px 30px
+    )
+    var(--slate-1);
+  color: var(--paper);
+  font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+#stage {
+  width: min(1020px, 100%);
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- top bar ---------- */
+
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  #brand .tagline {
+    margin: 3px 0 0;
+    font-style: italic;
+    font-size: 13.5px;
+    color: rgba(244, 234, 210, 0.72);
+  }
+
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+#brand .tagline {
+  margin: 3px 0 0;
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--line);
+  color: rgba(244, 234, 210, 0.72);
+}
+
+#hud {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow:
+    inset 0 1px 0 #fff8e8,
+    0 2px 0 rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+
+#chip-shears.low {
+  background: #f3d3c9;
+  color: var(--shear-red);
+}
+
+#chip-score {
+  min-width: 104px;
+  text-align: center;
+}
+
+#hud-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+#hud-buttons button {
+  width: 34px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-color: rgba(244, 234, 210, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--paper);
+  font-size: 14px;
+  line-height: 1;
+  transition:
+    transform 0.08s ease,
+    background 0.15s ease;
+}
+
+#hud-buttons button:hover {
+  background: rgba(78, 143, 123, 0.55);
+}
+
+#hud-buttons button:active {
+  transform: translateY(1px);
+}
+
+#hud-buttons button[aria-pressed="true"] {
+  color: var(--gold);
+}
+
+/* ---------- board ---------- */
+
+#table {
+  position: relative;
+}
+
+#board {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  height: auto;
+  background: #cfe3ee;
+  border: 3px solid #14181a;
+  border-radius: 14px;
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.5),
+    inset 0 0 60px rgba(20, 30, 34, 0.18);
+  touch-action: none;
+}
+
+#banner {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(28, 24, 16, 0.88);
+  color: var(--paper);
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 159, 61, 0.65);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#banner.hidden {
+  opacity: 0;
+}
+
+/* ---------- overlay ---------- */
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 26, 24, 0.62);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  color: var(--ink);
+  max-width: 520px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  border-radius: 14px;
+  border: 2px solid var(--ink);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+  padding: 22px 26px;
+  text-align: center;
+}
+
+.panel h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+}
+
+.panel .ov-lede {
+  margin: 0 0 12px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.panel ul.ov-list {
+  text-align: left;
+  margin: 0 auto 14px;
+  padding-left: 20px;
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  max-width: 430px;
+}
+
+.panel .ov-big {
+  font-size: 54px;
+  font-weight: 700;
+  margin: 4px 0 2px;
+  color: var(--leaf);
+}
+
+.panel .ov-medal {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.panel .ov-note {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  padding: 9px 20px;
+  box-shadow: 0 3px 0 var(--ink);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.btn:hover {
+  background: #fffdf6;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.btn.primary {
+  background: var(--verdigris);
+  color: #fdfbf4;
+}
+
+.btn.primary:hover {
+  background: #57a188;
+}
+
+/* ---------- action bar ---------- */
+
+#actionbar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#actionbar button {
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 234, 210, 0.4);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--paper);
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease,
+    transform 0.08s ease;
+}
+
+#actionbar button:hover:not(:disabled) {
+  background: rgba(78, 143, 123, 0.55);
+}
+
+#actionbar button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+#actionbar button:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+#btn-next.pulse {
+  animation: pulse 1.1s ease-in-out infinite;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(198, 159, 61, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(198, 159, 61, 0);
+  }
+}
+
+/* ---------- footer ---------- */
+
+#foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#hint {
+  margin: 0;
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 12px;
+  color: rgba(244, 234, 210, 0.66);
+}
+
+#back {
+  font-family: Avenir, "Segoe UI", Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(244, 234, 210, 0.6);
+  padding-bottom: 1px;
+}
+
+#back:hover {
+  color: var(--gold);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  #brand h1 {
+    font-size: 23px;
+  }
+
+  #brand .tagline {
+    font-size: 12px;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  #hint {
+    font-size: 11px;
+  }
+
+  .panel {
+    padding: 16px 16px;
+  }
+
+  .panel h2 {
+    font-size: 21px;
+  }
+}

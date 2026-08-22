@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloud Shears — a rooftop bonsai pruning game</title>
+    <meta
+      name="description"
+      content="Five seasons, one pair of shears. Prune a wild bonsai into cloud pads on a rooftop terrace before the judges arrive on Showing Day."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage" data-state="intro">
+      <header id="topbar">
+        <div id="brand">
+          <h1>Cloud Shears</h1>
+          <p class="tagline">
+            The tree grows wild. You decide what it becomes.
+          </p>
+        </div>
+        <ul id="hud">
+          <li class="chip" id="chip-season">First Spring</li>
+          <li class="chip" id="chip-shears">✂ 7</li>
+          <li class="chip" id="chip-score">Canopy 0%</li>
+          <li id="hud-buttons">
+            <button
+              id="btn-sound"
+              type="button"
+              aria-label="Toggle sound"
+              aria-pressed="false"
+              title="Sound on/off (M)"
+            >
+              ♪
+            </button>
+            <button
+              id="btn-help"
+              type="button"
+              aria-label="How to play"
+              title="How to play (H)"
+            >
+              ?
+            </button>
+            <button
+              id="btn-pause"
+              type="button"
+              aria-label="Pause"
+              title="Pause (P)"
+            >
+              ❚❚
+            </button>
+            <button
+              id="btn-restart"
+              type="button"
+              aria-label="Restart"
+              title="Restart (R)"
+            >
+              ↻
+            </button>
+          </li>
+        </ul>
+      </header>
+
+      <main id="table">
+        <canvas id="board" width="960" height="640">
+          A rooftop bonsai in five seasons. Cut branches so its canopy fills the
+          dashed cloud pads before Showing Day.
+        </canvas>
+        <div id="overlay" class="hidden"></div>
+        <div id="banner" class="hidden"></div>
+      </main>
+
+      <div id="actionbar">
+        <button id="btn-undo" type="button" title="Undo last cut (Z)">
+          Undo cut (Z)
+        </button>
+        <button id="btn-next" type="button" title="End the season (Enter)">
+          Next season ⏎
+        </button>
+      </div>
+
+      <footer id="foot">
+        <p id="hint">
+          Tap a branch to cut · ←/→ choose · Space cuts · Z undo · Enter ends
+          the season · P pause · M sound · R restart
+        </p>
+        <a id="back" href="../../">⌂ Arcade catalogue</a>
+      </footer>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
