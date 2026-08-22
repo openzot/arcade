@@ -1,0 +1,130 @@
+# Recover a shift whose work never reached main.
+#
+# A shift is half an hour of model time and the game exists only on the runner
+# until it is pushed. When that push fails the shift workflow now parks the work
+# on a rescue branch itself - but a run that died before reaching that step, or
+# one from before the rescue existed, leaves the game in exactly one place: the
+# session log in the `arcade-sessions-<run-id>-1` cache.
+#
+# The log records every tool call with its arguments, so replaying the writes
+# reconstructs the files the run had on disk. Actions caches cannot be read from
+# outside a workflow run, which is why this is a workflow rather than a script
+# someone runs locally.
+#
+# Caches expire on GitHub's own schedule (7 days untouched), so this is a rescue
+# with a deadline. Check `gh cache list --repo openzot/arcade` before assuming a
+# run is gone.
+name: salvage
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: The shift run id whose session cache holds the work
+        required: true
+      only:
+        description: Only recover paths containing this (e.g. site/games/)
+        required: false
+        default: site/
+      branch:
+        description: Push the recovered files to this branch (blank = artifact only)
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  salvage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
+
+      # The exact key, not a prefix: a restore-key would happily hand back some
+      # other shift's session and salvage a game that was never lost.
+      - name: Restore the shift's session
+        uses: actions/cache/restore@v5
+        with:
+          path: ${{ runner.temp }}/zot/sessions
+          key: arcade-sessions-${{ inputs.run_id }}-1
+          fail-on-cache-miss: true
+
+      - name: Rebuild what the shift wrote
+        id: salvage
+        env:
+          SESSIONS: ${{ runner.temp }}/zot/sessions
+          ONLY: ${{ inputs.only }}
+        run: |
+          set -uo pipefail
+
+          ls -la "$SESSIONS" || true
+
+          found=0
+
+          for log in "$SESSIONS"/*.jsonl; do
+            [ -e "$log" ] || continue
+            echo "== $(basename "$log")"
+            python3 scripts/salvage.py "$log" --out salvaged --only "$ONLY" && found=1
+          done
+
+          if [ "$found" != 1 ]; then
+            echo "::error::no session log in the cache produced any files"
+            exit 1
+          fi
+
+          echo "recovered=true" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Salvage of run ${{ inputs.run_id }}"
+            echo
+            echo '```'
+            find salvaged -type f | sort
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The artifact is the copy that always happens: even a salvage whose files
+      # need hand-editing is worth downloading, and it costs nothing.
+      - name: Keep the recovered files
+        uses: actions/upload-artifact@v5
+        with:
+          name: salvaged-${{ inputs.run_id }}
+          path: salvaged
+          if-no-files-found: error
+
+      # A branch is the convenient form, when asked for. Never main: a salvaged
+      # game has not been checked or played here, and the point is to get it
+      # somewhere a person can look at it.
+      - name: Push a branch with the recovery
+        if: inputs.branch != ''
+        env:
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          set -euo pipefail
+
+          if [ "$BRANCH" = main ]; then
+            echo "::error::refusing to salvage straight onto main; use a branch"
+            exit 1
+          fi
+
+          cp -r salvaged/. .
+          rm -rf salvaged
+
+          git config user.name 'zot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "::warning::the recovered files match what is already committed; nothing to push"
+            exit 0
+          fi
+
+          git commit -q -m "salvage: recover shift ${{ inputs.run_id }}" \
+            -m "Rebuilt from the session log in arcade-sessions-${{ inputs.run_id }}-1." \
+            -m "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          git push -q -f origin "HEAD:refs/heads/${BRANCH}"
+
+          echo "::notice::recovered onto ${BRANCH}"
