@@ -353,6 +353,7 @@
   var floats = [];
   var rain = [];
   var pending = null; // { t, col, feeder } next inbound train
+  var autoSpawn = true; // scheduled arrivals; the #debug hook can disable it
   var score = 0,
     delivered = 0,
     misroutes = 0,
@@ -361,6 +362,7 @@
     combo = 0,
     bestCombo = 0,
     lanterns = LIVES;
+
   var elapsed = 0;
   var shake = 0;
   var flashA = 0;
@@ -546,6 +548,7 @@
   }
 
   function advance(t, dt) {
+    if (t.dead) return;
     if (t.phase === "dwell") {
       t.dwellT -= dt;
       if (t.dwellT <= 0) {
@@ -555,6 +558,7 @@
       }
       return;
     }
+
     t.s += t.spd * dt;
     var guard = 0;
     while (guard++ < 8) {
@@ -576,7 +580,9 @@
         escapeTrain(t);
         return;
       } else {
-        break; // exit edges run off-board
+        // exit edges run off-board: the train is clear, despawn it
+        t.dead = true;
+        return;
       }
     }
     var p = pointAt(t.edge, t.s);
@@ -584,45 +590,48 @@
     t.y = p.y;
     t.ang = p.a;
   }
-
   function collideCheck() {
-    for (var i = 0; i < trains.length; i++) {
+    var hit = null;
+    for (var i = 0; i < trains.length && !hit; i++) {
       for (var j = i + 1; j < trains.length; j++) {
         var a = trains[i],
           b = trains[j];
         if (a.dead || b.dead) continue;
         if (dist(a.x, a.y, b.x, b.y) < 27) {
-          a.dead = true;
-          b.dead = true;
-          boom((a.x + b.x) / 2, (a.y + b.y) / 2);
-          crashes++;
-          lanterns--;
-          combo = 0;
-          floats.push({
-            x: a.x,
-            y: a.y - 24,
-            txt: "COLLISION!",
-            col: "#ffab6b",
-            t: 1.3,
-          });
-          shake = 13;
-          sfx.crash();
-          syncHUD();
-          if (lanterns <= 0)
-            gameOver("Two engines met metal-to-metal in the dark.");
-          return;
+          hit = [a, b];
+          break;
         }
       }
+    }
+    if (hit) {
+      hit[0].dead = true;
+      hit[1].dead = true;
+      boom((hit[0].x + hit[1].x) / 2, (hit[0].y + hit[1].y) / 2);
+      crashes++;
+      lanterns--;
+      combo = 0;
+      floats.push({
+        x: hit[0].x,
+        y: hit[0].y - 24,
+        txt: "COLLISION!",
+        col: "#ffab6b",
+        t: 1.3,
+      });
+      shake = 13;
+      sfx.crash();
+      syncHUD();
+      if (lanterns <= 0)
+        gameOver("Two engines met metal-to-metal in the dark.");
     }
     trains = trains.filter(function (t) {
       return !t.dead;
     });
   }
-
   function gameOver(cause) {
     if (state === "lost" || state === "won" || state === "ending") return;
     state = "lost";
     loseCause = cause;
+
     lanterns = 0;
     syncHUD();
     sfx.loseTune();
@@ -724,7 +733,7 @@
       NODES[id].flip = Math.max(0, NODES[id].flip - dt * 3.4);
     });
 
-    if (state === "running") {
+    if (state === "running" && autoSpawn) {
       pending.t -= dt;
       if (pending.t <= 0) {
         if (!feederBlocked(pending.feeder) && trains.length < 7) {
@@ -1484,6 +1493,10 @@
       },
       setSwitch: function (i, sel) {
         NODES["W" + i].sel = sel ? 1 : 0;
+      },
+      setAuto: function (on) {
+        autoSpawn = !!on;
+        pending = makePending(9999);
       },
     };
   }

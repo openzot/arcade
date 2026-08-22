@@ -38,5 +38,15 @@
     "tagline": "Gravity does the flying. You just let go at the right moment.",
     "controls": "mouse / touch drag or arrows + space",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "night-junction",
+    "name": "Night Junction",
+    "genre": "routing",
+    "mechanic": "flip track levers in real time to steer colour-coded steam trains into their matching stations, juggling occupied platforms and rear-end collisions",
+    "theme": "a lone signalman running a storm-lit mountain junction box with three lanterns and an unfinished east line",
+    "tagline": "Every lever is a promise. Keep it.",
+    "controls": "mouse / touch tap levers or keys 1-3, P pause, R restart, M sound",
+    "created": "2026-08-22"
   }
 ]
