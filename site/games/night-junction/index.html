@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Night Junction - flip the points and thread colour-coded steam trains through a storm-lit mountain junction without a single collision."
+    />
+    <title>Night Junction · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="top">
+        <a class="back" href="../../">&#8592; Arcade</a>
+        <h1 class="brand">Night&nbsp;<span>Junction</span></h1>
+        <div class="hud" aria-live="polite">
+          <div class="chip">
+            <span class="k">Score</span><span class="v" id="hud-score">0</span>
+          </div>
+          <div class="chip">
+            <span class="k">Delivered</span
+            ><span class="v"
+              ><span id="hud-done">0</span>&thinsp;/&thinsp;<span id="hud-goal"
+                >12</span
+              ></span
+            >
+          </div>
+          <div class="chip combo" id="hud-combo" hidden>
+            <span class="k">Chain</span
+            ><span class="v" id="hud-combo-v">×2</span>
+          </div>
+          <div class="lanterns" id="hud-lanterns" title="Lanterns left"></div>
+        </div>
+        <div class="actions">
+          <button
+            id="btn-sound"
+            class="icon-btn"
+            type="button"
+            aria-label="Toggle sound"
+            title="Sound (M)"
+          >
+            ♪
+          </button>
+          <button
+            id="btn-pause"
+            class="icon-btn"
+            type="button"
+            aria-label="Pause or resume"
+            title="Pause (P)"
+          >
+            ❚❚
+          </button>
+          <button
+            id="btn-restart"
+            class="icon-btn"
+            type="button"
+            aria-label="Restart the shift"
+            title="Restart (R)"
+          >
+            ↺
+          </button>
+        </div>
+      </header>
+
+      <div class="board-wrap">
+        <canvas
+          id="board"
+          width="1000"
+          height="640"
+          aria-label="Night Junction track diagram"
+        ></canvas>
+        <div class="overlay" id="overlay" hidden>
+          <div class="card" id="overlay-card"><!-- filled by game.js --></div>
+        </div>
+      </div>
+
+      <p class="hint">
+        Tap a lever — or press <b>1&hairsp;2&hairsp;3</b> — to set the points
+        before each train reaches them · park every train at its own
+        <b>colour &amp; shape</b> station · never rear-end anyone · deliver
+        <b>12 trains</b> to end the shift · <b>P</b> pause · <b>R</b> restart ·
+        <b>M</b> sound
+      </p>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
