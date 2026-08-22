@@ -1,0 +1,359 @@
+/* Static Watch - trawler-band night shift */
+
+:root {
+  --amber: #ffb454;
+  --amber-dim: #b97f3a;
+  --green: #86ffa1;
+  --violet: #c9a2ff;
+  --ink: #04070a;
+  --panel: #171c22;
+  --edge: #2a333d;
+  --paper: #dfe7ee;
+  --serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+  --mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #0d141c 0%, var(--ink) 70%), var(--ink);
+  color: var(--paper);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+/* ---------- header ---------- */
+
+.top {
+  width: min(1000px, 100%);
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.8rem 1rem 0.4rem;
+}
+
+.back {
+  color: var(--amber);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 1px solid transparent;
+}
+
+.back:hover,
+.back:focus-visible {
+  border-bottom-color: var(--amber);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  color: var(--paper);
+}
+
+.tag {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--amber-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- stage ---------- */
+
+.stage {
+  width: min(1000px, 100%);
+  padding: 0.4rem 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.set {
+  position: relative;
+  width: 100%;
+}
+
+canvas#radio {
+  display: block;
+  width: 100%;
+  aspect-ratio: 960 / 600;
+  height: auto;
+  touch-action: none;
+  cursor: grab;
+  border-radius: 14px;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+canvas#radio:active {
+  cursor: grabbing;
+}
+
+.trimrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0 0.2rem;
+}
+
+.trimrow output {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--green);
+  min-width: 8ch;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- buttons ---------- */
+
+button {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--paper);
+  background: linear-gradient(#232b34, #1a2129);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+
+button:hover {
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+button.big {
+  font-size: 1.05rem;
+  padding: 0.7rem 1.6rem;
+  border-color: var(--amber-dim);
+  color: var(--amber);
+}
+
+button.big:hover {
+  background: linear-gradient(#2b3540, #222b34);
+}
+
+.key {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+/* ---------- footer bar ---------- */
+
+.bar {
+  width: min(1000px, 100%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.4rem 1rem 1rem;
+}
+
+.hint {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: #77879a;
+  line-height: 1.5;
+}
+
+.hint b {
+  color: #aebccb;
+  font-weight: 600;
+}
+
+.ops {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ops {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .tag {
+    display: none;
+  }
+}
+
+/* ---------- veil & panels ---------- */
+
+.veil {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 6, 10, 0.82);
+  backdrop-filter: blur(3px);
+  z-index: 10;
+  padding: 1rem;
+}
+
+.veil.off {
+  display: none;
+}
+
+.panel {
+  width: min(560px, 94vw);
+  max-height: 92vh;
+  overflow: auto;
+  background: linear-gradient(#1b232c, #131a21);
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem 1.6rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+}
+
+.panel h2 {
+  margin: 0 0 0.3rem;
+  font-family: var(--serif);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  color: var(--amber);
+}
+
+.lede {
+  margin: 0 0 0.9rem;
+  color: #9fb0c2;
+  font-style: italic;
+}
+
+.howto {
+  margin: 0 0 0.9rem;
+  padding-left: 1.15rem;
+  line-height: 1.55;
+  font-size: 0.93rem;
+  color: var(--paper);
+}
+
+.howto b {
+  color: var(--green);
+}
+
+.fine {
+  font-size: 0.76rem;
+  color: #6d7d90;
+  margin: 0 0 1rem;
+}
+
+.best {
+  margin: 0.7rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--amber-dim);
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.grade {
+  font-family: var(--mono);
+  font-size: 3.4rem;
+  color: var(--green);
+  text-align: center;
+  margin: 0.2rem 0 0.6rem;
+  text-shadow: 0 0 22px rgba(134, 255, 161, 0.35);
+}
+
+.grade.fail {
+  color: #ff7d6e;
+  text-shadow: 0 0 22px rgba(255, 125, 110, 0.3);
+}
+
+.report {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.9rem;
+}
+
+.report dt {
+  color: #8496aa;
+}
+
+.report dd {
+  margin: 0;
+  font-family: var(--mono);
+  color: var(--paper);
+  text-align: right;
+}
+
+.loglist {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.7rem;
+  max-height: 130px;
+  overflow: auto;
+  background: rgba(4, 8, 12, 0.6);
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--amber);
+}
+
+.loglist li.ghost {
+  color: var(--violet);
+}
+
+.panel button.big {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

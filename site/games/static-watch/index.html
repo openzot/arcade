@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Static Watch - sweep an analogue trawler radio, hunt drifting voices through the static and log them before the night shift ends."
+    />
+    <title>Static Watch · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Static Watch</h1>
+      <span class="tag">trawler-band night shift</span>
+    </header>
+
+    <main class="stage">
+      <div class="set">
+        <canvas
+          id="radio"
+          width="960"
+          height="600"
+          aria-label="Analogue radio dial. Drag to tune, click the dial to jump."
+        ></canvas>
+        <div class="trimrow">
+          <button
+            id="fineDown"
+            class="key"
+            type="button"
+            aria-label="Fine trim down"
+          >
+            &#8595; fine
+          </button>
+          <output id="readout" for="radio">&#45;&#45;.&#45;&#45; MHz</output>
+          <button
+            id="fineUp"
+            class="key"
+            type="button"
+            aria-label="Fine trim up"
+          >
+            fine &#8593;
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bar">
+      <p class="hint">
+        <b>&larr;</b>/<b>&rarr;</b> sweep &middot; <b>&uarr;</b>/<b>&darr;</b>
+        or slow drag to fine-tune &middot; click the dial to jump &middot;
+        <b>M</b> mute &middot; <b>P</b> pause &middot; <b>R</b> new watch
+      </p>
+      <nav class="ops">
+        <button id="soundBtn" type="button">sound: on</button>
+        <button id="pauseBtn" type="button">pause</button>
+        <button id="restartBtn" type="button">new watch</button>
+      </nav>
+    </footer>
+
+    <div id="veil" class="veil">
+      <section id="panelStart" class="panel">
+        <h2>The night watch</h2>
+        <p class="lede">North Sea, 2 a.m. The wireless is yours until 4:15.</p>
+        <ul class="howto">
+          <li>
+            <b>Sweep</b> the band with <b>&larr;</b>/<b>&rarr;</b> (or drag the
+            dial). A falling whistle means a voice is near.
+          </li>
+          <li>
+            <b>Ease in</b> with <b>&uarr;</b>/<b>&darr;</b> or short, slow
+            drags. Hold the needle on the carrier until the ring closes.
+          </li>
+          <li>
+            <b>Log 7 stations</b> before the clock runs out. Tight, quick locks
+            pay more.
+          </li>
+          <li>
+            Purple <b>ghost voices</b> pay triple but fade within seconds. Storm
+            crashes kill the sound - then trust the green eye.
+          </li>
+        </ul>
+        <p class="fine">
+          Headphones recommended. Everything you hear is synthesised.
+        </p>
+        <button id="btnStart" class="big" type="button">Begin the watch</button>
+        <p id="bestLine" class="best hidden"></p>
+      </section>
+
+      <section id="panelPause" class="panel hidden">
+        <h2>Holding frequency</h2>
+        <p class="lede">The band waits. The sea doesn't.</p>
+        <button id="btnResume" class="big" type="button">
+          Resume the watch
+        </button>
+      </section>
+
+      <section id="panelEnd" class="panel hidden">
+        <h2 id="endHead">Shift report</h2>
+        <div id="endGrade" class="grade">-</div>
+        <dl class="report">
+          <dt>stations logged</dt>
+          <dd id="endLogs">0 / 7 needed</dd>
+          <dt>average lock quality</dt>
+          <dd id="endQual">0%</dd>
+          <dt>final score</dt>
+          <dd id="endScore">0</dd>
+          <dt>session best</dt>
+          <dd id="endBest">0</dd>
+        </dl>
+        <ul id="endList" class="loglist"></ul>
+        <button id="btnAgain" class="big" type="button">
+          Take another watch
+        </button>
+      </section>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

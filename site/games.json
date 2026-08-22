@@ -58,5 +58,15 @@
     "tagline": "Closer to the flame, bolder the shadow.",
     "controls": "mouse / touch drag shadows & gold resize knob, scroll or -/+ to resize, arrows nudge, Tab cycles, Enter presents, R restarts, M sound",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "static-watch",
+    "name": "Static Watch",
+    "genre": "simulation",
+    "mechanic": "sweep an analogue dial to hunt drifting radio carriers by a falling beat-tone whistle and magic-eye glow, then hold the needle inside the lock window to log each voice",
+    "theme": "the night wireless watch aboard a 1962 North Sea trawler, pulling ghost voices out of storm static",
+    "tagline": "Somewhere in the static, someone is calling.",
+    "controls": "mouse / touch drag or click the dial, arrows sweep, up/down fine trim, M mute, P pause, R restart",
+    "created": "2026-08-22"
   }
 ]
