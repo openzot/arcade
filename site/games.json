@@ -108,5 +108,15 @@
     "tagline": "Catch the words before the ink sets.",
     "controls": "keyboard letters; on-screen keys on touch; backspace or escape drops a held slug; buttons pause, mute, restart",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "bad-penny",
+    "name": "Bad Penny",
+    "genre": "deduction",
+    "mechanic": "load equal numbers of suspect coins on a two-pan balance, read each tilt as evidence that one counterfeit runs heavy or light, and accuse it before your limited weighings are spent",
+    "theme": "an assayer's chamber in the royal mint, testing suspect batches under the magistrate's three wax seals",
+    "tagline": "Every batch hides one lying coin. The scales never lie.",
+    "controls": "mouse / touch tap coins (left pan, right pan, back), or arrows + A/D/S to place, Enter weighs, E accuses then H/L swears heavy or light, C clear, M sound, R restart",
+    "created": "2026-08-22"
   }
 ]

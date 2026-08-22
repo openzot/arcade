@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bad Penny — an assay office puzzle</title>
+    <meta
+      name="description"
+      content="One coin in every batch is counterfeit. Load a two-pan balance, read the tilts, spend your weighings wisely, and accuse the bad penny before your wax seals crack."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="topbar">
+        <div id="brand">
+          <h1>Bad Penny</h1>
+          <p class="tagline">
+            Every batch hides one lying coin. The scales never lie.
+          </p>
+        </div>
+        <ul id="hud">
+          <li class="chip" id="chip-case">Case 1</li>
+          <li class="chip" id="chip-batch">— coins · — weighings</li>
+          <li class="chip" id="chip-score">Score 0</li>
+          <li id="seals" aria-label="3 of 3 seals intact"></li>
+          <li id="hud-buttons">
+            <button
+              id="btn-sound"
+              type="button"
+              aria-label="Toggle sound"
+              aria-pressed="false"
+              title="Sound on/off (M)"
+            >
+              ♪
+            </button>
+            <button
+              id="btn-help"
+              type="button"
+              aria-label="How to play"
+              title="How to play"
+            >
+              ?
+            </button>
+            <button
+              id="btn-restart"
+              type="button"
+              title="Restart the whole shift (R)"
+            >
+              Restart
+            </button>
+          </li>
+        </ul>
+      </header>
+
+      <main id="table">
+        <section id="bench" aria-label="Assay bench">
+          <p id="verdict" role="status" aria-live="polite"></p>
+
+          <div id="rig" aria-hidden="true">
+            <div id="beam">
+              <span class="cap cap-left"></span>
+              <span class="cap cap-right"></span>
+              <i class="wire wire-left"></i>
+              <i class="wire wire-right"></i>
+              <i class="dish dish-left"></i>
+              <i class="dish dish-right"></i>
+            </div>
+            <div id="pivot"></div>
+          </div>
+
+          <div id="pans">
+            <section class="panzone" id="zone-left">
+              <h2>Left pan<span class="pcount" id="count-left">0</span></h2>
+              <div class="slots" id="slots-left"></div>
+            </section>
+            <section class="panzone" id="zone-right">
+              <h2>Right pan<span class="pcount" id="count-right">0</span></h2>
+              <div class="slots" id="slots-right"></div>
+            </section>
+          </div>
+
+          <section id="batch">
+            <h2>Suspect coins<span class="pcount" id="count-tray">0</span></h2>
+            <div id="tray"></div>
+          </section>
+
+          <div id="actions">
+            <button id="btn-clear" type="button">
+              Clear pans <kbd>C</kbd>
+            </button>
+            <button id="btn-weigh" type="button" class="primary">
+              Weigh <kbd>&crarr;</kbd>
+            </button>
+            <button id="btn-accuse" type="button">Accuse <kbd>E</kbd></button>
+            <button id="btn-heavy" type="button" hidden>
+              Swear heavy <kbd>H</kbd>
+            </button>
+            <button id="btn-light" type="button" hidden>
+              Swear light <kbd>L</kbd>
+            </button>
+            <button id="btn-abandon" type="button" hidden>Abandon case</button>
+          </div>
+
+          <p id="keys-hint">
+            <span id="hint-keys">
+              <kbd>&larr;</kbd><kbd>&rarr;</kbd> pick a coin &middot;
+              <kbd>A</kbd> left pan &middot; <kbd>D</kbd> right pan &middot;
+              <kbd>S</kbd> back to tray &middot; <kbd>&crarr;</kbd> weigh
+              &middot; <kbd>E</kbd> accuse &middot; <kbd>H</kbd>/<kbd>L</kbd>
+              swear it &middot; <kbd>C</kbd> clear &middot; <kbd>M</kbd> sound
+              &middot; <kbd>R</kbd> restart
+            </span>
+            <span id="hint-touch">
+              Tap a coin once for the left pan, again for the right, again to
+              take it back. The buttons below walk you through the rest.
+            </span>
+          </p>
+        </section>
+
+        <aside id="ledger" aria-label="Weighing ledger">
+          <h2>Ledger</h2>
+          <ol id="ledger-list"></ol>
+          <p id="ledger-empty">Nothing weighed yet.</p>
+          <section id="memo">
+            <h3>Assayer's notes</h3>
+            <ul>
+              <li>Both pans must carry the same number of coins.</li>
+              <li>
+                The counterfeit is lighter <em>or</em> heavier — the beam alone
+                won't say which.
+              </li>
+              <li>
+                Three cracked seals and the magistrate shows you the door.
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+
+      <footer id="colophon">
+        <a id="back-link" href="../../">&larr; Back to the arcade</a>
+        <span id="credit">Drawn, weighed and sounded entirely in code.</span>
+      </footer>
+    </div>
+
+    <div id="overlay" hidden>
+      <div
+        id="card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="card-title"
+      >
+        <h2 id="card-title"></h2>
+        <div id="card-body"></div>
+        <div id="card-actions"></div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
