@@ -78,5 +78,15 @@
     "tagline": "The chart went overboard. Redraw it before landfall.",
     "controls": "mouse / touch to draw, Z undo, C clear, Space commits",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "live-wire",
+    "name": "Live Wire",
+    "genre": "dexterity",
+    "mechanic": "hold and drag a live spark along glowing circuit traces, balancing on the copper through sweeping rotor arms, timed capacitor flares and patrolling solder bugs without drifting off the trace",
+    "theme": "a spark of current restoring five failing boards of a darkened mainframe on three fuses",
+    "tagline": "Steady hands carry the current.",
+    "controls": "mouse / touch hold & drag, arrows or WASD nudge, P pause, M sound, R restart",
+    "created": "2026-08-22"
   }
 ]

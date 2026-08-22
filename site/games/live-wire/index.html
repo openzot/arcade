@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Live Wire - guide a spark of current along glowing circuit traces without grounding out. A steady-hand arcade game."
+    />
+    <title>Live Wire · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Live Wire</h1>
+      <div class="top-actions">
+        <button
+          id="btn-sound"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle sound"
+          title="Sound (M)"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btn-restart"
+          class="icon-btn"
+          type="button"
+          aria-label="Restart run"
+          title="Restart (R)"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main class="stage-wrap">
+      <section class="hud" aria-live="polite">
+        <span class="chip chip-board" id="hud-board">Board 1 · Signal Bus</span>
+        <span class="chip chip-score" id="hud-score">0</span>
+        <span class="chip chip-fuses" id="hud-fuses" title="Fuses"
+          >fuse fuse fuse</span
+        >
+        <span class="chip chip-mult" id="hud-mult">&#215;1</span>
+      </section>
+
+      <div class="stage" id="stage">
+        <canvas id="game" width="960" height="600"></canvas>
+
+        <div class="overlay" id="overlay">
+          <div class="panel" id="panel">
+            <h2 class="panel-title" id="panel-title">Live Wire</h2>
+            <p class="panel-body" id="panel-body">
+              You are a spark of current in a failing mainframe. Hold and drag
+              along the copper trace from the START pad to the FINISH pad. Drift
+              off the trace or clip a component and you short out - three fuses
+              is all you get.
+            </p>
+            <ul class="panel-list" id="panel-list">
+              <li><b>Hold &amp; drag</b> (or arrow keys) to ride the trace</li>
+              <li>Stay on the copper - edges flicker before you short</li>
+              <li>Time rotors, flares and solder bugs as you pass</li>
+              <li>Grab loose charges for bonus voltage</li>
+            </ul>
+            <p class="panel-keys" id="panel-keys">
+              Mouse / touch &amp; drag · arrows or WASD nudge ·
+              <b>P</b> pause · <b>M</b> sound · <b>R</b> restart
+            </p>
+            <button class="cta" id="btn-start" type="button">
+              Power up &#9654;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="hint">
+        Board goal: carry the spark from START to FINISH without shorting. Clean
+        runs build your voltage multiplier.
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
