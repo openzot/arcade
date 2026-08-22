@@ -1,0 +1,33 @@
+# zot work order - the arcade's standing order, run every shift.
+#
+# Every run of this order must produce one NEW game. The order never changes;
+# what changes is the catalogue it reads first, which is how each shift knows
+# what has already been made.
+
+objective: |-
+  Design and build one brand-new browser game for the arcade - a concept that
+  is not already in the catalogue - as a single self-contained HTML file, and
+  publish it to the catalogue.
+
+  Start by reading site/games.json: it lists every game made so far (slug,
+  name, genre, mechanic, theme, tagline). Then write down at least ten
+  candidate concepts that span different genres, core mechanics and themes,
+  strike out every candidate that resembles an existing entry in any of those
+  three, and build the one that is most unlike everything already there.
+  Surprise is the point: no snake, pong, breakout, tetris, flappy or 2048
+  clones unless the twist is genuinely the game. Small, sharp and finished
+  beats large and half-done - a game is done when it is fun for two minutes.
+
+acceptance:
+  - 'site/games/<slug>/index.html exists and is the entire game: inline CSS and JavaScript, no external requests of any kind, no build step, no framework - it runs when opened straight from disk and from GitHub Pages.'
+  - 'The game is playable from start to finish with keyboard and/or mouse/touch; it shows its title and how to play; it has a clear goal and a win, lose or score condition; and it can be restarted without reloading the page.'
+  - 'The page links back to the catalogue with a relative link (../../ or ../../index.html).'
+  - 'site/games.json has exactly one new entry appended, with the fields slug, name, genre, mechanic, theme, tagline, controls and created (today, YYYY-MM-DD); the file is still valid JSON; and no existing entry shares the new entry''s genre+mechanic+theme combination or its name.'
+  - 'scripts/check.sh exits 0.'
+  - 'Nothing outside site/games/<slug>/ and site/games.json was changed - unless scripts/check.sh was already failing when the run began, in which case the catalogue was repaired first and that repair is the only other change.'
+
+constraints:
+  - 'Vanilla HTML, CSS and JavaScript only. No npm, no CDN, no fonts, images or sounds fetched from the network; all art is drawn in code (canvas, SVG, CSS) or embedded as data URIs you generate yourself, and any sound is synthesised with the Web Audio API.'
+  - 'One file per game, under about 100 KB. Do not create other files in the game directory.'
+  - 'Do not modify site/index.html, scripts/, orders/, the workflow, or any existing game. Do not git commit, push or tag - the workflow commits the shift.'
+  - 'Playtest your own work: open the file with a headless browser if one is available (chromium, google-chrome or playwright), or at minimum check the page parses and the script has no syntax errors (node --check on the extracted script) before declaring success.'

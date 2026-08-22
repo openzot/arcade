@@ -1,0 +1,118 @@
+# One shift of the arcade: zot makes a new game, the workflow commits it to
+# main and publishes site/ to GitHub Pages. Runs every 30 minutes; a shift
+# that is still going when the next is due makes the next one wait.
+name: shift
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: arcade-shift
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  shift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make a game
+        id: zot
+        uses: openzot/actions/run@v0
+        # a step timeout: a shift cut short here is still committed below and
+        # continued by the next shift (cache-sessions keeps the conversation)
+        timeout-minutes: 50
+        continue-on-error: true
+        with:
+          orders: orders/new-game.yaml
+          rerun: true                 # the standing order runs every shift
+          provider: openrouter
+          model: stealth/ox-alpha
+          max-iterations: 250
+          cache-sessions: true
+          cache-key: arcade-sessions
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
+      - name: Check the catalogue
+        id: check
+        continue-on-error: true
+        run: scripts/check.sh
+
+      - name: Commit the shift
+        id: commit
+        env:
+          OUTCOME: ${{ steps.zot.outputs.outcome }}
+          SUMMARY: ${{ steps.zot.outputs.summary }}
+        run: |
+          set -euo pipefail
+          git config user.name 'zot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          game="$(python3 -c 'import json; g=json.load(open("site/games.json")); print(g[-1]["name"] + " - " + g[-1]["tagline"] if g else "")' 2>/dev/null || true)"
+          if [ "$OUTCOME" = settled ] && [ -n "$game" ]; then
+            subject="shift: ${game}"
+          else
+            subject="shift: work in progress (${OUTCOME:-no outcome})"
+          fi
+          git commit -q -m "$subject" -m "${SUMMARY:-}" -m "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push -q origin "HEAD:${GITHUB_REF_NAME}"
+          echo "committed=true" >> "$GITHUB_OUTPUT"
+          echo "$subject"
+
+      # publish only a catalogue that passes the check; a broken one stays
+      # committed so the next shift can repair it (the order says to)
+      - name: Configure Pages
+        if: steps.check.outcome == 'success'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload site
+        if: steps.check.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        if: steps.check.outcome == 'success'
+        uses: actions/deploy-pages@v4
+
+      - name: Shift report
+        if: always()
+        env:
+          OUTCOME: ${{ steps.zot.outputs.outcome }}
+          CHECK: ${{ steps.check.outcome }}
+          COMMITTED: ${{ steps.commit.outputs.committed }}
+          URL: ${{ steps.deploy.outputs.page_url }}
+        run: |
+          {
+            echo "## Shift"
+            echo
+            echo "| | |"
+            echo "| --- | --- |"
+            echo "| zot | ${OUTCOME:-did not run} |"
+            echo "| catalogue check | ${CHECK} |"
+            echo "| committed | ${COMMITTED:-false} |"
+            [ -n "$URL" ] && echo "| site | ${URL} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          # a shift that produced nothing publishable is a failed shift
+          [ "$OUTCOME" = settled ] && [ "$CHECK" = success ]
