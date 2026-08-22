@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Shadow Stage - drag and resize translucent shadow puppets behind a lantern to assemble each fable's silhouette before the audience's patience runs out."
+    />
+    <title>Shadow Stage · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Shadow Stage</h1>
+      <div class="actions">
+        <button
+          id="btn-sound"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle sound"
+          title="Sound (M)"
+        >
+          &#9834;
+        </button>
+      </div>
+    </header>
+
+    <main class="frame">
+      <canvas id="stage" width="960" height="600"></canvas>
+
+      <div class="hud" aria-hidden="false">
+        <section class="meters">
+          <div class="meter">
+            <span class="meter-label">Audience</span>
+            <span class="bar patience">
+              <span id="patience-fill" class="fill"></span>
+            </span>
+          </div>
+          <div class="meter">
+            <span class="meter-label">Likeness</span>
+            <span class="bar match">
+              <span id="match-fill" class="fill"></span>
+              <span id="match-num" class="num">0%</span>
+            </span>
+          </div>
+        </section>
+
+        <section class="scene-tag">
+          <span id="scene-name">Scene 1</span>
+          <span id="scene-count">1 / 7</span>
+          <span id="score-readout" class="score">0 pts</span>
+        </section>
+
+        <p class="hint">
+          Drag a shadow to move it &middot; drag the gold knob or scroll to
+          resize &middot;
+          <span class="kbd">Enter</span> presents
+        </p>
+
+        <div class="actionbar">
+          <button
+            id="btn-smaller"
+            class="btn ghost"
+            type="button"
+            title="Smaller (-)"
+          >
+            &minus; smaller
+          </button>
+          <button
+            id="btn-bigger"
+            class="btn ghost"
+            type="button"
+            title="Bigger (+)"
+          >
+            &#43; bigger
+          </button>
+          <button id="btn-present" class="btn primary" type="button">
+            Raise the curtain &#9656;
+          </button>
+          <button
+            id="btn-restart"
+            class="btn ghost"
+            type="button"
+            title="Restart (R)"
+          >
+            Restart
+          </button>
+        </div>
+      </div>
+
+      <div id="overlay" class="overlay" role="dialog" aria-modal="true">
+        <div id="card" class="card"></div>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

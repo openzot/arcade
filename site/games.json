@@ -48,5 +48,15 @@
     "tagline": "Every lever is a promise. Keep it.",
     "controls": "mouse / touch tap levers or keys 1-3, P pause, R restart, M sound",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "shadow-stage",
+    "name": "Shadow Stage",
+    "genre": "puzzle",
+    "mechanic": "drag translucent shadow puppets across a lantern-lit screen and resize them by pushing them toward the flame, assembling each fable's silhouette against a live likeness meter before the audience's patience runs out",
+    "theme": "a travelling shadow-puppet theatre performing seven paper fables behind one guttering oil lamp",
+    "tagline": "Closer to the flame, bolder the shadow.",
+    "controls": "mouse / touch drag shadows & gold resize knob, scroll or -/+ to resize, arrows nudge, Tab cycles, Enter presents, R restarts, M sound",
+    "created": "2026-08-22"
   }
 ]
