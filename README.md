@@ -32,8 +32,11 @@ That is the whole setup. The site appears at
 ## How a shift works
 
 ```
-cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ scripts/check.sh ──▶ git commit + push ──▶ deploy site/
-                              (openzot/actions/run)       catalogue valid?       always, to main      only if valid
+shift  cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ git commit + push ──▶ dispatch pages
+                                    (openzot/actions/run)       always, to main
+
+pages  push to site/ ──▶ scripts/check.sh ──▶ deploy site/
+       (or dispatch)      catalogue valid?    only if valid
 ```
 
 - **The order never changes; the catalogue does.** `site/games.json` is the
@@ -55,11 +58,18 @@ cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ script
   `<script>`. Splitting the three makes each shift faster: zot rewrites the
   game loop without re-emitting the stylesheet, and each file goes to the
   linter that understands it.
+- **Publishing is not the shift's job.** `pages.yaml` deploys `site/` whenever
+  anything lands on `main` under it - a shift's commit, a hand edit, a subtree
+  push. The shift only makes the game and commits it, then dispatches the
+  deploy. Keeping the two apart is deliberate: a shift that is cancelled or
+  runs out of clock used to leave the site stale even though `main` already had
+  the new game on it.
 - **Only a valid catalogue is published.** `scripts/check.sh` verifies the JSON,
   that every listed game exists as that three-file set with no external
-  requests, and that no two entries are the same game in disguise. A broken catalogue is
-  still committed (so the history is honest) but not deployed, and the order
-  tells the next shift to repair it first.
+  requests, and that no two entries are the same game in disguise. `pages.yaml`
+  runs it before every deploy and stops there if it fails, so a broken
+  catalogue is still committed (the history is honest) but the live site keeps
+  serving the last good tree, and the order tells the next shift to repair it.
 
 ## Layout
 
@@ -73,7 +83,8 @@ cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ script
 | `site/games/<slug>/game.css` | one game: style |
 | `site/games/<slug>/game.js` | one game: behaviour |
 | `scripts/check.sh` | catalogue validation |
-| `.github/workflows/shift.yaml` | the shift |
+| `.github/workflows/shift.yaml` | the shift - makes a game, commits it |
+| `.github/workflows/pages.yaml` | publishes `site/` to GitHub Pages |
 
 ## Tuning
 

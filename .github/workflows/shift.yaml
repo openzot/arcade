@@ -1,6 +1,8 @@
-# One shift of the arcade: zot makes a new game, the workflow commits it to
-# main and publishes site/ to GitHub Pages. Runs every 30 minutes; a shift that
-# is still going when the next is due makes the next one wait.
+# One shift of the arcade: zot makes a new game and the workflow commits it to
+# main. Publishing is pages.yaml's job, dispatched from here - a shift that is
+# cancelled or runs out of clock must not be able to leave the site stale.
+# Runs every 30 minutes; a shift that is still going when the next is due makes
+# the next one wait.
 name: shift
 
 on:
@@ -23,17 +25,12 @@ concurrency:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
-  actions: write        # to dispatch the backmerge below
+  actions: write        # to dispatch pages.yaml and the backmerge below
 
 jobs:
   shift:
     runs-on: ubuntu-latest
     timeout-minutes: 110
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
 
@@ -145,24 +142,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run backmerge.yaml --repo "$GITHUB_REPOSITORY" --ref main
 
-      # publish only a catalogue that passes the check; a broken one stays
-      # committed so the next shift can repair it (the order says to)
-      - name: Configure Pages
-        if: steps.check.outcome == 'success'
-        uses: actions/configure-pages@v6
-        with:
-          enablement: true
-
-      - name: Upload site
-        if: steps.check.outcome == 'success'
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        id: deploy
-        if: steps.check.outcome == 'success'
-        uses: actions/deploy-pages@v5
+      # Publish the shift. pages.yaml runs the catalogue check itself and
+      # refuses to deploy a broken one, so this asks unconditionally rather
+      # than second-guessing it here; a broken catalogue stays committed so the
+      # next shift can repair it (the order says to).
+      - name: Publish the site
+        if: steps.commit.outputs.committed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yaml --repo "$GITHUB_REPOSITORY" --ref main
 
       - name: Shift report
         if: always()
@@ -170,7 +159,6 @@ jobs:
           OUTCOME: ${{ steps.zot.outputs.outcome }}
           CHECK: ${{ steps.check.outcome }}
           COMMITTED: ${{ steps.commit.outputs.committed }}
-          URL: ${{ steps.deploy.outputs.page_url }}
         run: |
           {
             echo "## Shift"
@@ -180,7 +168,6 @@ jobs:
             echo "| zot | ${OUTCOME:-did not run} |"
             echo "| catalogue check | ${CHECK} |"
             echo "| committed | ${COMMITTED:-false} |"
-            [ -n "$URL" ] && echo "| site | ${URL} |"
           } >> "$GITHUB_STEP_SUMMARY"
           # a shift that produced nothing publishable is a failed shift
           [ "$OUTCOME" = settled ] && [ "$CHECK" = success ]
