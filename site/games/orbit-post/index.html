@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070f" />
+    <title>Orbit Post</title>
+    <meta
+      name="description"
+      content="Sling mail parcels between planets and let gravity do the flying. A tiny arcade game."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <div id="frame">
+        <canvas id="game" aria-label="Orbit Post play area"></canvas>
+
+        <header id="hud" hidden>
+          <span class="pill" id="hud-run">Run 1/5</span>
+          <span class="pill" id="hud-cells">Cells 6/6</span>
+          <span class="pill" id="hud-par">Par 1</span>
+          <span class="pill" id="hud-score">Score 0</span>
+          <span class="spacer"></span>
+          <button id="btn-mute" type="button" class="hudbtn" aria-pressed="true" title="Toggle sound">
+            ♪
+          </button>
+          <button id="btn-reset" type="button" class="hudbtn" title="Restart the whole shift">
+            ⟲ Shift
+          </button>
+        </header>
+
+        <section id="screen-title" class="screen">
+          <h1>ORBIT POST</h1>
+          <p class="tagline">Gravity does the flying. You just let go at the right moment.</p>
+          <div class="howto">
+            <h2>How to play</h2>
+            <ul>
+              <li>
+                <strong>Drag anywhere and release</strong> to sling the mail pod — pull back like a
+                slingshot, aim with the dotted forecast.
+              </li>
+              <li>Planets pull the pod. Bend your throw around them. Don't kiss the dirt.</li>
+              <li>Deliver into the pulsing <strong>DROP ring</strong>. Fewer launches, bigger bonus.</li>
+              <li>
+                Keyboard: <kbd>←</kbd><kbd>→</kbd> aim, <kbd>↑</kbd><kbd>↓</kbd> power,
+                <kbd>space</kbd> launch, <kbd>R</kbd> retry run.
+              </li>
+              <li>Beware red-ringed moons on later runs. Five runs to clear the shift.</li>
+            </ul>
+          </div>
+          <button id="btn-start" type="button" class="big">Start shift ▸</button>
+          <a class="backlink" href="../../">← Back to the arcade</a>
+        </section>
+
+        <section id="screen-banner" class="screen thin hidden" aria-live="polite">
+          <h2 id="banner-text">Delivered!</h2>
+          <p id="banner-sub"></p>
+          <button id="btn-next" type="button" class="big">Next run ▸</button>
+          <a class="backlink" href="../../">← Leave the post</a>
+        </section>
+
+        <section id="screen-end" class="screen hidden">
+          <h2 id="end-title">Shift complete!</h2>
+          <p id="end-detail"></p>
+          <p id="end-stars" aria-hidden="true"></p>
+          <button id="btn-retry" type="button" class="big hidden">Retry this run ⟲</button>
+          <button id="btn-again" type="button" class="big">Work another shift ⟲</button>
+          <button id="btn-home" type="button" class="ghost">Leave the post</button>
+          <a class="backlink" href="../../">← Back to the arcade</a>
+        </section>
+
+        <footer id="hint">
+          drag anywhere &amp; release to sling · ← → aim · ↑ ↓ power · space launch · R retry run
+        </footer>
+      </div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

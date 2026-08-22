@@ -28,5 +28,15 @@
     "tagline": "Aim once. Let the planets do the rest.",
     "controls": "mouse / touch drag to aim & launch, WASD / arrows or hold to thrust, space recalls the pod",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "orbit-post",
+    "name": "Orbit Post",
+    "genre": "physics",
+    "mechanic": "drag-release slingshot throws of a mail pod bent by planetary gravity into a drop ring, with a live trajectory forecast and orbiting moon hazards",
+    "theme": "an interplanetary courier service running five delivery runs between planets and moons",
+    "tagline": "Gravity does the flying. You just let go at the right moment.",
+    "controls": "mouse / touch drag or arrows + space",
+    "created": "2026-08-22"
   }
 ]

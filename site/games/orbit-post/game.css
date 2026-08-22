@@ -1,0 +1,284 @@
+:root {
+  --bg: #05070f;
+  --panel: rgba(10, 16, 32, 0.86);
+  --line: rgba(120, 160, 255, 0.25);
+  --ink: #dbe4ff;
+  --dim: #8fa0c8;
+  --accent: #ffd166;
+  --accent2: #5ce1ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 8%, #0b1230 0%, var(--bg) 55%, #02030a 100%);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+#frame {
+  position: relative;
+  width: min(100vw, calc(100vh * 1.5625));
+  height: min(100vh, calc(100vw / 1.5625));
+}
+
+@supports (height: 100dvh) {
+  #frame {
+    width: min(100vw, calc(100dvh * 1.5625));
+    height: min(100dvh, calc(100vw / 1.5625));
+  }
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+  border-radius: 6px;
+}
+
+/* ---------- HUD ---------- */
+
+#hud {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+
+.pill {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.pill b,
+#banner-sub b,
+#end-detail b {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.hudbtn {
+  pointer-events: auto;
+  cursor: pointer;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 0.75rem;
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.hudbtn:hover {
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+.hudbtn.off {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+/* ---------- overlay screens ---------- */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  text-align: center;
+  padding: 1.2rem;
+  background: rgba(4, 7, 17, 0.74);
+}
+
+h1 {
+  margin: 0.1em 0 0;
+  font-size: clamp(2.2rem, 7vw, 3.6rem);
+  letter-spacing: 0.16em;
+  color: #fff;
+  text-shadow: 0 0 26px rgba(92, 225, 255, 0.55);
+}
+
+h2 {
+  margin: 0;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.howto {
+  max-width: 34rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.9rem 1.15rem;
+  text-align: left;
+}
+
+.howto h2 {
+  margin: 0.1rem 0 0.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent2);
+}
+
+.howto ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+}
+
+kbd {
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 0.32em;
+  font-size: 0.85em;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.big {
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: #10131c;
+  background: linear-gradient(180deg, #ffe29a, #ffc94d);
+}
+
+.big:hover {
+  filter: brightness(1.08);
+}
+
+.ghost {
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  background: transparent;
+}
+
+.ghost:hover {
+  color: #fff;
+  border-color: var(--accent2);
+}
+
+.backlink {
+  color: var(--dim);
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--dim);
+}
+
+.backlink:hover {
+  color: #fff;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#banner-sub,
+#end-detail {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+#end-stars {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+
+/* ---------- hint bar ---------- */
+
+#hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.45rem;
+  z-index: 2;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  pointer-events: none;
+}
+
+@media (max-width: 560px) {
+  .howto ul {
+    font-size: 0.78rem;
+  }
+
+  .pill {
+    font-size: 0.66rem;
+  }
+
+  .hudbtn {
+    font-size: 0.66rem;
+  }
+
+  #hint {
+    font-size: 0.58rem;
+  }
+}
