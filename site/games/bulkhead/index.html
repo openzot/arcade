@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Bulkhead - weld two corridor tiles shut each turn and wall in a creeping spore bloom before it drowns the deep-sea station."
+    />
+    <title>Bulkhead · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Bulkhead</h1>
+      <div class="top-actions">
+        <button
+          id="btn-sound"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle sound"
+          title="Sound (M)"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btn-restart"
+          class="icon-btn"
+          type="button"
+          aria-label="Restart dive"
+          title="Restart (R)"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main class="stage-wrap">
+      <section class="hud" aria-live="polite">
+        <span class="chip chip-level" id="hud-level">Dive 1</span>
+        <span class="chip" id="hud-turn">Turn 1</span>
+        <span
+          class="chip chip-welds"
+          id="hud-welds"
+          title="Welds left this turn"
+          >Welds &#9679;&#9679;</span
+        >
+        <span class="chip chip-blight" id="hud-blight">Bloom 0%</span>
+        <button class="chip chip-pass" id="btn-pass" type="button">
+          Let it creep &#8250;
+        </button>
+      </section>
+
+      <div class="stage" id="stage">
+        <canvas id="game" aria-label="Bulkhead station map"></canvas>
+
+        <div class="overlay" id="overlay">
+          <div class="panel" id="panel-start" hidden>
+            <h2 class="panel-title">Bulkhead</h2>
+            <p class="tagline">The rot spreads on your turn. Spend it well.</p>
+            <div class="howto">
+              <h3>Diving orders</h3>
+              <ul>
+                <li>
+                  A spore bloom is flooding the station. You carry the welder.
+                </li>
+                <li>
+                  <strong>Tap any open tile</strong> to weld it shut &mdash; two
+                  welds per turn.
+                </li>
+                <li>
+                  When your welds are spent, the bloom creeps one tile in every
+                  direction.
+                </li>
+                <li>
+                  <strong>Wall the bloom in completely</strong> to clear the
+                  dive. Rock counts as wall &mdash; anchor on it.
+                </li>
+                <li>
+                  If the bloom touches the reactor or floods half the station,
+                  the dive fails.
+                </li>
+              </ul>
+              <p class="keys">
+                Arrows / WASD move &middot; Space welds &middot; E lets the
+                bloom creep &middot; R restart &middot; M sound
+              </p>
+            </div>
+            <button class="btn primary" id="btn-start" type="button">
+              Begin dive
+            </button>
+            <div class="level-pick" id="level-pick"></div>
+          </div>
+
+          <div class="panel" id="panel-win" hidden>
+            <h2 class="panel-title" id="win-title">Contained!</h2>
+            <div class="stars" id="win-stars" aria-label="rating"></div>
+            <p class="stat" id="win-stat"></p>
+            <div class="row">
+              <button class="btn" id="btn-replay" type="button">Replay</button>
+              <button class="btn primary" id="btn-next" type="button">
+                Next dive
+              </button>
+            </div>
+          </div>
+
+          <div class="panel" id="panel-lose" hidden>
+            <h2 class="panel-title" id="lose-title">Dive failed</h2>
+            <p class="stat" id="lose-stat"></p>
+            <div class="row">
+              <button class="btn" id="btn-menu" type="button">Abort</button>
+              <button class="btn primary" id="btn-retry" type="button">
+                Retry dive
+              </button>
+            </div>
+          </div>
+
+          <div class="panel" id="panel-final" hidden>
+            <h2 class="panel-title">Station secure</h2>
+            <div class="stars" id="final-stars" aria-label="rating"></div>
+            <p class="stat" id="final-stat"></p>
+            <div class="row">
+              <button class="btn primary" id="btn-again" type="button">
+                Dive again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="hint" id="hint">
+        Tap an open tile to weld it. Seal the bloom in to win.
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
