@@ -1,0 +1,376 @@
+:root {
+  --bg-0: #04060d;
+  --bg-1: #0a1020;
+  --ink: #dbe7ff;
+  --ink-dim: #8fa3c8;
+  --accent: #7ef0ff;
+  --warm: #ffb347;
+  --good: #6dffa8;
+  --bad: #ff5470;
+  --panel: rgba(13, 20, 38, 0.92);
+  --line: rgba(126, 240, 255, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(120% 90% at 50% -10%, var(--bg-1) 0%, var(--bg-0) 62%) fixed,
+    var(--bg-0);
+  color: var(--ink);
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  width: min(96vw, 1040px);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 4px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.home {
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.home:hover,
+.home:focus-visible {
+  color: var(--accent);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(20px, 3.6vw, 30px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(126, 240, 255, 0.35);
+}
+
+.brand .tagline {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--ink-dim);
+  font-style: italic;
+}
+
+.shift {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.shift b {
+  color: var(--ink);
+}
+
+/* ---------- stage / canvas ---------- */
+
+.stage {
+  width: min(96vw, 1040px);
+  padding: 12px 0 4px;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+}
+
+#sky {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    inset 0 0 60px rgba(10, 16, 32, 0.6);
+  touch-action: none;
+  cursor: crosshair;
+  background: #060a16;
+}
+
+/* ---------- HUD ---------- */
+
+.hud {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  font-size: 12px;
+  color: var(--ink-dim);
+}
+
+.hud b {
+  color: var(--ink);
+}
+
+.chip {
+  background: rgba(6, 10, 22, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  backdrop-filter: blur(3px);
+}
+
+.fuel-track {
+  flex: 1;
+  max-width: 180px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(6, 10, 22, 0.72);
+  overflow: hidden;
+  display: block;
+}
+
+#fuel-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--good), var(--accent));
+  transition: transform 80ms linear;
+}
+
+.recall {
+  pointer-events: auto;
+  cursor: pointer;
+  color: var(--warm);
+  border-color: rgba(255, 179, 71, 0.45);
+  font: inherit;
+}
+
+.recall:hover,
+.recall:focus-visible {
+  background: rgba(255, 179, 71, 0.15);
+}
+
+button {
+  font: inherit;
+}
+
+/* ---------- banner ---------- */
+
+.banner {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 10px 26px;
+  border-radius: 999px;
+  background: rgba(6, 10, 22, 0.82);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: clamp(16px, 2.6vw, 24px);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  animation: pop 160ms ease-out;
+}
+
+.banner.good {
+  color: var(--good);
+  border-color: rgba(109, 255, 168, 0.5);
+}
+
+.banner.bad {
+  color: var(--bad);
+  border-color: rgba(255, 84, 112, 0.5);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner {
+    animation: none;
+  }
+}
+
+/* ---------- overlay ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 6, 13, 0.72);
+  backdrop-filter: blur(4px);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 26px 24px;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+}
+
+.kicker {
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.panel h2 {
+  margin: 0 0 14px;
+  font-size: clamp(24px, 4vw, 34px);
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.how {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  display: grid;
+  gap: 6px;
+}
+
+.how b {
+  color: var(--ink);
+}
+
+.note {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--warm);
+}
+
+#ov-btn {
+  appearance: none;
+  border: 1px solid var(--accent);
+  background: linear-gradient(
+    180deg,
+    rgba(126, 240, 255, 0.2),
+    rgba(126, 240, 255, 0.08)
+  );
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 10px 34px;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#ov-btn:hover,
+#ov-btn:focus-visible {
+  background: rgba(126, 240, 255, 0.28);
+  outline: 2px solid rgba(126, 240, 255, 0.5);
+  outline-offset: 2px;
+}
+
+kbd {
+  font-family: inherit;
+  font-size: 0.86em;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: var(--ink);
+  background: rgba(126, 240, 255, 0.08);
+}
+
+/* ---------- hints footer ---------- */
+
+.hints {
+  width: min(96vw, 1040px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  justify-content: center;
+  padding: 10px 4px 18px;
+  font-size: 12.5px;
+  color: var(--ink-dim);
+}
+
+.hints b {
+  color: var(--ink);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 640px) {
+  .masthead {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
+  .shift {
+    display: none;
+  }
+
+  .hud {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .fuel-track {
+    max-width: 110px;
+  }
+
+  .how {
+    font-size: 13px;
+  }
+}

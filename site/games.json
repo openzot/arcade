@@ -18,5 +18,15 @@
     "tagline": "The flock has opinions. You have a whistle.",
     "controls": "mouse / touch or WASD / arrows to run, space or B to bark",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "perihelion-post",
+    "name": "Perihelion Post",
+    "genre": "physics",
+    "mechanic": "drag to launch a mail pod along a live-predicted trajectory, planetary gravity slingshots the flight and scarce thruster burns correct course into the delivery ring",
+    "theme": "a solo courier drone running eight alien star systems on gravity alone",
+    "tagline": "Aim once. Let the planets do the rest.",
+    "controls": "mouse / touch drag to aim & launch, WASD / arrows or hold to thrust, space recalls the pod",
+    "created": "2026-08-22"
   }
 ]

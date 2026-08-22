@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Perihelion Post — gravity courier arcade</title>
+    <meta
+      name="description"
+      content="Slingshot a mail pod between alien worlds. Drag to launch, let planetary gravity steer, deliver every parcel."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="home" href="../../">&#8592; Arcade</a>
+      <div class="brand">
+        <h1>Perihelion Post</h1>
+        <p class="tagline">Aim once. Let the planets do the rest.</p>
+      </div>
+      <p class="shift">Route <b id="hud-route-top">1</b> of 8</p>
+    </header>
+
+    <main class="stage">
+      <div class="frame">
+        <canvas
+          id="sky"
+          width="960"
+          height="600"
+          aria-label="Perihelion Post play field"
+        ></canvas>
+
+        <div class="hud">
+          <span class="chip">Fuel</span>
+          <span class="fuel-track"><i id="fuel-fill"></i></span>
+          <span class="chip">Launches <b id="hud-launches">0</b></span>
+          <span class="chip">Lost <b id="hud-lost">0</b></span>
+          <button id="btn-recall" class="chip recall" type="button" hidden>
+            Recall pod
+          </button>
+        </div>
+
+        <p id="banner" class="banner" hidden></p>
+
+        <section id="overlay" class="overlay">
+          <div class="panel">
+            <p id="ov-kicker" class="kicker">Interstellar mail service</p>
+            <h2 id="ov-title">Perihelion Post</h2>
+            <ul id="ov-how" class="how">
+              <li>
+                <b>Aim</b> — drag on the sky; the dotted arc is your predicted
+                flight.
+              </li>
+              <li>
+                <b>Launch</b> — release. Planetary gravity steers from there.
+              </li>
+              <li>
+                <b>Nudge</b> — hold a pointer or press WASD / arrows to burn
+                fuel.
+              </li>
+              <li>
+                <b>Recall</b> — <kbd>Space</kbd> or the Recall button brings the
+                pod home.
+              </li>
+              <li>
+                <b>Deliver</b> — slip into the green ring. All eight routes wins
+                the shift.
+              </li>
+            </ul>
+            <p id="ov-note" class="note" hidden></p>
+            <button id="ov-btn" type="button">Clock in</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="hints">
+      <span><b>Drag</b> to aim &middot; release to launch</span>
+      <span
+        ><kbd>WASD</kbd>/<kbd>&#8593;&#8595;&#8592;&#8594;</kbd> or
+        <b>hold pointer</b> to thrust</span
+      >
+      <span><kbd>Space</kbd> recall pod</span>
+    </footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>
