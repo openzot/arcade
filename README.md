@@ -16,7 +16,3 @@ A software factory that makes browser games.
   and run the `shift` workflow once.
 - Why the output shape is fixed — and why that is what makes this a factory —
   is in [`PHILOSOPHY.md`](PHILOSOPHY.md).
-
-## License
-
-MIT.
