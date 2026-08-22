@@ -8,5 +8,15 @@
     "tagline": "You were born blind. Sound is your sight.",
     "controls": "arrows / WASD or hold to glide, tap or space to ping",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "muster",
+    "name": "Muster!",
+    "genre": "strategy",
+    "mechanic": "herd a flock by pressure - sheep flee the dog, so you push from behind and bark to scatter them, scare wolves or enrage the ram",
+    "theme": "a sheepdog working five sunlit fields against the clock",
+    "tagline": "The flock has opinions. You have a whistle.",
+    "controls": "mouse / touch or WASD / arrows to run, space or B to bark",
+    "created": "2026-08-22"
   }
 ]
