@@ -32,7 +32,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 110
     steps:
+      # `ref` matters more than it looks. checkout defaults to github.sha, which
+      # is pinned when the *run is created* - and a shift that waited its turn
+      # in the concurrency group was created while the previous one was still
+      # working. It would check out the main from before that shift landed,
+      # spend half an hour building a game against a stale site/games.json, and
+      # conflict on push with the entry the previous shift had already appended.
+      # Naming the branch fetches its tip at job start instead.
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
 
       # the toolbox for the shift. zot playtests the game it writes, so it needs
       # a browser it can drive (ubuntu-latest ships google-chrome and chromium;
@@ -110,26 +119,84 @@ jobs:
           OUTCOME: ${{ steps.zot.outputs.outcome }}
           SUMMARY: ${{ steps.zot.outputs.summary }}
         run: |
-          set -euo pipefail
+          # `set +e` against the runner's default of `bash -e`: a failed rebase
+          # or push must reach the rescue at the bottom, not abort the step and
+          # take half an hour of finished work with it.
+          set +e
+          set -u
+
           git config user.name 'zot'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
+
           if git diff --cached --quiet; then
             echo "nothing to commit"
             echo "committed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
           game="$(python3 -c 'import json; g=json.load(open("site/games.json")); print(g[-1]["name"] + " - " + g[-1]["tagline"] if g else "")' 2>/dev/null || true)"
+
           if [ "$OUTCOME" = settled ] && [ -n "$game" ]; then
             subject="shift: ${game}"
           else
             subject="shift: work in progress (${OUTCOME:-no outcome})"
           fi
-          git commit -q -m "$subject" -m "${SUMMARY:-}" -m "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          git pull --rebase -q origin "${GITHUB_REF_NAME}"
-          git push -q origin "HEAD:${GITHUB_REF_NAME}"
-          echo "committed=true" >> "$GITHUB_OUTPUT"
-          echo "$subject"
+
+          if ! git commit -q -m "$subject" -m "${SUMMARY:-}" -m "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"; then
+            echo "::error::the shift could not be committed"
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          # The game now exists as a local commit. Everything below is about
+          # getting it somewhere durable, and losing it is not one of the
+          # options.
+          #
+          # Three attempts, because the two ways this fails want different
+          # answers. A push rejected after a clean rebase means somebody landed
+          # between our fetch and our push - a genuine race, and trying again is
+          # exactly right. A rebase that *conflicts* will conflict again however
+          # many times we ask, so that one leaves the loop at once for the
+          # rescue below.
+          landed=false
+
+          for attempt in 1 2 3; do
+            if ! git pull --rebase -q origin "${GITHUB_REF_NAME}"; then
+              echo "rebase onto ${GITHUB_REF_NAME} conflicted (attempt ${attempt})"
+              git rebase --abort 2>/dev/null
+              break
+            fi
+
+            if git push -q origin "HEAD:${GITHUB_REF_NAME}"; then
+              landed=true
+              break
+            fi
+
+            echo "push rejected; ${GITHUB_REF_NAME} moved under us (attempt ${attempt})"
+          done
+
+          if [ "$landed" = true ]; then
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+            echo "$subject"
+            exit 0
+          fi
+
+          # Could not land it. A shift is half an hour of model time and the
+          # game exists nowhere else, so park it on a branch of its own rather
+          # than letting the runner be torn down with it. Recovering it is then
+          # a merge someone can do at leisure - and the run still fails loudly,
+          # so somebody knows to.
+          rescue="rescue/shift-${GITHUB_RUN_ID}"
+
+          if git push -q origin "HEAD:refs/heads/${rescue}"; then
+            echo "::warning::${GITHUB_REF_NAME} would not take this shift; the game is preserved on ${rescue}"
+            echo "rescued=${rescue}" >> "$GITHUB_OUTPUT"
+          else
+            echo "::error::the shift could not be pushed anywhere and is lost"
+          fi
+
+          echo "committed=false" >> "$GITHUB_OUTPUT"
 
       # The commit above is pushed with GITHUB_TOKEN, and a push made with that
       # token triggers no workflows - so the backmerge would never see the
@@ -159,7 +226,11 @@ jobs:
           OUTCOME: ${{ steps.zot.outputs.outcome }}
           CHECK: ${{ steps.check.outcome }}
           COMMITTED: ${{ steps.commit.outputs.committed }}
+          RESCUED: ${{ steps.commit.outputs.rescued }}
         run: |
+          set +e
+          set -u
+
           {
             echo "## Shift"
             echo
@@ -168,6 +239,20 @@ jobs:
             echo "| zot | ${OUTCOME:-did not run} |"
             echo "| catalogue check | ${CHECK} |"
             echo "| committed | ${COMMITTED:-false} |"
+            if [ -n "${RESCUED:-}" ]; then
+              echo "| rescued to | \`${RESCUED}\` |"
+              echo
+              echo "> This shift finished a game but \`${GITHUB_REF_NAME}\` would not take it."
+              echo "> The work is on \`${RESCUED}\` - merge it rather than rerunning the shift."
+              echo ">"
+              echo "> \`\`\`"
+              echo "> git fetch origin ${RESCUED} && git merge FETCH_HEAD"
+              echo "> \`\`\`"
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
-          # a shift that produced nothing publishable is a failed shift
-          [ "$OUTCOME" = settled ] && [ "$CHECK" = success ]
+
+          # A shift that produced nothing publishable is a failed shift - and a
+          # rescued one produced something that is not published yet, so it
+          # fails too. Green here has to mean the game is live, or nobody will
+          # go looking for the branch.
+          [ "$OUTCOME" = settled ] && [ "$CHECK" = success ] && [ -z "${RESCUED:-}" ]
