@@ -7,7 +7,7 @@ name: shift
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 # Queue rather than skip, and never cancel. A shift takes most of an hour, so
@@ -25,7 +25,7 @@ concurrency:
 
 permissions:
   contents: write
-  actions: write        # to dispatch pages.yaml and the backmerge below
+  actions: write # to dispatch pages.yaml and the backmerge below
 
 jobs:
   shift:
@@ -49,7 +49,7 @@ jobs:
       # needs) and a way to check the file is sound before it plays it.
       - uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install the toolbox
         id: playwright
@@ -85,7 +85,7 @@ jobs:
         continue-on-error: true
         with:
           orders: orders/new-game.yaml
-          rerun: true                 # the standing order runs every shift
+          rerun: true # the standing order runs every shift
           provider: openrouter
           model: stealth/ox-alpha
           # no max-iterations: zot's own default is the cap, and the step
@@ -197,6 +197,32 @@ jobs:
           fi
 
           echo "committed=false" >> "$GITHUB_OUTPUT"
+
+      # The conversation that made the game is the more interesting record, so
+      # it ships too: the session is exported as a trajectory (chat-shaped, with
+      # the outcome beside it), the catalogue entry and the game's files are
+      # attached, and it is appended to the Hugging Face dataset. Shipped
+      # whatever happened - a shift cut short is a row too, and the shift that
+      # continues it ships the whole chain - and skipped quietly when there is
+      # no HF_TOKEN, so a fork without one is still a complete arcade.
+      - name: Ship the session to the dataset
+        if: always() && steps.zot.outputs.session-dir != ''
+        continue-on-error: true
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_DATASET: ${{ secrets.HF_DATASET }} # default openzot/arcade
+          SESSION_DIR: ${{ steps.zot.outputs.session-dir }}
+          OUTCOME: ${{ steps.zot.outputs.outcome }}
+          CHECK: ${{ steps.check.outcome }}
+          COMMITTED: ${{ steps.commit.outputs.committed }}
+          SCRUB: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -z "${HF_TOKEN:-}" ]; then
+            echo "no HF_TOKEN; not shipping the session"
+            exit 0
+          fi
+          pip install -q huggingface_hub
+          python3 scripts/ship.py
 
       # The commit above is pushed with GITHUB_TOKEN, and a push made with that
       # token triggers no workflows - so the backmerge would never see the
