@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "slug": "echo-grotto",
+    "name": "Echo Grotto",
+    "genre": "exploration",
+    "mechanic": "emit sonar pings to briefly paint a pitch-black cave in sound while lurking beasts home in on your echoes",
+    "theme": "a blind bat feeling its way through five lightless caverns toward daylight",
+    "tagline": "You were born blind. Sound is your sight.",
+    "controls": "arrows / WASD or hold to glide, tap or space to ping",
+    "created": "2026-08-22"
+  }
+]
