@@ -60,7 +60,7 @@ cron */30 ──▶ checkout ──▶ zot orders/new-game.yaml ──▶ script
 | Path | |
 | --- | --- |
 | `orders/new-game.yaml` | the standing order |
-| `AGENT.md` | conventions zot reads before every shift |
+| `AGENTS.md` | conventions zot reads before every shift |
 | `site/index.html` | the catalogue page (renders `games.json`) |
 | `site/games.json` | the catalogue - append only |
 | `site/games/<slug>/index.html` | one game, one file |

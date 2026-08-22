@@ -11,6 +11,10 @@ on:
   push:
     branches: [main]
 
+  # A push made with GITHUB_TOKEN raises no events, so the shift's own commit
+  # never triggers the push above. The shift dispatches this instead.
+  workflow_dispatch:
+
 permissions:
   contents: write
 
@@ -19,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}

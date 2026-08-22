@@ -16,6 +16,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: write        # to dispatch the backmerge below
 
 jobs:
   shift:
@@ -25,7 +26,40 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+
+      # the toolbox for the shift. zot playtests the game it writes, so it needs
+      # a browser it can drive (ubuntu-latest ships google-chrome and chromium;
+      # Playwright adds a scriptable one plus the libraries headless Chromium
+      # needs) and a way to check the file is sound before it plays it.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install the toolbox
+        id: playwright
+        run: |
+          npm install -g playwright prettier htmlhint quick-lint-js
+          echo "version=$(playwright --version | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          # so `require('playwright')` resolves from wherever zot runs node
+          echo "NODE_PATH=$(npm root -g)" >> "$GITHUB_ENV"
+
+      - name: Cache the browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+          restore-keys: playwright-${{ runner.os }}-
+
+      - name: Install Chromium
+        run: |
+          playwright install --with-deps chromium
+          echo "playwright:     $(playwright --version)"
+          echo "chrome:         $(command -v google-chrome || echo none)"
+          echo "chromium:       $(command -v chromium || command -v chromium-browser || echo none)"
+          echo "prettier:       $(prettier --version)"
+          echo "htmlhint:       $(htmlhint --version)"
+          echo "quick-lint-js:  $(quick-lint-js --version | head -1)"
 
       - name: Make a game
         id: zot
@@ -77,24 +111,35 @@ jobs:
           echo "committed=true" >> "$GITHUB_OUTPUT"
           echo "$subject"
 
+      # The commit above is pushed with GITHUB_TOKEN, and a push made with that
+      # token triggers no workflows - so the backmerge would never see the
+      # shift. workflow_dispatch is the one event the token may raise, so ask
+      # for the run explicitly rather than leaving `next` behind every shift.
+      - name: Backmerge to next
+        if: steps.commit.outputs.committed == 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run backmerge.yaml --repo "$GITHUB_REPOSITORY" --ref main
+
       # publish only a catalogue that passes the check; a broken one stays
       # committed so the next shift can repair it (the order says to)
       - name: Configure Pages
         if: steps.check.outcome == 'success'
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         with:
           enablement: true
 
       - name: Upload site
         if: steps.check.outcome == 'success'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
       - name: Deploy to GitHub Pages
         id: deploy
         if: steps.check.outcome == 'success'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Shift report
         if: always()

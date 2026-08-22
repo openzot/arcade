@@ -17,6 +17,25 @@ scripts/check.sh    validates the catalogue; must exit 0 before a shift ends
 orders/new-game.yaml  the standing order you are running
 ```
 
+## What is on the machine
+
+No need to go looking: the shift installs the toolbox before you start.
+
+- `node` v22 and `python3`. There is no `package.json` here and there must not
+  be one - the games are vanilla and dependency-free.
+- **Playwright with headless Chromium**, plus `google-chrome` and `chromium` on
+  `PATH`. `require('playwright')` resolves from any directory. Use it to open
+  the finished game, press its keys, click its buttons and watch for uncaught
+  exceptions, console errors and external requests before you call it done.
+- `prettier --check <file>` parses the HTML *and* the inline script and style -
+  the quickest way to catch a stray brace or an unclosed tag.
+- `htmlhint <file>` for HTML structure; `quick-lint-js <script.js>` for
+  undeclared variables and typos in JavaScript (extract the inline script to
+  `/tmp` first).
+
+Scratch files - test scripts, screenshots, extracted scripts - go in `/tmp`.
+The workflow commits whatever is left in the working tree.
+
 ## The catalogue entry
 
 Append exactly one object to the array in `site/games.json`:
