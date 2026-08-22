@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Chartwright - glimpse a fog-bound island for a few heartbeats, then redraw its coastline from memory and land a faithful chart before the fleet makes landfall."
+    />
+    <title>Chartwright · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Chartwright</h1>
+      <span class="tag">fog-bound chart room</span>
+    </header>
+
+    <main class="stage">
+      <div class="set">
+        <div class="hud">
+          <output id="chartNo">chart &ndash;</output>
+          <output id="quills">quills &#9679;&#9679;&#9679;</output>
+          <output id="score">0 pts</output>
+        </div>
+
+        <div class="frame">
+          <canvas
+            id="chart"
+            width="960"
+            height="600"
+            aria-label="Chart table. During the glimpse, memorise the island. Then drag across the vellum to redraw its coastline from memory."
+          ></canvas>
+          <span id="pauseTag" class="pausetag hidden">paused</span>
+        </div>
+
+        <div class="deskrow">
+          <button id="undoBtn" type="button" disabled>undo stroke</button>
+          <button id="clearBtn" type="button" disabled>clear vellum</button>
+          <output id="status" for="chart">the fleet waits</output>
+          <button id="commitBtn" type="button" class="primary" disabled>
+            commit chart
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bar">
+      <p class="hint">
+        <b>drag</b> to draw the coast you saw &middot; <b>Z</b> undo &middot;
+        <b>C</b> clear &middot; <b>Space</b> commit / continue &middot;
+        <b>M</b> mute &middot; <b>P</b> pause &middot; <b>R</b> new voyage
+      </p>
+      <nav class="ops">
+        <button id="soundBtn" type="button">sound: on</button>
+        <button id="pauseBtn" type="button">pause</button>
+        <button id="restartBtn" type="button">new voyage</button>
+      </nav>
+    </footer>
+
+    <div id="veil" class="veil">
+      <section id="panelStart" class="panel">
+        <h2>Chartwright</h2>
+        <p class="lede">
+          The ship&rsquo;s only chart slipped overboard in the last squall. Six
+          islands stand between you and landfall &mdash; and each shows itself
+          through the fog just once.
+        </p>
+        <ol class="howto">
+          <li>
+            <b>Glimpse.</b> An island surfaces from the fog for a few
+            heartbeats. Memorise its shape against the compass rose.
+          </li>
+          <li>
+            <b>Redraw.</b> The fog takes it back. Drag across the vellum to lay
+            down the coastline as you remember it. Undo or clear and try again
+            until the inkwell runs dry.
+          </li>
+          <li>
+            <b>Commit.</b> Your ink is laid over the true coast and scored for
+            fidelity. Miss the quota and the voyage loses a quill &mdash; lose
+            all three and the fleet is lost with it.
+          </li>
+        </ol>
+        <button id="startBtn" type="button" class="btn primary big">
+          take up the pen
+        </button>
+      </section>
+
+      <section id="panelEnd" class="panel hidden">
+        <h2 id="endTitle">Landfall</h2>
+        <p id="endLede" class="lede"></p>
+        <ul id="endStats" class="stats"></ul>
+        <p id="endRank" class="rank"></p>
+        <button id="againBtn" type="button" class="btn primary big">
+          sail again
+        </button>
+      </section>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

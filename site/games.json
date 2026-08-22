@@ -68,5 +68,15 @@
     "tagline": "Somewhere in the static, someone is calling.",
     "controls": "mouse / touch drag or click the dial, arrows sweep, up/down fine trim, M mute, P pause, R restart",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "chartwright",
+    "name": "Chartwright",
+    "genre": "memory",
+    "mechanic": "glimpse a fog-bound island for a few seconds, then redraw its coastline freehand from memory - your ink is scored by how much of the true landmass it captures",
+    "theme": "a ship's cartographer in a fogbound archipelago, redrawing charts lost overboard before landfall",
+    "tagline": "The chart went overboard. Redraw it before landfall.",
+    "controls": "mouse / touch to draw, Z undo, C clear, Space commits",
+    "created": "2026-08-22"
   }
 ]
