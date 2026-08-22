@@ -1,0 +1,276 @@
+:root {
+  --bg: #0d0a07;
+  --panel: #171210;
+  --iron: #2b2b30;
+  --ember: #ff7a1a;
+  --ember-dim: #b34d0e;
+  --gold: #ffcf6e;
+  --text: #e8ddcc;
+  --text-dim: #9a8c78;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 90% at 50% 110%, #241408 0%, var(--bg) 55%), var(--bg);
+  color: var(--text);
+  font-family:
+    "Avenir Next", Avenir, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage {
+  width: 100%;
+  max-width: 1000px;
+  padding: 12px 14px 18px;
+}
+
+/* ---------- top bar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.back {
+  color: var(--ember);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.back:hover {
+  color: var(--gold);
+}
+
+.topbar h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(255, 122, 26, 0.35);
+  text-align: center;
+  min-width: 0;
+}
+
+.tools {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid #4a3a28;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+button:hover {
+  border-color: var(--ember-dim);
+  color: var(--gold);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* ---------- canvas frame ---------- */
+
+.frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px #3a2c1c,
+    0 18px 50px rgba(0, 0, 0, 0.65);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0c0906;
+  touch-action: none;
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 5, 3, 0.82);
+  padding: 16px;
+  text-align: center;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.card {
+  max-width: 560px;
+  background: rgba(23, 17, 13, 0.92);
+  border: 1px solid #4a3a28;
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: 0 0 60px rgba(255, 122, 26, 0.12);
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 22px rgba(255, 122, 26, 0.4);
+}
+
+.lede {
+  margin: 0 0 14px;
+  color: var(--ember);
+  font-style: italic;
+}
+
+.how {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.how li {
+  margin: 7px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.how li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+  box-shadow: 0 0 8px var(--ember);
+}
+
+.how b {
+  color: var(--text);
+}
+
+.keys {
+  margin: 14px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+#startBtn,
+#againBtn,
+#resumeBtn {
+  font-size: 17px;
+  padding: 12px 26px;
+  border-color: var(--ember-dim);
+  color: var(--gold);
+}
+
+#startBtn:hover,
+#againBtn:hover,
+#resumeBtn:hover {
+  box-shadow: 0 0 18px rgba(255, 122, 26, 0.35);
+}
+
+/* ---------- controls under the canvas ---------- */
+
+.controls {
+  margin-top: 12px;
+  text-align: center;
+}
+
+#bellowsBtn {
+  width: min(420px, 100%);
+  min-height: 52px;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-color: var(--ember-dim);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+#bellowsBtn:hover {
+  box-shadow: 0 0 16px rgba(255, 122, 26, 0.3);
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 640px) {
+  .stage {
+    padding: 8px 8px 14px;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .topbar h1 {
+    order: -1;
+    width: 100%;
+    font-size: 19px;
+  }
+
+  .tools button {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .card h2 {
+    font-size: 24px;
+  }
+
+  .how {
+    font-size: 13px;
+  }
+
+  .hint {
+    font-size: 11px;
+  }
+}

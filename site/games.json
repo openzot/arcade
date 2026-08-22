@@ -88,5 +88,15 @@
     "tagline": "Steady hands carry the current.",
     "controls": "mouse / touch hold & drag, arrows or WASD nudge, P pause, M sound, R restart",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "anvil-song",
+    "name": "Anvil Song",
+    "genre": "rhythm",
+    "mechanic": "strike the hammer when a sweeping mark crosses the glowing zone while bellows-feeding heat and rationing one shared coal bed, then quench each blade true",
+    "theme": "a storm-lit mountain smithy forging five blades over a single dying coal bed",
+    "tagline": "Iron remembers every blow.",
+    "controls": "space / enter or tap to strike, hold B or the bellows button to reheat, P pause, M sound, R restart",
+    "created": "2026-08-22"
   }
 ]

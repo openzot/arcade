@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anvil Song</title>
+    <meta
+      name="description"
+      content="Forge five blades on the bellows' beat in a storm-lit mountain smithy."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="topbar">
+        <a class="back" href="../../">&lsaquo; Arcade</a>
+        <h1>Anvil Song</h1>
+        <div class="tools">
+          <button id="soundBtn" type="button">Sound: on</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+      </header>
+
+      <div class="frame">
+        <canvas
+          id="forge"
+          width="960"
+          height="600"
+          aria-label="The forge: an anvil with a glowing blade, a strike bar above and a coal bed below"
+        >
+        </canvas>
+
+        <div class="overlay" id="titleOverlay">
+          <div class="card">
+            <h2>Anvil Song</h2>
+            <p class="lede">
+              Five blades. One dying coal bed. Strike on the glow.
+            </p>
+            <ul class="how">
+              <li>
+                <b>Strike</b> — SPACE, ENTER, or tap the anvil the moment the
+                sweeping mark crosses the glowing zone.
+              </li>
+              <li>
+                <b>Bellows</b> — hold B or the BELLOWS button to reheat the
+                blade. Cold iron only dents.
+              </li>
+              <li>
+                <b>Coal</b> — everything burns it. Perfect strikes feed the
+                fire. When it's gone, the forge is dead.
+              </li>
+              <li>
+                <b>Quench</b> — fill the shaping bar, then strike once more in
+                the zone to set the edge.
+              </li>
+            </ul>
+            <button id="startBtn" type="button">Light the forge</button>
+            <p class="keys">P pause &middot; M sound &middot; R restart</p>
+          </div>
+        </div>
+
+        <div class="overlay hidden" id="pauseOverlay">
+          <div class="card">
+            <h2>Paused</h2>
+            <p>The coals are waiting.</p>
+            <button id="resumeBtn" type="button">Resume</button>
+          </div>
+        </div>
+
+        <div class="overlay hidden" id="endOverlay">
+          <div class="card">
+            <h2 id="endTitle">Done</h2>
+            <p id="endDetail"></p>
+            <button id="againBtn" type="button">Forge again</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="bellowsBtn" type="button">Bellows — hold</button>
+        <p class="hint">
+          SPACE / tap the anvil to strike on the glow &middot; hold B or the
+          bellows to reheat &middot; P pause &middot; M sound &middot; R restart
+        </p>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
