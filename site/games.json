@@ -98,5 +98,15 @@
     "tagline": "Iron remembers every blow.",
     "controls": "space / enter or tap to strike, hold B or the bellows button to reheat, P pause, M sound, R restart",
     "created": "2026-08-22"
+  },
+  {
+    "slug": "hot-metal",
+    "name": "Hot Metal",
+    "genre": "typing",
+    "mechanic": "type the word carried by each slug of loose type before it reaches the wet page; mistyped keys break your pay chain, red slugs run fast for double pay, gilded slugs lift a smudge when set",
+    "theme": "a midnight hand-printing shop where the type case has spilled and the press never stops until the dawn bell",
+    "tagline": "Catch the words before the ink sets.",
+    "controls": "keyboard letters; on-screen keys on touch; backspace or escape drops a held slug; buttons pause, mute, restart",
+    "created": "2026-08-22"
   }
 ]

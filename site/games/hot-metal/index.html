@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hot Metal</title>
+    <meta
+      name="description"
+      content="Midnight at the print shop: type the wandering slugs of loose type back into the forme before they smear the wet page."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="topbar">
+        <a class="back" href="../../">&lsaquo; Arcade</a>
+        <h1>Hot Metal</h1>
+        <div class="tools">
+          <button id="keysBtn" type="button">Keys: off</button>
+          <button id="soundBtn" type="button">Sound: on</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+      </header>
+
+      <div class="hud">
+        <div class="stat shift">
+          <span class="label">Shift</span>
+          <span class="value" id="clock">11 PM</span>
+          <span class="shiftbar"><span id="shiftfill"></span></span>
+        </div>
+        <div class="stat">
+          <span class="label">Score</span>
+          <span class="value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Chain</span>
+          <span class="value" id="combo">&times;1</span>
+        </div>
+        <div class="stat">
+          <span class="label">Smudges</span>
+          <span class="pips" id="smears">
+            <span class="pip"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="frame" id="playfield" aria-label="The composing room floor">
+        <div class="lamplight"></div>
+        <div id="page" aria-hidden="true">
+          <div class="mast">The Daily Argus</div>
+          <div class="submast">final edition &middot; set by hand</div>
+        </div>
+        <div id="words"></div>
+        <div id="floaters"></div>
+
+        <div class="overlay" id="overlay">
+          <div class="card" id="introCard">
+            <h2>Hot Metal</h2>
+            <p class="lede">
+              Midnight in the print shop. The type case has spilled, and the
+              press never stops.
+            </p>
+            <ul class="how">
+              <li>
+                <b>Type</b> &mdash; every slug of loose type carries a word.
+                Type it letter-perfect to set it back in the forme.
+              </li>
+              <li>
+                <b>Mind the page</b> &mdash; a slug that reaches the wet page
+                leaves a smudge. Three smudges ruin the edition.
+              </li>
+              <li>
+                <b>Keep clean</b> &mdash; a wrong key breaks your chain. Red
+                slugs run fast for double pay; gilded ones lift a smudge when
+                set.
+              </li>
+            </ul>
+            <button id="startBtn" type="button">Start the night shift</button>
+            <p class="keys">
+              any letter starts &middot; &#9003; drops a held slug &middot;
+              while the press runs, every key is a letter &mdash; use the
+              buttons to pause, mute or restart
+            </p>
+          </div>
+
+          <div class="card" id="pauseCard" hidden>
+            <h2>Press halted</h2>
+            <p class="lede">The rollers idle. The ink dries a little.</p>
+            <button id="resumeBtn" type="button">Resume the run</button>
+            <p class="keys">P resume &middot; R restart</p>
+          </div>
+
+          <div class="card" id="endCard" hidden>
+            <h2 id="endTitle">Dawn bell.</h2>
+            <p class="lede" id="endLede"></p>
+            <ul class="how stats" id="endStats"></ul>
+            <button id="againBtn" type="button">Run it again</button>
+            <p class="keys">R or Enter restarts</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="osk" hidden></div>
+
+      <footer class="foot">
+        <span>
+          Type each slug's word before it reaches the wet page &middot; &#9003;
+          releases a held slug &middot; buttons pause, mute, restart
+        </span>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
