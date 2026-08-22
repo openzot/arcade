@@ -21,6 +21,10 @@ The model doing the work is `stealth/ox-alpha` via
 That is the whole setup. The site appears at
 `https://<owner>.github.io/<repo>/`.
 
+Optionally, add an **`HF_TOKEN`** secret (a Hugging Face token with write
+access) and every shift also ships its conversation to a dataset - see
+[The dataset](#the-dataset).
+
 ## How a shift works
 
 ```
@@ -63,6 +67,29 @@ pages  push to site/ ──▶ scripts/check.sh ──▶ deploy site/
   catalogue is still committed (the history is honest) but the live site keeps
   serving the last good tree, and the order tells the next shift to repair it.
 
+## The dataset
+
+The game is the product; the conversation that made it is the more interesting
+record. With an `HF_TOKEN` secret, the end of every shift runs
+`scripts/ship.py`, which:
+
+1. exports the shift's session with `zot sessions export` - the conversation in
+   the chat shape training and evaluation tooling reads (`system` / `user` /
+   `assistant` with `tool_calls` / `tool`), the screenshots the model was shown
+   beside it, and the run's outcome and timings on top;
+2. attaches the arcade's side - the catalogue entry, the three game files, the
+   commit, whether `scripts/check.sh` passed;
+3. refuses to upload if the provider key appears anywhere in it;
+4. appends it to the dataset as `trajectories/<session-id>/`.
+
+The dataset repo is `openzot/arcade` unless a repository variable
+**`HF_DATASET`** names another; it is created on first upload, and its card
+(the `README.md` describing the rows) lives in the dataset repo itself, not
+here. Every shift ships, finished or not: a
+shift cut short is a row, and the shift that continues it ships the whole chain
+under its own id - the card says how to filter. Without `HF_TOKEN` the step
+says so and does nothing.
+
 ## Layout
 
 | Path | |
@@ -75,6 +102,7 @@ pages  push to site/ ──▶ scripts/check.sh ──▶ deploy site/
 | `site/games/<slug>/game.css` | one game: style |
 | `site/games/<slug>/game.js` | one game: behaviour |
 | `scripts/check.sh` | catalogue validation |
+| `scripts/ship.py` | ships a shift's session to the dataset |
 | `.github/workflows/shift.yaml` | the shift - makes a game, commits it |
 | `.github/workflows/pages.yaml` | publishes `site/` to GitHub Pages |
 
@@ -98,3 +126,8 @@ only the provider key in its environment (zot scrubs it from the agent's shell).
 The job's `GITHUB_TOKEN` is scoped to this repository. The order forbids
 touching the workflow, the scripts or existing games; `scripts/check.sh` and
 the commit history are how you would notice if it did.
+
+What ships to the dataset is the whole conversation - every tool call and its
+output - from a checkout of a public repository. `scripts/ship.py` refuses the
+upload if the provider key turns up in it; nothing else in the job's
+environment reaches the agent's shell.
