@@ -278,5 +278,15 @@
     "tagline": "Everything hangs in the balance.",
     "controls": "mouse / touch drag or arrows + space to lift, slide & drop, Esc returns a carving, P pause, R restart piece, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "tin-parade",
+    "name": "Tin Parade",
+    "genre": "locomotion",
+    "mechanic": "pump four wind-up muscles - paired hip strings and knee strings - to keep a ragdoll tin soldier balanced mid-stride as he marches down the shelf",
+    "theme": "a moonlit toyshop shelf where a forgotten wind-up soldier tries to ring the till bell before opening time",
+    "tagline": "Hips swing, knees snap. Don't kiss the boards.",
+    "controls": "Q / W hips, O / P knees or hold the corner pads, Esc pause, M sound, R restart",
+    "created": "2026-08-23"
   }
 ]

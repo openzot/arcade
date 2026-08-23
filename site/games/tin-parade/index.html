@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Tin Parade · Arcade</title>
+    <meta
+      name="description"
+      content="Pump a wind-up tin soldier's hips and knees and march him down a moonlit toyshop shelf to ring the till bell."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="hud hud-top">
+        <a
+          class="back"
+          href="../../index.html"
+          aria-label="Back to the arcade catalogue"
+          >&#8592; Arcade</a
+        >
+        <h1 class="brand">Tin Parade</h1>
+        <p class="tagline">The shopkeeper wound you up and forgot you.</p>
+        <div class="hud-buttons">
+          <button
+            type="button"
+            id="btn-help"
+            class="chip"
+            aria-label="How to play"
+          >
+            ?
+          </button>
+          <button
+            type="button"
+            id="btn-pause"
+            class="chip"
+            aria-label="Pause (Esc)"
+          >
+            &#10073;&#10073;
+          </button>
+          <button
+            type="button"
+            id="btn-mute"
+            class="chip"
+            aria-label="Toggle sound (M)"
+            aria-pressed="false"
+          >
+            &#9834;
+          </button>
+          <button
+            type="button"
+            id="btn-restart"
+            class="chip"
+            aria-label="Restart (R)"
+          >
+            &#8635;
+          </button>
+        </div>
+      </header>
+
+      <div class="board">
+        <canvas
+          id="game"
+          role="img"
+          aria-label="A tin soldier balancing along a toyshop shelf at night"
+        ></canvas>
+
+        <div class="hud hud-bottom">
+          <div class="meters">
+            <span class="meter"><b id="dist">0</b> cm of shelf</span>
+            <span class="meter">best <b id="best">0</b></span>
+            <span class="meter">falls <b id="falls">0</b></span>
+          </div>
+          <div class="bar" role="presentation">
+            <i id="bar-fill"></i><em id="bell-mark">&#128276;</em>
+          </div>
+        </div>
+
+        <div class="pads" aria-hidden="false">
+          <div class="pad-cluster pad-left">
+            <button type="button" class="pad" data-key="q">
+              <small>L hip</small><kbd>Q</kbd>
+            </button>
+            <button type="button" class="pad" data-key="o">
+              <small>L knee</small><kbd>O</kbd>
+            </button>
+          </div>
+          <div class="pad-cluster pad-right">
+            <button type="button" class="pad" data-key="w">
+              <small>R hip</small><kbd>W</kbd>
+            </button>
+            <button type="button" class="pad" data-key="p">
+              <small>R knee</small><kbd>P</kbd>
+            </button>
+          </div>
+        </div>
+
+        <section
+          class="overlay show"
+          id="ovl-start"
+          aria-labelledby="start-title"
+        >
+          <div class="card">
+            <p class="kicker">one wind-up soldier &middot; one long shelf</p>
+            <h2 id="start-title">Tin Parade</h2>
+            <p class="lede">
+              The shopkeeper wound you up, set you down, and went to bed. Ring
+              the till bell at the far end before opening time &mdash; without
+              kissing the boards.
+            </p>
+            <div class="howto">
+              <div class="howrow">
+                <kbd>Q</kbd><span>left leg swings forward</span>
+              </div>
+              <div class="howrow">
+                <kbd>W</kbd><span>right leg swings forward</span>
+              </div>
+              <div class="howrow">
+                <kbd>O</kbd
+                ><span>left knee bends &middot; right straightens</span>
+              </div>
+              <div class="howrow">
+                <kbd>P</kbd
+                ><span>right knee bends &middot; left straightens</span>
+              </div>
+              <div class="howrow alt">
+                <span
+                  >On touch, hold the corner pads. Hips swing, knees snap
+                  &mdash; find the rhythm.</span
+                >
+              </div>
+            </div>
+            <button type="button" id="btn-start" class="big">Wind me up</button>
+            <p class="fine">Esc pause &middot; M sound &middot; R restart</p>
+          </div>
+        </section>
+
+        <section class="overlay" id="ovl-pause" aria-labelledby="pause-title">
+          <div class="card">
+            <h2 id="pause-title">Paused</h2>
+            <p class="lede">The mainspring rests. The shelf waits.</p>
+            <button type="button" id="btn-resume" class="big">Resume</button>
+          </div>
+        </section>
+
+        <section class="overlay" id="ovl-over" aria-labelledby="over-title">
+          <div class="card">
+            <p class="kicker clank">CLANG.</p>
+            <h2 id="over-title">Faceplant</h2>
+            <p class="lede" id="tip">Hips first, then knees.</p>
+            <p class="stat">
+              You made it <b id="over-dist">0</b> cm on attempt
+              <b id="over-falls">1</b>.
+            </p>
+            <button type="button" id="btn-again" class="big">
+              Wind me again
+            </button>
+          </div>
+        </section>
+
+        <section class="overlay" id="ovl-win" aria-labelledby="win-title">
+          <div class="card">
+            <p class="kicker bell">RING&nbsp;RING.</p>
+            <h2 id="win-title">Curtain call</h2>
+            <p class="lede">
+              The till bell sings. Somewhere upstairs, the shopkeeper smiles.
+            </p>
+            <p class="stat">
+              <b id="win-time">0.0 s</b> &middot; <b id="win-falls">0</b> falls
+              &middot; rated <b id="win-grade">Regulation Tin</b>
+            </p>
+            <button type="button" id="btn-bow" class="big">
+              Take another bow
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
