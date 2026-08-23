@@ -1,0 +1,392 @@
+/* Brakefall — a lamplit copper mine, five switchbacks down to the sump. */
+
+:root {
+  --bg-0: #0b0705;
+  --bg-1: #1a120b;
+  --card-hi: #241811;
+  --card-lo: #150e08;
+  --line: #54371c;
+  --line-dim: #3a2714;
+  --ink: #f2e2c4;
+  --ink-dim: #c9a878;
+  --amber: #ffcf7d;
+  --brass: #e8b04b;
+  --ember: #ff7a3c;
+  --danger: #ff5646;
+  --safe: #86d06a;
+  --chip-bg: rgba(22, 13, 7, 0.78);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    var(--bg-1) 0%,
+    var(--bg-0) 70%
+  );
+  color: var(--ink);
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.stage {
+  width: min(96vw, 1060px);
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line-dim);
+  background: #0d0906;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 190, 110, 0.05);
+  touch-action: none;
+}
+
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- HUD ---------- */
+
+.hud-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.brand .mark {
+  font-size: 15px;
+}
+
+.brand .name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chip {
+  background: var(--chip-bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  color: var(--ink-dim);
+}
+
+.chip-ore {
+  color: var(--amber);
+}
+.chip-lives {
+  color: var(--danger);
+  letter-spacing: 0.12em;
+}
+.chip-lives.hurt {
+  animation: hurtPulse 0.45s ease;
+}
+
+@keyframes hurtPulse {
+  0% {
+    transform: scale(1.35);
+    background: rgba(120, 20, 10, 0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hud-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.hud-buttons button {
+  pointer-events: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--chip-bg);
+  color: var(--amber);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.hud-buttons button:hover {
+  box-shadow: 0 0 12px rgba(255, 176, 75, 0.35);
+}
+
+.hud-buttons button:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+#btnSound.off {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+/* ---------- Overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: linear-gradient(rgba(9, 5, 3, 0.42), rgba(9, 5, 3, 0.84));
+  transition: opacity 0.25s ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card {
+  width: min(94%, 580px);
+  max-height: 100%;
+  overflow: auto;
+  text-align: center;
+  background: linear-gradient(var(--card-hi), var(--card-lo));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(16px, 4vh, 28px) clamp(18px, 5vw, 34px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6);
+}
+
+.card h1 {
+  margin: 0.05em 0 0.1em;
+  font-size: clamp(30px, 6vw, 46px);
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  text-shadow: 0 3px 14px rgba(255, 160, 60, 0.25);
+}
+
+.card h2 {
+  margin: 0 0 0.2em;
+  font-size: clamp(22px, 4.4vw, 32px);
+  letter-spacing: 0.1em;
+  color: var(--amber);
+}
+
+.card .tag {
+  margin: 0 0 12px;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 15px;
+}
+
+.card .how {
+  margin: 10px auto 6px;
+  padding-left: 20px;
+  max-width: 47ch;
+  text-align: left;
+  line-height: 1.55;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.card .how li {
+  margin-bottom: 4px;
+}
+.card .how li::marker {
+  color: var(--brass);
+}
+
+.card .goal {
+  margin: 12px 0 14px;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a97f4e;
+}
+
+.cta {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #2a1808;
+  background: linear-gradient(#ffd98f, #e8a83f);
+  box-shadow: 0 6px 18px rgba(232, 160, 63, 0.35);
+  transition:
+    transform 0.1s ease,
+    filter 0.15s ease;
+}
+
+.cta:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+.cta:active {
+  transform: translateY(1px);
+}
+
+.keys {
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+}
+
+.keys b {
+  color: var(--ink);
+}
+
+.tally {
+  margin: 8px auto 14px;
+  max-width: 320px;
+  font-size: 14.5px;
+}
+
+.tally .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 2px;
+  color: var(--ink-dim);
+}
+
+.tally .row span:last-child {
+  color: var(--ink);
+}
+
+.tally .row.total {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  color: var(--amber);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.reason {
+  margin: 4px 0 10px;
+  color: var(--ink-dim);
+  font-size: 14px;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.footer a.home {
+  color: #d9a55e;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.footer a.home:hover {
+  text-decoration: underline;
+}
+
+.footer .hint {
+  text-align: right;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px dashed var(--amber);
+  outline-offset: 2px;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 560px) {
+  body {
+    padding: 8px;
+  }
+  .brand .name {
+    display: none;
+  }
+  .footer .hint {
+    display: none;
+  }
+  .footer {
+    justify-content: center;
+  }
+  .chip {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+  .hud-buttons button {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+
+@media (max-aspect-ratio: 4/5) and (max-width: 700px) {
+  .frame {
+    aspect-ratio: 3 / 4;
+  }
+}

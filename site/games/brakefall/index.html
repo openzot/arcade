@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brakefall · Arcade</title>
+    <meta
+      name="description"
+      content="Ride a runaway ore cart down five switchback flights of a lamplit copper mine — brake smart, keep your ore, outrun the collapse to the flooded sump."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <div class="frame" id="frame">
+        <canvas
+          id="game"
+          aria-label="Brakefall: a mine cart racing down a switchback shaft"
+        ></canvas>
+
+        <header class="hud-top">
+          <div class="brand">
+            <span class="mark">⛏</span>
+            <span class="name">Brakefall</span>
+          </div>
+          <div class="chips">
+            <span class="chip" id="chipFlight">Flight 1/5 · 0 m</span>
+            <span class="chip chip-ore" id="chipOre">Ore 100%</span>
+            <span
+              class="chip chip-lives"
+              id="chipLives"
+              aria-label="Spare axles"
+              >♥♥♥</span
+            >
+          </div>
+          <div class="hud-buttons">
+            <button
+              id="btnPause"
+              type="button"
+              title="Pause (P)"
+              aria-label="Pause"
+            >
+              ❚❚
+            </button>
+            <button
+              id="btnSound"
+              type="button"
+              title="Sound (M)"
+              aria-label="Toggle sound"
+            >
+              ♪
+            </button>
+            <button
+              id="btnRestart"
+              type="button"
+              title="Restart (R)"
+              aria-label="Restart run"
+            >
+              ↻
+            </button>
+          </div>
+        </header>
+
+        <div
+          class="overlay"
+          id="overlay"
+          role="dialog"
+          aria-live="polite"
+        ></div>
+      </div>
+
+      <nav class="footer">
+        <a class="home" href="../../">⌂ All games</a>
+        <span class="hint"
+          >Hold Space — or press and hold anywhere — to brake.</span
+        >
+      </nav>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
