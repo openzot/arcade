@@ -239,24 +239,34 @@
     "controls": "mouse / touch tap commands and buttons, or keys F/L/R/W/G to program, Backspace erase, Enter or Space run/stop, R restart, P pause, M sound",
     "created": "2026-08-23"
   },
-{
-  "slug": "stitchwork",
-  "name": "Stitchwork",
-  "genre": "craft",
-  "mechanic": "fill each patch with the fabric it asks for to piece a quilt top, then sew every seam with its called-for thread colour before the oil lamp burns down - wrong thread snaps a needle",
-  "theme": "a candlelit sewing room working five blocks of a winter commission",
-  "tagline": "Every seam asks its own colour.",
-  "controls": "mouse / touch tap or arrows + space, 1-6 fabrics, Q / E thread, Z undo, R redo block, P pause, M sound",
-  "created": "2026-08-23"
-},
-{
-  "slug": "brakefall",
-  "name": "Brakefall",
-  "genre": "descent",
-  "mechanic": "hold to brake a runaway ore cart while brake heat fades the shoes, crawling posted hairpins and rotten trestles, outrunning the collapse dust to bank the load at the flooded sump",
-  "theme": "the last working gangway of a lamplit copper mine, five switchback flights above a flooded sump",
-  "tagline": "Gravity is the engine. The brake is the whole job.",
-  "controls": "hold space / mouse / touch to brake, P pause, M sound, R restart",
-  "created": "2026-08-23"
-}
+  {
+    "slug": "stitchwork",
+    "name": "Stitchwork",
+    "genre": "craft",
+    "mechanic": "fill each patch with the fabric it asks for to piece a quilt top, then sew every seam with its called-for thread colour before the oil lamp burns down - wrong thread snaps a needle",
+    "theme": "a candlelit sewing room working five blocks of a winter commission",
+    "tagline": "Every seam asks its own colour.",
+    "controls": "mouse / touch tap or arrows + space, 1-6 fabrics, Q / E thread, Z undo, R redo block, P pause, M sound",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "brakefall",
+    "name": "Brakefall",
+    "genre": "descent",
+    "mechanic": "hold to brake a runaway ore cart while brake heat fades the shoes, crawling posted hairpins and rotten trestles, outrunning the collapse dust to bank the load at the flooded sump",
+    "theme": "the last working gangway of a lamplit copper mine, five switchback flights above a flooded sump",
+    "tagline": "Gravity is the engine. The brake is the whole job.",
+    "controls": "hold space / mouse / touch to brake, P pause, M sound, R restart",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "exact-change",
+    "name": "Exact Change",
+    "genre": "commerce",
+    "mechanic": "count exact change out of the till coin by coin before each customer's patience drains, chasing speed tips, streak bonuses and fewest-coin regulars through a rush minute",
+    "theme": "a sun-bright harbour sweet shop on its record Saturday",
+    "tagline": "Every penny counted. Every mood kept.",
+    "controls": "mouse / touch tap coins or keys 1-9, 0, Backspace undo, C clear, Enter hands over, P pause, M sound, R new day",
+    "created": "2026-08-23"
+  }
 ]

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Exact Change - serve the Saturday rush at a harbour sweet shop by counting out perfect change before each customer's patience runs out."
+    />
+    <title>Exact Change · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="back-link" href="../../">&larr; Arcade</a>
+
+    <header class="masthead">
+      <h1>Exact Change</h1>
+      <p class="tagline">
+        Harbour Sweets, record Saturday. Count it out. Count them in.
+      </p>
+    </header>
+
+    <section id="hud" aria-label="scoreboard">
+      <div class="chip">
+        <span class="chip-label">Takings</span>
+        <span id="takings" class="chip-value">£0.00</span>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Streak</span>
+        <span id="streak" class="chip-value">×0</span>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Served</span>
+        <span id="served" class="chip-value">0/14</span>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Moods left</span>
+        <span id="hearts" class="chip-value hearts"
+          ><i class="heart"></i><i class="heart"></i><i class="heart"></i
+        ></span>
+      </div>
+      <button id="btn-pause" type="button" class="ghost-btn">Pause</button>
+      <button id="btn-mute" type="button" class="ghost-btn">Sound: on</button>
+    </section>
+
+    <main id="shop">
+      <section id="counter" aria-live="polite">
+        <div id="portrait" class="portrait"></div>
+        <div class="bubble">
+          <p id="line-wants" class="bubble-line"></p>
+          <p id="line-pays" class="bubble-line"></p>
+          <p class="bubble-line due-line">
+            Change due <strong id="change-due">—</strong>
+          </p>
+          <p id="line-note" class="bubble-note"></p>
+        </div>
+      </section>
+
+      <div id="patience-rail">
+        <div id="patience-fill" class="high"></div>
+      </div>
+
+      <div id="queue" aria-label="waiting customers"></div>
+
+      <div id="rush-banner" class="hidden">RUSH MINUTE — move!</div>
+
+      <section id="till" aria-label="the till">
+        <div id="tray-head">
+          <span class="tray-label">Their change</span>
+          <span id="tray-total" class="tray-total">0p</span>
+          <span id="tray-diff" class="tray-diff"></span>
+        </div>
+        <div id="tray-stack" aria-label="coins counted out"></div>
+        <div id="tray-actions">
+          <button id="btn-undo" type="button" class="till-btn">
+            Undo <kbd>Bksp</kbd>
+          </button>
+          <button id="btn-clear" type="button" class="till-btn">
+            Clear <kbd>C</kbd>
+          </button>
+          <button id="btn-hand" type="button" class="till-btn hand">
+            Hand over <kbd>&crarr;</kbd>
+          </button>
+        </div>
+        <div id="register" aria-label="register drawer"></div>
+      </section>
+    </main>
+
+    <footer id="hint">
+      Tap coins or press 1–9, 0 · Bksp undo · C clear · Enter hand over · P
+      pause · M sound · R new day
+    </footer>
+
+    <div id="overlay-intro" class="overlay">
+      <div class="panel">
+        <h2>Exact Change</h2>
+        <p>
+          You are the Saturday girl at Harbour Sweets. Every customer pays too
+          much — count their change out of the till, exact to the penny, before
+          their patience drains away.
+        </p>
+        <ul class="howto">
+          <li>
+            <strong>Tap coins</strong> (or keys 1–9 and 0) to stack up their
+            change.
+          </li>
+          <li>
+            <strong>Hand over</strong> (Enter) when the sum matches. Fast
+            service earns tips; an unbroken streak earns more.
+          </li>
+          <li>
+            A wrong sum costs half their mood. Three walkouts and the day is
+            done.
+          </li>
+          <li>
+            Mind the regulars: coin counters tip for the fewest coins, kids
+            can't wait, and the afternoon brings a rush minute.
+          </li>
+        </ul>
+        <button id="btn-start" type="button" class="primary-btn">
+          Open the till
+        </button>
+      </div>
+    </div>
+
+    <div id="overlay-pause" class="overlay hidden">
+      <div class="panel">
+        <h2>Paused</h2>
+        <p>The queue hums quietly. Nobody dares touch the fudge.</p>
+        <button id="btn-resume" type="button" class="primary-btn">
+          Back to the till
+        </button>
+      </div>
+    </div>
+
+    <div id="overlay-end" class="overlay hidden">
+      <div class="panel">
+        <h2 id="end-title"></h2>
+        <p id="end-flair"></p>
+        <dl id="end-stats"></dl>
+        <button id="btn-again" type="button" class="primary-btn">
+          New day (R)
+        </button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
