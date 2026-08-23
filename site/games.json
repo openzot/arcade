@@ -313,10 +313,21 @@
     "slug": "quiet-hours",
     "name": "Quiet Hours",
     "genre": "stealth",
+
     "mechanic": "slip between patrolling guards' lantern vision cones, stand still in shadow pools to vanish, and channel-lift three treasures whose noise pulls the watch to investigate",
     "theme": "a grand museum's galleries after closing time, one cat burglar against three lantern-swinging watchmen",
     "tagline": "The guards see light. You wear the dark.",
     "controls": "WASD / arrows or hold the left touch pad to move, E / Space / LIFT button to lift a piece, P pause, R restart, M sound",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "cuttle",
+    "name": "Cuttle",
+    "genre": "camouflage",
+    "mechanic": "mix four skin pigments by eye to match a slowly drifting reef wall, holding your blend inside a shrinking tolerance while each wave ends in a grouper's sweeping gaze, with one ink jet as a panic escape",
+    "theme": "a sunlit coral shelf where a cuttlefish survives passing groupers by becoming the living rock, pigment by pigment",
+    "tagline": "Become the wall before the grouper looks.",
+    "controls": "drag pigment sliders or keys 1-4 + arrows, Space ink jet, P pause, M sound, R restart",
     "created": "2026-08-23"
   }
 ]

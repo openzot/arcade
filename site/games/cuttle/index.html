@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cuttle — vanish into the reef before the grouper looks</title>
+    <meta
+      name="description"
+      content="Mix four skin pigments to match the drifting reef wall by eye, wave after wave, before each grouper's sweeping gaze crosses you. An arcade camouflage game."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="back" href="../../">&larr; Arcade</a>
+
+    <header id="hud">
+      <div class="brand">
+        <h1>Cuttle</h1>
+        <span class="sub">pigment by pigment, become the wall</span>
+      </div>
+      <div class="chips" aria-live="polite">
+        <span id="chipScore" class="chip">Score 0</span>
+        <span id="chipWave" class="chip">Wave 1</span>
+        <span id="chipStreak" class="chip">Streak &times;1</span>
+        <span id="chipHearts" class="chip hearts">&#9829;&#9829;&#9829;</span>
+        <span id="chipInk" class="chip ink">Ink ready</span>
+      </div>
+      <div class="tools">
+        <button
+          id="btnPause"
+          type="button"
+          title="Pause (P)"
+          aria-label="Pause"
+        >
+          &#10074;&#10074;
+        </button>
+        <button
+          id="btnSound"
+          type="button"
+          title="Sound (M)"
+          aria-label="Toggle sound"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btnRestart"
+          type="button"
+          title="Restart (R)"
+          aria-label="Restart run"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main id="stagewrap">
+      <canvas id="stage" width="960" height="640"></canvas>
+      <div id="veil" class="veil">
+        <section id="panelTitle" class="panel">
+          <h2>Cuttle</h2>
+          <p class="lede">
+            The reef wall never sits still, and neither may you. Blend your skin
+            from four pigments until it melts into the rock &mdash; then hold it
+            there while the grouper&rsquo;s gaze sweeps past.
+          </p>
+          <ul class="howto">
+            <li>
+              <strong>Mix</strong> &mdash; drag the four pigment sliders, or
+              pick one with <kbd>1</kbd>&ndash;<kbd>4</kbd> / <kbd>&uarr;</kbd
+              ><kbd>&darr;</kbd> and trim with <kbd>&larr;</kbd
+              ><kbd>&rarr;</kbd>.
+            </li>
+            <li>
+              <strong>Watch</strong> &mdash; the match meter shows how close
+              your skin is to the wall. The wall drifts; chase it.
+            </li>
+            <li>
+              <strong>Survive</strong> &mdash; each wave ends in a gaze sweep.
+              Inside tolerance you are scenery; outside it, you are lunch.
+            </li>
+            <li>
+              <strong>Ink</strong> &mdash; caught mid-sweep?
+              <kbd>Space</kbd> jets one blinding cloud and voids the strike. You
+              carry one at a time.
+            </li>
+          </ul>
+          <p class="keys">
+            <kbd>P</kbd> pause &middot; <kbd>M</kbd> sound &middot;
+            <kbd>R</kbd> restart
+          </p>
+          <button id="btnPlay" type="button">Slip into the shallows</button>
+        </section>
+        <section id="panelOver" class="panel hidden">
+          <h2>Eaten</h2>
+          <p id="overLine" class="lede">The grouper found you at wave 3.</p>
+          <p id="overStats" class="stats"></p>
+          <p class="keys">
+            Best <span id="overBest">0</span> &middot; kept on this device
+          </p>
+          <button id="btnAgain" type="button">Fade back in</button>
+        </section>
+        <section id="panelPaused" class="panel hidden">
+          <h2>Holding still</h2>
+          <p class="lede">The reef waits. The grouper does not.</p>
+          <button id="btnResume" type="button">Resume</button>
+        </section>
+      </div>
+    </main>
+
+    <p id="hint">
+      Drag a slider or tap a lane to pour pigment &middot; the meter must sit
+      green before the sweep ends &middot; <kbd>Space</kbd> spends your ink to
+      erase one mistake
+    </p>
+
+    <script src="game.js"></script>
+  </body>
+</html>
