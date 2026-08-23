@@ -1,0 +1,412 @@
+/* Escapement — the clocktower shift. All styling for the game lives here. */
+
+:root {
+  --ink: #171310;
+  --night: #100e1b;
+  --brass: #c9a227;
+  --brass-bright: #e8c766;
+  --parchment: #f0e6cf;
+  --wood: #3a2a1c;
+  --danger: #d96c4f;
+  --ok: #9fce6a;
+  --serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(
+    120% 90% at 50% -10%,
+    #232042 0%,
+    var(--night) 58%,
+    #070609 100%
+  );
+  color: var(--parchment);
+  font-family: var(--serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(6px, 1.5vmin, 18px);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.stage {
+  width: min(1000px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- header / HUD ---------- */
+
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex: none;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #f4dc93 0%,
+    var(--brass) 55%,
+    #7a5c14 100%
+  );
+  box-shadow:
+    inset 0 0 0 3px rgba(23, 19, 16, 0.55),
+    inset 0 0 0 6px rgba(244, 220, 147, 0.5),
+    0 0 14px rgba(201, 162, 39, 0.35);
+  position: relative;
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 11px 14px;
+  background: var(--ink);
+  clip-path: polygon(
+    45% 0,
+    55% 0,
+    57% 46%,
+    92% 62%,
+    88% 71%,
+    52% 56%,
+    48% 100%,
+    40% 100%,
+    44% 54%,
+    10% 38%,
+    14% 29%
+  );
+}
+
+.brand-text h1 {
+  margin: 0;
+  font-size: clamp(20px, 3.4vmin, 28px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+  text-shadow:
+    0 1px 0 #000,
+    0 0 18px rgba(201, 162, 39, 0.25);
+  line-height: 1;
+}
+
+.brand-text p {
+  margin: 2px 0 0;
+  font-size: clamp(10px, 1.7vmin, 13px);
+  font-style: italic;
+  opacity: 0.75;
+  letter-spacing: 0.08em;
+}
+
+.hud-floor {
+  margin: 0;
+  padding: 6px 14px;
+  font-size: clamp(12px, 2vmin, 15px);
+  letter-spacing: 0.06em;
+  color: var(--parchment);
+  background: linear-gradient(#241d33, #171224);
+  border: 1px solid #3d3357;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.hud-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.hud-actions button,
+.hud-actions .home {
+  appearance: none;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--parchment);
+  text-decoration: none;
+  background: linear-gradient(#2b2340, #1a1528);
+  border: 1px solid #4a3d68;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    transform 80ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.hud-actions button:hover,
+.hud-actions .home:hover {
+  border-color: var(--brass);
+  color: var(--brass-bright);
+}
+
+.hud-actions button:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.hud-actions button[aria-pressed="false"] {
+  color: #7d7490;
+  text-decoration: line-through;
+}
+
+/* ---------- board ---------- */
+
+.board-wrap {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px #000,
+    0 0 0 4px var(--wood),
+    0 0 0 5px #57402a,
+    0 18px 50px rgba(0, 0, 0, 0.65),
+    0 0 90px rgba(64, 52, 130, 0.18);
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960 / 600;
+  touch-action: none;
+  cursor: pointer;
+  background: #0d0b17;
+}
+
+/* ---------- banner (toasts) ---------- */
+
+.banner[hidden] {
+  display: none;
+}
+
+.banner {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 86%;
+  padding: 8px 20px;
+  font-size: clamp(14px, 2.4vmin, 18px);
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--ink);
+  background: linear-gradient(var(--brass-bright), var(--brass));
+  border: 1px solid #7a5c14;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.banner.bad {
+  color: #ffe9df;
+  background: linear-gradient(#8a4632, #5f2c1c);
+  border-color: #2c130b;
+}
+
+/* ---------- overlay panels ---------- */
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(
+    90% 90% at 50% 40%,
+    rgba(10, 8, 18, 0.72),
+    rgba(6, 5, 10, 0.9)
+  );
+  padding: 14px;
+}
+
+.panel {
+  max-width: 560px;
+  width: 100%;
+  max-height: 96%;
+  overflow: auto;
+  padding: clamp(16px, 3.5vmin, 30px) clamp(18px, 4vmin, 36px);
+  text-align: center;
+  color: var(--parchment);
+  background:
+    linear-gradient(rgba(240, 230, 207, 0.04), rgba(240, 230, 207, 0)),
+    linear-gradient(#221a31, #14101f);
+  border: 1px solid var(--brass);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 5px rgba(201, 162, 39, 0.12),
+    0 24px 60px rgba(0, 0, 0, 0.7);
+}
+
+.panel h2 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 5vmin, 38px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+  text-shadow: 0 2px 0 #000;
+}
+
+.panel .kicker {
+  margin: 0 0 14px;
+  font-style: italic;
+  opacity: 0.8;
+  font-size: clamp(13px, 2.2vmin, 16px);
+}
+
+.panel p {
+  line-height: 1.5;
+}
+
+.panel ul {
+  margin: 12px auto;
+  padding: 0;
+  list-style: none;
+  max-width: 430px;
+  text-align: left;
+  font-size: clamp(13px, 2.2vmin, 15px);
+}
+
+.panel ul li {
+  margin: 7px 0;
+  padding-left: 26px;
+  position: relative;
+}
+
+.panel ul li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.42em;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #f4dc93,
+    var(--brass) 60%,
+    #7a5c14
+  );
+  box-shadow: 0 0 6px rgba(201, 162, 39, 0.5);
+}
+
+.panel kbd {
+  font-family: inherit;
+  font-size: 0.92em;
+  padding: 1px 7px;
+  border: 1px solid #5a4b7c;
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  background: #241d38;
+  color: var(--brass-bright);
+}
+
+.panel .stars-line {
+  font-size: clamp(18px, 3.4vmin, 26px);
+  letter-spacing: 0.28em;
+  color: var(--brass-bright);
+  margin: 4px 0 10px;
+}
+
+.score-table {
+  margin: 10px auto 14px;
+  border-collapse: collapse;
+  font-size: clamp(13px, 2.2vmin, 15px);
+}
+
+.score-table td {
+  padding: 3px 12px;
+  border-bottom: 1px dashed rgba(240, 230, 207, 0.18);
+  text-align: left;
+}
+
+.score-table td:last-child {
+  text-align: right;
+  letter-spacing: 0.2em;
+}
+
+.panel button.go {
+  appearance: none;
+  margin-top: 12px;
+  padding: 11px 30px;
+  font-family: inherit;
+  font-size: clamp(15px, 2.6vmin, 18px);
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  background: linear-gradient(var(--brass-bright), var(--brass));
+  border: 1px solid #7a5c14;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  transition: transform 80ms ease;
+}
+
+.panel button.go:hover {
+  transform: translateY(-1px);
+}
+.panel button.go:active {
+  transform: translateY(1px);
+}
+
+/* ---------- footer lines ---------- */
+
+.hintbar {
+  margin: 0;
+  text-align: center;
+  min-height: 1.5em;
+  font-size: clamp(12px, 2vmin, 15px);
+  font-style: italic;
+  color: rgba(240, 230, 207, 0.85);
+}
+
+.controls-line {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(10px, 1.7vmin, 12.5px);
+  letter-spacing: 0.05em;
+  color: rgba(240, 230, 207, 0.55);
+}
+
+.controls-line b {
+  color: var(--brass-bright);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .hud-floor {
+    order: 3;
+  }
+  .brand-text p {
+    display: none;
+  }
+}

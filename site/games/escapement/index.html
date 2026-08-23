@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Escapement — rebuild the clocktower gear trains</title>
+    <meta
+      name="description"
+      content="Drag spare gears onto the pegboard and mesh the drive wheel into the clock's crown before midnight. A mechanical puzzle."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="hud">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div class="brand-text">
+            <h1>Escapement</h1>
+            <p>the clocktower shift</p>
+          </div>
+        </div>
+        <p class="hud-floor" id="hud-floor">Floor 1 · The Hour Train</p>
+        <nav class="hud-actions" aria-label="Game actions">
+          <button type="button" id="btn-help" title="How to play (H)">?</button>
+          <button
+            type="button"
+            id="btn-sound"
+            title="Sound on/off (M)"
+            aria-pressed="true"
+          >
+            ♪
+          </button>
+          <button type="button" id="btn-reset" title="Reset this floor (R)">
+            ⟲
+          </button>
+          <a class="home" href="../../" title="Back to the arcade">⌂</a>
+        </nav>
+      </header>
+
+      <div class="board-wrap">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="Escapement gear board: drag gears from the tray onto brass pegs to link the drive wheel into the crown"
+        >
+          The clocktower needs JavaScript and a browser with canvas to run.
+        </canvas>
+        <div class="banner" id="banner" hidden></div>
+        <section class="overlay" id="overlay" hidden>
+          <div class="panel" id="panel"></div>
+        </section>
+      </div>
+
+      <p class="hintbar">
+        <span id="hint">Drag a gear from the tray onto a brass peg.</span>
+      </p>
+      <p class="controls-line">
+        drag or tap · <b>1·2·3</b> pick up · <b>arrows</b> aim ·
+        <b>enter</b> drop / lift · <b>x</b> unmesh · <b>R</b> reset floor ·
+        <b>M</b> sound · <b>P</b> pause
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
