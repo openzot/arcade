@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Firebreak · Arcade</title>
+    <meta
+      name="description"
+      content="Cut firebreaks and set backburns to starve a wind-driven wildfire before it reaches the village."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="backlink" href="../../">&larr; Arcade</a>
+
+    <header class="topbar">
+      <h1>Firebreak</h1>
+      <p class="sub">starve the fire before it eats the valley</p>
+    </header>
+
+    <main class="stage-wrap">
+      <div class="stage" id="stage">
+        <canvas
+          id="board"
+          width="936"
+          height="576"
+          aria-label="Wildfire map"
+        ></canvas>
+
+        <div class="hud hud-top">
+          <div class="hud-cell shift-tag">
+            <span class="lbl">shift</span><span id="shift-num">1</span
+            ><span id="shift-name">First Smoke</span>
+          </div>
+          <div
+            class="hud-cell effort-box"
+            title="Crew effort - cutting and burning drain it, rest refills it"
+          >
+            <span class="lbl">crew</span>
+            <div class="effort-track">
+              <div class="effort-fill" id="effort-fill"></div>
+            </div>
+          </div>
+          <div class="hud-cell homes" id="homes" title="Cabins standing"></div>
+        </div>
+
+        <div class="hud hud-bottom">
+          <button
+            class="tool-btn active"
+            id="tool-break"
+            type="button"
+            aria-pressed="true"
+          >
+            <span class="glyph">&#9935;</span
+            ><span class="tname">Break <kbd>Z</kbd></span>
+            <span class="tdesc">drag to cut a fuel-free line</span>
+          </button>
+          <button
+            class="tool-btn"
+            id="tool-burn"
+            type="button"
+            aria-pressed="false"
+          >
+            <span class="glyph">&#128293;</span
+            ><span class="tname">Backburn <kbd>X</kbd></span>
+            <span class="tdesc">tap to torch fuel ahead of the fire</span>
+          </button>
+          <span class="spacer"></span>
+          <button
+            class="mini-btn"
+            id="btn-pause"
+            type="button"
+            title="Pause (P)"
+          >
+            Pause
+          </button>
+          <button
+            class="mini-btn"
+            id="btn-mute"
+            type="button"
+            title="Sound (M)"
+          >
+            Sound
+          </button>
+          <button
+            class="mini-btn"
+            id="btn-restart"
+            type="button"
+            title="Restart shift (R)"
+          >
+            Restart
+          </button>
+        </div>
+
+        <div class="toast" id="toast" role="status"></div>
+
+        <div class="overlay show" id="overlay">
+          <div class="panel">
+            <h2 id="ov-title">Firebreak</h2>
+            <p id="ov-lede">
+              A dry electric storm has dropped embers on the far ridge. The wind
+              is picking up. You have a crew, two tools and until the fire
+              arrives to decide where the valley ends.
+            </p>
+            <ul class="howto" id="ov-list">
+              <li>
+                <b>Cut breaks.</b> Drag across scrub to strip it to bare dirt.
+                Fire cannot cross bare dirt.
+              </li>
+              <li>
+                <b>Burn ahead of it.</b> Tap the torch on green ground in the
+                fire's path &mdash; burnt land feeds nothing. Careful: your fire
+                spreads too.
+              </li>
+              <li>
+                <b>Read the wind.</b> The arrow up top is truth. It shifts as
+                the night wears on, and hot fires throw embers over thin lines.
+              </li>
+              <li>
+                <b>Save every cabin.</b> Lose one and the shift is lost. Survive
+                all five shifts to see the dawn.
+              </li>
+            </ul>
+            <p class="keys" id="ov-keys">
+              Mouse / touch to drag or tap &middot; arrows move the cursor,
+              space applies, Z / X swap tools &middot; P pause &middot; M sound
+              &middot; R restart
+            </p>
+            <button class="cta" id="btn-start" type="button">
+              Light it. Go.
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <p id="score-line">
+        cabins stand: <b id="st-homes">3</b> &middot; valley unburned:
+        <b id="st-green">100%</b>
+      </p>
+    </footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>

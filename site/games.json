@@ -188,5 +188,15 @@
     "tagline": "Sink it slow. Close it quick.",
     "controls": "drag to row or arrows, hold Net button / space / down to sink, release to close, P pause, M sound, R new night",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "firebreak",
+    "name": "Firebreak",
+    "genre": "tactics",
+    "mechanic": "dig bare-soil firebreak lines and set risky backburns to starve a wind-driven wildfire before it reaches the cabins, while the wandering night wind and ember throws jump thin lines",
+    "theme": "a drought-stressed homestead valley held through five night shifts of rising, shifting wind",
+    "tagline": "You cannot put it out. Take its lunch.",
+    "controls": "mouse / touch drag to cut & tap to burn, arrows + space cursor, Z / X tools, P pause, M sound, R restart",
+    "created": "2026-08-23"
   }
 ]
