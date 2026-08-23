@@ -238,5 +238,15 @@
     "tagline": "It only knows your loop. Make it a good one.",
     "controls": "mouse / touch tap commands and buttons, or keys F/L/R/W/G to program, Backspace erase, Enter or Space run/stop, R restart, P pause, M sound",
     "created": "2026-08-23"
-  }
+  },
+{
+  "slug": "stitchwork",
+  "name": "Stitchwork",
+  "genre": "craft",
+  "mechanic": "fill each patch with the fabric it asks for to piece a quilt top, then sew every seam with its called-for thread colour before the oil lamp burns down - wrong thread snaps a needle",
+  "theme": "a candlelit sewing room working five blocks of a winter commission",
+  "tagline": "Every seam asks its own colour.",
+  "controls": "mouse / touch tap or arrows + space, 1-6 fabrics, Q / E thread, Z undo, R redo block, P pause, M sound",
+  "created": "2026-08-23"
+}
 ]

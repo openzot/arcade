@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Stitchwork</title>
+    <meta
+      name="description"
+      content="A candlelit quilting puzzle. Piece the quilt tops, keep the seams straight, mind the lamp."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage" aria-label="Stitchwork quilting game">
+      <header id="topbar">
+        <div id="brand">
+          <h1>Stitchwork</h1>
+          <p id="orderline">Commission</p>
+        </div>
+        <nav id="hud">
+          <span class="hud-chip" id="hud-order"
+            ><b>Block</b><em id="order-count">1 / 5</em></span
+          >
+          <span class="hud-chip" id="hud-lamp"
+            ><b>Lamp</b><em id="lamp-bar"><i id="lamp-fill"></i></em
+          ></span>
+          <span class="hud-chip" id="hud-needles"
+            ><b>Needles</b><em id="needle-pips">♥♥♥</em></span
+          >
+          <span class="hud-chip" id="hud-scrap"
+            ><b>Scraps</b><em id="scrap-count">3</em></span
+          >
+        </nav>
+      </header>
+
+      <section id="boardwrap">
+        <canvas
+          id="board"
+          width="720"
+          height="880"
+          aria-label="quilting board"
+        ></canvas>
+
+        <aside id="tray" aria-label="fabric tray">
+          <p class="tray-title">Fabric tray</p>
+          <div
+            class="swatch"
+            data-fab="0"
+            tabindex="0"
+            role="button"
+            aria-label="madder red fabric"
+          ></div>
+          <div
+            class="swatch"
+            data-fab="1"
+            tabindex="0"
+            role="button"
+            aria-label="indigo blue fabric"
+          ></div>
+          <div
+            class="swatch"
+            data-fab="2"
+            tabindex="0"
+            role="button"
+            aria-label="marigold fabric"
+          ></div>
+          <div
+            class="swatch"
+            data-fab="3"
+            tabindex="0"
+            role="button"
+            aria-label="sage green fabric"
+          ></div>
+          <div
+            class="swatch"
+            data-fab="4"
+            tabindex="0"
+            role="button"
+            aria-label="muslin fabric"
+          ></div>
+          <div
+            class="swatch swatch-wild"
+            data-fab="5"
+            tabindex="0"
+            role="button"
+            aria-label="scrap bag - matches any patch"
+          >
+            <span class="scrap-count" id="scrap-badge">3</span>
+          </div>
+        </aside>
+
+        <aside id="palette" aria-label="thread palette">
+          <p class="tray-title">Thread</p>
+          <div
+            class="thread-row"
+            data-thr="0"
+            tabindex="0"
+            role="button"
+            aria-label="scarlet thread"
+          ></div>
+          <div
+            class="thread-row"
+            data-thr="1"
+            tabindex="0"
+            role="button"
+            aria-label="steel blue thread"
+          ></div>
+        </aside>
+      </section>
+
+      <footer id="controls">
+        <button id="btn-restart" type="button">New commission</button>
+        <button id="btn-skip" type="button">Skip block (−♥)</button>
+        <button id="btn-help" type="button">How to play</button>
+        <button id="btn-mute" type="button" aria-pressed="false">
+          Sound: on
+        </button>
+        <a id="catalogue-link" href="../../">← Back to the arcade</a>
+      </footer>
+
+      <p id="helpline">
+        Pick a fabric (keys 1–5, 6 = scrap bag), then click a patch — hovering
+        shows what it wants. Fill the whole top, then sew every seam with the
+        thread colour it asks for (Q / E); the wrong thread snaps a needle.
+        Arrows move · Space place / sew · Z undo · R redo block · P pause · H
+        help · M sound.
+      </p>
+
+      <!-- Overlays -->
+      <div
+        class="overlay"
+        id="intro-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="intro-h"
+      >
+        <div class="panel">
+          <h2 id="intro-h">Stitchwork</h2>
+          <p class="lede">The lamp is lit and the basket is full.</p>
+          <p>
+            Piece each patchwork block to the commission — every patch takes the
+            fabric it asks for — then run every seam with its called-for thread
+            before you may set the block. The oil lamp burns while you work; set
+            a block to refill it. Three snapped needles close the shop for the
+            night.
+          </p>
+          <ul class="howto">
+            <li>
+              <b>Piece:</b> click a tray fabric (keys <kbd>1</kbd>–<kbd>5</kbd>,
+              <kbd>6</kbd> scrap bag), then click a pale patch. Hovering a patch
+              shows what it wants.
+            </li>
+            <li>
+              <b>Sew:</b> once the top is pieced, load a thread (<kbd>Q</kbd> /
+              <kbd>E</kbd>) and click each dashed seam. Level seams want
+              scarlet; standing and slant seams want steel.
+            </li>
+            <li>
+              <b>Mind the lamp:</b> it burns down as you dawdle. A finished
+              block refills it; a flawless one returns a snapped needle.
+            </li>
+          </ul>
+          <div class="btnrow">
+            <button id="btn-start" type="button" class="primary">
+              Begin the first block
+            </button>
+            <button id="btn-how" type="button">How to play</button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="overlay hidden"
+        id="block-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="block-h"
+      >
+        <div class="panel">
+          <h2 id="block-h">Block set</h2>
+          <p id="block-report"></p>
+          <p class="stamps" id="block-stamp"></p>
+          <div class="btnrow">
+            <button id="btn-next-block" type="button" class="primary">
+              Next block
+            </button>
+            <button id="btn-restart2" type="button">Restart order</button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="overlay hidden"
+        id="end-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="end-h"
+      >
+        <div class="panel">
+          <h2 id="end-h">Order delivered</h2>
+          <p id="end-report"></p>
+          <p class="stamps" id="end-grade"></p>
+          <div class="btnrow">
+            <button id="btn-again" type="button" class="primary">
+              Take a new order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="overlay hidden"
+        id="help-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="help-h"
+      >
+        <div class="panel">
+          <h2 id="help-h">How to play</h2>
+          <ol class="howto">
+            <li>
+              <b>Piece the top.</b> Pick a fabric from the tray (keys
+              <kbd>1</kbd>–<kbd>5</kbd>, <kbd>6</kbd> = scrap bag), then click a
+              pale patch. The patch shows the fabric it wants when you hover or
+              move onto it. A scrap bag fills any hole, but you carry only three
+              per commission.
+            </li>
+            <li>
+              <b>Sew the seams.</b> When every patch is filled, pick a thread
+              colour (<kbd>Q</kbd> = scarlet, <kbd>E</kbd> = steel, or click a
+              spool) and click a seam — the dashed line between two patches.
+              Level seams want scarlet; standing and slant seams want steel. The
+              wrong thread <em>snaps</em> and costs a needle.
+            </li>
+            <li>
+              <b>Mind the lamp.</b> The oil burns while you work. Setting a
+              block refills it; a flawless block also returns a needle. If the
+              lamp gutters out it costs a needle too.
+            </li>
+            <li>
+              <b>Five blocks</b> make the commission. Three snapped needles end
+              it early.
+            </li>
+            <li>
+              <b>Keyboard:</b> arrows / WASD walk between patches and seams,
+              <kbd>Space</kbd> places fabric or sews, <kbd>Z</kbd> undoes,
+              <kbd>R</kbd> redoes the current block, <kbd>P</kbd> pauses,
+              <kbd>M</kbd> mutes.
+            </li>
+          </ol>
+          <div class="btnrow">
+            <button id="btn-help-close" type="button" class="primary">
+              Back to the lamp
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
