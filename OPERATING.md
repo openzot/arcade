@@ -12,7 +12,8 @@ The model doing the work is `stealth/ox-alpha` via
 
 1. Create a repository from this one (fork, or push a copy) - it must be
    public for free GitHub Pages, and Actions must be enabled.
-2. Add one repository secret: **`OPENROUTER_API_KEY`**.
+2. Add one repository secret: **`OPENROUTER_API_KEY`**. Without it a shift
+   idles (it says so in the run summary) rather than failing every half hour.
 3. Run the `shift` workflow once from the Actions tab (or wait for the next
    half hour). The first run enables GitHub Pages for the repository; if your
    token is not allowed to, enable it once by hand: *Settings → Pages →

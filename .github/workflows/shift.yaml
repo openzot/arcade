@@ -32,6 +32,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 110
     steps:
+      # A repository without the provider key (a fresh fork, or this one before
+      # the secret is set) idles rather than failing every half hour. The shift
+      # says so and goes home.
+      - name: Is the line staffed?
+        id: staffed
+        env:
+          KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          if [ -z "$KEY" ]; then
+            echo "::notice::no OPENROUTER_API_KEY secret - idle shift; see OPERATING.md"
+            echo "staffed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "staffed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # `ref` matters more than it looks. checkout defaults to github.sha, which
       # is pinned when the *run is created* - and a shift that waited its turn
       # in the concurrency group was created while the previous one was still
@@ -40,6 +55,7 @@ jobs:
       # conflict on push with the entry the previous shift had already appended.
       # Naming the branch fetches its tip at job start instead.
       - uses: actions/checkout@v5
+        if: steps.staffed.outputs.staffed == 'true'
         with:
           ref: ${{ github.ref_name }}
           # full history: the shift works on a branch of its own and lands it
@@ -53,6 +69,7 @@ jobs:
       # at most five minutes: the snapshots are already on the remote, and the
       # next shift finds the stranded branch and folds it back in below.
       - name: Open the shift branch
+        if: steps.staffed.outputs.staffed == 'true'
         id: branch
         run: |
           set -u
@@ -89,6 +106,7 @@ jobs:
           git push -q origin "HEAD:refs/heads/$branch"
 
       - name: Keep snapshots flowing
+        if: steps.staffed.outputs.staffed == 'true'
         env:
           BRANCH: ${{ steps.branch.outputs.name }}
         run: |
@@ -110,10 +128,12 @@ jobs:
       # Playwright adds a scriptable one plus the libraries headless Chromium
       # needs) and a way to check the file is sound before it plays it.
       - uses: actions/setup-node@v5
+        if: steps.staffed.outputs.staffed == 'true'
         with:
           node-version: "22"
 
       - name: Install the toolbox
+        if: steps.staffed.outputs.staffed == 'true'
         id: playwright
         run: |
           npm install -g playwright prettier htmlhint quick-lint-js
@@ -122,6 +142,7 @@ jobs:
           echo "NODE_PATH=$(npm root -g)" >> "$GITHUB_ENV"
 
       - name: Cache the browser
+        if: steps.staffed.outputs.staffed == 'true'
         uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
@@ -129,6 +150,7 @@ jobs:
           restore-keys: playwright-${{ runner.os }}-
 
       - name: Install Chromium
+        if: steps.staffed.outputs.staffed == 'true'
         run: |
           playwright install --with-deps chromium
           echo "playwright:     $(playwright --version)"
@@ -139,6 +161,7 @@ jobs:
           echo "quick-lint-js:  $(quick-lint-js --version | head -1)"
 
       - name: Make a game
+        if: steps.staffed.outputs.staffed == 'true'
         id: zot
         uses: openzot/actions/run@v0
         # a step timeout: a shift cut short here still lands below and is
@@ -174,6 +197,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: Check the catalogue
+        if: steps.staffed.outputs.staffed == 'true'
         id: check
         continue-on-error: true
         run: scripts/check.sh
@@ -184,7 +208,7 @@ jobs:
       # will not take it, the branch simply stays - it *is* the rescue - and
       # the next shift folds it back in.
       - name: Land the shift
-        if: always()
+        if: always() && steps.staffed.outputs.staffed == 'true'
         id: commit
         env:
           OUTCOME: ${{ steps.zot.outputs.outcome }}
@@ -284,7 +308,7 @@ jobs:
       # continues it ships the whole chain - and skipped quietly when there is
       # no HF_TOKEN, so a fork without one is still a complete arcade.
       - name: Ship the session to the dataset
-        if: always() && steps.zot.outputs.session-dir != ''
+        if: always() && steps.staffed.outputs.staffed == 'true' && steps.zot.outputs.session-dir != ''
         continue-on-error: true
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
@@ -327,6 +351,7 @@ jobs:
       - name: Shift report
         if: always()
         env:
+          STAFFED: ${{ steps.staffed.outputs.staffed }}
           OUTCOME: ${{ steps.zot.outputs.outcome }}
           CHECK: ${{ steps.check.outcome }}
           COMMITTED: ${{ steps.commit.outputs.committed }}
@@ -334,6 +359,15 @@ jobs:
         run: |
           set +e
           set -u
+
+          if [ "$STAFFED" != true ]; then
+            {
+              echo "## Shift"
+              echo
+              echo "Idle: no \`OPENROUTER_API_KEY\` secret. Add one and the next shift makes a game."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
 
           {
             echo "## Shift"
