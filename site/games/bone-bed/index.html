@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Bone Bed - excavate a buried fossil skeleton with pick and brush without cracking the bones. A careful-hands dig game."
+    />
+    <title>Bone Bed · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Bone Bed</h1>
+      <div class="top-actions">
+        <button
+          id="btn-sound"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle sound"
+          title="Sound (M)"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btn-pause"
+          class="icon-btn"
+          type="button"
+          aria-label="Pause or resume"
+          title="Pause (P)"
+        >
+          &#10073;&#10073;
+        </button>
+        <button
+          id="btn-restart"
+          class="icon-btn"
+          type="button"
+          aria-label="Restart the dig"
+          title="Restart (R)"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <div class="hud">
+        <div class="meter">
+          <span class="meter-label">Fossil</span>
+          <span class="meter-track">
+            <span id="integrity-bar" class="meter-fill"></span>
+          </span>
+        </div>
+        <div class="probes" title="Probes left (3)">
+          <span class="probe-label">Probes</span>
+          <span id="probe-pips" class="pips"></span>
+        </div>
+        <div class="clock">
+          <span class="clock-label">Time</span>
+          <span id="clock-value">0:00</span>
+        </div>
+      </div>
+
+      <canvas id="dig" aria-label="Dig site grid"></canvas>
+
+      <div class="tools" role="toolbar" aria-label="Tools">
+        <button id="tool-pick" class="tool" type="button">
+          <span class="tool-glyph">&#9935;</span>
+          <span class="tool-name">Pick</span>
+          <span class="tool-key">1</span>
+        </button>
+        <button id="tool-brush" class="tool" type="button">
+          <span class="tool-glyph">&#129529;</span>
+          <span class="tool-name">Brush</span>
+          <span class="tool-key">2</span>
+        </button>
+        <button id="tool-probe" class="tool" type="button">
+          <span class="tool-glyph">&#128269;</span>
+          <span class="tool-name">Probe</span>
+          <span class="tool-key">3</span>
+        </button>
+      </div>
+
+      <p class="hint">
+        Pick bites fast but cracks bone &mdash; brush slow but safe. Free every
+        bone clean before your fossil falls apart.
+      </p>
+    </main>
+
+    <div id="overlay" class="overlay">
+      <section id="panel-intro" class="panel">
+        <h2>Bone Bed</h2>
+        <p class="lede">A skeleton sleeps under sixty million years of rock.</p>
+        <ul class="howto">
+          <li>
+            <strong>Pick</strong> chews through rock fast &mdash; but every
+            swing that lands on bone cracks it.
+          </li>
+          <li>
+            You will glimpse bone just before you break through: switch to the
+            <strong>Brush</strong> and free it gently.
+          </li>
+          <li>
+            Brushed-clean bones raise your completeness. Cracked ones lower your
+            fossil integrity.
+          </li>
+          <li>
+            <strong>Probe</strong> pings a patch of ground and ghosts any bone
+            hiding in it. You carry five.
+          </li>
+          <li>
+            Excavate the whole skeleton intact to win. Lose integrity and the
+            specimen is ruined.
+          </li>
+        </ul>
+        <p class="keys">
+          Mouse / touch: hold on the ground to work &middot; 1 / 2 / 3 or tap to
+          change tool &middot; P pause &middot; R restart &middot; M sound
+        </p>
+        <button id="btn-start" class="cta" type="button">Break ground</button>
+      </section>
+
+      <section id="panel-pause" class="panel hidden">
+        <h2>Dig paused</h2>
+        <p>The sun waits. The bones are going nowhere.</p>
+        <button id="btn-resume" class="cta" type="button">Resume</button>
+      </section>
+
+      <section id="panel-win" class="panel hidden">
+        <h2>Specimen secured!</h2>
+        <p id="win-summary" class="lede"></p>
+        <p id="win-grade" class="grade"></p>
+        <button id="btn-again" class="cta" type="button">Dig again</button>
+      </section>
+
+      <section id="panel-lose" class="panel hidden">
+        <h2>The specimen is ruined&hellip;</h2>
+        <p class="lede">Too many cracks. The curators will weep.</p>
+        <button id="btn-retry" class="cta" type="button">Try again</button>
+      </section>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
