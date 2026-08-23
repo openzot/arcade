@@ -268,5 +268,15 @@
     "tagline": "Every penny counted. Every mood kept.",
     "controls": "mouse / touch tap coins or keys 1-9, 0, Backspace undo, C clear, Enter hands over, P pause, M sound, R new day",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "poise",
+    "name": "Poise",
+    "genre": "equilibrium",
+    "mechanic": "hang carved weights anywhere along a mobile's arms so every rod settles level at once, reading each arm's tip arrow before you commit",
+    "theme": "a lamplit sculptor's studio finishing five kinetic mobiles before the gallery opens at dawn",
+    "tagline": "Everything hangs in the balance.",
+    "controls": "mouse / touch drag or arrows + space to lift, slide & drop, Esc returns a carving, P pause, R restart piece, M sound",
+    "created": "2026-08-23"
   }
 ]

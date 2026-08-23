@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Poise — hang the mobile before the gallery opens</title>
+    <meta
+      name="description"
+      content="Balance a sculptor's hanging mobile, arm by arm, before dawn opens the gallery doors."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="back" href="../../">&larr; Arcade</a>
+
+    <header id="hud">
+      <div class="brand">
+        <h1>Poise</h1>
+        <span class="sub">five sculptures before opening</span>
+      </div>
+      <div class="chips" aria-live="polite">
+        <span id="chipPiece" class="chip">Piece 1 &middot; &mdash;</span>
+        <span id="chipArms" class="chip">Arms 0/1</span>
+        <span id="chipClock" class="chip clock">0:00</span>
+      </div>
+      <div class="tools">
+        <button
+          id="btnPause"
+          type="button"
+          title="Pause (P)"
+          aria-label="Pause"
+        >
+          &#10074;&#10074;
+        </button>
+        <button
+          id="btnSound"
+          type="button"
+          title="Sound (M)"
+          aria-label="Toggle sound"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btnRestart"
+          type="button"
+          title="Restart this piece (R)"
+          aria-label="Restart piece"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main id="stagewrap">
+      <canvas id="stage"></canvas>
+    </main>
+
+    <p id="hint">
+      Drag a carving from the tray onto any arm &middot; an arm locks gold when
+      it sits level &middot; hang every carving before the clock runs out
+    </p>
+
+    <section
+      id="veilIntro"
+      class="veil show"
+      role="dialog"
+      aria-modal="true"
+      aria-label="How to play"
+    >
+      <div class="card">
+        <h2>Poise</h2>
+        <p class="lede">
+          The sculptor has gone to bed. Five unfinished mobiles sway on the
+          rack, their carvings spilled into a tray &mdash; and the gallery doors
+          open at first light.
+        </p>
+        <ul class="rules">
+          <li>
+            <strong>Hang every carving.</strong> Drag one from the tray onto any
+            arm; slide it along the arm to choose its reach.
+          </li>
+          <li>
+            <strong>Watch the tips.</strong> A ghost arrow shows which way an
+            arm would dip before you let go.
+          </li>
+          <li>
+            <strong>Level arms lock gold.</strong> When every arm of a piece
+            sits true at once, it is finished.
+          </li>
+          <li>
+            <strong>Beat the clock.</strong> Each piece must hang complete
+            before the opening bell.
+          </li>
+        </ul>
+        <div class="keys">
+          <p>
+            <kbd>&larr;</kbd><kbd>&rarr;</kbd> choose carving / slide &nbsp;
+            <kbd>&uarr;</kbd><kbd>&darr;</kbd> pick arm &nbsp;
+            <kbd>Space</kbd> lift / drop &nbsp; <kbd>Esc</kbd> put back
+          </p>
+          <p>
+            <kbd>P</kbd> pause &nbsp; <kbd>R</kbd> restart piece &nbsp;
+            <kbd>M</kbd> sound
+          </p>
+        </div>
+        <button id="btnBegin" class="primary" type="button">
+          Light the lamps
+        </button>
+      </div>
+    </section>
+
+    <section
+      id="veilPause"
+      class="veil"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Paused"
+    >
+      <div class="card small">
+        <h2>The studio rests</h2>
+        <p class="lede">Saws hushed. Dust settling.</p>
+        <button id="btnResume" class="primary" type="button">
+          Back to the bench
+        </button>
+      </div>
+    </section>
+
+    <section
+      id="veilPiece"
+      class="veil"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Piece finished"
+    >
+      <div class="card">
+        <h2 id="pieceTitle">&ldquo;&mdash;&rdquo; hangs true</h2>
+        <p id="pieceStats" class="lede"></p>
+        <button id="btnNext" class="primary" type="button">
+          Next sculpture
+        </button>
+      </div>
+    </section>
+
+    <section
+      id="veilWin"
+      class="veil"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Exhibition saved"
+    >
+      <div class="card">
+        <h2>The exhibition opens</h2>
+        <p id="winStats" class="lede">
+          Five mobiles turn slowly in the morning light. Not one dips.
+        </p>
+        <button id="btnAgain" class="primary" type="button">
+          Curate another night
+        </button>
+      </div>
+    </section>
+
+    <section
+      id="veilLose"
+      class="veil"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Too late"
+    >
+      <div class="card">
+        <h2>The doors opened early</h2>
+        <p id="loseStats" class="lede">
+          The curators found this one still tipping.
+        </p>
+        <button id="btnRetry" class="primary" type="button">
+          Try this piece again
+        </button>
+      </div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>
