@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Foldsong - fold a patterned sheet edge over edge until the commissioned motif lies face-up on the finished packet. A small puzzle of creases and hidden layers."
+    />
+    <title>Foldsong · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="hud">
+        <a class="home" href="../../">&#8249; Arcade</a>
+        <h1>Foldsong</h1>
+        <p id="stats" aria-live="polite">
+          <span class="stat"
+            >Order <b id="order">1</b>/<b id="orders">6</b></span
+          >
+          <span class="stat">Folds <b id="moves">0</b>/<b id="par">2</b></span>
+          <span class="stat">Score <b id="score">0</b></span>
+        </p>
+        <p id="buttons">
+          <button
+            id="btn-undo"
+            type="button"
+            aria-label="Undo fold"
+            title="Undo (U)"
+          >
+            &#8630;
+          </button>
+          <button
+            id="btn-pause"
+            type="button"
+            aria-label="Pause"
+            title="Pause (P)"
+          >
+            &#10073;&#10073;
+          </button>
+          <button
+            id="btn-mute"
+            type="button"
+            aria-label="Sound"
+            title="Sound (M)"
+          >
+            &#9834;
+          </button>
+          <button
+            id="btn-restart"
+            type="button"
+            aria-label="Restart order"
+            title="Restart order (R)"
+          >
+            &#8635;
+          </button>
+        </p>
+      </header>
+
+      <p id="commission" aria-live="polite"></p>
+
+      <main id="stage">
+        <canvas id="game" aria-label="Foldsong paper desk"></canvas>
+        <p id="banner" role="status"></p>
+      </main>
+
+      <p id="hint">
+        tap an edge or arrow keys to fold, F or &#10227; turns the sheet over
+        &middot; U undo &middot; R restart order &middot; P pause &middot; M
+        sound
+      </p>
+
+      <section id="overlay" class="show">
+        <div class="panel">
+          <h2 id="ov-title">Foldsong</h2>
+          <p id="ov-tag">Every crease decides what shows.</p>
+          <div id="ov-body">
+            <ul>
+              <li>
+                Fold the sheet in half, edge over edge, until it is one small
+                sealed packet.
+              </li>
+              <li>
+                The commission above the desk tells you which printed face must
+                finish on top - and which must hide just beneath.
+              </li>
+              <li>
+                Every fold flips its half over, so patterns turn face-down and
+                plain kraft turns face-up. Plan the order of your creases.
+              </li>
+              <li>
+                Fewest folds and one clean seal earn three stars. Undo is free;
+                the paper remembers how much you handled it.
+              </li>
+            </ul>
+          </div>
+          <p id="ov-best"></p>
+          <button id="btn-start" type="button">Open the desk</button>
+        </div>
+      </section>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

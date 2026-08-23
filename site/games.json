@@ -127,7 +127,7 @@
     "theme": "the night shift inside a stopped clocktower, rebuilding six stripped gear trains floor by floor before midnight",
     "tagline": "Every tooth must catch.",
     "controls": "mouse / touch tap-to-place or 1-3 pick up, arrows aim, enter drops / lifts, x unmeshes, R resets floor, M sound, P pause",
-    "created": "2026-08-22"
+    "created": "2026-08-23"
   },
   {
     "slug": "glass-plate",
@@ -197,6 +197,16 @@
     "theme": "a drought-stressed homestead valley held through five night shifts of rising, shifting wind",
     "tagline": "You cannot put it out. Take its lunch.",
     "controls": "mouse / touch drag to cut & tap to burn, arrows + space cursor, Z / X tools, P pause, M sound, R restart",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "foldsong",
+    "name": "Foldsong",
+    "genre": "folding",
+    "mechanic": "fold a two-sided patterned sheet in half edge over edge, each crease flipping its layers plain-side-out, until the commissioned motif lies face-up - and the named motif hides just beneath - on the sealed packet",
+    "theme": "a paper-folder's desk in a candlelit stationer's shop, working through six afternoon commissions",
+    "tagline": "Every crease decides what shows.",
+    "controls": "click / tap folded edges or arrow keys to fold, U undo, R restart order, P pause, M sound",
     "created": "2026-08-23"
   }
 ]

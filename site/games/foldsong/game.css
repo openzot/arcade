@@ -1,0 +1,400 @@
+/* Foldsong — a paper-folder's desk. All styles for the game live here. */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --desk-hi: #55402c;
+  --desk-lo: #2b1e12;
+  --paper: #f3e9d2;
+  --paper-dim: #e6d8ba;
+  --ink: #43311d;
+  --ink-soft: #7a6647;
+  --wax: #a33b2e;
+  --wax-hi: #c05a44;
+  --line: rgba(255, 244, 220, 0.16);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  color: var(--paper);
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(255, 226, 170, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(140% 120% at 50% 110%, rgba(0, 0, 0, 0.5), transparent 55%),
+    linear-gradient(175deg, var(--desk-hi), var(--desk-lo) 78%);
+  background-attachment: fixed;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app {
+  height: 100dvh;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 10px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---------------------------------------------------------------- hud */
+
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.home {
+  color: var(--paper-dim);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.home:hover {
+  color: var(--paper);
+  border-color: rgba(255, 244, 220, 0.45);
+}
+
+#hud h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+#stats {
+  margin: 0 0 0 auto;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: rgba(255, 244, 220, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13.5px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.stat b {
+  font-weight: 700;
+  color: #ffe9bd;
+}
+
+#buttons {
+  margin: 0;
+  display: flex;
+  gap: 6px;
+}
+
+#buttons button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 244, 220, 0.07);
+  color: var(--paper-dim);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.05s ease;
+}
+
+#buttons button:hover {
+  background: rgba(255, 244, 220, 0.16);
+  color: var(--paper);
+}
+
+#buttons button:active {
+  transform: scale(0.93);
+}
+
+#buttons button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#btn-mute.off {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+#btn-undo.pulse {
+  animation: pulse 0.9s ease-in-out infinite;
+  border-color: var(--wax-hi);
+  color: #ffd9cd;
+  background: rgba(163, 59, 46, 0.35);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(192, 90, 68, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(192, 90, 68, 0);
+  }
+}
+
+/* -------------------------------------------------------- commission */
+
+#commission {
+  margin: 0 auto;
+  max-width: 92%;
+  text-align: center;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 10px;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.25),
+    0 8px 18px rgba(0, 0, 0, 0.3);
+  padding: 7px 16px;
+  font-size: 15.5px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  min-height: 1.4em;
+}
+
+#commission b {
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+#commission .cglyph {
+  width: 19px;
+  height: 19px;
+  vertical-align: -4px;
+  margin: 0 2px;
+}
+
+#commission.done {
+  outline: 2px solid #4e7a43;
+}
+
+/* ------------------------------------------------------------- stage */
+
+#stage {
+  position: relative;
+  flex: 1;
+  min-height: 220px;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: pointer;
+}
+
+#banner {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%) translateY(6px);
+  margin: 0;
+  max-width: 88%;
+  background: var(--wax);
+  color: #ffeadf;
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 14.5px;
+  font-style: italic;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+#banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#hint {
+  margin: 0;
+  text-align: center;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: rgba(243, 233, 210, 0.62);
+}
+
+/* ----------------------------------------------------------- overlay */
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 11, 5, 0.58);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+  padding: 18px;
+}
+
+#overlay.show {
+  display: flex;
+}
+
+.panel {
+  background: linear-gradient(180deg, #f7eeda, #efe2c6);
+  color: var(--ink);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.28),
+    0 24px 60px rgba(0, 0, 0, 0.55);
+  max-width: 520px;
+  width: 100%;
+  max-height: 88dvh;
+  overflow: auto;
+  padding: 26px 30px 24px;
+  text-align: center;
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 0.07em;
+}
+
+.panel .stars {
+  font-size: 30px;
+  letter-spacing: 0.12em;
+  color: #b98a1f;
+  margin: 6px 0 2px;
+}
+
+.panel .stars .off {
+  color: #cdbb96;
+}
+
+#ov-tag {
+  margin: 4px 0 12px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+#ov-body {
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+#ov-body ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+#ov-body li {
+  margin: 7px 0;
+}
+
+#ov-body .glyph {
+  width: 17px;
+  height: 17px;
+  vertical-align: -3px;
+}
+
+#ov-score {
+  font-size: 17px;
+  margin: 14px 0 2px;
+  letter-spacing: 0.03em;
+}
+
+#ov-best {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+
+#btn-start {
+  margin-top: 16px;
+  font-family: inherit;
+  font-size: 17px;
+  letter-spacing: 0.05em;
+  color: #ffeadf;
+  background: linear-gradient(180deg, var(--wax-hi), var(--wax));
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 34px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+  transition:
+    filter 0.15s ease,
+    transform 0.05s ease;
+}
+
+#btn-start:hover {
+  filter: brightness(1.08);
+}
+
+#btn-start:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* -------------------------------------------------------- small screens */
+
+@media (max-width: 640px) {
+  #app {
+    padding: 8px 8px 6px;
+  }
+
+  #hud h1 {
+    font-size: 21px;
+  }
+
+  .stat {
+    font-size: 12px;
+    padding: 3px 9px;
+  }
+
+  #commission {
+    font-size: 13.5px;
+    padding: 6px 12px;
+  }
+
+  #hint {
+    font-size: 11px;
+  }
+
+  .panel {
+    padding: 20px 18px 18px;
+  }
+
+  .panel h2 {
+    font-size: 26px;
+  }
+}
