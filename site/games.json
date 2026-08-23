@@ -288,5 +288,15 @@
     "tagline": "Hips swing, knees snap. Don't kiss the boards.",
     "controls": "Q / W hips, O / P knees or hold the corner pads, Esc pause, M sound, R restart",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "heliostat",
+    "name": "Heliostat",
+    "genre": "optics",
+    "mechanic": "rotate bronze mirrors and split one dawn sunbeam so it threads every crystal in the chamber",
+    "theme": "a mountain observatory's mirror gallery at midsummer dawn",
+    "tagline": "Walk the morning sun where it is wanted.",
+    "controls": "mouse / touch",
+    "created": "2026-08-23"
   }
 ]

@@ -1,0 +1,340 @@
+/* Heliostat — a mirror-gallery light puzzle for the arcade. */
+
+:root {
+  --ink: #f5ead3;
+  --ink-dim: #b9aec7;
+  --gold: #ffd27a;
+  --bronze: #d98e3f;
+  --stone: #4a4668;
+  --panel: rgba(24, 22, 46, 0.92);
+  --dawn-a: #141631;
+  --dawn-b: #3a2c55;
+  --dawn-c: #8a4a52;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      120% 90% at 50% 110%,
+      var(--dawn-c) 0%,
+      rgba(138, 74, 82, 0) 55%
+    ),
+    linear-gradient(180deg, var(--dawn-a) 0%, var(--dawn-b) 100%);
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  width: min(96vw, 760px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 18px;
+}
+
+/* ── header ─────────────────────────────────────────────── */
+
+#hud {
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+#hud h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+  font-weight: normal;
+  color: var(--gold);
+  text-shadow: 0 2px 14px rgba(255, 210, 122, 0.25);
+}
+
+#hud .how {
+  margin: 4px auto 0;
+  max-width: 46ch;
+  font-size: clamp(0.78rem, 2.6vw, 0.95rem);
+  font-style: italic;
+  color: var(--ink-dim);
+}
+
+.back {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(245, 234, 211, 0.25);
+  border-radius: 999px;
+  padding: 3px 12px;
+}
+
+.back:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ── board ──────────────────────────────────────────────── */
+
+#board {
+  position: relative;
+  width: min(92vw, 92vmin, 700px);
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(245, 234, 211, 0.18),
+    0 18px 50px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+
+/* ── toast ──────────────────────────────────────────────── */
+
+#toast {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  transform: translateX(-50%) translateY(14px);
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 999px;
+  padding: 7px 22px;
+  letter-spacing: 0.14em;
+  font-size: clamp(0.8rem, 2.8vw, 1rem);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  white-space: nowrap;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── overlays ───────────────────────────────────────────── */
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(16, 14, 36, 0.72);
+  backdrop-filter: blur(3px);
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+#overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.panel {
+  width: min(86%, 30rem);
+  max-height: 92%;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid rgba(255, 210, 122, 0.45);
+  border-radius: 16px;
+  padding: 20px 26px;
+  text-align: center;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-weight: normal;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: var(--gold);
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
+}
+
+.panel .lede {
+  font-style: italic;
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin: 0 0 12px;
+  font-size: clamp(0.85rem, 3vw, 0.98rem);
+}
+
+.panel .rules {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: clamp(0.8rem, 2.8vw, 0.92rem);
+  line-height: 1.65;
+  text-align: left;
+}
+
+.panel .rules strong {
+  color: var(--gold);
+}
+
+.keysHint {
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+  margin: 0 0 14px;
+}
+
+#winStats {
+  font-size: clamp(0.95rem, 3.2vw, 1.1rem);
+  margin: 6px 0;
+}
+
+#winVerdict {
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: clamp(0.85rem, 3vw, 0.95rem);
+  margin: 6px 0 14px;
+}
+
+.panel button {
+  font-family: inherit;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  letter-spacing: 0.1em;
+  color: var(--dawn-a);
+  background: linear-gradient(180deg, #ffe3a1, var(--bronze));
+  border: none;
+  border-radius: 999px;
+  padding: 10px 26px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(217, 142, 63, 0.45);
+}
+
+.panel button:hover {
+  filter: brightness(1.08);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── footer panel ───────────────────────────────────────── */
+
+#panel {
+  width: min(92vw, 700px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+#dots {
+  display: flex;
+  gap: 7px;
+}
+
+#dots .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid var(--ink-dim);
+  background: transparent;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+#dots .dot.lit {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 8px rgba(255, 210, 122, 0.8);
+}
+
+#dots .dot.here {
+  border-color: var(--ink);
+}
+
+#readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 140px;
+}
+
+#chamberName {
+  letter-spacing: 0.18em;
+  font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+  color: var(--gold);
+}
+
+#moveCount {
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+}
+
+#controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#controls button {
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: rgba(245, 234, 211, 0.08);
+  border: 1px solid rgba(245, 234, 211, 0.3);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+#controls button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@media (max-width: 480px) {
+  #stage {
+    gap: 6px;
+  }
+
+  .back {
+    position: static;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  #panel {
+    justify-content: center;
+    text-align: center;
+  }
+}

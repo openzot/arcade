@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heliostat · Arcade</title>
+    <meta
+      name="description"
+      content="Turn the bronze mirrors of a mountain observatory and walk one dawn sunbeam through every crystal."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <a class="back" href="../../" aria-label="Back to the arcade catalogue"
+          >← Arcade</a
+        >
+        <h1>Heliostat</h1>
+        <p class="how">
+          Tap a bronze mirror to turn it — thread the dawn beam through every
+          crystal.
+        </p>
+      </header>
+
+      <div id="board">
+        <canvas
+          id="game"
+          width="720"
+          height="720"
+          aria-label="Heliostat mirror board"
+        ></canvas>
+
+        <div id="toast" role="status"></div>
+
+        <div id="overlay">
+          <section id="introPanel" class="panel">
+            <h2>Heliostat</h2>
+            <p class="lede">
+              Midsummer, and the sun is late for the valley below. Eight
+              chambers of bronze glass sit between you and first light — turn
+              the mirrors, split the beam, and walk the morning where it is
+              wanted.
+            </p>
+            <ul class="rules">
+              <li>
+                <strong>Tap a mirror</strong> to swing it between its two
+                angles.
+              </li>
+              <li>
+                One beam leaves the <strong>sun disc</strong> and obeys every
+                surface it meets.
+              </li>
+              <li>
+                Light <strong>every crystal</strong> in the chamber at once.
+              </li>
+              <li>
+                Splinters of prism throw the beam sideways; stone swallows it
+                whole.
+              </li>
+            </ul>
+            <p class="keysHint">
+              Keyboard: arrows move the focus, Enter turns a mirror. R resets
+              the chamber.
+            </p>
+            <button id="beginBtn" type="button">Open the shutters</button>
+          </section>
+
+          <section id="winPanel" class="panel hidden">
+            <h2>The Valley Wakes</h2>
+            <p class="lede">
+              Every chamber is lit, and the light goes on without you.
+            </p>
+            <p id="winStats"></p>
+            <p id="winVerdict"></p>
+            <button id="againBtn" type="button">Climb again before dusk</button>
+          </section>
+        </div>
+      </div>
+
+      <footer id="panel">
+        <div id="dots" aria-hidden="true"></div>
+        <div id="readout">
+          <span id="chamberName"></span>
+          <span id="moveCount"></span>
+        </div>
+        <div id="controls">
+          <button id="resetBtn" type="button">Reset chamber</button>
+          <button id="restartBtn" type="button">Restart</button>
+          <button id="soundBtn" type="button" aria-pressed="true">
+            Sound: on
+          </button>
+        </div>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
