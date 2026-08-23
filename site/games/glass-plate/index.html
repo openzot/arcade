@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Glass Plate · Arcade</title>
+    <meta
+      name="description"
+      content="A spirit-photography séance: frame what flickers, shoot while it burns."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="hud">
+        <div class="hud-left">
+          <span class="brand">Glass Plate</span>
+          <span class="tag">spirit photography</span>
+        </div>
+        <div id="album" aria-label="Album — five plates wanted">
+          <canvas class="slot" width="96" height="64"></canvas>
+          <canvas class="slot" width="96" height="64"></canvas>
+          <canvas class="slot" width="96" height="64"></canvas>
+          <canvas class="slot" width="96" height="64"></canvas>
+          <canvas class="slot" width="96" height="64"></canvas>
+        </div>
+        <div class="hud-right">
+          <div id="plates" title="Plates left"><span class="pip"></span></div>
+          <div id="clock">
+            <span>dawn</span>
+            <div id="dawnBar"><i></i></div>
+          </div>
+          <div id="score" title="Score">0</div>
+        </div>
+      </header>
+
+      <main id="stage">
+        <canvas id="scene"></canvas>
+        <div id="verdict" aria-live="polite"></div>
+        <div id="hintToast">
+          Pan with the mouse or drag &middot; click, tap or Space exposes a
+          plate
+        </div>
+        <button id="btnPause" aria-label="Pause">&#10073;&#10073;</button>
+        <button id="btnSound" aria-label="Sound">&#9834;</button>
+        <button id="btnZoomIn" aria-label="Zoom in">+</button>
+        <button id="btnZoomOut" aria-label="Zoom out">&minus;</button>
+        <button id="btnShutter" aria-label="Take photograph"></button>
+      </main>
+
+      <footer id="foot">
+        <a href="../../">&#8592; Arcade</a>
+        <span class="keys"
+          >drag to pan &middot; click / tap / Space to shoot &middot; scroll,
+          pinch or + &minus; zoom &middot; R restart &middot; P pause &middot; M
+          sound</span
+        >
+      </footer>
+
+      <div id="menu" class="overlay">
+        <div class="panel">
+          <h1>Glass Plate</h1>
+          <p class="sub">a spirit-photography s&eacute;ance</p>
+          <p class="story">
+            Midnight, Marlowe House. You carry twelve wet glass plates and until
+            dawn to prove the dead sit for their portraits. Frame what flickers
+            in the viewfinder &mdash; and shoot while it burns brightest.
+          </p>
+          <ul class="how">
+            <li><b>Pan</b> &mdash; move the mouse, drag, or arrow keys</li>
+            <li><b>Shoot</b> &mdash; click, tap, or press Space</li>
+            <li><b>Zoom</b> &mdash; scroll, pinch, or + &minus;</li>
+            <li>
+              <b>Fill the album</b> &mdash; five fair-or-better plates before
+              dawn
+            </li>
+          </ul>
+          <button id="btnStart">Open the shutter</button>
+          <p class="tiny">
+            Boldness scores. Two spirits in one frame pays a double exposure. R
+            restarts &middot; P pauses &middot; M mutes.
+          </p>
+        </div>
+      </div>
+
+      <div id="pauseOv" class="overlay hidden">
+        <div class="panel small">
+          <h2>Paused</h2>
+          <p>The ballroom waits. Press P or tap to resume.</p>
+        </div>
+      </div>
+
+      <div id="endOv" class="overlay hidden">
+        <div class="panel">
+          <div id="stamp">A</div>
+          <h2 id="endTitle">Album Complete</h2>
+          <p id="endLine" class="story"></p>
+          <dl id="stats"></dl>
+          <button id="btnAgain">Develop another roll</button>
+          <p class="tiny">or press R</p>
+        </div>
+      </div>
+
+      <noscript
+        ><p class="noscript">
+          This séance needs JavaScript to develop its plates.
+        </p></noscript
+      >
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
