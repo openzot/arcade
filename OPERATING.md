@@ -40,11 +40,19 @@ pages  push to site/ ──▶ scripts/check.sh ──▶ deploy site/
   concepts spanning different genres, mechanics and themes, discard anything
   resembling an existing entry, and build the most different one. Uniqueness is
   checked on `genre + mechanic + theme` and on the name.
-- **One shift, one commit.** Whatever zot leaves in the tree is committed -
-  `shift: <Game> - <tagline>` when the order settled, `shift: work in progress`
-  when it was cut short. A game only appears on the site once it is in
-  `games.json`, which the order says to do last, so an unfinished game is
-  invisible until a later shift finishes it.
+- **One shift, one commit - via a branch.** The shift never works on `main`:
+  it opens `shift/<run-id>` first and pushes a snapshot of the working tree to
+  it every five minutes while the model works, so a runner that dies - job
+  timeout, cancellation, infrastructure - loses at most five minutes. At the
+  end the branch is squash-merged onto `main` as one commit - `shift: <Game> -
+  <tagline>` when the order settled, `shift: work in progress` when it was cut
+  short - and deleted; the snapshots never reach `main`'s history. If the
+  merge will not land, the branch simply stays: it is the rescue. The next
+  shift starts by folding any stranded `shift/*` branch back into its working
+  tree, so stranded work is finished rather than lost - only a branch that no
+  longer merges cleanly is left for a human, loudly. A game only appears on
+  the site once it is in `games.json`, which the order says to do last, so an
+  unfinished game is invisible until a later shift finishes it.
 - **Shifts do not overlap.** A concurrency group makes a due shift wait for the
   running one. A shift that hits the 50-minute step timeout is committed as is,
   and because session logs are kept in the Actions cache, the next shift
