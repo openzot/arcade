@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Pond Regatta - helm a pond yacht round three marks against the park's old champion. Tiller and sheet, that is the whole art."
+    />
+    <title>Pond Regatta · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="masthead">
+        <div class="mast-left">
+          <a class="home" href="../../">&#8592; Arcade</a>
+        </div>
+        <div class="mast-mid">
+          <h1>Pond Regatta</h1>
+          <p class="tagline">
+            Trim to the wind. The trophy is tin, but it gleams.
+          </p>
+        </div>
+        <div class="mast-right">
+          <button
+            id="btnMute"
+            class="chip"
+            type="button"
+            title="Sound on/off (M)"
+            aria-label="Toggle sound"
+          >
+            SND
+          </button>
+          <button
+            id="btnPause"
+            class="chip"
+            type="button"
+            title="Pause (P)"
+            aria-label="Pause"
+          >
+            PAUSE
+          </button>
+          <button
+            id="btnRestart"
+            class="chip"
+            type="button"
+            title="Restart race (R)"
+            aria-label="Restart"
+          >
+            RESTART
+          </button>
+        </div>
+      </header>
+
+      <section id="table">
+        <canvas
+          id="lake"
+          width="1600"
+          height="1000"
+          aria-label="The boating lake"
+        ></canvas>
+
+        <!-- floating HUD -->
+        <div id="hud">
+          <div id="hudPos" class="hud-card pos">1st</div>
+          <div id="hudLap" class="hud-card">LAP 1/2</div>
+          <div id="hudClock" class="hud-card hud-clock">0:00.0</div>
+          <div id="hudSheetWrap" class="hud-card sheet-card">
+            <span class="sheet-label">SHEET</span>
+            <span id="hudSheetTrack"><span id="hudSheetFill"></span></span>
+          </div>
+        </div>
+
+        <!-- wind rose -->
+        <svg id="windRose" viewBox="0 0 100 100" aria-hidden="true">
+          <circle
+            cx="50"
+            cy="50"
+            r="46"
+            fill="rgba(20,33,43,0.72)"
+            stroke="rgba(246,234,210,0.28)"
+            stroke-width="2"
+          ></circle>
+          <g id="roseN">
+            <path d="M50 12 L58 50 L50 44 L42 50 Z" fill="#e8b64c"></path>
+            <path
+              d="M50 88 L58 50 L50 56 L42 50 Z"
+              fill="rgba(246,234,210,0.35)"
+            ></path>
+            <path
+              d="M12 50 L50 42 L44 50 L50 58 Z"
+              fill="rgba(246,234,210,0.35)"
+            ></path>
+            <path
+              d="M88 50 L50 42 L56 50 L50 58 Z"
+              fill="rgba(246,234,210,0.35)"
+            ></path>
+          </g>
+          <text
+            x="50"
+            y="30"
+            text-anchor="middle"
+            font-size="11"
+            fill="#e8b64c"
+            font-family="inherit"
+          >
+            WIND
+          </text>
+        </svg>
+
+        <!-- touch pads -->
+        <div id="pads">
+          <div class="pad-group left">
+            <button
+              id="padPort"
+              class="pad"
+              type="button"
+              aria-label="Steer to port"
+            >
+              &#9664;
+            </button>
+            <button
+              id="padStbd"
+              class="pad"
+              type="button"
+              aria-label="Steer to starboard"
+            >
+              &#9654;
+            </button>
+          </div>
+          <div class="pad-group right">
+            <button
+              id="padEase"
+              class="pad"
+              type="button"
+              aria-label="Ease the sheet"
+            >
+              &#9650; EASE
+            </button>
+            <button
+              id="padTrim"
+              class="pad"
+              type="button"
+              aria-label="Trim the sheet"
+            >
+              TRIM &#9660;
+            </button>
+          </div>
+        </div>
+
+        <!-- overlays -->
+        <div id="ovTitle" class="overlay">
+          <div class="panel">
+            <h2>Pond Regatta</h2>
+            <p class="lede">
+              Three laps of the boating lake against <em>Old Bramble</em>, the
+              park&rsquo;s champion since before you were born.
+            </p>
+            <ul class="howto">
+              <li>
+                <b>Steer</b> with <kbd>&#8592;</kbd>/<kbd>&#8594;</kbd>,
+                <kbd>A</kbd>/<kbd>D</kbd>, or hold the arrow pads / drag on the
+                water.
+              </li>
+              <li>
+                <b>Trim the sheet</b> with
+                <kbd>&#8593;</kbd>/<kbd>&#8595;</kbd>,
+                <kbd>W</kbd>/<kbd>S</kbd>, or the TRIM/EASE pads &mdash; match
+                the sail to the wind&rsquo;s eye.
+              </li>
+              <li>
+                <b>No-go zone:</b> point too close to the wind and your sail
+                flaps &mdash; bear away a little.
+              </li>
+              <li>
+                <b>Gusts:</b> darker water breathes harder. Cross it and you
+                leap.
+              </li>
+              <li>
+                Round <b>red can &rarr; yellow can &rarr; green can</b>, cross
+                the line, three times round wins.
+              </li>
+            </ul>
+            <p class="keysrow">
+              <kbd>P</kbd> pause &nbsp;&middot;&nbsp; <kbd>R</kbd> restart
+              &nbsp;&middot;&nbsp; <kbd>M</kbd> sound
+            </p>
+            <button id="btnStart" class="big" type="button">CAST OFF</button>
+          </div>
+        </div>
+
+        <div id="ovCount" class="overlay thin hidden">
+          <div id="countNum" class="countnum">3</div>
+        </div>
+
+        <div id="ovResult" class="overlay hidden">
+          <div class="panel">
+            <h2 id="resHead">Race over</h2>
+            <p id="resLine" class="lede">&mdash;</p>
+            <p id="resStars" class="stars">&#10022;&#10022;&#10022;</p>
+            <dl class="resgrid">
+              <dt>Your time</dt>
+              <dd id="resTime">&mdash;</dd>
+              <dt>Bramble</dt>
+              <dd id="resRival">&mdash;</dd>
+              <dt>Margin</dt>
+              <dd id="resMargin">&mdash;</dd>
+              <dt>Gust leaps</dt>
+              <dd id="resGusts">&mdash;</dd>
+            </dl>
+            <button id="btnAgain" class="big" type="button">RACE AGAIN</button>
+          </div>
+        </div>
+
+        <div id="ovPause" class="overlay thin hidden">
+          <div class="panel smallpanel">
+            <h2>Parked</h2>
+            <p class="lede">The lake waits. It always does.</p>
+            <button id="btnResume" class="big" type="button">RESUME</button>
+            <button id="btnRestart2" class="mid" type="button">
+              restart race
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer id="foot">
+        <span
+          >steer: &#8592;/&#8594; &middot; trim: &#8593;/&#8595; &middot; P
+          pause &middot; R restart &middot; M sound</span
+        >
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

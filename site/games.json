@@ -134,9 +134,9 @@
     "name": "Glass Plate",
     "genre": "photography",
     "mechanic": "pan and zoom a spirit camera across a haunted ballroom, framing flickering apparitions and timing the shutter for when each spirit burns brightest, spending twelve glass plates to fill a five-print album before dawn",
-    "theme": "a midnight spirit-photography s\u00e9ance in a derelict manor house",
+    "theme": "a midnight spirit-photography séance in a derelict manor house",
     "tagline": "Frame what flickers. Shoot while it burns.",
-    "controls": "mouse / touch drag to pan, click / tap or Space shoots, scroll / pinch or + \u2212 zooms, R restarts, P pauses, M sound",
+    "controls": "mouse / touch drag to pan, click / tap or Space shoots, scroll / pinch or + − zooms, R restarts, P pauses, M sound",
     "created": "2026-08-23"
   },
   {
@@ -357,6 +357,16 @@
     "theme": "a midsummer swamp at dusk where one small gold firefly must lead the night chorus through five widening nights before the fog rolls in",
     "tagline": "Flash alone and be eaten. Flash together and light the marsh.",
     "controls": "space / tap to flash, P pause, M sound, R restart",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "pond-regatta",
+    "name": "Pond Regatta",
+    "genre": "sailing",
+    "mechanic": "helm a pond yacht round the marks with tiller and sheet - bear away from the no-go zone, tack at the layline, ride the darker gust patches - while Old Bramble works the same breeze",
+    "theme": "a golden-evening municipal boating lake, three laps of a triangular can course against the park champion's ancient wooden yacht",
+    "tagline": "Trim to the wind. The trophy is tin, but it gleams.",
+    "controls": "arrows / WASD or hold-drag to steer, up / down or TRIM / EASE pads for the sheet, P pause, R restart, M sound",
     "created": "2026-08-23"
   }
 ]
