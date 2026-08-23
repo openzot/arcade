@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kick Wheel</title>
+    <meta
+      name="description"
+      content="Throw five commissioned vessels on a lamplit kick wheel before the kiln is sealed."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="topbar">
+        <a class="back" href="../../">&lsaquo; Arcade</a>
+        <h1>Kick Wheel</h1>
+        <div class="tools">
+          <button id="soundBtn" type="button">Sound: on</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+      </header>
+
+      <div class="hud">
+        <div class="slot">
+          <span class="label">Commission</span>
+          <span id="hudCommission" class="value">&mdash;</span>
+        </div>
+        <div class="slot">
+          <span class="label">Shift clock</span>
+          <span id="hudClock" class="value">&ndash;</span>
+        </div>
+        <div class="slot">
+          <span class="label">Clay lumps</span>
+          <span id="hudLumps" class="value">&ndash;</span>
+        </div>
+        <div class="slot">
+          <span class="label">Till</span>
+          <span id="hudScore" class="value">0</span>
+        </div>
+      </div>
+
+      <div class="frame">
+        <canvas
+          id="wheel"
+          width="920"
+          height="660"
+          aria-label="A potter's kick wheel: spinning clay at centre, blueprint silhouette behind, tool height follows the pointer"
+        >
+        </canvas>
+
+        <div class="overlay" id="startOverlay">
+          <div class="card">
+            <h2>Kick Wheel</h2>
+            <p class="lede">
+              Five commissions stand between dusk and the sealed kiln. Raise the
+              walls true or wear the clay for it.
+            </p>
+            <ul class="how">
+              <li>
+                <b>Shape</b> &mdash; move the pointer (or
+                <kbd>&uarr;</kbd>/<kbd>&darr;</kbd>) to set the tool's height,
+                then <b>hold</b> the mouse, finger, or <kbd>SPACE</kbd> to press
+                the spinning clay toward the dashed blueprint.
+              </li>
+              <li>
+                <b>Walls</b> &mdash; pressing thins them. Thinner than the guide
+                and the wall tears; thicker than the guide and the vessel throws
+                heavy, capping its price.
+              </li>
+              <li>
+                <b>Wobble</b> &mdash; pressing while the tool races up and down
+                wobbles the piece. Hold <kbd>C</kbd> or the Centre button to
+                steady it &mdash; but the clock never stops.
+              </li>
+              <li>
+                <b>The shift</b> &mdash; fire each commission before the kiln
+                seals. Three torn lumps and the wheel goes cold.
+              </li>
+            </ul>
+            <button id="startBtn" type="button">Sit down at the wheel</button>
+            <p class="keys">P pause &middot; M sound &middot; R restart</p>
+          </div>
+        </div>
+
+        <div class="overlay hidden" id="pieceOverlay">
+          <div class="card">
+            <h2 id="pieceTitle">Fired</h2>
+            <p class="stars" id="pieceStars">&#9733;&#9733;&#9733;</p>
+            <p class="lede" id="pieceDetail"></p>
+            <p class="lede" id="pieceNext"></p>
+            <button id="nextBtn" type="button">Next commission</button>
+          </div>
+        </div>
+
+        <div class="overlay hidden" id="endOverlay">
+          <div class="card">
+            <h2 id="endTitle">The kiln is sealed</h2>
+            <p class="lede" id="endDetail"></p>
+            <p class="score-line">Till: <span id="endScore">0</span></p>
+            <button id="againBtn" type="button">Another shift</button>
+          </div>
+        </div>
+
+        <div class="overlay hidden" id="pauseOverlay">
+          <div class="card slim">
+            <h2>Paused</h2>
+            <p class="lede">The wheel coasts. P to sit back down.</p>
+            <button id="resumeBtn" type="button">Back to the clay</button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="keysbar">
+        <span id="centreHint"><kbd>C</kbd> hold to centre &middot;</span>
+        <kbd>&uarr;&darr;</kbd> / pointer sets tool &middot;
+        <kbd>SPACE</kbd>/hold presses &middot; P pause &middot; M sound &middot;
+        R restart
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
