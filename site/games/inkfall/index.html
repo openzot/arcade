@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Inkfall</title>
+    <meta
+      name="description"
+      content="Hunt words in a letter grid before the ink dries."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="topbar">
+        <a id="backlink" href="../../">&#8630; Arcade</a>
+        <h1 id="gametitle">Inkfall</h1>
+        <div id="hud">
+          <span class="hud-item"
+            >Score <strong id="hud-score">0</strong>/<span id="hud-goal"
+              >50</span
+            ></span
+          >
+          <span class="hud-item">Words <strong id="hud-words">0</strong></span>
+          <span class="hud-item">
+            Ink
+            <span id="inkbar" role="img" aria-label="ink remaining"
+              ><i id="inkfill"></i
+            ></span>
+          </span>
+        </div>
+      </header>
+
+      <p id="howto">
+        Drag through neighbouring letters to spell words &mdash; 3+ letters,
+        each tile once. Longer and rarer words are worth more. Every word you
+        bank refills your ink; every step costs some, and the ink dries on its
+        own. Keyboard: type letters, Enter submits, Backspace undoes, Esc
+        pauses. Reach each page's goal before the ink runs dry.
+      </p>
+
+      <div id="boardwrap">
+        <canvas id="board" width="480" height="480"></canvas>
+      </div>
+
+      <p id="wordline">&nbsp;</p>
+
+      <footer id="controlsbar">
+        <button id="btn-pause" type="button">Pause (Esc)</button>
+        <button id="btn-sound" type="button">Sound: on (M)</button>
+        <button id="btn-restart" type="button">Restart (R)</button>
+      </footer>
+    </main>
+
+    <section id="overlay" hidden>
+      <div id="overlaycard">
+        <h2 id="ov-title">Inkfall</h2>
+        <p id="ov-text">
+          Spell words from touching letters before your ink runs dry.
+        </p>
+        <button id="ov-btn" type="button">Begin</button>
+      </div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>

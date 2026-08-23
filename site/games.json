@@ -298,5 +298,15 @@
     "tagline": "Walk the morning sun where it is wanted.",
     "controls": "mouse / touch",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "inkfall",
+    "name": "Inkfall",
+    "genre": "word",
+    "mechanic": "drag a chain through neighbouring letter tiles to spell dictionary words - every step spends ink, every banked word refills it, and the inkwell dries on its own unless you keep hunting",
+    "theme": "a lamplit scriveners desk clearing three folio pages of commissions before the ink runs dry",
+    "tagline": "Every word buys another drop.",
+    "controls": "mouse / touch drag to spell; type letters + Enter, Backspace undoes, Esc pauses, R restarts from pause, M mute",
+    "created": "2026-08-23"
   }
 ]
