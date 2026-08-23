@@ -141,9 +141,12 @@ jobs:
       - name: Make a game
         id: zot
         uses: openzot/actions/run@v0
-        # a step timeout: a shift cut short here is still committed below and
-        # continued by the next shift (cache-sessions keeps the conversation)
-        timeout-minutes: 50
+        # a step timeout: a shift cut short here still lands below and is
+        # continued by the next shift (cache-sessions keeps the conversation).
+        # The cap is generous - most games finish well inside it - because it
+        # only bites when a shift is slow, and the factories keep the same
+        # setup. The job cap is 110; landing and shipping need about ten.
+        timeout-minutes: 85
         continue-on-error: true
         with:
           orders: orders/new-game.yaml
