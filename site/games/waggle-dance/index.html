@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Waggle Dance - hold and steer a scout bee's waggle run to broadcast the angle and distance of flower patches, recruit foragers and fill the comb before winter."
+    />
+    <title>Waggle Dance · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="topbar">
+        <div id="brand">
+          <a class="back" href="../../" aria-label="Back to the arcade"
+            >&#8592; Arcade</a
+          >
+          <h1>Waggle Dance</h1>
+          <p class="tagline">Dance the map. The hive follows.</p>
+        </div>
+        <ul id="hud">
+          <li class="chip" id="chip-day" title="Day of summer">
+            Day <b id="day-n">1</b>/6
+          </li>
+          <li class="chip" id="chip-honey" title="Honey stores / quota">
+            &#127856; <b id="honey-n">0</b>/<span id="quota-n">60</span>
+          </li>
+          <li
+            class="chip meter-chip"
+            title="Dance energy - eat honey to refill"
+          >
+            <span class="meter-label">energy</span>
+            <span class="meter"
+              ><i id="energy-bar"></i><em id="energy-txt">100</em></span
+            >
+          </li>
+          <li class="chip" id="chip-crew" title="Foragers recruited today">
+            &#128029; <b id="crew-n">0</b>
+          </li>
+          <li id="hud-buttons">
+            <button
+              id="btn-sound"
+              class="icon-btn"
+              type="button"
+              aria-label="Toggle sound (M)"
+              title="Sound (M)"
+            >
+              &#9834;
+            </button>
+            <button
+              id="btn-pause"
+              class="icon-btn"
+              type="button"
+              aria-label="Pause (P)"
+              title="Pause (P)"
+            >
+              &#10073;&#10073;
+            </button>
+            <button
+              id="btn-restart"
+              class="icon-btn"
+              type="button"
+              aria-label="Restart (R)"
+              title="Restart (R)"
+            >
+              &#8635;
+            </button>
+          </li>
+        </ul>
+      </header>
+
+      <main id="playfield">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="Waggle Dance game board"
+          >Your browser does not support canvas.</canvas
+        >
+
+        <div id="banner" class="hidden" role="status"></div>
+
+        <section
+          id="overlay"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="ov-title"
+        >
+          <div id="overlay-card">
+            <h2 id="ov-title">Waggle Dance</h2>
+            <p id="ov-tag">You are the scout. The comb is your map.</p>
+            <div id="ov-body">
+              <p>
+                A scout bee returns from the fields and dances on the vertical
+                comb: the <b>angle</b> of her waggle run points the swarm at the
+                flowers, measured against the shaft of sunlight; how
+                <b>long</b> she waggles says how far.
+              </p>
+              <ul class="how">
+                <li>
+                  <b>Hold</b> <kbd>Space</kbd> or press &amp; hold anywhere on
+                  the comb to begin the waggle.
+                </li>
+                <li>
+                  <b>Aim:</b> steer with <kbd>&#8592;</kbd><kbd>&#8594;</kbd> or
+                  move your finger/pointer - match the faint memory-line to the
+                  patch on the radar.
+                </li>
+                <li>
+                  <b>Distance:</b> release when the growing length-ring reaches
+                  the patch's ring.
+                </li>
+                <li>
+                  Wind shoves you mid-dance - fight it. The truer the dance, the
+                  more foragers join, the faster honey fills the comb.
+                </li>
+                <li>
+                  <kbd>E</kbd> eats 60 honey to restore energy &middot;
+                  <kbd>P</kbd> pause &middot; <kbd>M</kbd> sound &middot;
+                  <kbd>R</kbd> restart.
+                </li>
+              </ul>
+              <p class="goal">
+                Fill <b>600</b> honey before the sixth dawn ends, or the hive
+                winters empty.
+              </p>
+            </div>
+            <button id="btn-start" type="button">Take the dance floor</button>
+            <p class="foot-hint">
+              mouse / touch or keyboard &middot; no network, just bees
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer id="hints">
+        <span><kbd>Hold Space</kbd> / touch-hold to waggle</span>
+        <span><kbd>&#8592;</kbd><kbd>&#8594;</kbd> or drag to aim</span>
+        <span>release at the right ring</span>
+        <span><kbd>E</kbd> eat</span>
+        <span><kbd>P</kbd> pause</span>
+        <span><kbd>M</kbd> sound</span>
+        <span><kbd>R</kbd> restart</span>
+      </footer>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

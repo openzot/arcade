@@ -138,5 +138,15 @@
     "tagline": "Frame what flickers. Shoot while it burns.",
     "controls": "mouse / touch drag to pan, click / tap or Space shoots, scroll / pinch or + − zooms, R restarts, P pauses, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "waggle-dance",
+    "name": "Waggle Dance",
+    "genre": "communication",
+    "mechanic": "hold and steer a scout bee's waggle run on the vertical comb, encoding each flower patch's angle against the sun shaft and its distance as hold length while wind gusts shove you off-line, recruiting foragers that ferry nectar home to the comb",
+    "theme": "a honeybee hive racing to seal six summer days of comb before winter settles over the meadow",
+    "tagline": "Dance the map. The hive follows.",
+    "controls": "hold space / touch-hold to waggle, arrows or drag to aim, release at the right ring, E eats honey, P pause, M sound, R restart",
+    "created": "2026-08-23"
   }
 ]
