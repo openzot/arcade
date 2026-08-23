@@ -208,5 +208,15 @@
     "tagline": "Every crease decides what shows.",
     "controls": "click / tap folded edges or arrow keys to fold, U undo, R restart order, P pause, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "wick-and-wing",
+    "name": "Wick & Wing",
+    "genre": "attraction",
+    "mechanic": "you never steer the moth - it always veers toward the nearest burning wick (and violet zappers burn brightest), so you snuff lanterns for free and relight them for scarce matches, chaining its flight through sleeping buds before dawn past brambles, crosswind gusts and a light-hunting bat",
+    "theme": "a walled cottage garden across six nights of a fading moon, one matchbox between the moth and morning",
+    "tagline": "You cannot fly. Choose what burns.",
+    "controls": "mouse / touch tap lanterns or arrows + space, 1-9 direct, P pause, R restart, M sound",
+    "created": "2026-08-23"
   }
 ]

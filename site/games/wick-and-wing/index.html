@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wick &amp; Wing · Arcade</title>
+    <meta
+      name="description"
+      content="You cannot steer the moth - it flies at whatever wick burns brightest. Snuff and relight the garden's lanterns to lure it home past the zappers."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="topbar">
+        <a class="home" href="../../">&#8592; Arcade</a>
+        <h1 class="brand">Wick &amp; Wing</h1>
+        <nav class="buttons" aria-label="game controls">
+          <button id="btn-help" type="button" title="How to play (H)">?</button>
+          <button
+            id="btn-sound"
+            type="button"
+            title="Sound (M)"
+            aria-pressed="true"
+          >
+            Sound
+          </button>
+          <button id="btn-pause" type="button" title="Pause (P)">Pause</button>
+          <button id="btn-restart" type="button" title="Restart night (R)">
+            Restart
+          </button>
+        </nav>
+      </header>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="the night garden"
+        ></canvas>
+
+        <section id="hud" class="hud" aria-label="status">
+          <span id="hud-night" class="chip">Night 1</span>
+          <span class="chip">Buds <b id="hud-buds">0/0</b></span>
+          <span class="chip">Matches <b id="hud-matches">0</b></span>
+          <span class="chip">Moths <b id="hud-moths">0</b></span>
+          <span class="chip">Pollen <b id="hud-pollen">0</b></span>
+          <span class="dawn" title="time until dawn"
+            ><i id="dawn-fill"></i
+          ></span>
+        </section>
+
+        <p id="toast" class="toast" role="status"></p>
+
+        <section id="panel-intro" class="panel">
+          <h2>Wick &amp; Wing</h2>
+          <p class="lede">You hold the matches. The moth holds the sky.</p>
+          <ul class="howto">
+            <li>
+              A moth cannot help itself: it always flies at the
+              <em>nearest burning wick</em>, and the violet zappers burn
+              brightest of all.
+            </li>
+            <li>
+              <strong>Click or tap a lantern</strong> to snuff it or relight it.
+              Relighting costs <strong>one match</strong>; snuffing is free.
+            </li>
+            <li>
+              Lure the moth over every <strong>sleeping bud</strong> before dawn
+              to pollinate it.
+            </li>
+            <li>
+              Keyboard: <strong>&#8592;/&#8594;</strong> cycle lanterns (or keys
+              1&ndash;9), <strong>Space</strong> snuff/light,
+              <strong>P</strong> pause, <strong>R</strong> restart,
+              <strong>M</strong> sound.
+            </li>
+
+            <li>
+              In the dark the moth coasts straight - sometimes the kindest thing
+              is to put every light out.
+            </li>
+          </ul>
+          <button id="btn-begin" type="button" class="primary">
+            Begin Night 1
+          </button>
+        </section>
+
+        <section id="panel-pause" class="panel hidden">
+          <h2>Paused</h2>
+          <p>The garden waits. So does the moth.</p>
+          <button id="btn-resume" type="button" class="primary">Resume</button>
+        </section>
+
+        <section id="panel-clear" class="panel hidden">
+          <h2 id="clear-title">Pollinated!</h2>
+          <p id="clear-stats" class="stats"></p>
+          <button id="btn-next" type="button" class="primary">
+            Next night
+          </button>
+        </section>
+
+        <section id="panel-fail" class="panel hidden">
+          <h2 id="fail-title">Dawn caught you</h2>
+          <p id="fail-stats" class="stats"></p>
+          <button id="btn-retry" type="button" class="primary">
+            Try the night again
+          </button>
+        </section>
+
+        <section id="panel-won" class="panel hidden">
+          <h2>Dawn, earned</h2>
+          <p id="won-stats" class="stats"></p>
+          <p class="lede">Every bud in the garden woke with wings inside it.</p>
+          <button id="btn-again" type="button" class="primary">
+            Fly again
+          </button>
+          <a class="quiet" href="../../">Back to the arcade</a>
+        </section>
+      </div>
+
+      <footer class="hint">
+        Snuff what lures you wrong. Light what pulls you home. &#183; P pause
+        &#183; R restart &#183; M sound
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
