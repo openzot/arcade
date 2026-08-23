@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kite Cutter — a rooftop kite duel</title>
+    <meta
+      name="description"
+      content="Fly a fighter kite, cross your rival's glass line and cut it clean — an arcade rooftop duel."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="topbar">
+        <div class="brand">
+          <h1>Kite&nbsp;Cutter</h1>
+          <span class="sub">a rooftop duel</span>
+        </div>
+        <nav class="tools">
+          <a class="home" href="../../">&#x2302; all games</a>
+          <button id="btn-pause" type="button" aria-label="Pause (P)">
+            &#10073;&#10073;
+          </button>
+          <button
+            id="btn-mute"
+            type="button"
+            aria-label="Sound on or off (M)"
+            aria-pressed="false"
+          >
+            &#9835;
+          </button>
+          <button id="btn-restart" type="button" aria-label="Restart (R)">
+            &#8635;
+          </button>
+        </nav>
+      </header>
+
+      <div class="hud">
+        <div class="hud-left">
+          <span class="label">strands</span>
+          <span id="hud-strands" class="strands"><i></i><i></i><i></i></span>
+          <span class="label">score</span>
+          <span id="hud-score" class="score">0</span>
+        </div>
+        <div id="hud-rival" class="hud-right">
+          waiting on the terrace&hellip;
+        </div>
+      </div>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          role="img"
+          aria-label="Kite duel over festival rooftops at dusk"
+        ></canvas>
+
+        <section id="panel-menu" class="panel">
+          <div>
+            <h2>Cross the line.<br />Cut it clean.</h2>
+            <p class="lede">
+              The monsoon has broken and every terrace in the galli is loud with
+              manja and rivalry. Three rivals fly against you &mdash; saw
+              through each of their glass-dust lines before yours goes.
+            </p>
+            <ul class="how">
+              <li>
+                <b>Fly</b> &mdash; move the mouse or finger and your kite chases
+                it. WASD / arrows work too.
+              </li>
+              <li>
+                <b>Haul</b> &mdash; hold press or <kbd>SPACE</kbd>: more speed,
+                a tauter blade of line.
+              </li>
+              <li>
+                <b>Duel</b> &mdash; cross the rival's string, then tap when the
+                needle bites the gold notch of the pull-ring.
+              </li>
+              <li>
+                <b>Beware</b> &mdash; gusts shove and pigeons tangle. You carry
+                three strands; lose all three and the sky is hers.
+              </li>
+            </ul>
+            <button id="btn-start" type="button" class="cta">
+              Fly &#9656;
+            </button>
+            <p class="tiny">or press <kbd>Enter</kbd></p>
+          </div>
+        </section>
+
+        <section id="panel-banner" class="banner">
+          <strong id="banner-main"></strong>
+          <span id="banner-sub"></span>
+        </section>
+
+        <section id="panel-pause" class="panel small">
+          <div>
+            <h2>Paused</h2>
+            <button id="btn-resume" type="button" class="cta">Resume</button>
+            <p class="tiny">
+              <kbd>P</kbd> resume &middot; <kbd>R</kbd> restart &middot;
+              <kbd>M</kbd> sound
+            </p>
+          </div>
+        </section>
+
+        <section id="panel-end" class="panel">
+          <div>
+            <h2 id="end-title"></h2>
+            <p id="end-sub" class="lede"></p>
+            <dl class="tally">
+              <div>
+                <dt>cuts</dt>
+                <dd id="end-cuts">0</dd>
+              </div>
+              <div>
+                <dt>strands kept</dt>
+                <dd id="end-strands">0</dd>
+              </div>
+              <div>
+                <dt>score</dt>
+                <dd id="end-score">0</dd>
+              </div>
+              <div>
+                <dt>best</dt>
+                <dd id="end-best">0</dd>
+              </div>
+            </dl>
+            <button id="btn-again" type="button" class="cta">Fly again</button>
+          </div>
+        </section>
+      </div>
+
+      <footer class="hint">
+        <span>mouse / touch to fly</span>
+        <span>hold to haul</span>
+        <span>tap / <kbd>space</kbd> on the ring</span>
+        <span><kbd>P</kbd> pause</span>
+        <span><kbd>M</kbd> sound</span>
+        <span><kbd>R</kbd> restart</span>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
