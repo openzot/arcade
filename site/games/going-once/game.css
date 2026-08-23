@@ -1,0 +1,770 @@
+/* Going Once — a candlelit country auction house.
+   Palette: mahogany, brass, cream ledger paper. */
+
+:root {
+  --wood-deep: #170d08;
+  --wood: #2a1a10;
+  --panel: #33200f;
+  --panel-edge: #4b3118;
+  --brass: #c9a35c;
+  --brass-dim: #8f7136;
+  --cream: #efe3c8;
+  --cream-dim: #b7a888;
+  --ink: #20140b;
+  --red: #b8503d;
+  --red-bright: #d4694f;
+  --green: #8fae6a;
+  --gold: #e0b45c;
+  --shadow: rgba(0, 0, 0, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    #3a2513 0%,
+    var(--wood) 45%,
+    var(--wood-deep) 100%
+  );
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", "Iowan Old Style", serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+#app {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 14px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- top bar ---------- */
+
+#topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--brass-dim);
+  padding-bottom: 8px;
+}
+
+.brand h1 {
+  font-size: 1.65rem;
+  color: var(--brass);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.tagline {
+  margin: 2px 0 0;
+  font-style: italic;
+  color: var(--cream-dim);
+  font-size: 0.85rem;
+}
+
+.catalogue-link {
+  color: var(--brass);
+  text-decoration: none;
+  border: 1px solid var(--brass-dim);
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.catalogue-link:hover,
+.catalogue-link:focus-visible {
+  background: var(--brass-dim);
+  color: var(--wood-deep);
+}
+
+#night-status {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.06em;
+}
+
+#night-status strong {
+  color: var(--cream);
+}
+
+.dot {
+  margin: 0 8px;
+  color: var(--brass-dim);
+}
+
+/* ---------- main table ---------- */
+
+#table {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+#rostrum {
+  background: linear-gradient(180deg, var(--panel) 0%, #271708 100%);
+  border: 1px solid var(--panel-edge);
+  border-radius: 6px;
+  box-shadow:
+    0 8px 24px var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+#rostrum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 40% at 50% 0%,
+    rgba(224, 180, 92, 0.09),
+    transparent 70%
+  );
+}
+
+#lot-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  color: var(--cream-dim);
+  border-bottom: 1px dashed var(--brass-dim);
+  padding-bottom: 6px;
+}
+
+#lot-no {
+  font-size: 1rem;
+  color: var(--brass);
+}
+
+#lot-cat {
+  font-size: 0.9rem;
+}
+
+#lot-card {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+#lot-card.dealing {
+  animation: deal-flip 0.85s ease-out;
+}
+
+@keyframes deal-flip {
+  0% {
+    transform: rotateY(90deg) scale(0.94);
+    opacity: 0.2;
+  }
+  100% {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+#lot-art {
+  width: 132px;
+  height: 118px;
+  border: 1px solid var(--brass-dim);
+  border-radius: 4px;
+  background: radial-gradient(80% 70% at 50% 30%, #43290f 0%, #2b1a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+#lot-art svg {
+  width: 86%;
+  height: 86%;
+  color: var(--brass);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+#lot-name {
+  font-size: 1.28rem;
+  color: var(--cream);
+  line-height: 1.25;
+}
+
+#lot-note {
+  margin: 6px 0 0;
+  font-style: italic;
+  color: var(--cream-dim);
+  font-size: 0.92rem;
+}
+
+#auctioneer-line {
+  margin: 0;
+  min-height: 1.5em;
+  text-align: center;
+  font-size: 1.02rem;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+
+/* going-going bar */
+
+#going-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#going-track {
+  height: 10px;
+  border: 1px solid var(--brass-dim);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+#going-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--green) 0%,
+    var(--gold) 55%,
+    var(--red-bright) 100%
+  );
+  transition: width 0.1s linear;
+}
+
+#going-label {
+  font-size: 0.82rem;
+  text-align: center;
+  color: var(--cream-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* current bid */
+
+#current-bid {
+  text-align: center;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--panel-edge);
+}
+
+#bid-amount {
+  display: block;
+  font-size: 1.9rem;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+}
+
+#bid-holder {
+  font-size: 0.88rem;
+  color: var(--cream-dim);
+  font-style: italic;
+}
+
+/* ---------- floor (aside) ---------- */
+
+#floor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+#purse-box,
+#ledger-box,
+.rival {
+  background: linear-gradient(180deg, #362211 0%, #291809 100%);
+  border: 1px solid var(--panel-edge);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px var(--shadow);
+  padding: 10px 12px;
+}
+
+#purse-box h3,
+#ledger-box h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--brass-dim);
+  margin-bottom: 4px;
+}
+
+#purse-amount {
+  margin: 0;
+  font-size: 1.7rem;
+  color: var(--gold);
+}
+
+#quota-track {
+  height: 8px;
+  margin-top: 8px;
+  border: 1px solid var(--brass-dim);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+#quota-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--brass) 0%, var(--gold) 100%);
+  transition: width 0.4s ease;
+}
+
+#quota-label {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: var(--cream-dim);
+  font-style: italic;
+}
+
+#purse-box.hit-target #quota-bar {
+  background: linear-gradient(90deg, var(--green) 0%, #b9d489 100%);
+}
+
+/* rivals */
+
+#rivals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rival {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.rival.out {
+  opacity: 0.42;
+  filter: grayscale(0.9);
+}
+
+.rival .portrait {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--brass-dim);
+  background: radial-gradient(circle at 50% 35%, #4a3013 0%, #2a1908 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.rival .portrait svg {
+  width: 84%;
+  height: 84%;
+  color: var(--brass);
+}
+
+.rival .who {
+  min-width: 0;
+}
+
+.rival .r-name {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--cream);
+}
+
+.rival .r-purse {
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.rival .r-quirk {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  color: var(--cream-dim);
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.rival .bubble {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  font-size: 0.84rem;
+  color: var(--gold);
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.25s ease;
+  font-style: italic;
+}
+
+.rival .bubble.show {
+  max-height: 3em;
+  opacity: 1;
+}
+
+.rival .r-status {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red-bright);
+}
+
+.rival.idle .r-status {
+  color: transparent;
+}
+
+.rival.sniping .portrait svg {
+  animation: quill-tap 0.5s infinite alternate;
+}
+
+@keyframes quill-tap {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2px) rotate(-3deg);
+  }
+}
+
+/* ledger */
+
+#ledger-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 168px;
+  overflow-y: auto;
+  font-size: 0.82rem;
+}
+
+#ledger-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px dotted rgba(143, 113, 54, 0.4);
+  color: var(--cream-dim);
+}
+
+#ledger-list li .l-profit {
+  white-space: nowrap;
+}
+
+#ledger-list li .good {
+  color: var(--green);
+}
+
+#ledger-list li .bad {
+  color: var(--red-bright);
+}
+
+.ledger-empty {
+  justify-content: center !important;
+  font-style: italic;
+  border-bottom: none !important;
+}
+
+/* ---------- actions ---------- */
+
+#actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#actions button {
+  min-width: 148px;
+  padding: 12px 22px;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid var(--brass-dim);
+  background: linear-gradient(180deg, #4a2f14 0%, #33200e 100%);
+  color: var(--cream);
+  box-shadow:
+    0 3px 0 #150c05,
+    0 5px 12px var(--shadow);
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.06s ease,
+    filter 0.15s ease;
+}
+
+#actions button:hover:not(:disabled),
+#actions button:focus-visible {
+  filter: brightness(1.18);
+  outline: none;
+}
+
+#actions button:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #150c05;
+}
+
+#actions button:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+#bid-btn.pulse {
+  animation: bid-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes bid-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 3px 0 #150c05,
+      0 0 0 rgba(224, 180, 92, 0);
+  }
+  50% {
+    box-shadow:
+      0 3px 0 #150c05,
+      0 0 16px rgba(224, 180, 92, 0.55);
+  }
+}
+
+#keys-hint {
+  width: 100%;
+  text-align: center;
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: var(--cream-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(12, 6, 3, 0.82);
+  backdrop-filter: blur(3px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.sheet {
+  max-width: 520px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #38230f 0%, #241505 100%);
+  border: 1px solid var(--brass-dim);
+  border-radius: 8px;
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 22px 26px;
+  text-align: center;
+}
+
+.sheet h2 {
+  font-size: 1.7rem;
+  color: var(--brass);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.sheet-sub {
+  margin: 4px 0 12px;
+  font-style: italic;
+  color: var(--cream-dim);
+}
+
+.sheet p {
+  margin: 0 0 10px;
+  text-align: left;
+}
+
+.howto {
+  margin: 12px 0;
+  padding-left: 20px;
+  text-align: left;
+  color: var(--cream);
+  font-size: 0.93rem;
+}
+
+.howto li {
+  margin-bottom: 7px;
+}
+
+.controls-line {
+  font-size: 0.78rem !important;
+  color: var(--cream-dim);
+  text-align: center !important;
+  letter-spacing: 0.06em;
+}
+
+.sheet button {
+  margin-top: 10px;
+  padding: 12px 26px;
+  font-size: 1.02rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: 1px solid var(--brass);
+  background: linear-gradient(180deg, var(--brass) 0%, #a5823f 100%);
+  color: var(--wood-deep);
+  font-weight: bold;
+  box-shadow:
+    0 3px 0 #4d3a17,
+    0 6px 16px var(--shadow);
+}
+
+.sheet button:hover,
+.sheet button:focus-visible {
+  filter: brightness(1.1);
+  outline: none;
+}
+
+.sheet button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #4d3a17;
+}
+
+#end-stars {
+  text-align: center !important;
+  font-size: 1.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin: 6px 0 !important;
+}
+
+#end-summary {
+  text-align: center !important;
+  color: var(--cream);
+}
+
+#end-tally {
+  list-style: none;
+  margin: 10px 0 4px;
+  padding: 0;
+  font-size: 0.85rem;
+  max-height: 200px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+#end-tally li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 0;
+  border-bottom: 1px dotted rgba(143, 113, 54, 0.4);
+  color: var(--cream-dim);
+}
+
+#end-tally .good {
+  color: var(--green);
+}
+
+#end-tally .bad {
+  color: var(--red-bright);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 760px) {
+  body {
+    font-size: 15px;
+  }
+
+  #table {
+    grid-template-columns: 1fr;
+  }
+
+  .brand h1 {
+    font-size: 1.3rem;
+  }
+
+  #lot-card {
+    grid-template-columns: 96px 1fr;
+  }
+
+  #lot-art {
+    width: 96px;
+    height: 92px;
+  }
+
+  #actions button {
+    min-width: 120px;
+    padding: 12px 16px;
+    flex: 1;
+  }
+
+  #ledger-list {
+    max-height: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #lot-card.dealing,
+  .rival.sniping .portrait svg,
+  #bid-btn.pulse {
+    animation: none;
+  }
+
+  #going-bar,
+  #quota-bar {
+    transition: none;
+  }
+}

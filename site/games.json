@@ -218,5 +218,15 @@
     "tagline": "You cannot fly. Choose what burns.",
     "controls": "mouse / touch tap lanterns or arrows + space, 1-9 direct, P pause, R restart, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "going-once",
+    "name": "Going Once",
+    "genre": "auction",
+    "mechanic": "ration one purse across twelve lots under a falling hammer, outbidding three rivals whose visible quirks, ceilings and purses are the only appraisal you get",
+    "theme": "a candlelit 1893 country auction house selling heirlooms of dubious provenance",
+    "tagline": "Buy low before the hammer falls.",
+    "controls": "mouse / touch buttons or space/B to bid, X to pass, P pause, R restart, M sound",
+    "created": "2026-08-23"
   }
 ]

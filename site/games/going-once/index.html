@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Going Once — Arcade</title>
+    <meta
+      name="description"
+      content="An evening sale at a candlelit country auction house. Ration your purse, read your rivals, and bid before the hammer falls."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="topbar">
+        <div class="brand">
+          <h1>Going Once</h1>
+          <p class="tagline">Fortune favours the last bid.</p>
+        </div>
+        <nav class="toplinks">
+          <a class="catalogue-link" href="../../">&larr; Catalogue</a>
+        </nav>
+      </header>
+
+      <p id="night-status">
+        <span id="lot-counter">Lot — of 12</span>
+        <span class="dot">·</span>
+        <span>Purse <strong id="purse-top">£300</strong></span>
+      </p>
+
+      <main id="table">
+        <section id="rostrum" aria-label="The lot on sale">
+          <div id="lot-head">
+            <span id="lot-no">Lot 1</span>
+            <span id="lot-cat">—</span>
+          </div>
+
+          <figure id="lot-card" class="">
+            <div id="lot-art" aria-hidden="true"></div>
+            <figcaption>
+              <h2 id="lot-name">Awaiting the first lot</h2>
+              <p id="lot-note">The sale begins when you take your seat.</p>
+            </figcaption>
+          </figure>
+
+          <p id="auctioneer-line" aria-live="polite">
+            Take your seats, ladies and gentlemen.
+          </p>
+
+          <div id="going-wrap">
+            <div id="going-track" role="presentation">
+              <div id="going-bar"></div>
+            </div>
+            <span id="going-label">Who'll start us?</span>
+          </div>
+
+          <div id="current-bid">
+            <span id="bid-amount">—</span>
+            <span id="bid-holder">No bid yet</span>
+          </div>
+        </section>
+
+        <aside id="floor" aria-label="The saleroom floor">
+          <section id="purse-box">
+            <h3>Your purse</h3>
+            <p id="purse-amount">£300</p>
+            <div id="quota-track" role="presentation">
+              <div id="quota-bar"></div>
+            </div>
+            <p id="quota-label">Clear £120 by midnight to keep the shop</p>
+          </section>
+
+          <ul id="rivals"></ul>
+
+          <section id="ledger-box">
+            <h3>Ledger</h3>
+            <ul id="ledger-list">
+              <li class="ledger-empty" id="ledger-empty">
+                Nothing bought yet.
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+
+      <footer id="actions">
+        <button id="bid-btn" type="button" disabled>Bid</button>
+        <button id="pass-btn" type="button" disabled>Pass</button>
+        <p id="keys-hint">
+          Space/B bid &middot; X pass &middot; P pause &middot; R restart
+          &middot; M sound
+        </p>
+      </footer>
+    </div>
+
+    <div id="overlay-title" class="overlay">
+      <div class="sheet">
+        <h2>Going Once</h2>
+        <p class="sheet-sub">An evening sale at the Candlewick Rooms, 1893.</p>
+        <p>
+          Twelve lots go under the hammer tonight and every one carries a hidden
+          true value. Outbid three sharp-eyed rivals to buy low, let them soak
+          up the duds, and end the night having cleared
+          <strong>£120 profit</strong> on your purchases.
+        </p>
+        <ul class="howto">
+          <li>
+            <strong>Bid</strong> raises the price £5 &mdash; once you pass, you
+            sit that lot out.
+          </li>
+          <li>
+            When nobody tops a bid before the bar empties, the hammer falls.
+          </li>
+          <li>
+            <strong>Read the room:</strong> each rival&rsquo;s quirk is on their
+            card &mdash; purses, ceilings and favourite categories are all
+            tells.
+          </li>
+          <li>
+            Appraisals are revealed only at the fall of the hammer. Buy dear and
+            you&rsquo;ll bleed.
+          </li>
+        </ul>
+        <p class="controls-line">
+          Space/B bid &middot; X pass &middot; P pause &middot; R restart
+          &middot; M sound &mdash; or just tap the buttons.
+        </p>
+        <button id="start-btn" type="button">Take your seat</button>
+      </div>
+    </div>
+
+    <div id="overlay-end" class="overlay hidden">
+      <div class="sheet">
+        <h2 id="end-verdict">The sale ends</h2>
+        <p id="end-stars">★☆☆</p>
+        <p id="end-summary">—</p>
+        <ul id="end-tally"></ul>
+        <button id="restart-btn" type="button">Run another night</button>
+      </div>
+    </div>
+
+    <div id="overlay-pause" class="overlay hidden">
+      <div class="sheet">
+        <h2>Paused</h2>
+        <p>The room waits on you.</p>
+        <button id="resume-btn" type="button">Resume</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
