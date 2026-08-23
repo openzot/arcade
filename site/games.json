@@ -228,5 +228,15 @@
     "tagline": "Buy low before the hammer falls.",
     "controls": "mouse / touch buttons or space/B to bid, X to pass, P pause, R restart, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "loop-and-load",
+    "name": "Loop & Load",
+    "genre": "programming",
+    "mechanic": "program a looping command sequence that the depot bot repeats forever, threading it past shelves, oil slicks and patrol sweepers to grab each parcel, post it at the chute and roll onto the charge pad",
+    "theme": "the last night shift of a parcel depot run by loop-fed courier robots",
+    "tagline": "It only knows your loop. Make it a good one.",
+    "controls": "mouse / touch tap commands and buttons, or keys F/L/R/W/G to program, Backspace erase, Enter or Space run/stop, R restart, P pause, M sound",
+    "created": "2026-08-23"
   }
 ]

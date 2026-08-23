@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loop &amp; Load · Arcade</title>
+    <meta
+      name="description"
+      content="Program a looping command sequence for a depot robot and thread it past shelves and patrol sweepers to ship every parcel."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="back" href="../../">&larr; All games</a>
+
+    <header class="masthead">
+      <h1>Loop &amp; Load</h1>
+      <p class="tagline">It only knows your loop. Make it a good one.</p>
+    </header>
+
+    <div class="hud">
+      <span id="levelName" class="level-name">Level 1</span>
+      <span id="objective" class="objective"></span>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas
+        id="game"
+        width="576"
+        height="432"
+        aria-label="Depot floor: grid of shelves, the courier bot, parcel, chute, charge pad and patrol sweeper"
+      ></canvas>
+      <div id="overlay" class="overlay hidden">
+        <div class="overlay-card">
+          <h2 id="ovTitle">Loop &amp; Load</h2>
+          <p id="ovText"></p>
+          <div id="ovButtons" class="ov-buttons"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="deck">
+      <div class="deck-row">
+        <span class="deck-label">The loop</span>
+        <div
+          id="tray"
+          class="tray"
+          aria-label="Command loop, repeats forever"
+        ></div>
+        <div class="tray-actions">
+          <button
+            id="btnUndo"
+            type="button"
+            title="Erase last command (Backspace)"
+          >
+            &#9003; Erase
+          </button>
+          <button id="btnClear" type="button" title="Clear the whole loop">
+            Clear
+          </button>
+        </div>
+      </div>
+      <div class="deck-row">
+        <span class="deck-label">Commands</span>
+        <div class="palette" id="palette">
+          <button type="button" data-cmd="F" title="Forward one tile (key F)">
+            <b>&uarr;</b> Forward
+          </button>
+          <button type="button" data-cmd="L" title="Turn left (key L)">
+            <b>&#8630;</b> Left
+          </button>
+          <button type="button" data-cmd="R" title="Turn right (key R)">
+            <b>&#8631;</b> Right
+          </button>
+          <button type="button" data-cmd="W" title="Wait one tick (key W)">
+            <b>&#9203;</b> Wait
+          </button>
+          <button
+            type="button"
+            data-cmd="G"
+            title="Grab or drop the parcel (key G)"
+          >
+            <b>&#128230;</b> Grab/Drop
+          </button>
+        </div>
+        <div class="run-actions">
+          <button
+            id="btnRun"
+            type="button"
+            class="primary"
+            title="Run / stop the loop (Enter or Space)"
+          >
+            &#9654; Run loop
+          </button>
+          <button id="btnRestart" type="button" title="Restart this level (R)">
+            &#10227; Restart
+          </button>
+          <button id="btnMute" type="button" title="Sound on/off (M)">
+            &#128266;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p class="legend">
+      Keys: <b>F L R W G</b> add commands &middot; <b>Backspace</b> erase last
+      &middot; <b>Enter/Space</b> run or stop &middot; <b>R</b> restart level
+      &middot; <b>P</b> pause &middot; <b>M</b> mute. The bot repeats your loop
+      from the top, forever. Shelves and sweepers end the shift; grab the
+      parcel, post it at the chute, then roll onto the charge pad to win.
+    </p>
+
+    <script src="game.js"></script>
+  </body>
+</html>
