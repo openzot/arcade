@@ -1,0 +1,400 @@
+/* Night Haul — a night-lake net-fishing game. All style lives here. */
+
+:root {
+  --ink: #eef2f6;
+  --dim: #9db1c4;
+  --panel: #101c2b;
+  --edge: #2b4257;
+  --brass: #d9a441;
+  --warm: #ffd98a;
+  --good: #8fd48a;
+  --bad: #e0707f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 16px;
+  background:
+    radial-gradient(120% 60% at 50% -10%, #17293e 0%, transparent 60%),
+    linear-gradient(#0a1421, #060d17);
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.back {
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  z-index: 30;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(16, 28, 43, 0.72);
+  border: 1px solid var(--edge);
+}
+
+.back:hover {
+  color: var(--warm);
+  border-color: var(--brass);
+}
+
+.masthead {
+  text-align: center;
+  line-height: 1.15;
+  margin-top: 2px;
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: clamp(26px, 4.5vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--warm);
+  text-transform: uppercase;
+}
+
+.tagline {
+  margin: 2px 0 0;
+  font-size: clamp(12px, 2vw, 14px);
+  color: var(--dim);
+  font-style: italic;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ---------------- HUD ---------------- */
+
+.hud {
+  display: flex;
+  gap: 8px;
+  width: min(92vw, 540px);
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(16, 28, 43, 0.85);
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.chip.grow {
+  flex: 1;
+}
+
+.chip .label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.chip strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.gauge {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+  background: #081120;
+  border: 1px solid var(--edge);
+  overflow: hidden;
+}
+
+.gauge > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(1);
+  border-radius: 999px;
+  background: linear-gradient(90deg, #37507a, #7fa8d9);
+  transition:
+    transform 0.25s linear,
+    background 0.4s;
+}
+
+.gauge.warn > span {
+  background: linear-gradient(90deg, #8a5a2e, var(--brass));
+}
+
+/* ---------------- canvas frame ---------------- */
+
+.frame {
+  position: relative;
+  width: min(92vw, calc((100dvh - 205px) * (560 / 760)), 540px);
+  aspect-ratio: 560 / 760;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  touch-action: none;
+}
+
+canvas#lake {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+canvas#lake:active {
+  cursor: grabbing;
+}
+
+.net-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 5;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 2px solid var(--brass);
+  color: #241a06;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: radial-gradient(circle at 34% 30%, #ffe9bd, #e3ab45 70%);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    inset 0 -4px 0 rgba(90, 55, 8, 0.35);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.net-btn:active,
+.net-btn.held {
+  transform: scale(0.93);
+  filter: brightness(1.08);
+}
+
+.toast {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  z-index: 6;
+  transform: translate(-50%, -8px);
+  max-width: 86%;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(9, 17, 29, 0.88);
+  border: 1px solid var(--edge);
+  color: var(--warm);
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  font: inherit;
+}
+
+.controls button,
+.card button.primary {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--edge);
+  background: rgba(16, 28, 43, 0.85);
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+.controls button:hover,
+.card button.primary:hover {
+  border-color: var(--brass);
+  color: var(--warm);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+/* ---------------- overlays ---------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(3, 7, 13, 0.66);
+  backdrop-filter: blur(3px);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.card {
+  width: min(94vw, 430px);
+  max-height: 92dvh;
+  overflow: auto;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #14233a, #0c1626);
+  border: 1px solid var(--edge);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.card.small {
+  width: min(94vw, 330px);
+}
+
+.card h2 {
+  margin: 0 0 4px;
+  font-size: 26px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm);
+}
+
+.card .lede {
+  margin: 0 0 12px;
+  color: var(--dim);
+  font-style: italic;
+}
+
+.how {
+  margin: 0 auto 14px;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.how li {
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.how li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--brass);
+}
+
+.keys {
+  font-size: 12px;
+  color: var(--dim);
+  margin: 0 0 14px;
+}
+
+kbd {
+  font: inherit;
+  font-size: 12px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--edge);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--dim);
+}
+
+.tally {
+  margin: 0 auto 10px;
+  width: fit-content;
+  min-width: 200px;
+  font-size: 14px;
+}
+
+.tally div {
+  display: flex;
+  justify-content: space-between;
+  gap: 26px;
+  padding: 3px 0;
+  border-bottom: 1px dashed rgba(157, 177, 196, 0.22);
+}
+
+.tally dt {
+  color: var(--dim);
+  margin: 0;
+}
+
+.tally dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-line {
+  margin: 4px 0 16px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--good);
+}
+
+.score-line.short {
+  color: var(--bad);
+}
+
+@media (max-width: 540px) {
+  .tagline {
+    display: none;
+  }
+
+  .chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .net-btn {
+    width: 80px;
+    height: 80px;
+    font-size: 15px;
+  }
+}

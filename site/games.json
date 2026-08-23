@@ -178,5 +178,15 @@
     "tagline": "Ten hungry regulars. One pot of courage.",
     "controls": "mouse / touch taps or keys 1-5 toppings, space drops & strains, enter serves, P pause, M sound, R restart",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "night-haul",
+    "name": "Night Haul",
+    "genre": "angling",
+    "mechanic": "hold to sink a net to the right depth and release to snap it shut around drifting schools that bolt from the ropes, while eels hug the mud, moonfish rise late and one old carp haunts the deep",
+    "theme": "a lantern-lit rowboat on a still mountain lake, filling the creel before the dawn bell rings you home",
+    "tagline": "Sink it slow. Close it quick.",
+    "controls": "drag to row or arrows, hold Net button / space / down to sink, release to close, P pause, M sound, R new night",
+    "created": "2026-08-23"
   }
 ]

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Night Haul · Arcade</title>
+    <meta
+      name="description"
+      content="Sink a net into a lantern-lit mountain lake and snap it shut around drifting schools before the dawn bell."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <a class="back" href="../../">← Arcade</a>
+
+    <header class="masthead">
+      <h1>Night Haul</h1>
+      <p class="tagline">Fill the creel before the dawn bell.</p>
+    </header>
+
+    <main class="stage">
+      <div class="hud">
+        <div class="chip" title="Creel value / night's quota">
+          <span class="label">Creel</span>
+          <strong
+            ><span id="coins">0</span>&hairsp;/&hairsp;<span id="quota"
+              >45</span
+            ></strong
+          >
+        </div>
+        <div class="chip grow" title="Time until dawn">
+          <span class="label">Dawn</span>
+          <span class="gauge"><span id="dawn-fill"></span></span>
+        </div>
+      </div>
+
+      <div class="frame">
+        <canvas
+          id="lake"
+          width="560"
+          height="760"
+          aria-label="A night lake seen from a rowboat"
+        ></canvas>
+        <button
+          id="net"
+          class="net-btn"
+          type="button"
+          aria-label="Hold to drop the net, release to close it"
+        >
+          Net
+        </button>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+
+      <nav class="controls" aria-label="Game controls">
+        <button id="pause" type="button">⏸ Pause</button>
+        <button id="mute" type="button" aria-pressed="false">🔊 Sound</button>
+        <button id="restart" type="button">↺ New night</button>
+      </nav>
+    </main>
+
+    <section class="overlay" id="ov-title">
+      <div class="card">
+        <h2>Night Haul</h2>
+        <p class="lede">A rowboat. A lantern. One night on the lake.</p>
+        <ul class="how">
+          <li><strong>Drag</strong> the water (or ← →) to slide the boat.</li>
+          <li>
+            <strong>Hold</strong> the Net button (or ↓ / Space) to sink the net.
+          </li>
+          <li>
+            <strong>Release</strong> to snap it shut — anything inside is yours.
+          </li>
+          <li>Fish feel the ropes coming and bolt. Trap ahead of them.</li>
+          <li>
+            Eels hug the mud. Moonfish rise late. One old carp haunts the deep.
+          </li>
+          <li>
+            Old boots pay nothing but cost you the net. Reach the creel mark
+            before dawn.
+          </li>
+        </ul>
+        <p class="keys">P pause · M sound · R new night</p>
+        <button class="primary" id="btn-start" type="button">
+          Push off <kbd>↵</kbd>
+        </button>
+      </div>
+    </section>
+
+    <section class="overlay hidden" id="ov-end" aria-live="polite">
+      <div class="card">
+        <h2 id="end-title">Dawn</h2>
+        <p class="lede" id="end-note">The mist lifts.</p>
+        <dl class="tally" id="tally"></dl>
+        <p class="score-line" id="score-line"></p>
+        <button class="primary" id="btn-again" type="button">
+          Another night <kbd>↵</kbd>
+        </button>
+      </div>
+    </section>
+
+    <section class="overlay hidden" id="ov-pause">
+      <div class="card small">
+        <h2>Moored</h2>
+        <p class="lede">The lake waits. It is very patient.</p>
+        <button class="primary" id="btn-resume" type="button">
+          Row on <kbd>P</kbd>
+        </button>
+      </div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>
