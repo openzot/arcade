@@ -329,5 +329,16 @@
     "tagline": "Become the wall before the grouper looks.",
     "controls": "drag pigment sliders or keys 1-4 + arrows, Space ink jet, P pause, M sound, R restart",
     "created": "2026-08-23"
+  },
+
+  {
+    "slug": "ballast",
+    "name": "Ballast",
+    "genre": "aerostatics",
+    "mechanic": "hold the burner to climb and vent hot air to drop, riding stacked dawn wind bands that each drift at their own speed while gusts shove and thermals bloom, spending sandbag ballast for lift you cannot burn as spires and crags force altitude changes",
+    "theme": "a lone aeronaut crossing the Karst pass in five legs at first light, from the headwind valley floor to a monastery meadow before the climbing sun kills the thermals",
+    "tagline": "Altitude is money. Spend it on the wind.",
+    "controls": "hold Space or the BURN pad (or the sky's right half) to burn, X or the VENT pad (left half) to vent, B drops ballast, P pause, R restart leg, M sound",
+    "created": "2026-08-23"
   }
 ]

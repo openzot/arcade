@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ballast · Arcade</title>
+    <meta
+      name="description"
+      content="Ride a hot-air balloon across a dawn mountain pass - burn to rise, vent to fall, and surf the stacked wind bands to set down softly before the sun kills the thermals."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <div class="frame" id="frame">
+        <canvas
+          id="game"
+          aria-label="Ballast: a hot-air balloon crossing a dawn mountain pass on the wind"
+        ></canvas>
+
+        <header class="hud-top">
+          <div class="brand">
+            <span class="mark">🎈</span>
+            <span class="name">Ballast</span>
+          </div>
+          <div class="chips">
+            <span class="chip" id="chipLeg">Leg 1/5 · 600 m</span>
+            <span class="chip chip-fuel" id="chipFuel">Fuel 100%</span>
+            <span class="chip chip-ballast" id="chipBallast">Ballast ●●</span>
+            <button
+              class="chip chip-btn"
+              id="btnSound"
+              type="button"
+              aria-label="Toggle sound"
+            >
+              🔊
+            </button>
+            <button
+              class="chip chip-btn"
+              id="btnPause"
+              type="button"
+              aria-label="Pause"
+            >
+              ⏸
+            </button>
+          </div>
+        </header>
+
+        <div class="gauges">
+          <div class="gauge gauge-heat" title="Envelope heat">
+            <span class="gauge-label">HEAT</span>
+            <div class="bar"><div class="fill" id="heatFill"></div></div>
+          </div>
+          <div class="sun-dial" id="sunDial" title="The sun is climbing">
+            <div class="sun-disc" id="sunDisc"></div>
+          </div>
+        </div>
+
+        <div class="altimeter" aria-hidden="true">
+          <div class="alt-scale" id="altScale"></div>
+        </div>
+
+        <div class="touch-pads">
+          <button
+            class="pad pad-vent"
+            id="padVent"
+            type="button"
+            aria-label="Vent hot air - descend"
+          >
+            <span class="pad-key">X</span><span class="pad-name">VENT ▼</span>
+          </button>
+          <button
+            class="pad pad-ballast"
+            id="padBallast"
+            type="button"
+            aria-label="Drop ballast - sudden rise"
+          >
+            <span class="pad-key">B</span
+            ><span class="pad-name">BALLAST ●</span>
+          </button>
+          <button
+            class="pad pad-burn"
+            id="padBurn"
+            type="button"
+            aria-label="Burn - rise"
+          >
+            <span class="pad-key">SPACE</span
+            ><span class="pad-name">BURN ▲</span>
+          </button>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        <section
+          class="overlay show"
+          id="overlay"
+          role="dialog"
+          aria-labelledby="ovTitle"
+        >
+          <div class="card">
+            <h1 id="ovTitle">Ballast</h1>
+            <p class="tagline" id="ovTagline">
+              Altitude is money. Spend it on the wind.
+            </p>
+            <p class="ov-body" id="ovBody">
+              The valley floor crawls with headwind; the high bands run fast.
+              Hold <strong>burn</strong> to heat the envelope and climb, tap
+              <strong>vent</strong> to spill hot air and drop, spend
+              <strong>ballast</strong> when you need height you cannot burn for.
+              Thread the spires, ride the bands, and set down gently in the
+              meadow before the sun climbs and the thermals die.
+            </p>
+            <ul class="keys" id="ovKeys">
+              <li><b>Space / hold BURN</b> burner — rise</li>
+              <li><b>X / hold VENT</b> spill hot air — fall</li>
+              <li><b>B / BALLAST</b> drop sand — one sudden lift</li>
+              <li><b>P</b> pause · <b>R</b> restart leg · <b>M</b> sound</li>
+            </ul>
+            <button class="go" id="btnGo" type="button">Cast off ⏎</button>
+          </div>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <a href="../../">← The Arcade</a>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
