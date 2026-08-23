@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Thin Ice - skate out across a freezing pond where every step cracks the ice, gather stranded skaters into your rescue train and get them ashore before dawn."
+    />
+    <title>Thin Ice · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="hud">
+        <a class="home" href="../../">&#8249; Arcade</a>
+        <h1>Thin Ice</h1>
+        <p id="stats" aria-live="polite">
+          <span class="stat">Night <b id="night">1</b></span>
+          <span class="stat"
+            >Saved <b id="saved">0</b>/<b id="total">0</b></span
+          >
+          <span class="stat">Score <b id="score">0</b></span>
+        </p>
+        <p id="lives" aria-label="lanterns left"></p>
+        <p id="buttons">
+          <button
+            id="btn-pause"
+            type="button"
+            aria-label="Pause"
+            title="Pause (P)"
+          >
+            &#10073;&#10073;
+          </button>
+          <button
+            id="btn-mute"
+            type="button"
+            aria-label="Sound"
+            title="Sound (M)"
+          >
+            &#9834;
+          </button>
+          <button
+            id="btn-restart"
+            type="button"
+            aria-label="Restart"
+            title="Restart (R)"
+          >
+            &#8635;
+          </button>
+        </p>
+      </header>
+
+      <div id="clockwrap" aria-hidden="true">
+        <div id="clockfill"></div>
+        <span id="dawntag">dawn</span>
+      </div>
+
+      <main id="stage">
+        <canvas id="game" aria-label="Thin Ice pond"></canvas>
+      </main>
+
+      <p id="hint">
+        arrows / WASD step &middot; swipe or tap to skate &middot; P pause
+        &middot; R restart &middot; M sound
+      </p>
+
+      <section id="overlay" class="show">
+        <div class="panel">
+          <h2 id="ov-title">Thin Ice</h2>
+          <p id="ov-tag">The pond remembers every step.</p>
+          <div id="ov-body">
+            <ul>
+              <li>
+                Skate out and reach each stranded skater - they fall in line
+                behind you.
+              </li>
+              <li>
+                Your weight cracks the ice. More rescues means a heavier,
+                hungrier train.
+              </li>
+              <li>
+                Step on ice that gives way and you go through - three lanterns
+                only.
+              </li>
+              <li>
+                Gather everyone and get them ashore before dawn reaches the
+                pond.
+              </li>
+            </ul>
+            <p class="keys">
+              arrows / WASD or swipe &middot; P pause &middot; R restart
+              &middot; M sound
+            </p>
+          </div>
+          <button id="btn-start" type="button">Begin the crossing</button>
+          <p id="ov-best">best 0</p>
+        </div>
+      </section>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
