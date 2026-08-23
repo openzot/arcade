@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Last Man Up · Arcade</title>
+    <meta
+      name="description"
+      content="Wind one lever to run twin pit cages on a shared cable - ferry the last shift up the shaft, post pump engineers down, and outrun the flood rising through a dying colliery."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <div class="frame" id="frame">
+        <canvas
+          id="game"
+          aria-label="The Last Man Up: twin mine cages in a flooding colliery shaft"
+        ></canvas>
+
+        <header class="hud">
+          <div class="brand">
+            <span class="mark">⛏</span>
+            <span class="name">The Last Man Up</span>
+          </div>
+          <div class="chips">
+            <span class="chip" id="chipDay">Day 1/5</span>
+            <span class="chip chip-warn" id="chipBelow">Below 0</span>
+            <span class="chip chip-good" id="chipSafe">Safe 0</span>
+            <span class="chip chip-score" id="chipScore">0 pts</span>
+            <button
+              class="chip chip-btn"
+              id="btnSound"
+              type="button"
+              aria-label="Toggle sound"
+            >
+              🔊
+            </button>
+            <button
+              class="chip chip-btn"
+              id="btnPause"
+              type="button"
+              aria-label="Pause"
+            >
+              ⏸
+            </button>
+          </div>
+        </header>
+
+        <div class="pads">
+          <button
+            class="pad pad-down"
+            id="padDown"
+            type="button"
+            aria-label="Wind cages down - left cage sinks, right cage rises"
+          >
+            <span class="pad-key">↓ / S</span
+            ><span class="pad-name">WIND ▼</span>
+          </button>
+          <button
+            class="pad pad-up"
+            id="padUp"
+            type="button"
+            aria-label="Wind cages up - left cage rises, right cage sinks"
+          >
+            <span class="pad-key">↑ / W</span
+            ><span class="pad-name">WIND ▲</span>
+          </button>
+        </div>
+
+        <div class="toast" id="toast"></div>
+
+        <section
+          class="overlay show"
+          id="overlay"
+          role="dialog"
+          aria-labelledby="ovTitle"
+        >
+          <div class="card">
+            <h1 id="ovTitle">The Last Man Up</h1>
+            <p class="tagline" id="ovTagline">
+              One lever. Two cages. Everyone home.
+            </p>
+            <p class="ov-body" id="ovBody"></p>
+            <ul class="keys" id="ovKeys"></ul>
+            <button class="go" id="btnGo" type="button">
+              Sound the buzzer ⏎
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <a href="../../">← The Arcade</a>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

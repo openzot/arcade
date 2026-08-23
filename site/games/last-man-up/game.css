@@ -1,0 +1,399 @@
+/* The Last Man Up — a flooding colliery shaft. All style for the game lives here. */
+
+:root {
+  --ink: #f2e9d8;
+  --ink-dim: #b7ab92;
+  --pit: #0a0d14;
+  --card-bg: rgba(13, 16, 26, 0.94);
+  --amber: #ffc45c;
+  --lamp: #ffe6a3;
+  --iron: #9aa3b5;
+  --water: #35c9bb;
+  --danger: #ff5a4e;
+  --good: #8fd97a;
+  --chip-bg: rgba(10, 13, 22, 0.66);
+  --chip-line: rgba(242, 233, 216, 0.22);
+  font-size: clamp(12px, 1.85vh, 17px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #06080e;
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  overflow: hidden;
+}
+
+.stage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame {
+  position: relative;
+  width: min(100vw, calc(100vh * 1.42));
+  height: min(100vh, calc(100vw / 1.42));
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.65);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* HUD                                                                 */
+/* ------------------------------------------------------------------ */
+
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding: 0.55em 0.8em;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 1.02em;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.brand .mark {
+  filter: drop-shadow(0 0 6px rgba(255, 196, 92, 0.55));
+}
+
+.chips {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.chip {
+  font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78em;
+  letter-spacing: 0.05em;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-line);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.28em 0.75em;
+  white-space: nowrap;
+  backdrop-filter: blur(3px);
+}
+
+.chip-warn {
+  color: var(--amber);
+  border-color: rgba(255, 196, 92, 0.4);
+}
+
+.chip-good {
+  color: var(--good);
+  border-color: rgba(143, 217, 122, 0.4);
+}
+
+.chip-score {
+  color: var(--lamp);
+}
+
+.chip-btn {
+  cursor: pointer;
+  pointer-events: auto;
+  line-height: 1;
+  transition:
+    transform 0.08s ease,
+    border-color 0.15s ease;
+}
+
+.chip-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--amber);
+}
+
+/* ------------------------------------------------------------------ */
+/* Touch / hold pads                                                   */
+/* ------------------------------------------------------------------ */
+
+.pads {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.7em;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.9em;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pad {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+  min-width: 6.4em;
+  padding: 0.5em 1.1em;
+  border-radius: 14px;
+  border: 1px solid var(--chip-line);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 36, 54, 0.85),
+    rgba(14, 17, 28, 0.88)
+  );
+  color: var(--ink);
+  font-family: Georgia, serif;
+  cursor: pointer;
+  touch-action: none;
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.06s ease,
+    border-color 0.06s ease;
+}
+
+.pad .pad-key {
+  font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.62em;
+  letter-spacing: 0.09em;
+  color: var(--ink-dim);
+}
+
+.pad .pad-name {
+  font-size: 0.86em;
+  letter-spacing: 0.12em;
+}
+
+.pad-down:active,
+.pad-up:active,
+.pad.hot {
+  transform: translateY(1px) scale(0.98);
+  border-color: var(--amber);
+  box-shadow: 0 0 18px rgba(255, 196, 92, 0.35) inset;
+}
+
+/* ------------------------------------------------------------------ */
+/* Toast                                                               */
+/* ------------------------------------------------------------------ */
+
+.toast {
+  position: absolute;
+  left: 50%;
+  top: 14%;
+  transform: translate(-50%, -6px);
+  max-width: 82%;
+  padding: 0.45em 1em;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-line);
+  font-size: 0.86em;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  pointer-events: none;
+  z-index: 5;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.toast.bad {
+  color: var(--danger);
+  border-color: rgba(255, 90, 78, 0.55);
+}
+
+.toast.good {
+  color: var(--good);
+  border-color: rgba(143, 217, 122, 0.55);
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlay cards                                                       */
+/* ------------------------------------------------------------------ */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(6, 8, 14, 0.62),
+    rgba(4, 5, 9, 0.9)
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  z-index: 6;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.card {
+  width: min(34rem, 86%);
+  max-height: 88%;
+  overflow: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--chip-line);
+  border-radius: 14px;
+  padding: 1.3em 1.5em 1.2em;
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+}
+
+.card h1 {
+  margin: 0 0 0.15em;
+  font-size: 1.72em;
+  letter-spacing: 0.03em;
+  color: var(--amber);
+  text-shadow: 0 0 24px rgba(255, 196, 92, 0.3);
+}
+
+.card .tagline {
+  margin: 0 0 0.8em;
+  color: var(--ink-dim);
+  font-style: italic;
+  font-size: 0.95em;
+}
+
+.card .ov-body {
+  margin: 0 0 0.8em;
+  font-size: 0.9em;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.card .ov-body b {
+  color: var(--lamp);
+}
+
+.card .ov-body .stat-line {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 1.05em;
+  color: var(--lamp);
+  letter-spacing: 0.04em;
+}
+
+.keys {
+  list-style: none;
+  margin: 0 0 1em;
+  padding: 0;
+  font-size: 0.8em;
+  color: var(--ink-dim);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11em, 1fr));
+  gap: 0.25em 1em;
+  text-align: left;
+}
+
+.keys b {
+  color: var(--ink);
+}
+
+.go {
+  font-family: Georgia, serif;
+  font-size: 0.98em;
+  letter-spacing: 0.05em;
+  color: #14100a;
+  background: linear-gradient(180deg, #ffd98a, #ffb238);
+  border: 1px solid rgba(255, 214, 138, 0.9);
+  border-radius: 10px;
+  padding: 0.55em 1.4em;
+  cursor: pointer;
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.go:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(255, 178, 56, 0.35);
+}
+
+.go:active {
+  transform: translateY(1px);
+}
+
+.go + .go {
+  margin-left: 0.6em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.foot {
+  padding: 0.55em 0 0.7em;
+  font-size: 0.82em;
+}
+
+.foot a {
+  color: var(--ink-dim);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--chip-line);
+}
+
+.foot a:hover {
+  color: var(--amber);
+}
+
+@media (max-width: 560px) {
+  .brand .name {
+    display: none;
+  }
+
+  .pad {
+    min-width: 5.2em;
+    padding: 0.45em 0.8em;
+  }
+}
+
+.go.dim {
+  background: transparent;
+  color: var(--ink-dim);
+  border: 1px solid var(--chip-line);
+}
+
+.go.dim:hover {
+  box-shadow: none;
+  color: var(--ink);
+  transform: translateY(-1px);
+}

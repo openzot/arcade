@@ -134,9 +134,9 @@
     "name": "Glass Plate",
     "genre": "photography",
     "mechanic": "pan and zoom a spirit camera across a haunted ballroom, framing flickering apparitions and timing the shutter for when each spirit burns brightest, spending twelve glass plates to fill a five-print album before dawn",
-    "theme": "a midnight spirit-photography séance in a derelict manor house",
+    "theme": "a midnight spirit-photography s\u00e9ance in a derelict manor house",
     "tagline": "Frame what flickers. Shoot while it burns.",
-    "controls": "mouse / touch drag to pan, click / tap or Space shoots, scroll / pinch or + − zooms, R restarts, P pauses, M sound",
+    "controls": "mouse / touch drag to pan, click / tap or Space shoots, scroll / pinch or + \u2212 zooms, R restarts, P pauses, M sound",
     "created": "2026-08-23"
   },
   {
@@ -313,7 +313,6 @@
     "slug": "quiet-hours",
     "name": "Quiet Hours",
     "genre": "stealth",
-
     "mechanic": "slip between patrolling guards' lantern vision cones, stand still in shadow pools to vanish, and channel-lift three treasures whose noise pulls the watch to investigate",
     "theme": "a grand museum's galleries after closing time, one cat burglar against three lantern-swinging watchmen",
     "tagline": "The guards see light. You wear the dark.",
@@ -330,7 +329,6 @@
     "controls": "drag pigment sliders or keys 1-4 + arrows, Space ink jet, P pause, M sound, R restart",
     "created": "2026-08-23"
   },
-
   {
     "slug": "ballast",
     "name": "Ballast",
@@ -339,6 +337,16 @@
     "theme": "a lone aeronaut crossing the Karst pass in five legs at first light, from the headwind valley floor to a monastery meadow before the climbing sun kills the thermals",
     "tagline": "Altitude is money. Spend it on the wind.",
     "controls": "hold Space or the BURN pad (or the sky's right half) to burn, X or the VENT pad (left half) to vent, B drops ballast, P pause, R restart leg, M sound",
+    "created": "2026-08-23"
+  },
+  {
+    "slug": "last-man-up",
+    "name": "The Last Man Up",
+    "genre": "logistics",
+    "mechanic": "wind one lever driving twin cages coupled on a shared cable - stop level with each seam to load miners, post pump engineers down the shaft, and outrun the rising flood",
+    "theme": "the last shift of a dying Victorian coal colliery as the river breaks into the old workings",
+    "tagline": "One lever. Two cages. Everyone home.",
+    "controls": "keyboard / touch",
     "created": "2026-08-23"
   }
 ]
