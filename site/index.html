@@ -1,98 +1,280 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>zot arcade</title>
-<meta name="description" content="A new browser game every shift, designed and built unattended by zot, the open source automated software factory.">
-<style>
-  :root {
-    --bg: #0b0d10; --panel: #12151a; --stroke: #23282f; --text: #e8eaed;
-    --muted: #8b929c; --accent: #56c2ff; --accent-2: #ffb347;
-  }
-  @media (prefers-color-scheme: light) {
-    :root { --bg: #f7f8fa; --panel: #ffffff; --stroke: #e1e4e8; --text: #15181c; --muted: #5c6570; }
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  a { color: inherit; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-  header { padding: 56px 0 32px; border-bottom: 1px solid var(--stroke); }
-  .kicker { font-size: 11px; letter-spacing: .25em; color: var(--muted); text-transform: uppercase; }
-  h1 { font-size: clamp(36px, 7vw, 72px); line-height: 1; margin: 10px 0 14px; letter-spacing: -.02em; }
-  h1 span { color: var(--accent); }
-  .lede { max-width: 620px; color: var(--muted); margin: 0; }
-  .stats { display: flex; flex-wrap: wrap; gap: 1px; background: var(--stroke); border: 1px solid var(--stroke); margin-top: 28px; }
-  .stat { flex: 1 1 160px; background: var(--panel); padding: 14px 16px; }
-  .stat b { display: block; font-size: 22px; }
-  .stat small { color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
-  main { padding: 32px 0 64px; }
-  .list { display: flex; flex-direction: column; gap: 1px; background: var(--stroke); border: 1px solid var(--stroke); }
-  .row { background: var(--panel); padding: 16px 18px; display: flex; align-items: flex-start; gap: 18px; text-decoration: none; transition: background .2s; }
-  .row:hover { background: color-mix(in srgb, var(--panel) 85%, var(--accent) 15%); }
-  .row .n { flex: 0 0 auto; font-size: 11px; letter-spacing: .2em; color: var(--muted); padding-top: 4px; }
-  .row .body { flex: 1 1 auto; min-width: 0; }
-  .row h2 { font-size: 19px; margin: 0 0 2px; line-height: 1.2; }
-  .row h2 small { font-size: 11px; letter-spacing: .12em; color: var(--muted); margin-left: 10px; font-weight: 400; }
-  .row .tag { color: var(--muted); margin: 0 0 8px; }
-  .row .meta { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 12px; }
-  .row .meta b { color: var(--accent-2); font-weight: 600; }
-  .row .play { flex: 0 0 auto; font-size: 11px; letter-spacing: .2em; color: var(--accent); align-self: center; }
-  @media (max-width: 560px) {
-    .row { gap: 12px; }
-    .row .play { display: none; }
-  }
-  .empty { border: 1px dashed var(--stroke); padding: 48px 20px; text-align: center; color: var(--muted); }
-  footer { border-top: 1px solid var(--stroke); padding: 28px 0 48px; color: var(--muted); font-size: 13px; }
-  footer p { margin: 6px 0; }
-  code { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel); border: 1px solid var(--stroke); padding: 1px 5px; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>zot arcade</title>
+  <meta name="description"
+    content="A new browser game every shift, designed and built unattended by zot, the open source automated software factory.">
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --panel: #12151a;
+      --stroke: #23282f;
+      --text: #e8eaed;
+      --muted: #8b929c;
+      --accent: #56c2ff;
+      --accent-2: #ffb347;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f8fa;
+        --panel: #ffffff;
+        --stroke: #e1e4e8;
+        --text: #15181c;
+        --muted: #5c6570;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      padding: 56px 0 32px;
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .kicker {
+      font-size: 11px;
+      letter-spacing: .25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(36px, 7vw, 72px);
+      line-height: 1;
+      margin: 10px 0 14px;
+      letter-spacing: -.02em;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .lede {
+      max-width: 620px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1px;
+      background: var(--stroke);
+      border: 1px solid var(--stroke);
+      margin-top: 28px;
+    }
+
+    .stat {
+      flex: 1 1 160px;
+      background: var(--panel);
+      padding: 14px 16px;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 22px;
+    }
+
+    .stat small {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    main {
+      padding: 32px 0 64px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--stroke);
+      border: 1px solid var(--stroke);
+    }
+
+    .row {
+      background: var(--panel);
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+
+    .row:hover {
+      background: color-mix(in srgb, var(--panel) 85%, var(--accent) 15%);
+    }
+
+    .row .n {
+      flex: 0 0 auto;
+      font-size: 11px;
+      letter-spacing: .2em;
+      color: var(--muted);
+      padding-top: 4px;
+    }
+
+    .row .body {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .row h2 {
+      font-size: 19px;
+      margin: 0 0 2px;
+      line-height: 1.2;
+    }
+
+    .row h2 small {
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-left: 10px;
+      font-weight: 400;
+    }
+
+    .row .tag {
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    .row .meta {
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+    }
+
+    .row .meta b {
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .row .play {
+      flex: 0 0 auto;
+      font-size: 11px;
+      letter-spacing: .2em;
+      color: var(--accent);
+      align-self: center;
+    }
+
+    @media (max-width: 560px) {
+      .row {
+        gap: 12px;
+      }
+
+      .row .play {
+        display: none;
+      }
+    }
+
+    .empty {
+      border: 1px dashed var(--stroke);
+      padding: 48px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 28px 0 48px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer p {
+      margin: 6px 0;
+    }
+
+    code {
+      font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      padding: 1px 5px;
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="wrap">
-    <div class="kicker">zot · automated software factory · demo</div>
-    <h1>zot <span>arcade</span></h1>
-    <p class="lede">Every shift, zot reads the catalogue below, invents a game unlike anything already on it, builds it as one self-contained file, and commits it. Nobody reviews the work before it ships; this page is the working tree.</p>
-    <div class="stats">
-      <div class="stat"><b id="count">–</b><small>games</small></div>
-      <div class="stat"><b id="latest">–</b><small>latest shift</small></div>
-      <div class="stat"><b id="genres">–</b><small>genres</small></div>
-      <div class="stat"><b>30 min</b><small>shift cadence</small></div>
+  <header>
+    <div class="wrap">
+      <div class="kicker">zot · automated software factory · demo</div>
+      <h1>zot <span>arcade</span></h1>
+      <p class="lede">Every shift, <a href="https://github.com/openzot/openzot">zot</a> reads the catalogue below,
+        invents a game unlike anything already on it, builds it as one self-contained file, and commits it. Nobody
+        reviews the work before it ships; this page is the working tree.</p>
+      <div class="stats">
+        <div class="stat"><b id="count">–</b><small>games</small></div>
+        <div class="stat"><b id="latest">–</b><small>latest shift</small></div>
+        <div class="stat"><b id="genres">–</b><small>genres</small></div>
+        <div class="stat"><b>30 min</b><small>shift cadence</small></div>
+      </div>
     </div>
-  </div>
-</header>
-<main class="wrap">
-  <div id="games" class="list" hidden></div>
-  <div id="empty" class="empty" hidden>The first shift has not finished yet. Check back in half an hour.</div>
-</main>
-<footer>
-  <div class="wrap">
-    <p>Made unattended by <a href="https://github.com/openzot/openzot">zot</a> running in GitHub Actions via <a href="https://github.com/openzot/actions">openzot/actions</a>. Each game is one commit; the standing order is <code>orders/new-game.yaml</code>.</p>
-    <p>Source, order and every shift's commit: <a id="repo" href="https://github.com/openzot/arcade">the repository</a>.</p>
-  </div>
-</footer>
-<script>
-(async () => {
-  const list = document.getElementById('games');
-  const empty = document.getElementById('empty');
-  let games = [];
-  try {
-    const res = await fetch('games.json', { cache: 'no-store' });
-    games = await res.json();
-  } catch (e) {
-    empty.textContent = 'Could not load games.json - open this page over HTTP (GitHub Pages), not from disk.';
-    empty.hidden = false;
-    return;
-  }
-  if (!Array.isArray(games) || games.length === 0) { empty.hidden = false; return; }
+  </header>
+  <main class="wrap">
+    <div id="games" class="list" hidden></div>
+    <div id="empty" class="empty" hidden>The first shift has not finished yet. Check back in half an hour.</div>
+  </main>
+  <footer>
+    <div class="wrap">
+      <p>Made unattended by <a href="https://github.com/openzot/openzot">zot</a> running in GitHub Actions via <a
+          href="https://github.com/openzot/actions">openzot/actions</a>. Each game is one commit; the standing order is
+        <code>orders/new-game.yaml</code>.
+      </p>
+      <p>Source, order and every shift's commit: <a id="repo" href="https://github.com/openzot/arcade">the
+          repository</a>.</p>
+    </div>
+  </footer>
+  <script>
+    (async () => {
+      const list = document.getElementById('games');
+      const empty = document.getElementById('empty');
+      let games = [];
+      try {
+        const res = await fetch('games.json', { cache: 'no-store' });
+        games = await res.json();
+      } catch (e) {
+        empty.textContent = 'Could not load games.json - open this page over HTTP (GitHub Pages), not from disk.';
+        empty.hidden = false;
+        return;
+      }
+      if (!Array.isArray(games) || games.length === 0) { empty.hidden = false; return; }
 
-  document.getElementById('count').textContent = games.length;
-  document.getElementById('latest').textContent = games[games.length - 1].created || '–';
-  document.getElementById('genres').textContent = new Set(games.map(g => (g.genre || '').toLowerCase())).size;
+      document.getElementById('count').textContent = games.length;
+      document.getElementById('latest').textContent = games[games.length - 1].created || '–';
+      document.getElementById('genres').textContent = new Set(games.map(g => (g.genre || '').toLowerCase())).size;
 
-  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  list.innerHTML = games.slice().reverse().map((g, i) => `
+      const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      list.innerHTML = games.slice().reverse().map((g, i) => `
     <a class="row" href="games/${encodeURIComponent(g.slug)}/">
       <span class="n">#${String(games.length - i).padStart(3, '0')}</span>
       <div class="body">
@@ -102,8 +284,9 @@
       </div>
       <span class="play">PLAY →</span>
     </a>`).join('');
-  list.hidden = false;
-})();
-</script>
+      list.hidden = false;
+    })();
+  </script>
 </body>
+
 </html>
