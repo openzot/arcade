@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta name="theme-color" content="#060a1c" />
+    <meta
+      name="description"
+      content="First Light — trace fading constellations across a sky that wheels toward dawn. An arcade almanac game."
+    />
+    <title>First Light · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="top">
+        <a class="back" href="../../">&#8592;&nbsp;Arcade</a>
+        <div class="titles">
+          <h1>First Light</h1>
+          <p class="tagline">
+            The sky won&rsquo;t hold still. Chart it anyway.
+          </p>
+        </div>
+        <nav class="tools" aria-label="game controls">
+          <button
+            id="btn-eye"
+            class="tool"
+            type="button"
+            title="Glimpse the true stars (hold Space)"
+            aria-label="Hold to glimpse the true stars"
+          >
+            Eye
+          </button>
+          <button
+            id="btn-undo"
+            class="tool"
+            type="button"
+            title="Undo last link (Z)"
+            aria-label="Undo last link"
+          >
+            Undo
+          </button>
+          <button
+            id="btn-clear"
+            class="tool"
+            type="button"
+            title="Clear the thread (X)"
+            aria-label="Clear the thread"
+          >
+            Clear
+          </button>
+          <button
+            id="btn-pause"
+            class="tool"
+            type="button"
+            title="Pause (P)"
+            aria-label="Pause"
+          >
+            Pause
+          </button>
+          <button
+            id="btn-mute"
+            class="tool"
+            type="button"
+            title="Sound (M)"
+            aria-label="Toggle sound"
+            aria-pressed="false"
+          >
+            Sound
+          </button>
+          <button
+            id="btn-restart"
+            class="tool"
+            type="button"
+            title="Restart the run (R)"
+            aria-label="Restart the run"
+          >
+            New
+          </button>
+        </nav>
+      </header>
+
+      <main id="playfield">
+        <canvas id="sky"></canvas>
+
+        <div id="hud">
+          <section id="plate-card" aria-live="polite">
+            <span id="night-label">Night I</span>
+            <strong id="target-name">&mdash;</strong>
+            <canvas
+              id="ghost"
+              width="104"
+              height="76"
+              aria-hidden="true"
+            ></canvas>
+            <div id="progress" aria-hidden="true"></div>
+          </section>
+
+          <section id="meters">
+            <div class="chip">
+              <span class="label">ink</span>
+              <span id="ink-row" aria-label="ink remaining"></span>
+            </div>
+            <div class="chip">
+              <span class="label">glimpses</span>
+              <span id="glance-row" aria-label="glimpses remaining"></span>
+            </div>
+            <div class="chip" id="dawn-chip">
+              <span class="label">first light</span>
+              <div id="dawn"><i id="dawn-fill"></i></div>
+            </div>
+          </section>
+        </div>
+
+        <footer id="legend">
+          tap a star to start a thread &middot; tap joined stars to trace the
+          figure &middot; a false link spills ink &middot; hold <b>Space</b> or
+          <b>Eye</b> to glimpse &middot; <b>Z</b> undo &middot; <b>X</b> clear
+          &middot; <b>P</b> pause &middot; <b>M</b> sound &middot;
+          <b>R</b> restart
+        </footer>
+      </main>
+    </div>
+
+    <div class="overlay show" id="ov-intro">
+      <div class="panel">
+        <p class="kicker">the almanac wants three plates tonight</p>
+        <h2>First Light</h2>
+        <ul class="how">
+          <li>
+            The sky is already turning. Find each named figure among the stars.
+          </li>
+          <li>
+            Tap a star, then tap its neighbours to spin the figure&rsquo;s
+            thread. Close the outline to seal the plate.
+          </li>
+          <li>A false link spills precious ink. True links cost nothing.</li>
+          <li>
+            Short on faith? Spend a glimpse &mdash; the true stars will breathe.
+          </li>
+          <li>
+            Finish every plate before first light wipes the dark off the hills.
+          </li>
+        </ul>
+        <button class="primary" id="btn-start" type="button">
+          Begin night one
+        </button>
+        <p class="fine">
+          mouse / touch &middot; keyboard friendly &middot; sound on tap
+        </p>
+      </div>
+    </div>
+
+    <div class="overlay" id="ov-inter">
+      <div class="panel">
+        <p class="kicker" id="inter-kicker">dawn breaks</p>
+        <h2 id="inter-title">Night I sealed</h2>
+        <div class="lines" id="inter-lines"></div>
+        <button class="primary" id="btn-next" type="button">Next night</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="ov-fail">
+      <div class="panel">
+        <p class="kicker">the east ridge is glowing</p>
+        <h2>First light came too soon</h2>
+        <div class="lines" id="fail-lines"></div>
+        <button class="primary" id="btn-again" type="button">
+          Chart another night
+        </button>
+      </div>
+    </div>
+
+    <div class="overlay" id="ov-win">
+      <div class="panel">
+        <p class="kicker">three plates, sealed and signed</p>
+        <h2>The almanac goes to print</h2>
+        <div class="lines" id="win-lines"></div>
+        <button class="primary" id="btn-newrun" type="button">
+          Begin a new almanac
+        </button>
+      </div>
+    </div>
+
+    <div class="overlay" id="ov-pause">
+      <div class="panel">
+        <p class="kicker">
+          the sky waits for no one &mdash; but it will wait for you
+        </p>
+        <h2>Paused</h2>
+        <div class="lines">
+          <p>
+            The stars hold their breath. Press resume when your tea is poured.
+          </p>
+        </div>
+        <button class="primary" id="btn-resume" type="button">Resume</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
