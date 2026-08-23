@@ -1,0 +1,287 @@
+/* Topping Out — styles. Warm prairie dawn palette, chunky touch pads. */
+
+:root {
+  --ink: #2a1d12;
+  --paper: #f5ead6;
+  --night: #171310;
+  --panel: #241c15;
+  --edge: #3a2f24;
+  --cream: #f1e4cd;
+  --muted: #b7a488;
+  --accent: #e07b39;
+  --accent-dark: #c25f22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--night);
+  color: var(--cream);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.frame {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 14px 14px 26px;
+}
+
+/* ── header ─────────────────────────────────────────── */
+
+.mast-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4.5vw, 2.3rem);
+  letter-spacing: 0.04em;
+  color: var(--paper);
+}
+
+.tagline {
+  margin: 2px 0 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.crumbs a {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.crumbs a:hover {
+  background: var(--panel);
+}
+
+/* ── hud ────────────────────────────────────────────── */
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.chip {
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chip.lives {
+  color: #ff9d5c;
+  letter-spacing: 0.28em;
+  min-width: 64px;
+  text-align: center;
+}
+
+/* ── board & overlay ────────────────────────────────── */
+
+.board {
+  position: relative;
+}
+
+canvas#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #101010;
+  border: 1px solid var(--edge);
+  border-radius: 10px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 12, 8, 0.72);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+  padding: 20px 26px 24px;
+  max-width: 540px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+.ov-text {
+  font-size: 0.92rem;
+}
+
+.ov-text p {
+  margin: 6px 0;
+}
+
+.ov-text ul {
+  text-align: left;
+  display: inline-block;
+  margin: 8px 0 10px;
+  padding-left: 20px;
+}
+
+.ov-text .big {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.ov-text .fine {
+  color: #6b563d;
+  font-size: 0.84rem;
+}
+
+/* ── buttons ────────────────────────────────────────── */
+
+button {
+  font: inherit;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.card button {
+  margin-top: 10px;
+  background: var(--accent);
+  color: #fff8ef;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.card button:hover {
+  background: var(--accent-dark);
+}
+
+.touchbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 1.7fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.pad,
+.drop {
+  border: 1px solid var(--edge);
+  background: var(--panel);
+  color: var(--cream);
+  border-radius: 10px;
+  min-height: 52px;
+  font-size: 1.15rem;
+}
+
+.pad:active {
+  background: #33271c;
+}
+
+.drop {
+  background: var(--accent);
+  border-color: var(--accent-dark);
+  color: #fff8ef;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.drop:active {
+  background: var(--accent-dark);
+}
+
+.deck {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.deck button {
+  background: transparent;
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 5px 13px;
+  font-size: 0.82rem;
+}
+
+.deck button:hover {
+  color: var(--cream);
+  background: var(--panel);
+}
+
+.keys {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+:focus-visible {
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .keys {
+    display: none;
+  }
+
+  .chip {
+    font-size: 0.74rem;
+    padding: 3px 9px;
+  }
+}

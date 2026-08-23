@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Topping Out · Arcade</title>
+    <meta
+      name="description"
+      content="Topping Out: swing the crane, loose the load, raise the barn before sundown."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="frame">
+      <header class="mast-head">
+        <div class="title-block">
+          <h1>Topping Out</h1>
+          <p class="tagline">Swing it true. The wall won&rsquo;t forgive.</p>
+        </div>
+        <nav class="crumbs">
+          <a href="../../">&#8592; Arcade catalogue</a>
+        </nav>
+      </header>
+
+      <section class="hud" aria-label="game status">
+        <span id="hud-day" class="chip">Day 1 · Dawn</span>
+        <span id="hud-stack" class="chip">0 / 6 set</span>
+        <span id="hud-score" class="chip">Score 0</span>
+        <span id="hud-wind" class="chip">Wind: calm</span>
+        <span id="hud-lives" class="chip lives" title="spare timbers">|||</span>
+      </section>
+
+      <section class="board">
+        <canvas id="game" width="960" height="540"></canvas>
+        <div id="overlay" class="overlay">
+          <div class="card">
+            <h2 id="ov-title">Topping Out</h2>
+            <div id="ov-text" class="ov-text"></div>
+            <button id="ov-btn" type="button">Raise the walls</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="touchbar" aria-label="touch controls">
+        <button id="tb-left" type="button" class="pad">&#9664;</button>
+        <button id="tb-up" type="button" class="pad">&#9650;</button>
+        <button id="tb-down" type="button" class="pad">&#9660;</button>
+        <button id="tb-right" type="button" class="pad">&#9654;</button>
+        <button id="tb-drop" type="button" class="drop">DROP</button>
+      </section>
+
+      <footer class="deck">
+        <button id="btn-pause" type="button">Pause</button>
+        <button id="btn-sound" type="button">Sound: on</button>
+        <button id="btn-restart" type="button">Restart</button>
+        <span class="keys"
+          >&#8592;&#8594; trolley &middot; &#8593;&#8595; cable &middot; Space
+          release &middot; P pause &middot; M sound &middot; R restart</span
+        >
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
