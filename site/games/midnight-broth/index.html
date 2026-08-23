@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Midnight Broth — a midnight ramen stall arcade game</title>
+    <meta
+      name="description"
+      content="Run a rain-slick ramen yatai through its last ten customers: watch the simmer ring, strain inside the green window, fill every topping ticket before patience runs dry."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="booth">
+      <header class="topbar">
+        <a class="back" href="../../">← Arcade</a>
+        <h1 class="brand">Midnight Broth</h1>
+        <nav class="sys" aria-label="Game system buttons">
+          <button id="btnSound" type="button" aria-pressed="true">
+            Sound: On
+          </button>
+          <button id="btnPause" type="button">Pause</button>
+          <button id="btnRestart" type="button">Restart</button>
+        </nav>
+      </header>
+
+      <div class="stage-wrap">
+        <canvas
+          id="scene"
+          width="960"
+          height="600"
+          aria-label="Midnight Broth: the yatai counter, simmer pot, ticket and customer"
+        >
+        </canvas>
+
+        <section class="overlay show" id="overlayTitle">
+          <div class="card">
+            <h2>Midnight Broth</h2>
+            <p class="tagline">Ten hungry regulars. One pot of courage.</p>
+            <ul class="howto">
+              <li>
+                <b>Drop the noodles</b> — <kbd>Space</kbd> or the pot button
+                starts the simmer.
+              </li>
+              <li>
+                <b>Fill the ticket</b> — tap the toppings it shows
+                (<kbd>1</kbd>–<kbd>5</kbd>). Gold tickets want them in order.
+              </li>
+              <li>
+                <b>Strain in the green</b> — hit <kbd>Space</kbd> again while
+                the ring is green. Too soon is crunchy, too long burns the pot.
+              </li>
+              <li>
+                <b>Serve</b> with <kbd>Enter</kbd> before patience runs out.
+                Three walk-outs and the shutters fall.
+              </li>
+            </ul>
+            <button class="cta" id="btnStart" type="button">
+              Open the stall
+            </button>
+          </div>
+        </section>
+
+        <section class="overlay" id="overlayPause">
+          <div class="card">
+            <h2>Paused</h2>
+            <p class="tagline">The rain keeps falling either way.</p>
+            <button class="cta" id="btnResume" type="button">
+              Back to the counter
+            </button>
+          </div>
+        </section>
+
+        <section class="overlay" id="overlayEnd">
+          <div class="card">
+            <h2 id="endTitle">Dawn breaks</h2>
+            <p class="tagline" id="endTag"></p>
+            <p class="stats" id="endStats"></p>
+            <button class="cta" id="btnAgain" type="button">
+              Another night
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="deck">
+        <div class="bins" role="group" aria-label="Topping bins, keys 1 to 5">
+          <button class="bin" data-top="negi" type="button">
+            <span class="dot dot-negi" aria-hidden="true"></span>Negi<kbd
+              >1</kbd
+            >
+          </button>
+          <button class="bin" data-top="tamago" type="button">
+            <span class="dot dot-tamago" aria-hidden="true"></span>Tamago<kbd
+              >2</kbd
+            >
+          </button>
+          <button class="bin" data-top="nori" type="button">
+            <span class="dot dot-nori" aria-hidden="true"></span>Nori<kbd
+              >3</kbd
+            >
+          </button>
+          <button class="bin" data-top="chashu" type="button">
+            <span class="dot dot-chashu" aria-hidden="true"></span>Chashu<kbd
+              >4</kbd
+            >
+          </button>
+          <button class="bin" data-top="menma" type="button">
+            <span class="dot dot-menma" aria-hidden="true"></span>Menma<kbd
+              >5</kbd
+            >
+          </button>
+        </div>
+        <div class="actions">
+          <button class="pot" id="btnPot" type="button">
+            Noodles ↓<kbd>Space</kbd>
+          </button>
+          <button class="serve" id="btnServe" type="button" disabled>
+            Serve<kbd>Enter</kbd>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

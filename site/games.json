@@ -168,5 +168,15 @@
     "tagline": "The pond remembers every step.",
     "controls": "arrows / WASD to step, swipe or tap to skate, P pause, R restart, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "midnight-broth",
+    "name": "Midnight Broth",
+    "genre": "time-management",
+    "mechanic": "drop the noodle basket into a live simmer ring, fill each ticket's topping slots while it cooks, then strain inside a shrinking green window before customer patience or the pot runs out",
+    "theme": "a rain-slick midnight ramen yatai serving its last ten regulars before dawn",
+    "tagline": "Ten hungry regulars. One pot of courage.",
+    "controls": "mouse / touch taps or keys 1-5 toppings, space drops & strains, enter serves, P pause, M sound, R restart",
+    "created": "2026-08-23"
   }
 ]
