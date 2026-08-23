@@ -308,5 +308,15 @@
     "tagline": "Every word buys another drop.",
     "controls": "mouse / touch drag to spell; type letters + Enter, Backspace undoes, Esc pauses, R restarts from pause, M mute",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "quiet-hours",
+    "name": "Quiet Hours",
+    "genre": "stealth",
+    "mechanic": "slip between patrolling guards' lantern vision cones, stand still in shadow pools to vanish, and channel-lift three treasures whose noise pulls the watch to investigate",
+    "theme": "a grand museum's galleries after closing time, one cat burglar against three lantern-swinging watchmen",
+    "tagline": "The guards see light. You wear the dark.",
+    "controls": "WASD / arrows or hold the left touch pad to move, E / Space / LIFT button to lift a piece, P pause, R restart, M sound",
+    "created": "2026-08-23"
   }
 ]

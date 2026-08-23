@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <title>Quiet Hours · Arcade</title>
+    <meta
+      name="description"
+      content="A museum stealth heist: slip between guard lanterns, melt into shadow pools, lift three treasures and vanish down the service stair."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <canvas
+        id="game"
+        width="1000"
+        height="625"
+        aria-label="Quiet Hours game board"
+      ></canvas>
+
+      <!-- HUD -->
+      <header id="hud">
+        <div class="hud-left">
+          <a class="home" href="../../">&larr;&nbsp;Catalogue</a>
+          <span class="hud-title">QUIET HOURS</span>
+        </div>
+        <div class="hud-mid">
+          <span id="loot">◇&thinsp;◇&thinsp;◇</span>
+          <span class="hud-sep">·</span>
+          <span id="clock">0:00</span>
+        </div>
+        <div class="hud-right">
+          <span id="lives" title="Chances left">🎩🎩</span>
+          <button id="btnPause" type="button" aria-label="Pause">⏸</button>
+          <button id="btnMute" type="button" aria-label="Sound">🔊</button>
+        </div>
+      </header>
+
+      <!-- detection ear -->
+      <div id="seen" aria-hidden="true">
+        <span id="seenFill"></span><em>!</em>
+      </div>
+
+      <!-- touch controls -->
+      <div id="stickZone" aria-hidden="true">
+        <div id="stickBase"><div id="stickTip"></div></div>
+      </div>
+      <button id="btnAct" type="button"><b>LIFT</b></button>
+
+      <!-- overlays -->
+      <section id="ovIntro" class="overlay show">
+        <h1>Quiet Hours</h1>
+        <p class="story">
+          The Grand Ellery closes at nine. At&nbsp;nine-oh-one you are already
+          inside. Three pieces belong to you tonight &mdash; lift them all and
+          slip out through the service stair before the watch makes you.
+        </p>
+        <p class="how">
+          <b>Move</b> &mdash; WASD / arrows, or hold the left pad on touch<br />
+          <b>Lift a piece</b> &mdash; stand close and press <kbd>E</kbd> /
+          <kbd>Space</kbd> or the LIFT button<br />
+          <b>Hide</b> &mdash; dark pools swallow their lantern light; stand
+          still to vanish<br />
+          <b>Guards</b> &mdash; their cone of light finds movement and shine.
+          Caught twice and the night is over.<br />
+          <b>P</b> pause &nbsp;<b>R</b> restart &nbsp;<b>M</b> sound
+        </p>
+        <button class="big" id="btnStart" type="button">
+          BEGIN THE QUIET HOURS
+        </button>
+      </section>
+
+      <section id="ovPause" class="overlay">
+        <h2>Held Breath</h2>
+        <p>The gallery waits.</p>
+        <button class="big" id="btnResume" type="button">RESUME</button>
+        <button class="mid" id="btnRestart1" type="button">
+          RESTART NIGHT
+        </button>
+      </section>
+
+      <section id="ovWin" class="overlay">
+        <h2>Vanished</h2>
+        <p class="story" id="winLine">
+          The service stair swallows your footsteps.
+        </p>
+        <p class="stats" id="winStats"></p>
+        <button class="big" id="btnAgain1" type="button">ANOTHER NIGHT</button>
+      </section>
+
+      <section id="ovLose" class="overlay">
+        <h2>Caught</h2>
+        <p class="story" id="loseLine">The watch knows your face now.</p>
+        <p class="stats" id="loseStats"></p>
+        <button class="big" id="btnAgain2" type="button">
+          TRY ANOTHER NIGHT
+        </button>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
