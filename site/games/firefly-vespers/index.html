@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Firefly Vespers</title>
+    <meta
+      name="description"
+      content="Lead a scattered swarm of fireflies into one shared blink before the fog rolls in. Flash alone and the frog learns your rhythm; flash together and light up the night."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="scene"></canvas>
+
+      <header id="topbar">
+        <a id="back" href="../../index.html" title="Back to the arcade"
+          >&#8592;&nbsp;Arcade</a
+        >
+        <h1 id="title">Firefly Vespers</h1>
+        <div id="status">
+          <span id="nightlabel">Night 1</span>
+          <span class="sep">&#183;</span>
+          <span id="score">0</span>
+        </div>
+      </header>
+
+      <div id="meterwrap" aria-hidden="true">
+        <span id="metername">unison</span>
+        <div id="meter">
+          <div id="holdzone"></div>
+          <div id="meterfill"></div>
+        </div>
+        <span id="combo"></span>
+      </div>
+
+      <div id="hearts" aria-hidden="true"></div>
+
+      <div id="fogwrap" aria-hidden="true">
+        <div id="fogbar"><div id="fogfill"></div></div>
+        <span id="fogname">fog</span>
+      </div>
+
+      <div id="hints">
+        <span><b>space / tap</b> flash</span>
+        <span><b>P</b> pause</span>
+        <span><b>M</b> sound</span>
+        <span><b>R</b> restart</span>
+      </div>
+
+      <div id="banner" class="hidden"></div>
+
+      <div id="sysbtns">
+        <button id="pausebtn" type="button" title="Pause (P)">II</button>
+        <button id="mutebtn" type="button" title="Sound (M)">&#9835;</button>
+      </div>
+
+      <div id="overlay">
+        <div id="panel">
+          <h2 id="ovtitle">Firefly Vespers</h2>
+          <p id="ovbody">
+            Dusk is falling over the swamp and a dozen fireflies blink out of
+            step. You are the small gold one. Every flash pulls your neighbours
+            toward your beat &mdash; find the swarm's rhythm, hold it, and the
+            whole marsh will breathe as one light.
+          </p>
+          <ul id="ovrules">
+            <li>
+              <b>Flash in time.</b> Flash when others are about to blink and
+              they swing toward you. Fill the unison meter past the gold mark
+              and hold it.
+            </li>
+            <li>
+              <b>Never flash alone.</b> A frog watches for lonely flashes. Three
+              strikes and your night is over.
+            </li>
+            <li>
+              <b>Beat the fog.</b> Each night ends when the fog arrives &mdash;
+              or when the swamp blinks as one.
+            </li>
+          </ul>
+          <p id="ovstats"></p>
+          <button id="ovbutton" type="button">Begin the vespers</button>
+        </div>
+      </div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

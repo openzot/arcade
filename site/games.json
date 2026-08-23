@@ -348,5 +348,15 @@
     "tagline": "One lever. Two cages. Everyone home.",
     "controls": "keyboard / touch",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "firefly-vespers",
+    "name": "Firefly Vespers",
+    "genre": "synchrony",
+    "mechanic": "flash in rhythm to bend a scattered swarm's internal clocks toward your beat until the whole swamp blinks as one, while a frog hunts lonely or frantic flashers and gusts tear the unison apart",
+    "theme": "a midsummer swamp at dusk where one small gold firefly must lead the night chorus through five widening nights before the fog rolls in",
+    "tagline": "Flash alone and be eaten. Flash together and light the marsh.",
+    "controls": "space / tap to flash, P pause, M sound, R restart",
+    "created": "2026-08-23"
   }
 ]
