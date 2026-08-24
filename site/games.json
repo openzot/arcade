@@ -388,5 +388,15 @@
     "tagline": "Some gold kills. Read the gills.",
     "controls": "mouse / touch tap a fungus then Cut / Smell / Keep / Leave buttons; arrows browse, Enter pick up, C S K L, P pause, M sound, R restart",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "ring-out",
+    "name": "Ring Out",
+    "genre": "campanology",
+    "mechanic": "read each changing row and strike the numbered bell ropes on the beat - every finished row swaps neighbouring bells as plain hunt carries each one home, while wrong or late pulls snuff the parish's five candles of sleep",
+    "theme": "a candlelit village ringing chamber on New Year's Eve, ringing the old year out from St. Aubric's tower",
+    "tagline": "Six bells, one beat. Don't wake the parish.",
+    "controls": "keys 1-6 or tap the ropes, P pause, M sound, R restart",
+    "created": "2026-08-24"
   }
 ]

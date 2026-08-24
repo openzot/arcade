@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Ring Out — a change-ringing game for New Year's Eve</title>
+    <meta
+      name="description"
+      content="Strike the tower bells on the beat as the rows change. Ring the old year out without waking the parish."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="back" href="../../">&larr; Arcade</a>
+      <p class="kicker" id="kicker">
+        St. Aubric's tower &middot; 31 December, four minutes to midnight
+      </p>
+      <h1>Ring Out</h1>
+      <p class="tagline">
+        Strike the numbered ropes on the beat. Every finished row swaps the
+        neighbours. Five candles of parish sleep &mdash; don't let a clash snuff
+        them out.
+      </p>
+    </header>
+
+    <main class="stagewrap">
+      <canvas
+        id="game"
+        width="720"
+        height="1020"
+        aria-label="The ringing chamber"
+      >
+        Ring Out: strike bells 1&ndash;6 on the beat as the rows change.
+      </canvas>
+      <div id="overlay" class="overlay">
+        <div class="panel">
+          <h2 id="ov-title">Ring Out</h2>
+          <p id="ov-body">
+            The old year has four minutes left. Take the ropes and hunt each
+            bell home.
+          </p>
+          <ul id="ov-list" class="howto">
+            <li>
+              The parchment shows the row. When the glow reaches a digit, strike
+              that rope.
+            </li>
+            <li>
+              Keys <strong>1&ndash;6</strong> ring the ropes. On touch, tap
+              them.
+            </li>
+            <li>
+              After every row the neighbours trade places &mdash; read it fresh.
+            </li>
+            <li>
+              A wrong or late rope wakes the parish. You hold five candles of
+              sleep.
+            </li>
+          </ul>
+          <button id="ov-btn" type="button">Look to!</button>
+          <p class="hint">or press Space</p>
+        </div>
+      </div>
+    </main>
+
+    <nav class="deck" aria-label="Game controls">
+      <button id="btn-pause" type="button">
+        Pause <span class="key">P</span>
+      </button>
+      <button id="btn-mute" type="button">
+        Sound: on <span class="key">M</span>
+      </button>
+      <button id="btn-restart" type="button">
+        Restart <span class="key">R</span>
+      </button>
+    </nav>
+
+    <footer class="colophon">
+      <p>
+        Plain hunt on the tower bells &middot; every sound drawn live from thin
+        air with the Web Audio API.
+      </p>
+    </footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>
