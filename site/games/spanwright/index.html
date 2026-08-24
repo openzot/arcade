@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spanwright</title>
+    <meta
+      name="description"
+      content="Bolt timber beams into trusses over five flood-torn gaps, then wave the valley school bus across. Strained members glow red and snap."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="top">
+        <a class="back" href="../../">&#8592; The Arcade</a>
+        <div class="brand">
+          <h1>Spanwright</h1>
+          <p class="tagline">Timber, triangles and nerve.</p>
+        </div>
+      </header>
+
+      <div id="hud" aria-live="polite">
+        <span class="chip level" id="chip-level">Crossing 1</span>
+        <span class="chip timber" id="chip-timber">&#9632; 26 timber</span>
+        <span class="grow"></span>
+        <span class="chip state" id="chip-state">BUILDING</span>
+        <span class="chip gold" id="chip-stars">&#9733; 0/15</span>
+      </div>
+
+      <div id="toolbar">
+        <button type="button" id="btn-test" class="btn primary">
+          &#9654; Test span
+        </button>
+        <button type="button" id="btn-undo" class="btn">Undo</button>
+        <button type="button" id="btn-clear" class="btn">Clear</button>
+        <button type="button" id="btn-restart" class="btn">Restart</button>
+        <button type="button" id="btn-pause" class="btn">Pause</button>
+        <button type="button" id="btn-sound" class="btn" aria-pressed="true">
+          Sound
+        </button>
+      </div>
+
+      <main
+        id="stage"
+        aria-label="The gorge. Build a timber span between the steel anchors."
+      >
+        <canvas
+          id="game"
+          role="img"
+          aria-label="A flood-cut mountain gorge with steel anchors on both banks. Drag from joint to joint to lay timber beams, then test the span with the school bus."
+        >
+        </canvas>
+
+        <div id="toast" role="status"></div>
+
+        <section
+          class="overlay"
+          id="ov-title"
+          role="dialog"
+          aria-labelledby="ttl-h"
+        >
+          <div class="card">
+            <svg class="truss-mark" viewBox="0 0 120 34" aria-hidden="true">
+              <path d="M4 30 L4 8 M116 30 L116 8" class="tm-anchor"></path>
+              <path
+                d="M4 28 H116 M4 28 L34 6 L64 28 L94 6 L116 28"
+                class="tm-beam"
+              ></path>
+              <circle cx="4" cy="28" r="3" class="tm-pin"></circle>
+              <circle cx="34" cy="6" r="3" class="tm-pin"></circle>
+              <circle cx="64" cy="28" r="3" class="tm-pin"></circle>
+              <circle cx="94" cy="6" r="3" class="tm-pin"></circle>
+              <circle cx="116" cy="28" r="3" class="tm-pin"></circle>
+            </svg>
+            <h2 id="ttl-h">The flood took the road.</h2>
+            <p class="lede">
+              Five culverts on the valley road washed out in the night &mdash;
+              and the school bus is due. You are the road gang&rsquo;s engineer.
+              Bolt timber between the steel anchors, brace it into triangles,
+              then wave the loaded bus across.
+            </p>
+            <ul class="how">
+              <li>
+                <strong>Drag</strong> from any joint or anchor to a grid point to
+                lay a beam. Planks cost timber &mdash; the meter up top counts
+                down.
+              </li>
+              <li>
+                Beams longer than one length of lumber are refused, so big gaps
+                need <em>triangles</em>. Flat decks sag; trusses hold.
+              </li>
+              <li>
+                <strong>Tap a beam</strong> twice (or use Undo) to take it back.
+                Then press <strong>Test</strong>: amber creaks, red snaps.
+              </li>
+              <li>Get the bus to the far bank. Spare timber becomes stars.</li>
+            </ul>
+            <div class="row">
+              <button type="button" id="btn-start" class="btn big primary">
+                Take the job
+              </button>
+              <button type="button" id="btn-wipe" class="btn quiet hiddenf">
+                Start over at crossing 1
+              </button>
+            </div>
+            <p class="fine">
+              Mouse or touch to build &middot; arrow keys + Enter also build
+              &middot; Space tests &middot; Z undo &middot; R restart &middot; P
+              <button type="button" id="btn-wipe" class="btn quiet hidden">
+                Start over at crossing 1
+              </button>
+        </section>
+
+        <section
+          class="overlay"
+          id="ov-win"
+          role="dialog"
+          aria-labelledby="win-h"
+          hidden
+        >
+          <div class="card">
+            <h2 id="win-h">Across!</h2>
+            <p class="lede" id="win-lede">The bus rolls onto solid ground.</p>
+            <div class="stars-line" id="win-stars"></div>
+            <p class="fine" id="win-stats"></p>
+            <div class="row">
+              <button type="button" id="btn-next" class="btn big primary">
+                Next crossing
+              </button>
+              <button type="button" id="btn-replay" class="btn">
+                Build it leaner
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="overlay"
+          id="ov-fail"
+          role="dialog"
+          aria-labelledby="fail-h"
+          hidden
+        >
+          <div class="card">
+            <h2 id="fail-h">The bus went down.</h2>
+            <p class="lede" id="fail-lede">The river has your timbers now.</p>
+            <p class="fine" id="fail-hint"></p>
+            <div class="row">
+              <button type="button" id="btn-back-plan" class="btn big primary">
+                Back to the plan
+              </button>
+              <button type="button" id="btn-retry" class="btn">
+                Try this span again
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="overlay"
+          id="ov-done"
+          role="dialog"
+          aria-labelledby="done-h"
+          hidden
+        >
+          <div class="card">
+            <h2 id="done-h">Road open!</h2>
+            <p class="lede">
+              Five crossings rigged, the valley bus runs again, and the gang
+              names you Spanwright of the year.
+            </p>
+            <div class="stars-line" id="done-stars"></div>
+            <p class="fine" id="done-note"></p>
+            <div class="row">
+            <div class="row">
+              <button type="button" id="btn-again" class="btn big primary">
+                Run the whole road again
+              </button>
+            </div>
+          </div>
+        </section>
+        </section>
+
+        <section
+          class="overlay"
+          id="ov-pause"
+          role="dialog"
+          aria-labelledby="pause-h"
+          hidden
+        >
+          <div class="card slim">
+            <h2 id="pause-h">Paused</h2>
+            <p class="lede">The gorge will wait.</p>
+            <div class="row">
+              <button type="button" id="btn-resume" class="btn big primary">
+                Back to work
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

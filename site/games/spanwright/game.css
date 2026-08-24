@@ -1,0 +1,398 @@
+/* Spanwright — flood-gorge truss building */
+
+:root {
+  --bg0: #1c222c;
+  --bg1: #29313f;
+  --paper: #f8f2e2;
+  --paper-dim: #efe7d2;
+  --ink: #2c323b;
+  --ink-soft: #66707e;
+  --line: #ddd3bc;
+  --timber: #b5793a;
+  --timber-dark: #8f5c2a;
+  --amber: #dd9630;
+  --red: #cf4a45;
+  --green: #4f8f5b;
+  --gold: #dfa32f;
+  --shadow: 0 14px 34px rgba(10, 14, 20, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #35404f 0%, transparent 60%),
+    linear-gradient(var(--bg1), var(--bg0));
+  color: var(--paper);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: min(1020px, 100%);
+  padding: 10px 12px 22px;
+}
+
+/* ---------- header ---------- */
+
+.top {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 4px 2px 8px;
+}
+
+.back {
+  color: #c8b98f;
+  text-decoration: none;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  border-bottom: 1px dotted #8b7f5e;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: #efe4c3;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+  color: #f2e8cd;
+}
+
+.tagline {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #a89a76;
+  font-style: italic;
+}
+
+/* ---------- hud ---------- */
+
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 2px 2px 8px;
+}
+
+.grow {
+  flex: 1;
+}
+
+.chip {
+  background: rgba(248, 242, 226, 0.08);
+  border: 1px solid rgba(248, 242, 226, 0.16);
+  color: #e8dfc6;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chip.timber.low {
+  color: #ffb3a6;
+  border-color: rgba(207, 74, 69, 0.55);
+  animation: pulse 0.9s ease-in-out infinite;
+}
+
+.chip.state.test {
+  color: #ffd98a;
+}
+
+.chip.state.bad {
+  color: #ff9d94;
+}
+
+.chip.gold {
+  color: var(--gold);
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* ---------- toolbar ---------- */
+
+#toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 2px 10px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid rgba(248, 242, 226, 0.25);
+  background: rgba(248, 242, 226, 0.07);
+  color: #ece2c8;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition:
+    transform 0.06s ease,
+    background 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(248, 242, 226, 0.16);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.btn.primary {
+  background: var(--timber);
+  border-color: var(--timber-dark);
+  color: #fff7e8;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #c68743;
+}
+
+.btn.big {
+  font-size: 0.95rem;
+  padding: 11px 22px;
+}
+
+.btn.quiet {
+  background: transparent;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- stage & canvas ---------- */
+
+#stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 8 / 5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(248, 242, 226, 0.14);
+  background: #141a23;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+  display: block;
+}
+
+/* ---------- toast ---------- */
+
+#toast {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(20, 24, 31, 0.92);
+  color: #f3ecd8;
+  border: 1px solid rgba(248, 242, 226, 0.25);
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  max-width: 86%;
+  text-align: center;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#toast.warn {
+  border-color: rgba(221, 150, 48, 0.7);
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 19, 26, 0.62);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  max-width: 520px;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 22px 26px 20px;
+  border-top: 5px solid var(--timber);
+}
+
+.card.slim {
+  max-width: 340px;
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.lede {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.how {
+  margin: 0 0 14px;
+  padding: 0 0 0 18px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #454d59;
+}
+
+.how li {
+  margin-bottom: 6px;
+}
+
+.how strong {
+  color: var(--ink);
+}
+
+.fine {
+  margin: 12px 0 0;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.stars-line {
+  font-size: 1.6rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  margin: 6px 0 2px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.truss-mark {
+  width: 130px;
+  height: auto;
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.tm-anchor {
+  stroke: #7d8794;
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.tm-beam {
+  stroke: var(--timber);
+  stroke-width: 4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tm-pin {
+  fill: var(--ink);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 640px) {
+  .brand h1 {
+    font-size: 1.1rem;
+  }
+
+  .tagline {
+    display: none;
+  }
+
+  .chip {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+
+  .btn {
+    font-size: 0.76rem;
+    padding: 7px 11px;
+  }
+
+  .card {
+    padding: 16px 16px 14px;
+  }
+
+  .card h2 {
+    font-size: 1.1rem;
+  }
+}
