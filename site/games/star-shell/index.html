@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Star Shell</title>
+    <meta
+      name="description"
+      content="Bonfire night on a harbour jetty. Load a colour, set the fuse, and bloom every burst where the commission wants it before the tide takes the crowd."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="scene"></canvas>
+
+      <header id="topbar">
+        <a id="back" href="../../index.html" title="Back to the arcade"
+          >&#8592;&nbsp;Arcade</a
+        >
+        <h1 id="title">Star Shell</h1>
+        <div id="status">
+          <span id="nightlabel">Night 1</span>
+          <span class="sep">&#183;</span>
+          <span id="score">0</span>
+        </div>
+      </header>
+
+      <aside id="commissions" aria-hidden="true">
+        <div id="cname">Commission</div>
+        <ul id="clist"></ul>
+        <div id="clockwrap" aria-hidden="true">
+          <div id="clockbar"></div>
+        </div>
+        <div id="windrow" aria-hidden="true">
+          <span id="windglyph">&rarr;</span>
+          <div id="windbar"><div id="windfill"></div></div>
+        </div>
+      </aside>
+
+      <footer id="deck">
+        <div id="tubes" aria-hidden="true"></div>
+        <div id="shellcount" aria-hidden="true">
+          <span class="sc-label">shells</span>
+          <span id="shellpips"></span>
+        </div>
+        <div id="palette" role="group" aria-label="Shell colour"></div>
+        <div id="fusebox">
+          <button id="fuseless" type="button" title="Shorter fuse (-)"
+            >&minus;</button
+          >
+          <span id="fuselabel">fuse 2.0s</span>
+          <button id="fusemore" type="button" title="Longer fuse (+)">+</button>
+        </div>
+      </footer>
+
+      <div id="hints">
+        <span><b>tap / click sky</b> aim &amp; fire</span>
+        <span><b>&#8592;&#8594;&#8593;&#8595;</b> aim</span>
+        <span><b>space</b> fire</span>
+        <span><b>C</b> shell colour</span>
+        <span><b>&minus; / +</b> fuse</span>
+        <span><b>P</b> pause</span>
+        <span><b>M</b> sound</span>
+        <span><b>R</b> restart</span>
+      </div>
+
+      <div id="sysbtns">
+        <button id="pausebtn" type="button" title="Pause (P)">
+          &#10074;&#10074;
+        </button>
+        <button id="mutebtn" type="button" title="Sound (M)">&#9834;</button>
+      </div>
+
+      <div id="overlay">
+        <div id="card"></div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
