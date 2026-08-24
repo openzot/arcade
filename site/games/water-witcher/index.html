@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Water Witcher · Arcade</title>
+    <meta
+      name="description"
+      content="Walk the parched rows of a drought-struck hop farm, read the dip and twitch of a hazel rod, and sink your scarce boreholes where the water hides."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <canvas
+        id="game"
+        width="960"
+        height="600"
+        aria-label="The Water Witcher — dowsing game board"
+      ></canvas>
+
+      <a class="back" href="../../">&larr; Arcade</a>
+
+      <section class="overlay" id="overlay">
+        <div class="panel" id="panel">
+          <p class="kicker">
+            Five fields. One hazel rod. A stake that will not stretch.
+          </p>
+          <h1>The Water&nbsp;Witcher</h1>
+          <p class="lede">
+            The dry summer of 1921 has cracked Miss Hedley's hop garden to
+            hardpan. She has heard you carry the old gift, so take the rod and
+            find what is left of the water — before her money, or your luck,
+            runs out.
+          </p>
+          <ul class="howto">
+            <li>
+              <b>Walk the rows</b> with WASD / arrow keys, or press and drag on
+              the field.
+            </li>
+            <li>
+              <b>Watch the rod.</b> The harder it dips and the faster it ticks,
+              the closer the water lies. When it wrenches sideways, it is
+              pointing.
+            </li>
+            <li>
+              <b>Sink a borehole</b> where you stand — Space, or tap the DRILL
+              pad. £3 a shot. A wet bore pays by the litre; a dry one drinks
+              your stake.
+            </li>
+            <li>
+              <b>Raise each field's quota</b> in litres to open the gate to the
+              next. Empty stake with the quota unmet ends the season.
+            </li>
+          </ul>
+          <p class="keys">
+            Space drill &middot; P pause &middot; M sound &middot; R restart
+          </p>
+          <button id="btn-start" type="button" data-action="start">
+            Take up the rod
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

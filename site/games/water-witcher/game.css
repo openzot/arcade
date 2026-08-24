@@ -1,0 +1,211 @@
+/* The Water Witcher — a dowsing game for the arcade. */
+
+:root {
+  --ink: #241a0e;
+  --parchment: #efe3c4;
+  --parchment-dark: #e2d2ab;
+  --dust: #171310;
+  --gold: #c9a24b;
+  --water: #3f8ea6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(120% 90% at 50% 20%, #241c13 0%, var(--dust) 70%);
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--parchment);
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  width: min(97vw, calc(97vh * 1.6));
+  aspect-ratio: 960 / 600;
+}
+
+#game {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #3a2d1c;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(239, 227, 196, 0.06);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.back {
+  position: absolute;
+  top: -14px;
+  left: -8px;
+  z-index: 5;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--parchment);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: clamp(11px, 1.5vw, 14px);
+  letter-spacing: 0.04em;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+}
+
+.back:hover,
+.back:focus-visible {
+  background: #fff6dd;
+  outline: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3%;
+  background: rgba(12, 9, 6, 0.66);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.panel {
+  max-width: min(92%, 560px);
+  max-height: 94%;
+  overflow: auto;
+  padding: clamp(16px, 3vw, 34px) clamp(18px, 3.4vw, 40px);
+  background: linear-gradient(
+    160deg,
+    #f7eed6 0%,
+    var(--parchment) 55%,
+    var(--parchment-dark) 100%
+  );
+  color: var(--ink);
+  border: 1px solid #b49b62;
+  border-radius: 6px;
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.6),
+    inset 0 0 60px rgba(148, 118, 58, 0.18);
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  font-size: clamp(10px, 1.6vw, 13px);
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7a6233;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-weight: 700;
+  font-size: clamp(26px, 5.4vw, 44px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: clamp(20px, 4vw, 32px);
+}
+
+.lede {
+  margin: 0 auto 14px;
+  max-width: 46ch;
+  font-size: clamp(12px, 2vw, 15.5px);
+  line-height: 1.5;
+  color: #43351c;
+}
+
+.howto {
+  margin: 0 auto 14px;
+  padding: 10px 14px 10px 30px;
+  max-width: 52ch;
+  text-align: left;
+  font-size: clamp(11px, 1.8vw, 14px);
+  line-height: 1.5;
+  border-top: 1px dashed #a98f56;
+  border-bottom: 1px dashed #a98f56;
+}
+
+.howto li + li {
+  margin-top: 6px;
+}
+
+.keys {
+  margin: 0 0 16px;
+  font-size: clamp(10px, 1.6vw, 12.5px);
+  letter-spacing: 0.08em;
+  color: #7a6233;
+}
+
+button {
+  font-family: inherit;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  font-size: clamp(14px, 2.4vw, 19px);
+  padding: 10px 26px;
+  margin: 0 5px 6px;
+  color: var(--ink);
+  background: linear-gradient(#f2dfae, #d9bd7e);
+  border: 1px solid #8a6f38;
+  border-bottom-width: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.06);
+}
+
+button:active {
+  transform: translateY(1px);
+  border-bottom-width: 2px;
+}
+
+button.primary {
+  background: linear-gradient(#e9c86a, var(--gold));
+  box-shadow: 0 0 0 1px rgba(36, 26, 14, 0.25);
+}
+
+button:focus-visible {
+  outline: 2px solid #4c3a14;
+  outline-offset: 2px;
+}
+
+.big {
+  font-size: clamp(28px, 6vw, 48px);
+  margin: 4px 0 12px;
+  color: #2e5d6d;
+}
+
+.stat {
+  font-size: clamp(12px, 2vw, 15px);
+  color: #43351c;
+  margin: 2px 0;
+}
+
+@media (max-width: 560px) {
+  .howto {
+    padding-left: 22px;
+  }
+}

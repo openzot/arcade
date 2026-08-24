@@ -408,5 +408,15 @@
     "tagline": "Eight tangled leads. Not one may cross.",
     "controls": "mouse / touch drag anyone, Tab + arrows nudge, U undo, R reset park, P pause, M sound",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "water-witcher",
+    "name": "The Water Witcher",
+    "genre": "dowsing",
+    "mechanic": "walk parched fields reading a hazel rod's dip, tick-rate and sideways wrench to triangulate buried aquifers, then commit scarce £3 boreholes - wet bores pay by the litre, dry ones drink your stake",
+    "theme": "a drought-cracked 1921 hop farm in five fields between a dying well and Miss Hedley's last thirty pounds",
+    "tagline": "The rod knows. Trust the twitch.",
+    "controls": "WASD / arrows or hold-drag to walk, space or the DRILL pad sinks a bore, P pause, M sound, R restart",
+    "created": "2026-08-24"
   }
 ]
