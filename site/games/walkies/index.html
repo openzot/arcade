@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Walkies!</title>
+    <meta
+      name="description"
+      content="Drag the dog walkers until no lead crosses another. Eight tangled mornings in the park."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="top">
+        <a class="back" href="../../">&#8592; The Arcade</a>
+        <div class="brand">
+          <h1>Walkies!</h1>
+          <p class="tagline">
+            Eight parks of tangled leads. Not one may cross.
+          </p>
+        </div>
+      </header>
+
+      <div id="hud" aria-live="polite">
+        <span class="chip park" id="chip-park">Park 1</span>
+        <span class="chip warn" id="chip-cross">0 tangles</span>
+        <span class="grow"></span>
+        <span class="chip" id="chip-moves">0 drags</span>
+        <span class="chip gold" id="chip-bones">0/24 paws</span>
+      </div>
+
+      <main id="stage">
+        <canvas
+          id="game"
+          role="img"
+          aria-label="The park. Drag walkers, dogs and lampposts until no lead crosses another."
+        >
+        </canvas>
+
+        <section
+          class="overlay"
+          id="ov-title"
+          role="dialog"
+          aria-labelledby="ttl-h"
+        >
+          <div class="card">
+            <h2 id="ttl-h">Morning walk, zero chaos?</h2>
+            <p class="lede">
+              Every dog is on a lead and every neighbour is saying hello &mdash;
+              but the lines have knotted into tangles.
+            </p>
+            <ul class="how">
+              <li>
+                <strong>Drag</strong> anyone &mdash; or a lamppost &mdash; to a
+                new spot.
+              </li>
+              <li>
+                A <em class="bad">red</em> line crosses another. Separate it.
+              </li>
+              <li>
+                No crossings? Park clear! Fewer drags earn more &#128062;.
+              </li>
+            </ul>
+            <p class="keys">
+              Keys: <kbd>Tab</kbd> choose who to nudge &middot;
+              <kbd>&larr;&uarr;&darr;&rarr;</kbd> move (with <kbd>Shift</kbd> to
+              hurry) &middot; <kbd>U</kbd> undo &middot; <kbd>R</kbd> reset park
+              &middot; <kbd>P</kbd> pause &middot; <kbd>M</kbd> sound
+            </p>
+            <div id="lv-grid" class="grid"></div>
+            <button class="btn primary big" id="btn-start" type="button">
+              Start the walk
+            </button>
+          </div>
+        </section>
+
+        <section
+          class="overlay hidden"
+          id="ov-cleared"
+          role="dialog"
+          aria-labelledby="clr-h"
+        >
+          <div class="card">
+            <h2 id="clr-h">Park clear!</h2>
+            <p class="lede" id="clr-detail">&hellip;</p>
+            <p class="keys" id="clr-flavour"></p>
+            <div class="row">
+              <button class="btn primary big" id="btn-next" type="button">
+                Next park
+              </button>
+              <button class="btn" id="btn-again" type="button">
+                Walk it again
+              </button>
+              <button class="btn ghost" id="btn-clr-menu" type="button">
+                Parks
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="overlay hidden"
+          id="ov-pause"
+          role="dialog"
+          aria-labelledby="pau-h"
+        >
+          <div class="card">
+            <h2 id="pau-h">Paused</h2>
+            <p class="keys">Everyone is sniffing a lamppost. Take your time.</p>
+            <div class="row">
+              <button class="btn primary big" id="btn-resume" type="button">
+                Keep walking
+              </button>
+              <button class="btn" id="btn-p-reset" type="button">
+                Reset park
+              </button>
+              <button class="btn ghost" id="btn-p-menu" type="button">
+                Parks
+              </button>
+              <button class="btn ghost" id="btn-p-sound" type="button">
+                Sound: on
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="overlay hidden"
+          id="ov-finale"
+          role="dialog"
+          aria-labelledby="fin-h"
+        >
+          <div class="card">
+            <h2 id="fin-h">All eight parks clear!</h2>
+            <p class="lede" id="fin-detail">&hellip;</p>
+            <div class="row">
+              <button class="btn primary big" id="btn-again-all" type="button">
+                Walk them again
+              </button>
+              <button class="btn ghost" id="btn-fin-menu" type="button">
+                Parks
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <div id="toast" class="hidden" role="status"></div>
+      </main>
+
+      <footer id="bar">
+        <button
+          class="btn"
+          id="btn-undo"
+          type="button"
+          title="Undo last drag (U)"
+        >
+          &#8617; Undo
+        </button>
+        <button
+          class="btn"
+          id="btn-reset"
+          type="button"
+          title="Reset this park (R)"
+        >
+          &#10227; Reset park
+        </button>
+        <button class="btn" id="btn-pause" type="button" title="Pause (P)">
+          &#10074;&#10074; Pause
+        </button>
+        <button
+          class="btn"
+          id="btn-sound"
+          type="button"
+          title="Sound on/off (M)"
+        >
+          &#9834; On
+        </button>
+      </footer>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -398,5 +398,15 @@
     "tagline": "Six bells, one beat. Don't wake the parish.",
     "controls": "keys 1-6 or tap the ropes, P pause, M sound, R restart",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "walkies",
+    "name": "Walkies!",
+    "genre": "untangle",
+    "mechanic": "drag owners, dogs and lampposts across the park until no lead or greeting crosses another - crossings glow red until you tease the last knot apart, with fewer drags earning more paws",
+    "theme": "eight knotted groups of dog walkers on a car-free Sunday morning in a small-town park",
+    "tagline": "Eight tangled leads. Not one may cross.",
+    "controls": "mouse / touch drag anyone, Tab + arrows nudge, U undo, R reset park, P pause, M sound",
+    "created": "2026-08-24"
   }
 ]

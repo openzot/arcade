@@ -1,0 +1,394 @@
+/* Walkies! — morning-park untangle puzzle */
+
+:root {
+  --ink: #33413a;
+  --ink-soft: #5c6d63;
+  --paper: #fffdf6;
+  --cream: #f6f1e3;
+  --grass: #8fbf72;
+  --green: #3e8e5a;
+  --green-dark: #2f6b45;
+  --red: #cf3f54;
+  --gold: #dfa32f;
+  --line: #d8d2bf;
+  --shadow: 0 10px 30px rgba(51, 65, 58, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(
+      120% 70% at 50% -10%,
+      #dff2f7 0%,
+      rgba(223, 242, 247, 0) 60%
+    ),
+    linear-gradient(#e9f4ec 0%, #dcedd6 55%, #cfe4c0 100%);
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- header ---------- */
+
+.top {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.back {
+  color: var(--green-dark);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 1px;
+}
+
+.back:hover,
+.back:focus-visible {
+  border-bottom-color: var(--green-dark);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(26px, 5vw, 38px);
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+/* ---------- hud ---------- */
+
+#hud {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  box-shadow: 0 2px 0 rgba(51, 65, 58, 0.06);
+  white-space: nowrap;
+}
+
+.chip.warn {
+  color: var(--red);
+  border-color: #eec4cb;
+}
+
+.chip.warn.clear {
+  color: var(--green-dark);
+  border-color: #bcdcc8;
+}
+
+.chip.gold {
+  color: #8a6210;
+  border-color: #ecd9ac;
+}
+
+.grow {
+  flex: 1;
+}
+
+/* ---------- stage ---------- */
+
+#stage {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--cream);
+}
+
+#game {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  touch-action: none;
+  cursor: grab;
+}
+
+#game.dragging {
+  cursor: grabbing;
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(38, 52, 44, 0.35);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.card {
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 4vw, 27px);
+}
+
+.lede {
+  margin: 0 0 10px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.how {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.how li::before {
+  content: "\2022\00a0 ";
+  color: var(--green);
+  font-weight: 700;
+}
+
+.bad {
+  color: var(--red);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.keys {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+kbd {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-family: inherit;
+  font-size: 11px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 6px;
+  margin: 0 0 12px;
+}
+
+.lv-btn {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 6px;
+  cursor: pointer;
+  line-height: 1.35;
+}
+
+.lv-btn small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.lv-btn:not(:disabled):hover {
+  border-color: var(--green);
+  background: #eef7ea;
+}
+
+.lv-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.lv-btn.current {
+  border-color: var(--green);
+  box-shadow: inset 0 0 0 1px var(--green);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--green);
+}
+
+.btn.primary {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--green-dark);
+}
+
+.btn.big {
+  font-size: 15px;
+  padding: 10px 22px;
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible,
+.lv-btn:focus-visible,
+.back:focus-visible {
+  outline: 3px solid rgba(62, 142, 90, 0.55);
+  outline-offset: 2px;
+}
+
+/* ---------- footer bar ---------- */
+
+#bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- toast ---------- */
+
+#toast {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  background: rgba(38, 52, 44, 0.88);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 7px 16px;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 1;
+  transition:
+    opacity 0.4s ease,
+    bottom 0.4s ease;
+  white-space: nowrap;
+}
+
+#toast.hidden {
+  opacity: 0;
+  bottom: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #toast {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  #stage {
+    aspect-ratio: auto;
+    height: min(76vh, 620px);
+    background: linear-gradient(#9ec287, #8fb878);
+  }
+
+  #game {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
