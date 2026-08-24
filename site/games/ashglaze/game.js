@@ -2,7 +2,7 @@
    before each lump of clay stiffens. All behaviour lives in this file,
    wrapped in an IIFE so nothing leaks to global scope. */
 (() => {
-  'use strict';
+  "use strict";
 
   /* ---------- helpers ---------- */
 
@@ -28,43 +28,83 @@
   // pts: [t, radiusMultiplier] control points, t 0 bottom .. 1 top.
   const COMMS = [
     {
-      name: 'Sun Pan',
-      pts: [[0, 0.94], [0.12, 0.9], [0.45, 0.66], [0.75, 0.5], [0.92, 0.46], [1, 0.5]],
+      name: "Sun Pan",
+      pts: [
+        [0, 0.94],
+        [0.12, 0.9],
+        [0.45, 0.66],
+        [0.75, 0.5],
+        [0.92, 0.46],
+        [1, 0.5],
+      ],
       tol: 30,
       time: 90,
       hfrac: 0.4,
     },
     {
-      name: 'Straight Cup',
-      pts: [[0, 0.52], [0.25, 0.5], [0.6, 0.47], [1, 0.5]],
+      name: "Straight Cup",
+      pts: [
+        [0, 0.52],
+        [0.25, 0.5],
+        [0.6, 0.47],
+        [1, 0.5],
+      ],
       tol: 20,
       time: 85,
       hfrac: 0.62,
     },
     {
-      name: 'Moon Jar',
-      pts: [[0, 0.6], [0.18, 0.86], [0.4, 1.0], [0.62, 0.96], [0.8, 0.72], [1, 0.46]],
+      name: "Moon Jar",
+      pts: [
+        [0, 0.6],
+        [0.18, 0.86],
+        [0.4, 1.0],
+        [0.62, 0.96],
+        [0.8, 0.72],
+        [1, 0.46],
+      ],
       tol: 24,
       time: 90,
       hfrac: 0.58,
     },
     {
-      name: 'Gourd Bottle',
-      pts: [[0, 0.42], [0.15, 0.78], [0.35, 0.94], [0.52, 0.7], [0.68, 0.32], [0.85, 0.22], [1, 0.24]],
+      name: "Gourd Bottle",
+      pts: [
+        [0, 0.42],
+        [0.15, 0.78],
+        [0.35, 0.94],
+        [0.52, 0.7],
+        [0.68, 0.32],
+        [0.85, 0.22],
+        [1, 0.24],
+      ],
       tol: 22,
       time: 85,
       hfrac: 0.74,
     },
     {
-      name: 'Heron Vase',
-      pts: [[0, 0.5], [0.2, 0.36], [0.5, 0.3], [0.75, 0.34], [0.9, 0.44], [1, 0.56]],
+      name: "Heron Vase",
+      pts: [
+        [0, 0.5],
+        [0.2, 0.36],
+        [0.5, 0.3],
+        [0.75, 0.34],
+        [0.9, 0.44],
+        [1, 0.56],
+      ],
       tol: 20,
       time: 80,
       hfrac: 0.97,
     },
     {
-      name: 'Night Tea Bowl',
-      pts: [[0, 0.58], [0.3, 0.66], [0.55, 0.63], [0.8, 0.54], [1, 0.58]],
+      name: "Night Tea Bowl",
+      pts: [
+        [0, 0.58],
+        [0.3, 0.66],
+        [0.55, 0.63],
+        [0.8, 0.54],
+        [1, 0.58],
+      ],
       tol: 16,
       time: 80,
       hfrac: 0.5,
@@ -74,23 +114,23 @@
   const GRADES = [
     {
       min: 0.86,
-      word: 'Master glaze',
-      note: 'It rings like a struck bowl. The buyer will never know how close the wobble came.',
+      word: "Master glaze",
+      note: "It rings like a struck bowl. The buyer will never know how close the wobble came.",
     },
     {
       min: 0.68,
-      word: 'Kept',
-      note: 'Honest ware. It will hold soup and memory alike.',
+      word: "Kept",
+      note: "Honest ware. It will hold soup and memory alike.",
     },
     {
       min: 0.45,
-      word: 'Seconds',
-      note: 'Glaze laid thick, lines true-ish. It goes to the stall at the gate.',
+      word: "Seconds",
+      note: "Glaze laid thick, lines true-ish. It goes to the stall at the gate.",
     },
     {
       min: -1,
-      word: 'Cracked in the fire',
-      note: 'The kiln gods took their share. It happens.',
+      word: "Cracked in the fire",
+      note: "The kiln gods took their share. It happens.",
     },
   ];
 
@@ -113,17 +153,18 @@
       out[i] = lerp(a[1], b[1], u) * RB;
     }
     for (let pass = 0; pass < 3; pass++) {
-      for (let i = 1; i < S - 1; i++) out[i] = (out[i - 1] + out[i] * 2 + out[i + 1]) / 4;
+      for (let i = 1; i < S - 1; i++)
+        out[i] = (out[i - 1] + out[i] * 2 + out[i + 1]) / 4;
     }
     return out;
   }
 
   /* ---------- state ---------- */
 
-  const c = $('wheel');
-  const ctx = c.getContext('2d');
+  const c = $("wheel");
+  const ctx = c.getContext("2d");
 
-  let state = 'INTRO'; // INTRO | THROW | COLLAPSE | RESULT | FINALE
+  let state = "INTRO"; // INTRO | THROW | COLLAPSE | RESULT | FINALE
   let paused = false;
   let commIdx = 0;
   let lumps = 4;
@@ -183,10 +224,10 @@
       master.connect(AC.destination);
 
       humOsc = AC.createOscillator();
-      humOsc.type = 'sawtooth';
+      humOsc.type = "sawtooth";
       humOsc.frequency.value = 46;
       const humFilter = AC.createBiquadFilter();
-      humFilter.type = 'lowpass';
+      humFilter.type = "lowpass";
       humFilter.frequency.value = 150;
       humGain = AC.createGain();
       humGain.gain.value = 0;
@@ -201,7 +242,7 @@
       noise.buffer = buf;
       noise.loop = true;
       const bp = AC.createBiquadFilter();
-      bp.type = 'bandpass';
+      bp.type = "bandpass";
       bp.frequency.value = 850;
       bp.Q.value = 0.8;
       scrapeGain = AC.createGain();
@@ -232,16 +273,16 @@
   }
 
   const sfxChime = () => {
-    tone(660, 'sine', 0.5, 0.22);
-    setTimeoutSafe(() => tone(990, 'sine', 0.7, 0.18), 110);
+    tone(660, "sine", 0.5, 0.22);
+    setTimeoutSafe(() => tone(990, "sine", 0.7, 0.18), 110);
   };
   const sfxThud = () => {
-    tone(72, 'sine', 0.45, 0.4);
-    tone(48, 'triangle', 0.6, 0.3);
+    tone(72, "sine", 0.45, 0.4);
+    tone(48, "triangle", 0.6, 0.3);
   };
-  const sfxCrack = () => tone(140, 'square', 0.07, 0.16);
-  const sfxSplash = () => tone(1250, 'sine', 0.09, 0.06);
-  const sfxTick = () => tone(520, 'sine', 0.05, 0.05);
+  const sfxCrack = () => tone(140, "square", 0.07, 0.16);
+  const sfxSplash = () => tone(1250, "sine", 0.09, 0.06);
+  const sfxTick = () => tone(520, "sine", 0.05, 0.05);
 
   function setTimeoutSafe(fn, ms) {
     try {
@@ -253,23 +294,23 @@
 
   /* ---------- DOM refs ---------- */
 
-  const elOrderno = $('orderno');
-  const elOrdername = $('ordername');
-  const elGw = $('gw');
-  const elGt = $('gt');
-  const elGd = $('gd');
-  const elAcc = $('acc');
-  const elLumps = $('lumps');
-  const elVeil = $('veil');
-  const elInter = $('inter');
-  const elFinale = $('finale');
-  const elPauseov = $('pauseov');
-  const elIstamp = $('istamp');
-  const elIname = $('iname');
-  const elInote = $('inote');
-  const elBnext = $('bnext');
-  const elShelf = $('shelf');
-  const elFrank = $('frank');
+  const elOrderno = $("orderno");
+  const elOrdername = $("ordername");
+  const elGw = $("gw");
+  const elGt = $("gt");
+  const elGd = $("gd");
+  const elAcc = $("acc");
+  const elLumps = $("lumps");
+  const elVeil = $("veil");
+  const elInter = $("inter");
+  const elFinale = $("finale");
+  const elPauseov = $("pauseov");
+  const elIstamp = $("istamp");
+  const elIname = $("iname");
+  const elInote = $("inote");
+  const elBnext = $("bnext");
+  const elShelf = $("shelf");
+  const elFrank = $("frank");
 
   /* ---------- flow ---------- */
 
@@ -293,7 +334,7 @@
     particles.length = 0;
     ptr = null;
     retrySame = false;
-    state = 'THROW';
+    state = "THROW";
     paused = false;
     hide(elVeil);
     hide(elInter);
@@ -310,15 +351,15 @@
 
   function syncOrderCard() {
     elOrderno.textContent =
-      'commission ' + (commIdx + 1) + ' of ' + COMMS.length;
+      "commission " + (commIdx + 1) + " of " + COMMS.length;
     elOrdername.textContent = def.name;
   }
 
   function show(el) {
-    el.classList.remove('hidden');
+    el.classList.remove("hidden");
   }
   function hide(el) {
-    el.classList.add('hidden');
+    el.classList.add("hidden");
   }
 
   function liveAcc() {
@@ -327,8 +368,42 @@
     return clamp(1 - sum / S / def.tol, 0, 1);
   }
 
+  const SVG_NS = "http://www.w3.org/2000/svg";
+
+  // Small inline SVG silhouette of a finished vessel for the kiln shelf.
+  function potSvg(profArr, height) {
+    const W = 120;
+    const HT = 110;
+    const baseY = HT - 8;
+    let maxR = 1;
+    for (const r of profArr) if (r > maxR) maxR = r;
+    const sc = Math.min((W * 0.42) / maxR, (HT - 30) / Math.max(height, 1));
+    const px = (r) => W / 2 + r * sc;
+    const py = (t) => baseY - t * height * sc;
+    const pts = [];
+    for (let i = 0; i < S; i++) {
+      const t = i / (S - 1);
+      pts.push(px(profArr[i]).toFixed(1) + "," + py(t).toFixed(1));
+    }
+    for (let i = S - 1; i >= 0; i--) {
+      const t = i / (S - 1);
+      pts.push((W - px(profArr[i])).toFixed(1) + "," + py(t).toFixed(1));
+    }
+    const svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("width", W);
+    svg.setAttribute("height", HT);
+    svg.setAttribute("viewBox", "0 0 " + W + " " + HT);
+    const poly = document.createElementNS(SVG_NS, "polygon");
+    poly.setAttribute("points", pts.join(" "));
+    poly.setAttribute("fill", "#b06a45");
+    poly.setAttribute("stroke", "#5f3521");
+    poly.setAttribute("stroke-width", "2");
+    svg.appendChild(poly);
+    return svg;
+  }
+
   function setAside() {
-    if (state !== 'THROW') return;
+    if (state !== "THROW") return;
     const acc = liveAcc();
     const grade = gradeFor(acc);
     made[commIdx] = {
@@ -338,39 +413,39 @@
       name: def.name,
       grade,
     };
-    state = 'RESULT';
+    state = "RESULT";
     setScrape(0);
     sfxChime();
     elIstamp.textContent = grade.word;
-    elIstamp.classList.toggle('bad', acc < 0.45);
+    elIstamp.classList.toggle("bad", acc < 0.45);
     elIname.textContent = def.name;
     elInote.textContent =
-      'true ' +
+      "true " +
       Math.round(acc * 100) +
-      '% — ' +
+      "% — " +
       grade.note +
-      (commIdx === COMMS.length - 1 ? '' : ' It cools on the shelf.');
+      (commIdx === COMMS.length - 1 ? "" : " It cools on the shelf.");
     elBnext.textContent =
-      commIdx === COMMS.length - 1 ? 'open the kiln ⏎' : 'next vessel ⏎';
+      commIdx === COMMS.length - 1 ? "open the kiln ⏎" : "next vessel ⏎";
     show(elInter);
   }
 
   function loseLump() {
     lumps -= 1;
     if (lumps > 0) {
-      state = 'RESULT';
+      state = "RESULT";
       retrySame = true;
       setScrape(0);
       sfxThud();
-      elIstamp.textContent = 'Lost to the floor';
-      elIstamp.classList.add('bad');
+      elIstamp.textContent = "Lost to the floor";
+      elIstamp.classList.add("bad");
       elIname.textContent = def.name;
       elInote.textContent =
-        'The wall shook itself off centre and slumped. ' +
+        "The wall shook itself off centre and slumped. " +
         lumps +
-        (lumps === 1 ? ' lump' : ' lumps') +
-        ' of clay left.';
-      elBnext.textContent = 'wedge another ⏎';
+        (lumps === 1 ? " lump" : " lumps") +
+        " of clay left.";
+      elBnext.textContent = "wedge another ⏎";
       show(elInter);
     } else {
       made[commIdx] = null;
@@ -379,7 +454,7 @@
   }
 
   function startCollapse() {
-    state = 'COLLAPSE';
+    state = "COLLAPSE";
     collapseT = 1.15;
     pudProf = prof.map((r, i) => {
       const t = i / (S - 1);
@@ -391,60 +466,69 @@
   }
 
   function openKiln(outOfClay) {
-    state = 'FINALE';
+    state = "FINALE";
     setScrape(0);
-    elShelf.textContent = '';
+    elShelf.textContent = "";
     let sum = 0;
     let n = 0;
     made.forEach((m, idx) => {
-      const slot = document.createElement('div');
-      slot.className = 'slot' + (m ? '' : ' empty');
+      const slot = document.createElement("div");
+      slot.className = "slot" + (m ? "" : " empty");
       if (m) {
         slot.appendChild(potSvg(m.prof, m.H));
         sum += m.acc;
         n++;
       }
-      const nm = document.createElement('span');
-      nm.className = 'sname';
+      const nm = document.createElement("span");
+      nm.className = "sname";
       nm.textContent = COMMS[idx].name;
       slot.appendChild(nm);
-      const gr = document.createElement('span');
-      gr.className = 'sgrade';
-      gr.textContent = m ? m.grade.word : outOfClay ? 'no clay left' : '—';
+      const gr = document.createElement("span");
+      gr.className = "sgrade";
+      gr.textContent = m ? m.grade.word : outOfClay ? "no clay left" : "—";
       slot.appendChild(gr);
       elShelf.appendChild(slot);
     });
     let rank;
-    if (n === 0) rank = 'A handful of mud, returned to the yard.';
+    if (n === 0) rank = "A handful of mud, returned to the yard.";
     else {
       const mean = sum / n;
-      if (mean >= 0.85) rank = 'Master of the yard — mean trueness ' + Math.round(mean * 100) + '%.';
+      if (mean >= 0.85)
+        rank =
+          "Master of the yard — mean trueness " + Math.round(mean * 100) + "%.";
       else if (mean >= 0.62)
-        rank = 'An honest local hand — mean trueness ' + Math.round(mean * 100) + '%.';
-      else rank = 'Apprentice still — the clay forgives. Mean trueness ' + Math.round(mean * 100) + '%.';
-      if (n < COMMS.length) rank += ' The shelf stands part-filled.';
+        rank =
+          "An honest local hand — mean trueness " +
+          Math.round(mean * 100) +
+          "%.";
+      else
+        rank =
+          "Apprentice still — the clay forgives. Mean trueness " +
+          Math.round(mean * 100) +
+          "%.";
+      if (n < COMMS.length) rank += " The shelf stands part-filled.";
     }
     elFrank.textContent = rank;
     show(elFinale);
   }
 
   function advance() {
-    if (state === 'INTRO') {
+    if (state === "INTRO") {
       ensureAudio();
       beginDay();
       return;
     }
-    if (state === 'RESULT') {
+    if (state === "RESULT") {
       if (retrySame) startComm(commIdx);
       else if (commIdx === COMMS.length - 1) openKiln(false);
       else startComm(commIdx + 1);
       return;
     }
-    if (state === 'FINALE') beginDay();
+    if (state === "FINALE") beginDay();
   }
 
   function togglePause() {
-    if (state !== 'THROW' && !paused) return;
+    if (state !== "THROW" && !paused) return;
     paused = !paused;
     setScrape(0);
     if (paused) show(elPauseov);
@@ -454,7 +538,7 @@
   function toggleMute() {
     muted = !muted;
     if (master) master.gain.value = muted ? 0 : 0.5;
-    $('bsound').textContent = muted ? 'muted' : 'sound';
+    $("bsound").textContent = muted ? "muted" : "sound";
   }
 
   function setScrape(v) {
@@ -470,7 +554,10 @@
       const t = i / (S - 1);
       if (t > 0.62) prof[i] *= 0.42;
     }
-    crackMarks.push({ t: 0.66 + Math.random() * 0.28, side: Math.random() < 0.5 ? -1 : 1 });
+    crackMarks.push({
+      t: 0.66 + Math.random() * 0.28,
+      side: Math.random() < 0.5 ? -1 : 1,
+    });
     for (let k = 0; k < 14; k++)
       particles.push({
         x: AXISX + (Math.random() - 0.5) * 60,
@@ -478,7 +565,7 @@
         vx: (Math.random() - 0.5) * 120,
         vy: -Math.random() * 80,
         life: 0.5,
-        col: '#d96b4f',
+        col: "#d96b4f",
         r: 2.2,
       });
   }
@@ -488,14 +575,14 @@
 
     if (humGain && AC) {
       humGain.gain.setTargetAtTime(
-        state === 'THROW' || state === 'COLLAPSE' ? 0.05 * spin : 0.02,
+        state === "THROW" || state === "COLLAPSE" ? 0.05 * spin : 0.02,
         AC.currentTime,
         0.1,
       );
       humOsc.frequency.setTargetAtTime(38 + spin * 26, AC.currentTime, 0.1);
     }
 
-    if (state === 'COLLAPSE') {
+    if (state === "COLLAPSE") {
       collapseT -= dt;
       const k = 1 - Math.exp(-dt * 6);
       for (let i = 0; i < S; i++) prof[i] = lerp(prof[i], pudProf[i], k);
@@ -506,7 +593,7 @@
       return;
     }
 
-    if (state !== 'THROW') {
+    if (state !== "THROW") {
       updateParticles(dt);
       return;
     }
@@ -518,7 +605,11 @@
     const pressing = dir !== 0;
 
     pressAmt += ((pressing ? 1 : 0) - pressAmt) * Math.min(1, dt * 7);
-    spin = clamp(spin - dt * 0.35 * pressAmt + dt * 0.28 * (1 - pressAmt), 0, 1);
+    spin = clamp(
+      spin - dt * 0.35 * pressAmt + dt * 0.28 * (1 - pressAmt),
+      0,
+      1,
+    );
 
     // tool height via keys (pointer sets it directly on move/down)
     if (keyUp) toolT = clamp(toolT - dt * 0.5, 0, 1);
@@ -540,7 +631,8 @@
         // displaced clay bulges the neighbours a little
         const smear = -delta * 0.3;
         if (i > 0) prof[i - 1] = clamp(prof[i - 1] + smear * 0.65, MINR, MAXR);
-        if (i < S - 1) prof[i + 1] = clamp(prof[i + 1] + smear * 0.65, MINR, MAXR);
+        if (i < S - 1)
+          prof[i + 1] = clamp(prof[i + 1] + smear * 0.65, MINR, MAXR);
       }
       // pulling up while pressing in raises the wall
       if (dir < 0 && toolVel < -0.02) {
@@ -564,13 +656,12 @@
         }
       }
       // off-centre stress builds with hard work, eases when the wheel settles
-      wobble = clamp(wobble + dt * pressAmt * pressAmt * (0.17 - 0.12 * spin), 0, 1);
+      wobble = clamp(
+        wobble + dt * pressAmt * pressAmt * (0.17 - 0.12 * spin),
+        0,
+        1,
+      );
       if (toolT < 0.14 && spin > 0.55) wobble = clamp(wobble - dt * 0.1, 0, 1); // centring stroke
-      if (wobble >= 1) {
-        updateParticles(dt);
-        startCollapse();
-        return;
-      }
       if (Math.random() < dt * pressAmt * 16)
         particles.push({
           x: AXISX + (dir < 0 ? 1 : -1) * (profAt(toolT) + 6),
@@ -578,11 +669,18 @@
           vx: (Math.random() - 0.5) * 60,
           vy: -30 - Math.random() * 50,
           life: 0.45,
-          col: '#c9825b',
+          col: "#c9825b",
           r: 1.8,
         });
     } else {
       wobble = clamp(wobble - dt * 0.04, 0, 1);
+    }
+
+    // a pot shaken past its temper slumps whatever your hands are doing
+    if (wobble >= 1) {
+      updateParticles(dt);
+      startCollapse();
+      return;
     }
 
     // moisture
@@ -597,7 +695,7 @@
           vx: (Math.random() - 0.5) * 50,
           vy: 20 + Math.random() * 60,
           life: 0.5,
-          col: '#7fb4c9',
+          col: "#7fb4c9",
           r: 1.6,
         });
         if (Math.random() < 0.12) sfxSplash();
@@ -667,7 +765,7 @@
 
     drawWheelHead();
 
-    if (target && (state === 'THROW' || state === 'COLLAPSE')) drawGhost();
+    if (target && (state === "THROW" || state === "COLLAPSE")) drawGhost();
     if (prof.length) drawPot();
     drawTool();
     drawParticles();
@@ -680,21 +778,21 @@
     const ry = rx * 0.24;
     const wy = BASEY + 16;
     // shadow
-    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.fillStyle = "rgba(0,0,0,0.35)";
     ctx.beginPath();
     ctx.ellipse(AXISX, wy + 10, rx * 1.02, ry * 1.05, 0, 0, Math.PI * 2);
     ctx.fill();
     // wooden head
     const grad = ctx.createLinearGradient(AXISX - rx, 0, AXISX + rx, 0);
-    grad.addColorStop(0, '#4a3323');
-    grad.addColorStop(0.5, '#6b4a31');
-    grad.addColorStop(1, '#42301f');
+    grad.addColorStop(0, "#4a3323");
+    grad.addColorStop(0.5, "#6b4a31");
+    grad.addColorStop(1, "#42301f");
     ctx.fillStyle = grad;
     ctx.beginPath();
     ctx.ellipse(AXISX, wy, rx, ry, 0, 0, Math.PI * 2);
     ctx.fill();
     // rotating spokes
-    ctx.strokeStyle = 'rgba(240,226,207,0.16)';
+    ctx.strokeStyle = "rgba(240,226,207,0.16)";
     ctx.lineWidth = 3;
     for (let k = 0; k < 6; k++) {
       const a = ang * 0.5 + (k * Math.PI) / 3;
@@ -706,11 +804,11 @@
       ctx.stroke();
     }
     // hub + splash pan rim
-    ctx.fillStyle = '#2b2018';
+    ctx.fillStyle = "#2b2018";
     ctx.beginPath();
     ctx.arc(AXISX, wy, 12, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(224,164,88,0.25)';
+    ctx.strokeStyle = "rgba(224,164,88,0.25)";
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.ellipse(AXISX, wy, rx + 14, ry * 1.12, 0, 0, Math.PI * 2);
@@ -750,25 +848,33 @@
       (t) => Math.sin(ang * 2 + t * 4) * wobAmp * (0.25 + t),
     );
     const grad = ctx.createLinearGradient(AXISX - RB, 0, AXISX + RB, 0);
-    grad.addColorStop(0, '#7d452c');
-    grad.addColorStop(0.32, '#c9825b');
-    grad.addColorStop(0.55, '#b06a45');
-    grad.addColorStop(1, '#6f3d27');
+    grad.addColorStop(0, "#7d452c");
+    grad.addColorStop(0.32, "#c9825b");
+    grad.addColorStop(0.55, "#b06a45");
+    grad.addColorStop(1, "#6f3d27");
     ctx.fillStyle = grad;
     pathFrom(pts);
     ctx.fill();
-    ctx.strokeStyle = 'rgba(30,16,10,0.55)';
+    ctx.strokeStyle = "rgba(30,16,10,0.55)";
     ctx.lineWidth = 2;
     ctx.stroke();
 
     // rim hollow
     const rt = prof[S - 1];
     const ty = BASEY - H;
-    ctx.fillStyle = 'rgba(43,22,13,0.85)';
+    ctx.fillStyle = "rgba(43,22,13,0.85)";
     ctx.beginPath();
-    ctx.ellipse(AXISX, ty, Math.max(rt - 7, 4), Math.max(rt * 0.16, 3.5), 0, 0, Math.PI * 2);
+    ctx.ellipse(
+      AXISX,
+      ty,
+      Math.max(rt - 7, 4),
+      Math.max(rt * 0.16, 3.5),
+      0,
+      0,
+      Math.PI * 2,
+    );
     ctx.fill();
-    ctx.strokeStyle = 'rgba(240,226,207,0.28)';
+    ctx.strokeStyle = "rgba(240,226,207,0.28)";
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.ellipse(AXISX, ty, rt, Math.max(rt * 0.18, 4), 0, 0, Math.PI * 2);
@@ -776,12 +882,15 @@
 
     // spinning sheen
     const sh = Math.sin(ang * 2);
-    ctx.strokeStyle = 'rgba(255,235,210,' + (0.1 + 0.08 * sh).toFixed(3) + ')';
+    ctx.strokeStyle = "rgba(255,235,210," + (0.1 + 0.08 * sh).toFixed(3) + ")";
     ctx.lineWidth = 7;
     ctx.beginPath();
     for (let i = 0; i < S; i++) {
       const t = i / (S - 1);
-      const x = AXISX + Math.sin(ang) * prof[i] * 0.55 + Math.sin(ang * 2 + t * 4) * wobAmp * (0.25 + t);
+      const x =
+        AXISX +
+        Math.sin(ang) * prof[i] * 0.55 +
+        Math.sin(ang * 2 + t * 4) * wobAmp * (0.25 + t);
       const y = BASEY - t * H;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
@@ -789,7 +898,7 @@
     ctx.stroke();
 
     // crack marks
-    ctx.strokeStyle = 'rgba(60,25,14,0.9)';
+    ctx.strokeStyle = "rgba(60,25,14,0.9)";
     ctx.lineWidth = 1.6;
     for (const cm of crackMarks) {
       const y = BASEY - cm.t * H;
@@ -804,22 +913,26 @@
 
   function drawGhost() {
     const th = def.hfrac * MAXH;
-    const pts = outlinePts((i, t) => target[i], th, () => 0);
+    const pts = outlinePts(
+      (i, t) => target[i],
+      th,
+      () => 0,
+    );
     ctx.save();
     ctx.setLineDash([5, 6]);
-    ctx.strokeStyle = 'rgba(240,226,207,0.34)';
+    ctx.strokeStyle = "rgba(240,226,207,0.34)";
     ctx.lineWidth = 1.6;
     pathFrom(pts);
     ctx.stroke();
     ctx.restore();
-    ctx.fillStyle = 'rgba(240,226,207,0.55)';
-    ctx.font = '11px Georgia, serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('commissioned silhouette', AXISX, BASEY - th - 12);
+    ctx.fillStyle = "rgba(240,226,207,0.55)";
+    ctx.font = "11px Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.fillText("commissioned silhouette", AXISX, BASEY - th - 12);
   }
 
   function drawTool() {
-    if (state !== 'THROW' && state !== 'COLLAPSE') return;
+    if (state !== "THROW" && state !== "COLLAPSE") return;
     const y = BASEY - toolT * H;
     const r = profAt(toolT);
     const activeSide = pressAmt > 0.05 ? lastDirSign() : 0;
@@ -827,7 +940,9 @@
       const isActive = side === activeSide;
       const gap = isActive ? 2 + (1 - pressAmt) * 6 : 14;
       const x = AXISX + side * (r + gap);
-      ctx.fillStyle = isActive ? 'rgba(224,164,88,0.95)' : 'rgba(224,164,88,0.22)';
+      ctx.fillStyle = isActive
+        ? "rgba(224,164,88,0.95)"
+        : "rgba(224,164,88,0.22)";
       ctx.beginPath();
       ctx.moveTo(x, y - 9);
       ctx.lineTo(x + side * 12, y - 4);
@@ -859,99 +974,105 @@
 
   function syncHud() {
     if (!def) return;
-    elGw.style.width = Math.round(moist * 100) + '%';
-    elGt.style.width = Math.round((1 - wobble) * 100) + '%';
-    elGt.classList.toggle('low', wobble > 0.55);
+    elGw.style.width = Math.round(moist * 100) + "%";
+    elGt.style.width = Math.round((1 - wobble) * 100) + "%";
+    elGt.classList.toggle("low", wobble > 0.55);
     const tf = Tmax > 0 ? T / Tmax : 0;
-    elGd.style.width = Math.round(tf * 100) + '%';
-    elGd.classList.toggle('low', tf < 0.3);
-    elAcc.textContent = 'true ' + Math.round(liveAcc() * 100) + '%';
-    elLumps.textContent = '●'.repeat(Math.max(lumps, 0)) + '○'.repeat(LUMPS_START - Math.max(lumps, 0));
+    elGd.style.width = Math.round(tf * 100) + "%";
+    elGd.classList.toggle("low", tf < 0.3);
+    elAcc.textContent = "true " + Math.round(liveAcc() * 100) + "%";
+    elLumps.textContent =
+      "●".repeat(Math.max(lumps, 0)) +
+      "○".repeat(LUMPS_START - Math.max(lumps, 0));
   }
 
   /* ---------- input ---------- */
 
   function anyOverlayOpen() {
     return (
-      !elVeil.classList.contains('hidden') ||
-      !elInter.classList.contains('hidden') ||
-      !elFinale.classList.contains('hidden')
+      !elVeil.classList.contains("hidden") ||
+      !elInter.classList.contains("hidden") ||
+      !elFinale.classList.contains("hidden")
     );
   }
 
-  window.addEventListener('keydown', (e) => {
+  window.addEventListener("keydown", (e) => {
     const code = e.code;
     if (
-      ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(code)
+      ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(
+        code,
+      )
     )
       e.preventDefault();
-    if (paused && code !== 'KeyP') {
-      if (code !== 'KeyM') togglePause();
+    if (paused && code !== "KeyP") {
+      if (code !== "KeyM") togglePause();
       return;
     }
     switch (code) {
-      case 'ArrowUp':
-      case 'KeyW':
+      case "ArrowUp":
+      case "KeyW":
         keyUp = true;
         break;
-      case 'ArrowDown':
-      case 'KeyS':
+      case "ArrowDown":
+      case "KeyS":
         keyDown = true;
         break;
-      case 'ArrowLeft':
-      case 'KeyA':
+      case "ArrowLeft":
+      case "KeyA":
         keyIn = true;
         break;
-      case 'ArrowRight':
-      case 'KeyD':
+      case "ArrowRight":
+      case "KeyD":
         keyOut = true;
         break;
-      case 'Space':
+      case "Space":
         keyWater = true;
         break;
-      case 'Enter':
-        advance();
+      case "Enter":
+        if (state === "THROW") setAside();
+        else advance();
         break;
-      case 'KeyP':
+
+      case "KeyP":
         togglePause();
         break;
-      case 'KeyM':
+      case "KeyM":
         ensureAudio();
         toggleMute();
         break;
-      case 'KeyR':
-        if (state === 'THROW' || state === 'RESULT' || state === 'FINALE') {
+      case "KeyR":
+        if (state === "THROW" || state === "RESULT" || state === "FINALE") {
           ensureAudio();
           beginDay();
         }
         break;
       default:
-        if (state === 'INTRO') {
+        if (state === "INTRO") {
           ensureAudio();
           beginDay();
         }
     }
   });
 
-  window.addEventListener('keyup', (e) => {
+  window.addEventListener("keyup", (e) => {
     switch (e.code) {
-      case 'ArrowUp':
-      case 'KeyW':
+      case "ArrowUp":
+      case "KeyW":
         keyUp = false;
         break;
-      case 'ArrowDown':
-      case 'KeyS':
+      case "ArrowDown":
+      case "KeyS":
         keyDown = false;
         break;
-      case 'ArrowLeft':
-      case 'KeyA':
+      case "ArrowLeft":
+      case "KeyA":
         keyIn = false;
         break;
-      case 'ArrowRight':
-      case 'KeyD':
+      case "ArrowRight":
+      case "KeyD":
         keyOut = false;
         break;
-      case 'Space':
+      case "Space":
         keyWater = false;
         break;
     }
@@ -975,10 +1096,10 @@
     ptr.dir = dist <= profAt(toolT) ? 1 : -1;
   }
 
-  c.addEventListener('pointerdown', (e) => {
+  c.addEventListener("pointerdown", (e) => {
     e.preventDefault();
     ensureAudio();
-    if (state !== 'THROW' || paused) return;
+    if (state !== "THROW" || paused) return;
     try {
       c.setPointerCapture(e.pointerId);
     } catch (err) {
@@ -988,17 +1109,17 @@
     applyPointer(e);
   });
 
-  c.addEventListener('pointermove', (e) => {
-    if (!ptr || state !== 'THROW' || paused) return;
+  c.addEventListener("pointermove", (e) => {
+    if (!ptr || state !== "THROW" || paused) return;
     applyPointer(e);
   });
 
   const releasePtr = () => {
     ptr = null;
   };
-  c.addEventListener('pointerup', releasePtr);
-  c.addEventListener('pointercancel', releasePtr);
-  c.addEventListener('pointerleave', releasePtr);
+  c.addEventListener("pointerup", releasePtr);
+  c.addEventListener("pointercancel", releasePtr);
+  c.addEventListener("pointerleave", releasePtr);
 
   function holdButton(id, set) {
     const b = $(id);
@@ -1008,58 +1129,58 @@
       set(true);
     };
     const off = () => set(false);
-    b.addEventListener('pointerdown', on);
-    b.addEventListener('pointerup', off);
-    b.addEventListener('pointercancel', off);
-    b.addEventListener('pointerleave', off);
-    b.addEventListener('contextmenu', (e) => e.preventDefault());
+    b.addEventListener("pointerdown", on);
+    b.addEventListener("pointerup", off);
+    b.addEventListener("pointercancel", off);
+    b.addEventListener("pointerleave", off);
+    b.addEventListener("contextmenu", (e) => e.preventDefault());
   }
-  holdButton('bin', (v) => (btnIn = v));
-  holdButton('bout', (v) => (btnOut = v));
-  holdButton('bwater', (v) => (btnWater = v));
+  holdButton("bin", (v) => (btnIn = v));
+  holdButton("bout", (v) => (btnOut = v));
+  holdButton("bwater", (v) => (btnWater = v));
 
-  $('bdone').addEventListener('click', (e) => {
+  $("bdone").addEventListener("click", (e) => {
     ensureAudio();
     setAside();
     e.currentTarget.blur();
   });
-  elBnext.addEventListener('click', (e) => {
+  elBnext.addEventListener("click", (e) => {
     advance();
     e.currentTarget.blur();
   });
-  $('bnew').addEventListener('click', (e) => {
+  $("bnew").addEventListener("click", (e) => {
     beginDay();
     e.currentTarget.blur();
   });
-  $('bpause').addEventListener('click', (e) => {
+  $("bpause").addEventListener("click", (e) => {
     togglePause();
     e.currentTarget.blur();
   });
-  $('bsound').addEventListener('click', (e) => {
+  $("bsound").addEventListener("click", (e) => {
     ensureAudio();
     toggleMute();
     e.currentTarget.blur();
   });
-  $('brestart').addEventListener('click', (e) => {
+  $("brestart").addEventListener("click", (e) => {
     ensureAudio();
     beginDay();
     e.currentTarget.blur();
   });
 
-  elVeil.addEventListener('pointerdown', () => {
+  elVeil.addEventListener("pointerdown", () => {
     ensureAudio();
-    if (state === 'INTRO') beginDay();
+    if (state === "INTRO") beginDay();
     else hide(elVeil);
   });
-  elPauseov.addEventListener('pointerdown', () => {
+  elPauseov.addEventListener("pointerdown", () => {
     if (paused) togglePause();
   });
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && state === 'THROW' && !paused) togglePause();
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && state === "THROW" && !paused) togglePause();
   });
 
-  window.addEventListener('blur', () => {
+  window.addEventListener("blur", () => {
     keyUp = keyDown = keyIn = keyOut = keyWater = false;
     btnIn = btnOut = btnWater = false;
     ptr = null;
@@ -1067,7 +1188,7 @@
 
   /* ---------- debug hook (only with #debug hash) ---------- */
 
-  if (location.hash.indexOf('debug') !== -1) {
+  if (location.hash.indexOf("debug") !== -1) {
     window.__ASHGLAZE_DEBUG__ = {
       get state() {
         return state;
@@ -1100,7 +1221,7 @@
   function frame(now) {
     const dt = clamp((now - last) / 1000, 0, 0.05);
     last = now;
-    if (!paused && !(state === 'THROW' && document.hidden)) {
+    if (!paused && !(state === "THROW" && document.hidden)) {
       update(dt);
       syncHud();
     }

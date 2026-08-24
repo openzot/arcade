@@ -418,5 +418,15 @@
     "tagline": "The rod knows. Trust the twitch.",
     "controls": "WASD / arrows or hold-drag to walk, space or the DRILL pad sinks a bore, P pause, M sound, R restart",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "ashglaze",
+    "name": "Ashglaze",
+    "genre": "ceramics",
+    "mechanic": "press wet clay on a spinning wheel to pull the wall out to the commissioned silhouette, dragging up to raise it while centring wobble and rationing water before each lump stiffens",
+    "theme": "a hillside potter's yard throwing six commissions ahead of the dawn kiln",
+    "tagline": "The wheel never waits.",
+    "controls": "mouse / touch hold against the wall (outside squeezes, hollow flares) or the in/out pads, drag up or ↑↓ to raise, SPACE waters, ENTER sets aside, P pause, M sound, R new day",
+    "created": "2026-08-24"
   }
 ]

@@ -77,13 +77,12 @@ nav a:hover {
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
-  background:
-    radial-gradient(
-      ellipse at 50% 78%,
-      #2a1d15 0%,
-      #1c1310 55%,
-      #120c09 100%
-    );
+  background: radial-gradient(
+    ellipse at 50% 78%,
+    #2a1d15 0%,
+    #1c1310 55%,
+    #120c09 100%
+  );
   touch-action: none;
 }
 
