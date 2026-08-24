@@ -33,7 +33,12 @@ body {
     radial-gradient(120% 90% at 50% -10%, #35404f 0%, transparent 60%),
     linear-gradient(var(--bg1), var(--bg0));
   color: var(--paper);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   display: flex;
   justify-content: center;
 }
