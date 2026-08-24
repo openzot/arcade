@@ -39,7 +39,7 @@
   const F_MAX = 2.0; // axial force a timber carries before snapping
   const SNAP_FAST = 1.45; // instant snap above this
   const CREAK_AT = 0.55;
-  const RESID_TOL = 0.75; // node equilibrium impossibility threshold
+  const RESID_TOL = 0.3; // node vertical-equilibrium impossibility threshold
 
   const G_BUS = 2300;
   const BUS_SPEED = 108;
@@ -189,7 +189,7 @@
         this.master.gain.setTargetAtTime(
           m ? 0 : 0.85,
           this.ac.currentTime,
-          0.02
+          0.02,
         );
     },
 
@@ -201,7 +201,10 @@
       o.type = type || "triangle";
       o.frequency.setValueAtTime(freq, t0);
       if (slideTo)
-        o.frequency.exponentialRampToValueAtTime(Math.max(20, slideTo), t0 + dur);
+        o.frequency.exponentialRampToValueAtTime(
+          Math.max(20, slideTo),
+          t0 + dur,
+        );
       g.gain.setValueAtTime(0.0001, t0);
       g.gain.exponentialRampToValueAtTime(vol, t0 + 0.008);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
@@ -268,13 +271,13 @@
     win() {
       const notes = [523, 659, 784, 1047];
       notes.forEach((n, i) =>
-        this.tone(n, 0.24, "triangle", 0.14, null, i * 0.09)
+        this.tone(n, 0.24, "triangle", 0.14, null, i * 0.09),
       );
     },
     fanfare() {
       const seq = [392, 523, 659, 784, 659, 784, 1047];
       seq.forEach((n, i) =>
-        this.tone(n, 0.22, "triangle", 0.13, null, i * 0.11)
+        this.tone(n, 0.22, "triangle", 0.13, null, i * 0.11),
       );
     },
 
@@ -291,7 +294,7 @@
       this.engineGain.gain.setTargetAtTime(
         this.muted ? 0 : 0.028,
         this.ac.currentTime,
-        0.1
+        0.1,
       );
     },
     engineSet(speed) {
@@ -299,7 +302,7 @@
       this.engineOsc.frequency.setTargetAtTime(
         46 + speed * 0.34,
         this.ac.currentTime,
-        0.06
+        0.06,
       );
     },
     engineStop() {
@@ -342,7 +345,7 @@
     try {
       localStorage.setItem(
         SAVE_KEY,
-        JSON.stringify({ lvl: save.lvl, stars: save.stars })
+        JSON.stringify({ lvl: save.lvl, stars: save.stars }),
       );
     } catch (e) {
       /* private mode etc. */
@@ -466,7 +469,7 @@
 
   function hasBeam(a, b) {
     return beams.some(
-      (bm) => (bm.a === a && bm.b === b) || (bm.a === b && bm.b === a)
+      (bm) => (bm.a === a && bm.b === b) || (bm.a === b && bm.b === a),
     );
   }
 
@@ -774,60 +777,7 @@
 
     const f = solveLinear(AtA, Atb, m);
 
-    // per-beam instantaneous stress + node residuals
-    const resid = new Float64Array(rows);
-    for (let k = 0; k < m; k++) {
-      const bm = pbeams[k];
-      if (!bm.live) continue;
-      const fk = f[k];
-      const fa = freeOf[bm.a];
-      const fb = freeOf[bm.b];
-      if (fa >= 0) {
-        resid[fa * 2] += dirs[k][0] * fk;
-        resid[fa * 2 + 1] += dirs[k][1] * fk;
-      }
-      if (fb >= 0) {
-        resid[fb * 2] -= dirs[k][0] * fk;
-        resid[fb * 2 + 1] -= dirs[k][1] * fk;
-      }
-    }
-    let worstResid = 0;
-    for (let q = 1; q < rows; q += 2) {
-      const rx = resid[q - 1];
-      const ry = resid[q] - (b[q] || 0);
-      void rx;
-      const mag = Math.hypot(resid[q - 1], ry);
-      if (mag > worstResid) worstResid = mag;
-    }
-
-    for (let k = 0; k < m; k++) {
-      const bm = pbeams[k];
-      if (!bm.live) continue;
-      const inst = Math.abs(f[k]) / F_MAX;
-      stress[k] = lerp(stress[k], inst, 0.28);
-      if (inst > CREAK_AT) Sfx.creak(Math.min(1, inst - CREAK_AT));
-      const broken =
-        inst > SNAP_FAST ||
-        (stress[k] > 1 && Math.abs(f[k]) > 1e9) || // singular blow-up
-        (worstResid > RESID_TOL &&
-          (bm.a === heaviestTouch(worstResidJoint(rows, resid, freeOf)) ||
-            bm.b === heaviestTouch(worstResidJoint(rows, resid, freeOf))));
-      if (inst > SNAP_FAST || (worstResid > RESID_TOL && stress[k] > 0.8)) {
-        snapBeam(k);
-      } else if (broken) {
-        snapBeam(k);
-      }
-    }
-  }
-
-  function heaviestTouch() {
-    return -1; // placeholder, replaced below
-  }
-
-  function worstResidJoint(rows, resid, freeOf) {
-    const f = solveLinear(AtA, Atb, m);
-
-    // per-beam instantaneous force + node residuals
+    // per-beam force + free-node residuals
     const resid = new Float64Array(rows);
     for (let k = 0; k < m; k++) {
       if (!pbeams[k].live) continue;
@@ -842,15 +792,12 @@
         resid[fb * 2 + 1] -= dirs[k][1] * f[k];
       }
     }
+    // only vertical imbalance matters: horizontal components self-cancel
     let worstResid = 0;
-    for (let q = 0; q < rows; q++) {
-      const mag = Math.abs(resid[q]);
+    for (let q = 0; q < rows; q += 2) {
+      resid[q] = 0;
+      const mag = Math.abs(resid[q + 1]);
       if (mag > worstResid) worstResid = mag;
-    }
-    // vertical residual is what matters; horizontal self-balance is fine
-    for (let i = 0; i < n; i++) {
-      const fi = freeOf[i];
-      if (fi >= 0) resid[fi * 2] = 0; // ignore horizontal component
     }
 
     for (let k = 0; k < m; k++) {
@@ -858,12 +805,72 @@
       if (!bm.live) continue;
       const inst = Math.abs(f[k]) / F_MAX;
       stress[k] = lerp(stress[k], inst, 0.28);
-      if (inst > CREAK_AT) Sfx.creak(Math.min(1, inst - CREAK_AT));
-      const snap =
-        inst > SNAP_FAST || (worstResid > RESID_TOL && stress[k] > 0.8);
-      if (snap) snapBeam(k);
+      if (inst > CREAK_AT && bm.live) Sfx.creak(Math.min(1, inst - CREAK_AT));
+      if (inst > SNAP_FAST || (worstResid > RESID_TOL && stress[k] > 0.45))
+        snapBeam(k);
     }
   }
+
+  function touchesBeam(i) {
+    for (const bm of pbeams)
+      if ((bm.a === i || bm.b === i) && bm.live) return true;
+    return false;
+  }
+
+  function snapBeam(k) {
+    const bm = pbeams[k];
+    if (!bm.live) return;
+    bm.live = false;
+    const A = pjoints[bm.a];
+    const B = pjoints[bm.b];
+    splinters((A.x + B.x) / 2, (A.y + B.y) / 2);
+    shake = Math.min(10, shake + 6);
+    Sfx.snap();
+    if (!hintedBrace) {
+      hintedBrace = true;
+      toast("Timber overstrained! Brace it with triangles.", true, 2600);
+    }
+  }
+
+  // dense Gaussian elimination with partial pivoting
+  function solveLinear(M, v, n) {
+    const a = Float64Array.from(M);
+    const x = Float64Array.from(v);
+    for (let col = 0; col < n; col++) {
+      let piv = col;
+      for (let r = col + 1; r < n; r++)
+        if (Math.abs(a[r * n + col]) > Math.abs(a[piv * n + col])) piv = r;
+      if (Math.abs(a[piv * n + col]) < 1e-12) {
+        x[col] = 0;
+        continue;
+      }
+      if (piv !== col) {
+        for (let c = 0; c < n; c++) {
+          const tmp = a[piv * n + c];
+          a[piv * n + c] = a[col * n + c];
+          a[col * n + c] = tmp;
+        }
+        const tv = x[piv];
+        x[piv] = x[col];
+        x[col] = tv;
+      }
+      const d = a[col * n + col];
+      for (let r = col + 1; r < n; r++) {
+        const factor = a[r * n + col] / d;
+        if (factor === 0) continue;
+        for (let c = col; c < n; c++) a[r * n + c] -= factor * a[col * n + c];
+        x[r] -= factor * x[col];
+      }
+    }
+    for (let r = n - 1; r >= 0; r--) {
+      let s = x[r];
+      for (let c = r + 1; c < n; c++) s -= a[r * n + c] * x[c];
+      const d = a[r * n + r];
+      x[r] = Math.abs(d) < 1e-12 ? 0 : s / d;
+    }
+    return x;
+  }
+
   function supportAt(wx, wheelBottom, tol) {
     let best = null;
     let bestY = Infinity;
@@ -1184,14 +1191,20 @@
     const far = new Path2D();
     far.moveTo(0, 210);
     for (let x = 0; x <= W; x += 24)
-      far.lineTo(x, 205 + Math.sin(x * 0.011) * 34 + Math.sin(x * 0.037 + 2) * 14);
+      far.lineTo(
+        x,
+        205 + Math.sin(x * 0.011) * 34 + Math.sin(x * 0.037 + 2) * 14,
+      );
     far.lineTo(W, H);
     far.lineTo(0, H);
     far.closePath();
     const near = new Path2D();
     near.moveTo(0, 268);
     for (let x = 0; x <= W; x += 20)
-      near.lineTo(x, 268 + Math.sin(x * 0.017 + 5) * 26 + Math.sin(x * 0.05 + 1) * 9);
+      near.lineTo(
+        x,
+        268 + Math.sin(x * 0.017 + 5) * 26 + Math.sin(x * 0.05 + 1) * 9,
+      );
     near.lineTo(W, H);
     near.lineTo(0, H);
     near.closePath();
@@ -1396,7 +1409,7 @@
         "tap again to remove",
         (A.x + B.x) / 2,
         (A.y + B.y) / 2 - 16,
-        "#ffe9ad"
+        "#ffe9ad",
       );
     }
   }
@@ -1436,7 +1449,8 @@
     const A = joints[ai];
     if (pt.joint === ai) return { ok: false };
     const len = dist(A.x, A.y, pt.x, pt.y);
-    if (pt.joint >= 0 && hasBeam(ai, pt.joint)) return { ok: false, why: "braced" };
+    if (pt.joint >= 0 && hasBeam(ai, pt.joint))
+      return { ok: false, why: "braced" };
     if (len < MIN_LEN) return { ok: false, why: "too short" };
     if (len > MAX_LEN) return { ok: false, why: "plank too long" };
     const cost = costOf(len);
@@ -1662,7 +1676,7 @@
     if (shake > 0.2)
       ctx.translate(
         (Math.random() - 0.5) * shake,
-        (Math.random() - 0.5) * shake
+        (Math.random() - 0.5) * shake,
       );
     drawSky(t);
     const lv = level();
@@ -1688,7 +1702,7 @@
       H * 0.42,
       W / 2,
       H / 2,
-      H * 0.95
+      H * 0.95,
     );
     vg.addColorStop(0, "rgba(0,0,0,0)");
     vg.addColorStop(1, "rgba(8,10,14,0.4)");
@@ -1700,7 +1714,8 @@
 
   function refreshHud() {
     const lv = level();
-    el.level.textContent = "Crossing " + (levelIndex + 1) + " \u00b7 " + lv.name;
+    el.level.textContent =
+      "Crossing " + (levelIndex + 1) + " \u00b7 " + lv.name;
     const left = budgetLeft();
     el.timber.innerHTML = "&#9632; " + left + " timber";
     el.timber.classList.toggle("low", left <= Math.ceil(lv.budget * 0.2));
@@ -1730,7 +1745,10 @@
     el.toast.classList.add("show");
     el.toast.classList.toggle("warn", !!warn);
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.toast.classList.remove("show"), ms || 1900);
+    toastTimer = setTimeout(
+      () => el.toast.classList.remove("show"),
+      ms || 1900,
+    );
   }
 
   const OVERLAYS = () => [
@@ -1916,27 +1934,31 @@
         }
         break;
       case "ArrowLeft":
-        cursor.x = clamp(cursor.x - GRID * (e.shiftKey ? 3 : 1), GRID, W - GRID);
+        cursor.x = clamp(
+          cursor.x - GRID * (e.shiftKey ? 3 : 1),
+          GRID,
+          W - GRID,
+        );
         break;
       case "ArrowRight":
         cursor.x = clamp(
           cursor.x + GRID * (e.shiftKey ? 3 : 1),
           GRID,
-          W - GRID
+          W - GRID,
         );
         break;
       case "ArrowUp":
         cursor.y = clamp(
           cursor.y - GRID * (e.shiftKey ? 3 : 1),
           GRID,
-          RIVER_Y - GRID
+          RIVER_Y - GRID,
         );
         break;
       case "ArrowDown":
         cursor.y = clamp(
           cursor.y + GRID * (e.shiftKey ? 3 : 1),
           GRID,
-          RIVER_Y - GRID
+          RIVER_Y - GRID,
         );
         break;
     }
@@ -2101,8 +2123,7 @@
       phase: () => phase,
       level: () => levelIndex,
       budgetLeft: () => budgetLeft(),
-      beamCount: () => beams.filter((b, i) => pbeams[i] === undefined || true)
-        .length,
+      beamCount: () => beams.length,
       liveCount: () => pbeams.filter((b) => b.live).length,
       bus: () => ({ x: bus.x, y: bus.y, state: bus.state, speed: bus.speed }),
       strains: () => stress.slice(),
