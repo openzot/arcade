@@ -378,5 +378,15 @@
     "tagline": "The sea knocks all night. Send the wolf home.",
     "controls": "mouse / touch tap gates or keys 1-3, P pause, M sound, R restart",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "false-chanterelle",
+    "name": "False Chanterelle",
+    "genre": "foraging",
+    "mechanic": "take each wild fungus in hand and judge it - cut for ridges, gills, pores or spines, sniff for apricot or damp meal - filling the basket before dusk while deadly lookalikes burn your bellies",
+    "theme": "an autumn birch wood at last light, five dusks of gathering as the gold drains out of the sky",
+    "tagline": "Some gold kills. Read the gills.",
+    "controls": "mouse / touch tap a fungus then Cut / Smell / Keep / Leave buttons; arrows browse, Enter pick up, C S K L, P pause, M sound, R restart",
+    "created": "2026-08-24"
   }
 ]

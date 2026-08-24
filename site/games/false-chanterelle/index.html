@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>False Chanterelle</title>
+    <meta
+      name="description"
+      content="Gather wild mushrooms before dusk - inspect caps, gills and stems, and leave the killers in the leaf litter."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="bar top">
+        <div class="brand">
+          <h1>False Chanterelle</h1>
+          <p class="sub">some gold kills &middot; read the gills</p>
+        </div>
+        <ul class="chips" aria-live="polite">
+          <li id="chipDay">DAY 1/5</li>
+          <li id="chipSun" aria-label="daylight left">
+            &#9788;&#9788;&#9788;&#9788;&#9788;
+          </li>
+          <li id="chipBasket">basket 0/5</li>
+          <li id="chipHearts" aria-label="bellies">&#9829;&#9829;&#9829;</li>
+          <li id="chipScore">0</li>
+        </ul>
+        <div class="tools">
+          <button
+            id="btnMute"
+            type="button"
+            aria-label="toggle sound"
+            title="sound (M)"
+          >
+            &#9834;
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            aria-label="pause"
+            title="pause (P)"
+          >
+            II
+          </button>
+        </div>
+      </header>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="a birch wood floor scattered with mushrooms under a failing autumn sky"
+        ></canvas>
+
+        <p id="ticker" role="status"></p>
+
+        <aside id="inspect" class="hidden" aria-label="fungus in hand">
+          <h2>In hand</h2>
+          <canvas
+            id="big"
+            width="264"
+            height="212"
+            aria-label="close view of the picked fungus; drag to tilt it"
+          ></canvas>
+          <ul id="notes"></ul>
+          <div class="acts">
+            <button
+              id="btnCut"
+              type="button"
+              title="cut to see the underside (C)"
+            >
+              Cut (C)
+            </button>
+            <button id="btnSmell" type="button" title="crush and sniff (S)">
+              Smell (S)
+            </button>
+            <button id="btnKeep" type="button" title="into the basket (K)">
+              Keep (K)
+            </button>
+            <button id="btnLeave" type="button" title="toss it back (L)">
+              Leave (L)
+            </button>
+          </div>
+        </aside>
+
+        <section id="overlay">
+          <h2 id="ovTitle">False Chanterelle</h2>
+          <div id="ovBody">
+            <p>
+              Five dusks in the birch woods. Fill your basket before the light
+              goes - and know what you pick. Out there, gold like a chanterelle
+              can kill you.
+            </p>
+            <ul>
+              <li>
+                <b>Tap a fungus</b> (&larr; &rarr; then <b>Enter</b>) to take it
+                in hand.
+              </li>
+              <li>
+                <b>Cut (C)</b> turns it over - ridges, gills, pores or spines.
+                <b>Smell (S)</b> for a second clue. Both cost daylight.
+              </li>
+              <li>
+                <b>Keep (K)</b> fills the basket. <b>Leave (L)</b> tosses it
+                back. A killer kept burns a belly - three bellies, no more.
+              </li>
+              <li>
+                The <b>field guide</b> below knows every lookalike. Read it
+                once. Trust your cut.
+              </li>
+            </ul>
+          </div>
+          <button id="ovBtn" type="button">Into the woods</button>
+        </section>
+      </div>
+
+      <section id="guide" aria-label="field guide">
+        <h2>Field guide</h2>
+        <div id="cards"></div>
+      </section>
+
+      <footer class="bar foot">
+        <p class="keys">
+          <b>&larr;&rarr;</b> browse &middot; <b>Enter</b> pick up &middot;
+          <b>C</b> cut &middot; <b>S</b> smell &middot; <b>K</b> keep &middot;
+          <b>L</b> leave &middot; <b>P</b> pause &middot; <b>M</b> sound
+          &middot; <b>R</b> restart
+        </p>
+        <a class="home" href="../../">&larr; Arcade</a>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
