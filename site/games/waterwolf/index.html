@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Waterwolf</title>
+    <meta
+      name="description"
+      content="Hold a North Sea polder dry through a three-night gale - open and shut the sluice gates on the ebb tides."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="bar top">
+        <div class="brand">
+          <h1>Waterwolf</h1>
+          <p class="sub">hold the polder against the sea</p>
+        </div>
+        <ul class="chips" aria-live="polite">
+          <li id="chipNight">NIGHT 1/3</li>
+          <li id="chipSeals" aria-label="dike seals remaining">
+            &#9670;&#9670;&#9670;
+          </li>
+          <li id="chipScore">0</li>
+        </ul>
+        <div class="tools">
+          <button
+            id="btnMute"
+            type="button"
+            aria-label="toggle sound"
+            title="sound (M)"
+          >
+            &#9834;
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            aria-label="pause"
+            title="pause (P)"
+          >
+            II
+          </button>
+        </div>
+      </header>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="the polder in cross-section: three stepped canals, a dike and the sea"
+        ></canvas>
+        <p id="ticker" role="status"></p>
+        <section id="overlay">
+          <h2 id="ovTitle">Waterwolf</h2>
+          <div id="ovBody">
+            <p>
+              Three nights of storm. One pair of hands. Rain fills the terraced
+              canals, and the sea will only take water back while the tide ebbs.
+            </p>
+            <ul>
+              <li>
+                <b>Tap a gate</b> (or press <b>1 2 3</b>) to raise or drop it.
+              </li>
+              <li>
+                <b>Gate III</b> is the sea sluice - open it on an ebb, shut it
+                before the flood turns.
+              </li>
+              <li>
+                The <b>tide table</b> (top left) shows what the sea does next.
+                The mill bails a trickle, never enough.
+              </li>
+              <li>
+                If a canal tops its brim the dike breaches. Lose all three
+                <b>&#9670;</b> seals and the polder drowns.
+              </li>
+            </ul>
+          </div>
+          <button id="ovBtn" type="button">Man the sluices</button>
+        </section>
+      </div>
+
+      <footer class="bar foot">
+        <div class="gatebtns" role="group" aria-label="sluice gates">
+          <span class="hint">gates</span>
+          <button type="button" data-gate="0">I</button>
+          <button type="button" data-gate="1">II</button>
+          <button type="button" data-gate="2">III</button>
+        </div>
+        <p class="keys">
+          <b>1 2 3</b> gates &middot; <b>P</b> pause &middot; <b>M</b> sound
+          &middot; <b>R</b> restart
+        </p>
+        <a class="home" href="../../">&larr; Arcade</a>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

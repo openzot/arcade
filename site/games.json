@@ -368,5 +368,15 @@
     "tagline": "Trim to the wind. The trophy is tin, but it gleams.",
     "controls": "arrows / WASD or hold-drag to steer, up / down or TRIM / EASE pads for the sheet, P pause, R restart, M sound",
     "created": "2026-08-23"
+  },
+  {
+    "slug": "waterwolf",
+    "name": "Waterwolf",
+    "genre": "hydraulics",
+    "mechanic": "raise and drop sluice-gate planks to shepherd storm rain down through three stepped canals, draining to the sea only while the tide ebbs - leave the sea sluice open on a flood and the ocean pours back in",
+    "theme": "a windmill-kept North Sea polder holding out through a three-night autumn gale of drifting squalls, a storm surge and one overtopping spring tide",
+    "tagline": "The sea knocks all night. Send the wolf home.",
+    "controls": "mouse / touch tap gates or keys 1-3, P pause, M sound, R restart",
+    "created": "2026-08-24"
   }
 ]
