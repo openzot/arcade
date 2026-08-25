@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Murmuration</title>
+    <meta
+      name="description"
+      content="Steer a whole murmuration of starlings to the roost before full dark - stay tight, or feed the falcon."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <canvas
+        id="sky"
+        role="img"
+        aria-label="A murmuration of starlings over the bay at dusk, flying toward the pier"
+      ></canvas>
+
+      <header id="hud" hidden>
+        <div id="hudLeft">
+          <span id="hudTitle">Murmuration</span>
+          <span id="legLabel">Leg 1 · Out of the Reeds</span>
+        </div>
+        <div id="hudMid">
+          <div class="meter" title="Remaining light">
+            <span class="meterLabel">dusk</span>
+            <div class="track">
+              <div id="duskFill"></div>
+            </div>
+          </div>
+          <div class="meter" title="Journey to the roost">
+            <span class="meterLabel">roost</span>
+            <div class="track">
+              <div id="progFill"></div>
+            </div>
+          </div>
+        </div>
+        <div id="hudRight">
+          <span id="flockWrap"
+            ><b id="flockCount">0</b><span class="flockWord"> wings</span></span
+          >
+          <button id="btnPulse" type="button" title="Panic ball (Space)">
+            ✦
+          </button>
+          <button id="btnPause" type="button" title="Pause (P)">❚❚</button>
+          <button id="btnMute" type="button" title="Sound (M)">♪</button>
+          <button id="btnRestart" type="button" title="Restart run (R)">
+            ↺
+          </button>
+        </div>
+      </header>
+
+      <div id="toast" hidden></div>
+
+      <section id="veil">
+        <div class="card" id="cardTitle" hidden>
+          <p class="kicker">an evening's work over the bay</p>
+          <h1>Murmuration</h1>
+          <p class="tagline">Stay tight, or feed the falcon.</p>
+          <ul class="howto">
+            <li>
+              <b>Steer the pale-tipped leader.</b> Arrows / WASD, or hold and
+              drag anywhere.
+            </li>
+            <li>
+              <b>The flock follows you.</b> A tight ball denies the peregrine —
+              it only takes stragglers.
+            </li>
+            <li>
+              <b>Thread every lit arch.</b> Miss one and the dusk leaps closer.
+            </li>
+            <li>
+              <b>Space</b> (or the ✦ pad) pulls the flock into a panic ball when
+              the falcon stoops.
+            </li>
+            <li>
+              <b>Bring half the flock</b> under the pier before full dark. Five
+              legs to the roost.
+            </li>
+          </ul>
+          <p class="best" id="bestLine" hidden></p>
+          <button class="primary" id="btnStart" type="button">
+            Take the flock
+          </button>
+          <a class="backlink" href="../../">← back to the arcade</a>
+        </div>
+
+        <div class="card" id="cardBrief" hidden>
+          <p class="kicker" id="legKick">leg one</p>
+          <h2 id="legName">Out of the Reeds</h2>
+          <p id="legNote"></p>
+          <p class="statline" id="legSurvivors"></p>
+          <button class="primary" id="btnBegin" type="button">
+            Up and away
+          </button>
+        </div>
+
+        <div class="card" id="cardTally" hidden>
+          <p class="kicker">the roost settles</p>
+          <h2>Under the boards</h2>
+          <div id="tallyBody"></div>
+          <button class="primary" id="btnNext" type="button">
+            On to the next leg
+          </button>
+        </div>
+
+        <div class="card" id="cardOver" hidden>
+          <p class="kicker">full dark, and the boards are quiet</p>
+          <h2>Night falls</h2>
+          <p class="tagline">Too few came home.</p>
+          <div id="overBody"></div>
+          <button class="primary" id="btnAgain" type="button">Fly again</button>
+          <a class="backlink" href="../../">← back to the arcade</a>
+        </div>
+
+        <div class="card" id="cardWin" hidden>
+          <p class="kicker">full dark, and the boards are loud with wings</p>
+          <h2>The roost holds</h2>
+          <div id="winBody"></div>
+          <p class="rank" id="rankLine"></p>
+          <button class="primary" id="btnFly" type="button">Fly again</button>
+          <a class="backlink" href="../../">← back to the arcade</a>
+        </div>
+
+        <div class="card" id="cardPaused" hidden>
+          <p class="kicker">held in the wind</p>
+          <h2>Paused</h2>
+          <p>Every wing hangs still.</p>
+          <button class="primary" id="btnResume" type="button">Resume</button>
+          <button id="btnQuit" type="button">Abandon this evening</button>
+        </div>
+      </section>
+
+      <footer id="hints">
+        <span class="kb"
+          >←↑↓→ / WASD steer · SPACE panic · P pause · M sound · R restart</span
+        >
+        <span class="tc">hold &amp; drag to steer · ✦ panic ball</span>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
