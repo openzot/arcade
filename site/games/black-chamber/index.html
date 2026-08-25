@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Black Chamber</title>
+    <meta
+      name="description"
+      content="Crack six intercepted dispatches by mapping cipher glyphs to their true letters before the candle burns down. A game of Elizabethan codebreaking."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="room">
+      <header id="bar">
+        <a id="home" href="../../">&#8592;&nbsp;Arcade</a>
+        <div id="masthead">
+          <h1>The Black Chamber</h1>
+          <p id="motto">every letter hides another letter</p>
+        </div>
+        <nav id="menu">
+          <button id="btnHelp" type="button" title="How to play">help</button>
+          <button id="btnSound" type="button" title="Sound on or off">
+            sound&nbsp;on
+          </button>
+          <button id="btnPause" type="button" title="Pause">pause</button>
+          <button id="btnNew" type="button" title="Restart from dispatch I">
+            new run
+          </button>
+        </nav>
+      </header>
+
+      <main id="table">
+        <section id="desk" aria-label="Intercepted letter">
+          <p id="intercept">&nbsp;</p>
+          <div id="letter"></div>
+          <p id="verdict">&nbsp;</p>
+        </section>
+
+        <aside id="side">
+          <div
+            id="candleWrap"
+            title="When the candle dies, the plot slips away"
+          >
+            <div id="flame"></div>
+            <div id="waxTrack">
+              <div id="waxFill"></div>
+            </div>
+            <span id="candleLabel">candle</span>
+          </div>
+
+          <div id="trayWrap">
+            <p id="trayHint">
+              tap a glyph, then its true letter &mdash; or just type
+            </p>
+            <div id="tray"></div>
+            <div id="actions">
+              <button id="btnHint" type="button">
+                seal a hunch &minus;15 wax
+              </button>
+              <button id="btnUndo" type="button">undo (ctrl+Z)</button>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <footer id="foot">
+        <span id="dispatchLabel">dispatch &mdash; of &mdash;</span>
+        <span id="scoreLabel">score 0</span>
+      </footer>
+    </div>
+
+    <div id="veil" hidden>
+      <section id="ovTitle" class="panel">
+        <h2>The Black Chamber</h2>
+        <p class="lead">
+          London, 1586. You read the realm&rsquo;s sealed letters for Sir
+          Francis Walsingham. Six intercepted dispatches sit in the drawer; each
+          is written in cipher.
+        </p>
+        <ul id="howto">
+          <li>Every glyph stands for one letter of the alphabet.</li>
+          <li>
+            Tap a glyph, then pick its true letter from the tray &mdash; or
+            simply type it.
+          </li>
+          <li>
+            A glyph already claimed swaps places; backspace lets go of a letter.
+          </li>
+          <li>
+            When the reading is complete and true, the dispatch is sealed and
+            sent.
+          </li>
+          <li>
+            The candle burns as you think. A false full reading scorches it. Wax
+            buys one true hunch.
+          </li>
+          <li>Six seals before six candles die, and the realm stands.</li>
+        </ul>
+        <button id="btnStart" type="button" class="primary">
+          open the drawer
+        </button>
+      </section>
+
+      <section id="ovHelp" class="panel" hidden>
+        <h2>How to play</h2>
+        <ul id="howtoKeys">
+          <li><b>A&ndash;Z</b> set the glowing glyph&rsquo;s letter</li>
+          <li><b>&larr; &rarr;</b> or <b>tab</b> move between glyphs</li>
+          <li><b>backspace</b> clears a letter &nbsp;<b>ctrl+Z</b> undoes</li>
+          <li>
+            <b>esc</b> pauses; the buttons above run hint, sound and new run
+          </li>
+        </ul>
+        <button id="btnResume2" type="button" class="primary">
+          back to the desk
+        </button>
+      </section>
+
+      <section id="ovPause" class="panel" hidden>
+        <h2>The quill rests</h2>
+        <p class="lead">The candle waits while you breathe.</p>
+        <button id="btnResume" type="button" class="primary">
+          resume (esc)
+        </button>
+      </section>
+
+      <section id="ovSeal" class="panel" hidden>
+        <h2>Sealed and sent</h2>
+        <p class="lead" id="sealLine">The reading was true.</p>
+        <p id="sealScore"></p>
+        <button id="btnContinue" type="button" class="primary">
+          next dispatch
+        </button>
+      </section>
+
+      <section id="ovEnd" class="panel" hidden>
+        <h2 id="endTitle"></h2>
+        <p class="lead" id="endLine"></p>
+        <p id="endScore"></p>
+        <button id="btnAgain" type="button" class="primary">
+          run it again
+        </button>
+      </section>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

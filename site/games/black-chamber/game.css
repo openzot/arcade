@@ -1,0 +1,563 @@
+/* The Black Chamber — a lamlit Elizabethan codebreaking desk. */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #2a2118;
+  --ink-soft: #4a3d2c;
+  --paper-hi: #efe4c9;
+  --paper-lo: #e2d2ae;
+  --wax: #8e2f23;
+  --gold: #c9a24b;
+  --night-1: #16110c;
+  --night-2: #241b12;
+  --guess: #35507c;
+  --good: #3e6b3a;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  background:
+    radial-gradient(
+      120% 70% at 82% -10%,
+      rgba(122, 148, 190, 0.16),
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 60% at 12% 110%,
+      rgba(201, 162, 75, 0.08),
+      transparent 60%
+    ),
+    linear-gradient(var(--night-1), var(--night-2));
+  overflow: hidden;
+}
+
+#room {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── top bar ─────────────────────────────────────────────── */
+
+#bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(201, 162, 75, 0.25);
+  background: linear-gradient(rgba(0, 0, 0, 0.25), transparent);
+}
+
+#home {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+#home:hover {
+  text-decoration: underline;
+}
+
+#masthead {
+  flex: 1;
+  min-width: 0;
+}
+
+#masthead h1 {
+  margin: 0;
+  font-size: clamp(17px, 2.6vw, 24px);
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-hi);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#motto {
+  margin: 1px 0 0;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(239, 228, 201, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#menu {
+  display: flex;
+  gap: 8px;
+}
+
+#menu button,
+#actions button,
+.panel button {
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  color: var(--paper-hi);
+  background: rgba(239, 228, 201, 0.06);
+  border: 1px solid rgba(201, 162, 75, 0.45);
+  border-radius: 3px;
+  padding: 7px 11px;
+  cursor: pointer;
+}
+
+#menu button:hover,
+#actions button:hover,
+.panel button:hover {
+  background: rgba(201, 162, 75, 0.18);
+}
+
+.panel button.primary {
+  background: var(--wax);
+  border-color: #b0473a;
+  color: #f6ead2;
+  font-size: 15px;
+  padding: 10px 22px;
+}
+
+.panel button.primary:hover {
+  background: #a03a2d;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── desk and side ───────────────────────────────────────── */
+
+#table {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 18px;
+  padding: 18px;
+  overflow: auto;
+}
+
+#desk {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(
+      140% 100% at 20% 0%,
+      rgba(120, 90, 40, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      60% 50% at 85% 95%,
+      rgba(142, 47, 35, 0.1),
+      transparent 65%
+    ),
+    linear-gradient(var(--paper-hi), var(--paper-lo));
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 61, 44, 0.35),
+    inset 0 0 46px rgba(96, 72, 34, 0.28),
+    0 10px 30px rgba(0, 0, 0, 0.55);
+  padding: clamp(12px, 2.4vw, 26px);
+  transform: rotate(-0.35deg);
+}
+
+#intercept {
+  margin: 0 0 10px;
+  font-style: italic;
+  font-size: clamp(12px, 1.6vw, 15px);
+  color: var(--ink-soft);
+}
+
+#letter {
+  flex: 1;
+  line-height: 2.1;
+  font-size: clamp(15px, 2.3vw, 21px);
+  overflow-y: auto;
+}
+
+.word {
+  display: inline-block;
+  margin: 0 0.55em 0.35em 0;
+  white-space: nowrap;
+}
+
+.dash {
+  color: var(--ink-soft);
+  margin-right: 0.6em;
+}
+
+.chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(24px, 3vw, 34px);
+  margin-right: 2px;
+  padding: 1px 0 2px;
+  font-family: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.chip .gl {
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.chip .gu {
+  min-height: 1.15em;
+  font-style: italic;
+  font-size: 0.86em;
+  color: var(--guess);
+}
+
+.chip:hover {
+  background: rgba(201, 162, 75, 0.22);
+}
+
+.chip.sel {
+  border-color: var(--wax);
+  background: rgba(201, 162, 75, 0.38);
+  box-shadow: 0 0 0 1px var(--wax);
+}
+
+.chip.kin {
+  background: rgba(201, 162, 75, 0.24);
+}
+
+.chip.revealed .gu {
+  text-decoration: underline wavy rgba(62, 107, 58, 0.7) 1px;
+}
+
+#verdict {
+  min-height: 1.4em;
+  margin: 8px 0 0;
+  font-style: italic;
+  font-size: clamp(12px, 1.7vw, 15px);
+  color: var(--ink-soft);
+}
+
+#verdict.bad {
+  color: var(--wax);
+  font-weight: bold;
+}
+
+#desk.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  20% {
+    transform: rotate(-0.35deg) translateX(-6px);
+  }
+  40% {
+    transform: rotate(-0.35deg) translateX(5px);
+  }
+  60% {
+    transform: rotate(-0.35deg) translateX(-4px);
+  }
+  80% {
+    transform: rotate(-0.35deg) translateX(3px);
+  }
+}
+
+/* ── side: candle + tray ─────────────────────────────────── */
+
+#side {
+  width: clamp(240px, 27vw, 330px);
+  display: flex;
+  gap: 16px;
+}
+
+#candleWrap {
+  position: relative;
+  width: 54px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(201, 162, 75, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+#waxTrack {
+  width: 22px;
+  flex: 1;
+  max-height: 100%;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+#waxFill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(#e8dcc0, #cdbb92);
+  border-radius: 2px;
+  transition: height 0.3s linear;
+}
+
+#flame {
+  position: absolute;
+  /* bottom is set from game.js so the flame rides the wax level */
+  left: 50%;
+
+  left: 50%;
+  width: 12px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle at 50% 75%,
+    #fff3c4,
+    #f2a93b 55%,
+    rgba(214, 80, 30, 0) 78%
+  );
+  border-radius: 50% 50% 42% 42%;
+  animation: flicker 1.1s infinite ease-in-out alternate;
+}
+
+@keyframes flicker {
+  from {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.95;
+  }
+  to {
+    transform: translateX(-52%) scale(0.88, 1.08);
+    opacity: 0.8;
+  }
+}
+
+#candleWrap.low #flame {
+  animation-duration: 0.45s;
+  background: radial-gradient(
+    circle at 50% 75%,
+    #ffe9b0,
+    #e2622b 55%,
+    rgba(160, 40, 20, 0) 78%
+  );
+}
+
+#candleLabel {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(239, 228, 201, 0.5);
+  writing-mode: horizontal-tb;
+}
+
+#trayWrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#trayHint {
+  margin: 0;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(239, 228, 201, 0.6);
+}
+
+#tray {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+#tray button {
+  font-family: inherit;
+  font-size: 17px;
+  padding: 6px 0 4px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid rgba(201, 162, 75, 0.4);
+  background: rgba(239, 228, 201, 0.05);
+  color: var(--paper-hi);
+  line-height: 1;
+}
+
+#tray button small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: rgba(226, 210, 174, 0.55);
+  min-height: 11px;
+  margin-top: 2px;
+}
+
+#tray button:hover {
+  background: rgba(201, 162, 75, 0.2);
+}
+
+#tray button.used {
+  background: rgba(142, 47, 35, 0.3);
+  border-color: rgba(176, 71, 58, 0.7);
+}
+
+#actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#btnHint.spent {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ── footer ──────────────────────────────────────────────── */
+
+#foot {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(239, 228, 201, 0.7);
+  border-top: 1px solid rgba(201, 162, 75, 0.2);
+}
+
+/* ── veil / overlays ─────────────────────────────────────── */
+
+#veil {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 7, 4, 0.72);
+  z-index: 10;
+  padding: 16px;
+}
+
+#veil[hidden] {
+  display: none;
+}
+
+.panel {
+  max-width: 560px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: linear-gradient(var(--paper-hi), var(--paper-lo));
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 61, 44, 0.4),
+    inset 0 0 40px rgba(96, 72, 34, 0.25),
+    0 16px 48px rgba(0, 0, 0, 0.7);
+  padding: 26px 30px 30px;
+  text-align: center;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  font-weight: normal;
+  font-size: clamp(22px, 4vw, 30px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel .lead {
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
+.panel ul {
+  text-align: left;
+  margin: 0 auto 18px;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+  max-width: 460px;
+}
+
+.panel p#sealScore,
+.panel p#endScore {
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  margin: 4px 0 18px;
+}
+
+/* ── small screens ───────────────────────────────────────── */
+
+@media (max-width: 720px) {
+  #table {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  #side {
+    width: 100%;
+    flex-direction: row-reverse;
+    gap: 12px;
+  }
+
+  #candleWrap {
+    width: 40px;
+  }
+
+  #tray {
+    grid-template-columns: repeat(13, 1fr);
+    gap: 4px;
+  }
+
+  #tray button {
+    font-size: 14px;
+    padding: 4px 0 3px;
+  }
+
+  #masthead #motto {
+    display: none;
+  }
+
+  #menu button {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #flame {
+    animation: none;
+  }
+
+  #desk.shake {
+    animation: none;
+  }
+
+  #waxFill {
+    transition: none;
+  }
+}

@@ -448,5 +448,15 @@
     "tagline": "The glass is falling. How many boats do you send?",
     "controls": "mouse / touch - click boats to ready them, buttons to sail, recall or sleep; keys 1-6, S, B, N",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "black-chamber",
+    "name": "The Black Chamber",
+    "genre": "cryptanalysis",
+    "mechanic": "map each cipher glyph onto its true letter by pattern and hunch - tap a glyph then a tray letter or just type, a full false reading scorches the candle wax, and scarce sealed hunches reveal single true letters while the candle burns down",
+    "theme": "Sir Francis Walsingham's lamplit London spy chamber in 1586, cracking six intercepted dispatches before the conspirators slip away on the midnight tide",
+    "tagline": "Every letter hides another letter.",
+    "controls": "tap a glyph then a tray letter, or just type; arrows or tab move between glyphs, backspace clears, ctrl+Z undoes, esc pauses; buttons for hint, sound and new run",
+    "created": "2026-08-25"
   }
 ]
