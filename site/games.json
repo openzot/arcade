@@ -488,5 +488,15 @@
     "tagline": "Three lamps. Two hands. Seven balls.",
     "controls": "hold F / J or press-and-hold a half of the ring to charge & throw that hand, Space throws the longest-held ball, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "beacon-ridge",
+    "name": "Beacon Ridge",
+    "genre": "relay",
+    "mechanic": "run a moonless ridge relaying fire between hill-fort pyres - your ember taper only drinks at a burning beacon, so every gap is a countdown while gales crouch the flames and bog pools drag at your heels, spending scarce brushwood to hold the whole chain alight at once",
+    "theme": "a chalk-down ridge above a raid-wary coast on one black night, one runner linking seven watch-fires from the sea fort to the dawn gate",
+    "tagline": "Fire eats fast. Outrun it.",
+    "controls": "WASD / arrows or hold-drag to run, hold Space or the pad to kindle & feed, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]

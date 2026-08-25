@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Beacon Ridge · Arcade</title>
+    <meta
+      name="description"
+      content="A moonless night on the chalk downs: run fire between seven hill-fort pyres, feed the chain, and hold the whole ridge alight until dawn."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <a class="back" href="../../" aria-label="Back to the arcade catalogue"
+          >← Arcade</a
+        >
+        <h1>Beacon Ridge</h1>
+        <p class="how">
+          Run fire along the dark ridge — your taper only drinks at a burning
+          pyre, so every gap is a countdown.
+        </p>
+      </header>
+
+      <div id="board">
+        <canvas
+          id="game"
+          width="800"
+          height="560"
+          aria-label="The moonless ridge with its seven hill-fort pyres, bog pools and brushwood bundles"
+        ></canvas>
+
+        <div id="toast" role="status"></div>
+
+        <button
+          id="actBtn"
+          type="button"
+          disabled
+          aria-label="Kindle or feed the nearest pyre"
+        >
+          Kindle
+        </button>
+
+        <div id="overlay">
+          <section id="introPanel" class="panel">
+            <h2>Beacon Ridge</h2>
+            <p class="lede">
+              Raid sails have been sighted past the point. Seven watch-fires
+              stand cold along the downs, and the whole ridge is black as a
+              boot. Take your ember and wake the chain — dawn will only come to
+              a ridge that burns whole.
+            </p>
+            <ul class="rules">
+              <li>
+                <strong>Your taper burns ~24 seconds.</strong> Touch a burning
+                pyre and it drinks full again.
+              </li>
+              <li>
+                <strong>Hold</strong> beside a cold pyre to kindle it. Lit pyres
+                burn down their own fuel and go dark — a cold pyre can always be
+                lit again.
+              </li>
+              <li>
+                <strong>Gales</strong> crouch every flame: fuel drains three
+                times as fast while the wind shoves you off your line.
+              </li>
+              <li>
+                <strong>Bog pools</strong> cling at your heels and wet the
+                taper. Gather brushwood bundles (carry three) and feed them to a
+                pyre to lengthen its burn.
+              </li>
+              <li>
+                <strong>All seven must burn together.</strong> If your ember
+                dies between fires, the night takes you.
+              </li>
+            </ul>
+            <p class="keysHint">
+              WASD / arrows or hold-drag to run · hold Space or the pad to
+              kindle &amp; feed · P pause · M sound · R restart
+            </p>
+            <button id="beginBtn" type="button">Take up the taper</button>
+          </section>
+
+          <section id="pausePanel" class="panel hidden">
+            <h2>Caught breath</h2>
+            <p class="lede">The ridge waits, embers ticking. Not for long.</p>
+            <p class="keysHint">P resume · R restart · M sound</p>
+            <div id="pauseRow">
+              <button id="resumeBtn" type="button">Run on</button>
+              <button id="restartBtn2" type="button">Restart</button>
+            </div>
+          </section>
+
+          <section id="endPanel" class="panel hidden">
+            <h2 id="endTitle"></h2>
+            <p id="endStats"></p>
+            <p id="endVerdict"></p>
+            <button id="againBtn" type="button">Run the ridge again</button>
+          </section>
+        </div>
+      </div>
+
+      <footer id="panel">
+        <p class="keysHint">
+          WASD / arrows or hold-drag run · Space kindle &amp; feed · P pause · M
+          sound · R restart
+        </p>
+        <div id="btnRow">
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="soundBtn" type="button" aria-pressed="false">
+            Sound: on
+          </button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
