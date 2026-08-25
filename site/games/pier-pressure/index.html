@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Pier Pressure · Arcade</title>
+    <meta
+      name="description"
+      content="A worn seaside pinball table: five balls for your last shilling. Don't tilt."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div class="cabinet">
+      <header class="marquee">
+        <a class="back" href="../../">&larr; Arcade</a>
+        <h1>Pier&nbsp;Pressure</h1>
+        <p class="tagline">Five balls, one shilling. Don&rsquo;t tilt.</p>
+      </header>
+
+      <section class="backglass" aria-label="score panel">
+        <div class="reel">
+          <span class="label">Score</span>
+          <output id="score">0</output>
+        </div>
+        <div class="cells">
+          <div class="cell">
+            <span class="label">Ball</span
+            ><span class="pair"
+              ><output id="ball">1</output><small>/5</small></span
+            >
+          </div>
+          <div class="cell">
+            <span class="label">Bonus &times;</span><output id="mult">1</output>
+          </div>
+          <div class="cell best">
+            <span class="label">Best</span><output id="best">0</output>
+          </div>
+        </div>
+        <div class="lamps" aria-label="feature lamps">
+          <span class="lamp" id="lamp-S">S</span>
+          <span class="lamp" id="lamp-E">E</span>
+          <span class="lamp" id="lamp-A">A</span>
+          <span class="lamp sep"></span>
+          <span class="lamp wide" id="lamp-shell">SIREN LIT</span>
+          <span class="lamp wide" id="lamp-again">SHOOT AGAIN</span>
+          <span class="lamp wide warn" id="lamp-tilt">TILT</span>
+        </div>
+        <p class="ticker" id="ticker">Insert shilling to play.</p>
+      </section>
+
+      <div class="playfield">
+        <canvas
+          id="table"
+          width="480"
+          height="780"
+          aria-label="pinball table"
+        ></canvas>
+
+        <div class="overlay show" id="start-overlay">
+          <h2>Siren&rsquo;s Purse</h2>
+          <p>Five balls on the oldest table in the arcade.</p>
+          <ul class="howto">
+            <li>
+              <b>Z</b> / <b>&larr;</b> left flipper &nbsp;&middot;&nbsp;
+              <b>/</b> / <b>&rarr;</b> right flipper
+            </li>
+            <li>Hold <b>Space</b> to pull the plunger, release to let fly</li>
+            <li>
+              <b>,</b> <b>.</b> nudge the case &mdash; gently, there&rsquo;s a
+              plumb bob inside
+            </li>
+            <li>
+              Drop all five <b>SIREN</b> targets, then find the shell.<br />
+              Roll the <b>S&nbsp;E&nbsp;A</b> lanes to raise your bonus.
+            </li>
+          </ul>
+          <button type="button" id="btn-start">
+            Insert shilling &mdash; play
+          </button>
+        </div>
+
+        <div class="overlay" id="pause-overlay">
+          <h2>Paused</h2>
+          <p>The rain taps on. The table waits.</p>
+          <button type="button" id="btn-resume">Carry on</button>
+        </div>
+
+        <div class="overlay" id="over-overlay">
+          <h2>Game over</h2>
+          <p id="over-line">The shilling is spent.</p>
+          <p class="final">
+            <span class="label">Final score</span
+            ><output id="final-score">0</output>
+          </p>
+          <button type="button" id="btn-again">Another shilling</button>
+        </div>
+      </div>
+
+      <section class="deck" aria-label="controls">
+        <div class="padrow">
+          <button type="button" class="pad nudge" id="pad-nudge-l">
+            &#9664; nudge
+          </button>
+          <button type="button" class="pad nudge" id="pad-nudge-u">
+            &#9650; nudge
+          </button>
+          <button type="button" class="pad nudge" id="pad-nudge-r">
+            nudge &#9654;
+          </button>
+        </div>
+        <div class="padrow main">
+          <button type="button" class="pad flip" id="pad-flip-l">
+            LEFT<br />FLIPPER
+          </button>
+          <button type="button" class="pad launch" id="pad-launch">
+            HOLD TO PULL<br />PLUNGER
+          </button>
+          <button type="button" class="pad flip" id="pad-flip-r">
+            RIGHT<br />FLIPPER
+          </button>
+        </div>
+        <div class="sysrow">
+          <button type="button" id="btn-pause">Pause (P)</button>
+          <button type="button" id="btn-sound">Sound: on (M)</button>
+          <button type="button" id="btn-restart">New game (R)</button>
+        </div>
+      </section>
+
+      <footer class="colophon">
+        <p>
+          Left flipper <kbd>Z</kbd>/<kbd>&larr;</kbd> &middot; right flipper
+          <kbd>/</kbd>/<kbd>&rarr;</kbd> &middot; plunger hold
+          <kbd>Space</kbd> &middot; nudge <kbd>,</kbd> <kbd>.</kbd> &middot;
+          pause <kbd>P</kbd> &middot; sound <kbd>M</kbd> &middot; new game
+          <kbd>R</kbd>
+        </p>
+      </footer>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

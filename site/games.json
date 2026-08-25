@@ -588,5 +588,15 @@
     "tagline": "The picture is mute. You are the sound.",
     "controls": "keys 1-4 or A/S/D/F for boots, door, thunder sheet (hold), breakage; tap the pads on touch; P pause, M mute, R restart reel",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "pier-pressure",
+    "name": "Pier Pressure",
+    "genre": "pinball",
+    "mechanic": "flip and nudge a steel ball around a worn wooden table - drop the five-target SIREN bank to light the shell kicker, roll the SEA lanes to raise a bonus multiplier, and ration your shakes before the plumb bob calls a tilt",
+    "theme": "a drizzly Bank Holiday Monday in a faded seaside amusement arcade, five balls for your last shilling on the house's oldest machine",
+    "tagline": "Five balls, one shilling. Don't tilt.",
+    "controls": "Z / left arrow left flipper, / or right arrow right flipper, hold Space pulls the plunger, comma & period nudge, P pause, M sound, R new game; touch pads and table-edge taps on mobile",
+    "created": "2026-08-25"
   }
 ]

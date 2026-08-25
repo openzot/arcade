@@ -1,0 +1,402 @@
+/* Pier Pressure — a seaside pinball cabinet */
+
+:root {
+  --night: #0a1220;
+  --night2: #101c30;
+  --cream: #f4e6c8;
+  --dim: #b9a888;
+  --brass: #d8a94e;
+  --wood1: #8a5424;
+  --wood2: #5f3714;
+  --felt: #14352c;
+  --neon: #ff6d9e;
+  --neon2: #57d7c8;
+  --warn: #ff5340;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(
+    120% 60% at 50% -10%,
+    var(--night2) 0%,
+    var(--night) 70%
+  );
+  color: var(--cream);
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cabinet {
+  width: min(96vw, 520px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0 24px;
+}
+
+/* ---------- marquee ---------- */
+
+.marquee {
+  text-align: center;
+  position: relative;
+  padding: 6px 44px 2px;
+}
+
+.marquee h1 {
+  margin: 0;
+  font-size: clamp(28px, 7vw, 40px);
+  letter-spacing: 0.14em;
+  color: #fff0f5;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 6px var(--neon),
+    0 0 18px rgba(255, 109, 158, 0.65),
+    0 2px 0 #47203a;
+}
+
+.marquee .tagline {
+  margin: 2px 0 0;
+  color: var(--dim);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.back {
+  position: absolute;
+  left: 0;
+  top: 14px;
+  color: var(--brass);
+  text-decoration: none;
+  font-size: 13px;
+  border: 1px solid rgba(216, 169, 78, 0.5);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.back:hover {
+  background: rgba(216, 169, 78, 0.15);
+}
+
+/* ---------- backglass ---------- */
+
+.backglass {
+  background: linear-gradient(180deg, #1a2438, #12192a);
+  border: 1px solid #2c3a58;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.reel {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.reel output {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: clamp(26px, 7vw, 34px);
+  letter-spacing: 0.08em;
+  color: #ffe9ad;
+  text-shadow: 0 0 10px rgba(255, 233, 173, 0.55);
+}
+
+.label {
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.cell {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.cell output {
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: 17px;
+  color: var(--cream);
+}
+
+.cell.best output {
+  color: var(--brass);
+}
+
+.lamps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 9px;
+  flex-wrap: wrap;
+}
+
+.lamp {
+  min-width: 26px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 230, 200, 0.25);
+  color: var(--dim);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.15s;
+}
+
+.lamp.sep {
+  min-width: 8px;
+  border: none;
+}
+
+.lamp.wide {
+  padding: 0 10px;
+}
+
+.lamp.lit {
+  color: #20140a;
+  background: var(--brass);
+  border-color: var(--brass);
+  box-shadow: 0 0 10px rgba(216, 169, 78, 0.8);
+}
+
+.lamp.warn {
+  color: rgba(255, 83, 64, 0.55);
+  border-color: rgba(255, 83, 64, 0.35);
+}
+.lamp.warn.lit {
+  color: #fff;
+  background: var(--warn);
+  border-color: var(--warn);
+  box-shadow: 0 0 12px rgba(255, 83, 64, 0.85);
+}
+
+.ticker {
+  margin: 9px 0 0;
+  min-height: 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--neon2);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- playfield & canvas ---------- */
+
+.playfield {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 6px solid #241305;
+  outline: 1px solid #3d2408;
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 2px rgba(255, 214, 150, 0.12);
+  background: #241305;
+  touch-action: none;
+}
+
+canvas#table {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #10241e;
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(6, 10, 18, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.overlay h2 {
+  margin: 0;
+  font-size: clamp(22px, 6vw, 32px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffe9ad;
+  text-shadow: 0 0 12px rgba(216, 169, 78, 0.6);
+}
+
+.overlay p {
+  margin: 0;
+  color: var(--dim);
+  font-size: 14px;
+}
+
+.howto {
+  list-style: none;
+  margin: 6px 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--cream);
+}
+
+.howto b {
+  color: var(--brass);
+}
+
+.final output {
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 34px;
+  font-weight: bold;
+  color: #ffe9ad;
+  text-shadow: 0 0 12px rgba(255, 233, 173, 0.55);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: #20140a;
+  background: linear-gradient(180deg, #ecc978, var(--brass));
+  border: 1px solid #8a6420;
+  border-bottom-width: 3px;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+button:hover {
+  filter: brightness(1.07);
+}
+button:active {
+  transform: translateY(1px);
+  border-bottom-width: 2px;
+}
+
+/* ---------- control deck ---------- */
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.padrow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.padrow.main {
+  grid-template-columns: 1.2fr 1fr 1.2fr;
+}
+
+.pad {
+  padding: 14px 6px;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 12px;
+}
+
+.pad.flip {
+  background: linear-gradient(180deg, #ff8fb4, #d84f7e);
+  border-color: #7c2347;
+  color: #33091b;
+}
+
+.pad.launch {
+  background: linear-gradient(180deg, #7fe0d2, #2fa392);
+  border-color: #14594e;
+  color: #06231e;
+}
+
+.pad.nudge {
+  padding: 8px 4px;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--cream);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.sysrow {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sysrow button {
+  font-size: 12px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--dim);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.colophon {
+  text-align: center;
+  color: rgba(185, 168, 136, 0.65);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.colophon kbd {
+  font-family: inherit;
+  border: 1px solid rgba(244, 230, 200, 0.3);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+@media (max-width: 380px) {
+  .marquee {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .back {
+    position: static;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  .pad {
+    font-size: 11px;
+  }
+}
