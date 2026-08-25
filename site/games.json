@@ -438,5 +438,15 @@
     "tagline": "Feel, don’t force.",
     "controls": "drag to slide & lift, hold Space or the TORSION pad to turn, arrows / WASD move & lift, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "falling-glass",
+    "name": "Falling Glass",
+    "genre": "forecasting",
+    "mechanic": "read the barometer, wind vane and sky omens each dawn to judge the day's weather, commit any share of the fishing fleet to sea, and spend one recall bell mid-morning before the Atlantic shows its hand",
+    "theme": "a Cornish harbourmaster's office over six dawns, balancing an owners' quota against gales that wreck boats and bleed the widows' fund",
+    "tagline": "The glass is falling. How many boats do you send?",
+    "controls": "mouse / touch - click boats to ready them, buttons to sail, recall or sleep; keys 1-6, S, B, N",
+    "created": "2026-08-25"
   }
 ]

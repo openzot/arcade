@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Falling Glass - read the barometer, the vane and the sky each dawn, decide how much of your fishing fleet sails, and ring the recall bell before the Atlantic turns."
+    />
+    <title>Falling Glass · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Falling Glass</h1>
+      <span class="tag">six dawns between a Cornish harbour and the quota</span>
+    </header>
+
+    <main class="stage">
+      <div class="scene">
+        <canvas
+          id="sea"
+          width="960"
+          height="540"
+          aria-label="Harbour scene. The barometer hangs on the office wall, the pennant shows the wind, boats work the bay."
+        ></canvas>
+
+        <div id="titleCard" class="card">
+          <h2>Falling Glass</h2>
+          <p>
+            You keep the harbour at Porth Annow. Six boats, six dawns, one
+            owners&rsquo; bill of &pound;96. Each morning read the glass, the
+            vane and the sky, then choose how many boats make sail.
+          </p>
+          <ul class="how">
+            <li>Click boats to ready them, or press <b>1&ndash;6</b>.</li>
+            <li><b>Sail</b> sends every ready boat to the grounds.</li>
+            <li>
+              Mid-morning you may ring the recall bell <b>once</b>: boats come
+              home safe but land only part of their catch.
+            </li>
+            <li>
+              Sent boats earn by the weather; gales and storms can take them.
+              Every boat lost costs &pound;10 to the widows&rsquo; fund.
+            </li>
+          </ul>
+          <button id="startBtn" type="button">Open the morning watch</button>
+        </div>
+
+        <div id="endCard" class="card hidden">
+          <h2 id="endTitle">The week is up</h2>
+          <p id="endBody"></p>
+          <button id="againBtn" type="button">Run another week</button>
+        </div>
+      </div>
+
+      <section class="console" aria-label="Harbourmaster's console">
+        <div class="gauges">
+          <div class="gauge">
+            <h3>The glass</h3>
+            <p id="glassRead">&mdash;</p>
+            <p id="glassTrend" class="sub">&mdash;</p>
+          </div>
+          <div class="gauge">
+            <h3>The vane</h3>
+            <p id="windRead">&mdash;</p>
+            <p id="windTrend" class="sub">&mdash;</p>
+          </div>
+          <div class="gauge">
+            <h3>The sky</h3>
+            <p id="skyRead">&mdash;</p>
+            <p id="skyOmen" class="sub">&mdash;</p>
+          </div>
+        </div>
+
+        <div class="fleetline">
+          <span class="lbl">Fleet</span>
+          <div id="fleetRow" aria-label="Your boats"></div>
+          <button id="sailBtn" type="button">
+            Sound the horn &#8212; make sail
+          </button>
+          <button id="bellBtn" type="button" disabled>
+            Ring the recall bell
+          </button>
+          <button id="sleepBtn" type="button" class="hidden">
+            Turn in &#8212; next dawn
+          </button>
+        </div>
+
+        <div class="ledger">
+          <output id="dayRead">Day 1 of 6</output>
+          <output id="purseRead">&pound;0</output>
+          <output id="quotaRead">quota &pound;96</output>
+          <output id="fleetRead">6 boats fit</output>
+        </div>
+
+        <ul id="log" class="log" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <footer class="bar">
+      <p class="hint">
+        <b>1&#8211;6</b> ready boats &middot; <b>S</b>/<b>Enter</b> sail
+        &middot; <b>B</b> recall bell &middot; <b>N</b> next dawn &middot;
+        <b>M</b> mute &middot; <b>P</b> pause &middot; <b>R</b> new week
+      </p>
+      <nav class="ops">
+        <button id="soundBtn" type="button">sound: on</button>
+        <button id="pauseBtn" type="button">pause</button>
+        <button id="resetBtn" type="button">new week</button>
+      </nav>
+    </footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>
