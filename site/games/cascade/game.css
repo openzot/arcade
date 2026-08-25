@@ -1,0 +1,283 @@
+/* Cascade — a closing-night juggling act for the arcade. */
+
+:root {
+  --ink: #f7ead2;
+  --ink-dim: #c9b49a;
+  --gold: #ffcf6e;
+  --curtain: #5d1220;
+  --night: #150f1e;
+  --panel: rgba(28, 16, 24, 0.94);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      90% 60% at 50% 0%,
+      rgba(255, 207, 110, 0.1),
+      transparent 60%
+    ),
+    linear-gradient(180deg, var(--night) 0%, #2b0910 100%);
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  width: min(94vw, 780px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0 22px;
+}
+
+/* ── header ──────────────────────────────────────────── */
+
+#hud {
+  text-align: center;
+  position: relative;
+}
+
+.back {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  padding: 6px 11px;
+  border: 1px solid rgba(255, 207, 110, 0.25);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: var(--gold);
+}
+
+h1 {
+  margin: 0.05em 0 0;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow:
+    0 0 18px rgba(255, 207, 110, 0.35),
+    0 2px 0 rgba(0, 0, 0, 0.55);
+}
+
+.how {
+  margin: 0.3em auto 0;
+  max-width: 52ch;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* ── board ───────────────────────────────────────────── */
+
+#board {
+  position: relative;
+  align-self: center;
+  /* keep the whole stage — header, ring and controls — inside one screen */
+  width: min(100%, calc(100vh - 235px));
+  aspect-ratio: 1 / 1;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 207, 110, 0.35);
+  box-shadow:
+    0 0 46px rgba(0, 0, 0, 0.65),
+    inset 0 0 70px rgba(0, 0, 0, 0.45);
+  touch-action: none;
+  cursor: pointer;
+  background: #190f1c;
+}
+
+#toast {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%);
+  background: rgba(22, 12, 18, 0.88);
+  border: 1px solid rgba(255, 207, 110, 0.5);
+  color: var(--gold);
+  padding: 0.42em 1.1em;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    translate 0.25s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 92%;
+}
+
+#toast.show {
+  opacity: 1;
+  translate: 0 4px;
+}
+
+/* ── overlay panels ──────────────────────────────────── */
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 5, 12, 0.42);
+  border-radius: 14px;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+.panel {
+  width: min(92%, 440px);
+  max-height: 94%;
+  overflow: auto;
+  background: var(--panel);
+  border: 1px solid rgba(255, 207, 110, 0.4);
+  border-radius: 14px;
+  padding: 20px 24px 22px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.panel.hidden {
+  display: none;
+}
+
+.panel h2 {
+  margin: 0 0 0.4em;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 1.35rem;
+}
+
+.lede {
+  font-style: italic;
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin: 0.2em 0 0.9em;
+}
+
+.rules {
+  text-align: left;
+  margin: 0 auto 1em;
+  padding-left: 1.15em;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.rules strong {
+  color: var(--gold);
+}
+
+.keysHint {
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.03em;
+  margin: 0.4em 0;
+}
+
+#endStats {
+  font-size: 1.02rem;
+  margin: 0.3em 0;
+}
+
+#endVerdict {
+  font-style: italic;
+  color: var(--ink-dim);
+  margin: 0.3em 0 1em;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--gold);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 207, 110, 0.16),
+    rgba(255, 207, 110, 0.04)
+  );
+  border: 1px solid rgba(255, 207, 110, 0.5);
+  border-radius: 999px;
+  padding: 0.48em 1.25em;
+  letter-spacing: 0.05em;
+}
+
+button:hover {
+  background: rgba(255, 207, 110, 0.22);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ── footer ──────────────────────────────────────────── */
+
+#panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#readout {
+  display: flex;
+  gap: 16px;
+  font-variant: small-caps;
+  letter-spacing: 0.07em;
+  color: var(--gold);
+  font-size: 0.95rem;
+}
+
+#panel .keysHint {
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+@media (max-width: 540px) {
+  .back {
+    position: static;
+    display: inline-block;
+    transform: none;
+    margin-bottom: 6px;
+  }
+  #panel .keysHint {
+    display: none;
+  }
+  .rules {
+    font-size: 0.9rem;
+  }
+}

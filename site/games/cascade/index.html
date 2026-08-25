@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cascade · Arcade</title>
+    <meta
+      name="description"
+      content="Closing night under the big top: charge your throws, interleave the arcs, and keep seven balls off the sawdust."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <a class="back" href="../../" aria-label="Back to the arcade catalogue"
+          >← Arcade</a
+        >
+        <h1>Cascade</h1>
+        <p class="how">
+          Hold a hand to charge a throw, release to send it across — keep every
+          ball off the sawdust.
+        </p>
+      </header>
+
+      <div id="board">
+        <canvas
+          id="game"
+          width="720"
+          height="720"
+          aria-label="The circus ring where the juggling act happens"
+        ></canvas>
+
+        <div id="toast" role="status"></div>
+
+        <div id="overlay">
+          <section id="introPanel" class="panel">
+            <h2>Cascade</h2>
+            <p class="lede">
+              Closing night for Bostock &amp; Verralli's Travelling Circus. The
+              ring is yours: a lazy three-ball warm-up that grows, ball by ball,
+              into a seven-ball finale under the gaslights.
+            </p>
+            <ul class="rules">
+              <li>
+                <strong>Hold</strong> F or J — or press and hold one half of the
+                ring — to charge that hand.
+              </li>
+              <li>
+                <strong>Release</strong> to hurl the ball across. Longer charge,
+                higher arc.
+              </li>
+              <li>
+                Your hands <strong>catch whatever falls into them</strong>; the
+                art is interleaving the arcs so a hand is always free.
+              </li>
+              <li>
+                Every kiss with the sawdust snuffs a lamp. Three snuffs and the
+                act is over. Space throws from the fullest hand.
+              </li>
+            </ul>
+            <p class="keysHint">
+              F / J charge &amp; throw · Space longest-held ball · P pause · M
+              sound · R restart
+            </p>
+            <button id="beginBtn" type="button">Raise the curtain</button>
+          </section>
+
+          <section id="endPanel" class="panel hidden">
+            <h2 id="endTitle">The House Comes Down</h2>
+            <p id="endStats"></p>
+            <p id="endVerdict"></p>
+            <button id="againBtn" type="button">Take the bow again</button>
+          </section>
+        </div>
+      </div>
+
+      <footer id="panel">
+        <p class="keysHint">
+          F / J charge &amp; throw · Space longest-held · P pause · M sound · R
+          restart
+        </p>
+        <div id="readout">
+          <span id="scoreRead">Score 0</span>
+          <span id="actRead">Warm-up</span>
+        </div>
+        <div id="controls">
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+          <button id="soundBtn" type="button" aria-pressed="true">
+            Sound: on
+          </button>
+        </div>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -478,5 +478,15 @@
     "tagline": "One hose. Two men. Bring up the silver.",
     "controls": "keys 1 / 2 or tap the valve pads to feed a diver, space or STOKE pad fires the boiler, Q / E jiggle a hose clear, hold W or HAUL to wind up, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "cascade",
+    "name": "Cascade",
+    "genre": "juggling",
+    "mechanic": "hold either hand to charge a throw and release to send it across the ring - your hands catch whatever falls into them by themselves, so the act is interleaving arcs as the stagehand feeds a growing fountain from three balls to seven",
+    "theme": "closing night under the big top of Bostock & Verralli's travelling circus, from a lazy warm-up to a seven-ball grand finale under the gaslights",
+    "tagline": "Three lamps. Two hands. Seven balls.",
+    "controls": "hold F / J or press-and-hold a half of the ring to charge & throw that hand, Space throws the longest-held ball, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]
