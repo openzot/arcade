@@ -428,5 +428,15 @@
     "tagline": "The wheel never waits.",
     "controls": "mouse / touch hold against the wall (outside squeezes, hollow flares) or the in/out pads, drag up or ↑↓ to raise, SPACE waters, ENTER sets aside, P pause, M sound, R new day",
     "created": "2026-08-24"
+  },
+  {
+    "slug": "shear-line",
+    "name": "Shear Line",
+    "genre": "locksmith",
+    "mechanic": "slide a pick under each pin and lift it to its own hidden shear height, reading float and tick-pitch by feel, then feather torsion to shear it - pry too far and pins drop, lean on the plug too long and the clock bleeds",
+    "theme": "a lamplit back-street locksmith’s bench opening five stubborn heirloom locks before the closing bell",
+    "tagline": "Feel, don’t force.",
+    "controls": "drag to slide & lift, hold Space or the TORSION pad to turn, arrows / WASD move & lift, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]

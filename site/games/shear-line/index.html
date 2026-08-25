@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Shear Line — a lock-picking bench game: lift each pin to its own hidden height and feather the torsion before the closing bell."
+    />
+    <title>Shear Line · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <nav class="topbar">
+      <a class="back" href="../../">&#8592;&nbsp;Arcade</a>
+      <h1>Shear Line</h1>
+      <div class="tools">
+        <button id="btn-sound" type="button" aria-pressed="false">
+          Sound: on
+        </button>
+        <button id="btn-pause" type="button">Pause</button>
+        <button id="btn-restart" type="button">Restart</button>
+      </div>
+    </nav>
+
+    <main class="bench">
+      <div class="statusline">
+        <span id="hud-lock">Lock 1 of 5</span>
+        <span id="hud-pins" class="pins" aria-label="pins set"></span>
+        <span id="hud-clock">Bell in 2:30</span>
+      </div>
+
+      <div class="stagewrap">
+        <canvas
+          id="game"
+          width="720"
+          height="520"
+          aria-label="Shear Line — the lock, cut away, on the locksmith's bench"
+        ></canvas>
+        <div id="overlay">
+          <div class="ovcard">
+            <h2 id="ov-title">Shear Line</h2>
+            <p class="tagline">Feel, don&rsquo;t force.</p>
+            <div id="ov-body">
+              <ul class="howto">
+                <li>
+                  <strong>Slide</strong> the pick along the keyway &mdash; drag
+                  left and right (or &larr;&nbsp;&rarr;).
+                </li>
+                <li>
+                  <strong>Lift</strong> each pin by dragging up
+                  (&uarr;&nbsp;/&nbsp;&darr;). Every pin stops at its own height
+                  &mdash; listen for the float, watch for the glow.
+                </li>
+                <li>
+                  <strong>Hold torsion</strong> while a pin floats to shear it
+                  &mdash; keep Space or the TORSION pad pressed. Feather it:
+                  lean too long and the plug binds.
+                </li>
+                <li>
+                  <strong>Set all five pins</strong> and the plug turns. Five
+                  stubborn heirloom locks stand between you and the closing
+                  bell.
+                </li>
+                <li>
+                  A slipped pin or a bound plug costs two seconds of the clock.
+                </li>
+              </ul>
+            </div>
+            <button id="ov-btn" type="button">Open the shop</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controlsrow">
+        <button id="torsion-pad" type="button" aria-label="hold for torsion">
+          Torsion&nbsp;&mdash;&nbsp;hold
+        </button>
+        <p class="hint">
+          drag across the keyway to feel each pin &middot; drag up to lift
+          &middot; hold torsion while a pin floats
+        </p>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
