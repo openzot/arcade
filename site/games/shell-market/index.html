@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shell Market · Arcade</title>
+    <meta
+      name="description"
+      content="A hermit-crab housing ladder on a moonlit tidal flat: dash naked between shells, ride vacancy chains, dodge the gull, and own the grandest shell on the beach by dawn."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <canvas
+        id="board"
+        width="960"
+        height="600"
+        aria-label="Shell Market game board: a moonlit beach with shells and hermit crabs"
+      ></canvas>
+
+      <header id="hud">
+        <div id="brand">
+          <a id="backlink" href="../../">⬅ Arcade</a>
+          <h1>Shell Market</h1>
+          <p id="tagline">Every new shell empties an older one.</p>
+        </div>
+
+        <div id="status">
+          <div id="hearts" aria-label="Health"></div>
+          <div id="shellcard">
+            <span id="card-name">Cracked Periwinkle</span>
+            <span id="card-meta">size 2 · 70% sound</span>
+            <span id="card-bar"><span id="card-fill"></span></span>
+          </div>
+          <div id="night">
+            <span id="cyclelabel">Tide 1 / 6</span>
+            <span id="moons"></span>
+            <span id="tidegauge"><span id="tidefill"></span></span>
+          </div>
+        </div>
+
+        <nav id="buttons">
+          <button id="btn-pause" type="button" aria-label="Pause (P)">
+            ❚❚
+          </button>
+          <button id="btn-mute" type="button" aria-label="Sound (M)">♪</button>
+          <button id="btn-restart" type="button" aria-label="Restart (R)">
+            ↻
+          </button>
+        </nav>
+      </header>
+
+      <p id="controls-hint">
+        tap a shell to scuttle &amp; try it · WASD / arrows walk · space tries
+        the nearest shell · stay shelled — gulls take the soft
+      </p>
+
+      <div id="toasts" aria-live="polite"></div>
+
+      <section id="intro" class="overlay">
+        <article class="card">
+          <h2>Shell Market</h2>
+          <p class="sub">A hermit-crab housing ladder on a moonlit flat.</p>
+          <ul>
+            <li>
+              The tide brings shells. Bigger is better — but claiming one means
+              crossing open sand
+              <strong>naked</strong>.
+            </li>
+            <li>
+              Every claim empties somebody's old shell. Watch vacancies ripple
+              down the chain and steal the good ones first.
+            </li>
+            <li>
+              Gulls hunt soft crabs. Failed fits cost seconds. Surging waves
+              shove you and drag small shells away.
+            </li>
+            <li>
+              Survive six tides to dawn owning the grandest shell on the beach.
+            </li>
+          </ul>
+          <p class="keys">
+            Mouse / touch — tap a shell to scuttle to it and try it on. Keys —
+            WASD or arrows to walk, space tries the nearest shell, P pause, M
+            sound, R restart.
+          </p>
+          <button id="btn-start" type="button" class="primary">
+            Open the market
+          </button>
+          <a class="catalogue" href="../../index.html"
+            >⬅ back to the arcade catalogue</a
+          >
+        </article>
+      </section>
+
+      <section id="paused" class="overlay hidden">
+        <article class="card">
+          <h2>Holding Tide</h2>
+          <p class="sub">The sea waits. The gull does not.</p>
+          <button id="btn-resume" type="button" class="primary">
+            Back to the flat
+          </button>
+          <button id="btn-paused-restart" type="button">
+            Restart the night
+          </button>
+          <a class="catalogue" href="../../index.html">⬅ arcade catalogue</a>
+        </article>
+      </section>
+
+      <section id="dawn" class="overlay hidden">
+        <article class="card">
+          <h2 id="dawn-title">Dawn</h2>
+          <p class="sub" id="dawn-sub">The flat goes pale.</p>
+          <div id="score-lines"></div>
+          <p id="score-total"></p>
+          <button id="btn-again" type="button" class="primary">
+            Walk another night
+          </button>
+          <a class="catalogue" href="../../index.html">⬅ arcade catalogue</a>
+        </article>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
