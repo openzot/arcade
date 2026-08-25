@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Keen Ice — a village curling bonspiel</title>
+    <meta
+      name="description"
+      content="Throw your stones down the frost-smoked pond, sweep them onto the button and steal the end from the rival skip."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="hud">
+        <div class="brand">
+          <h1>Keen Ice</h1>
+          <p class="tagline">Sweep hard. Trust the stone.</p>
+        </div>
+        <div class="board">
+          <div class="team you">
+            <span class="dot red"></span><span class="tname">You</span
+            ><span class="tscore" id="score-you">0</span>
+          </div>
+          <div class="endbox">
+            <span class="endlab">End</span>
+            <span class="endnum" id="end-num">1<small>/4</small></span>
+            <span
+              class="hammer"
+              id="hammer-chip"
+              title="Hammer: last stone of the end"
+              >⚒</span
+            >
+          </div>
+          <div class="team foe">
+            <span class="tscore" id="score-foe">0</span
+            ><span class="tname">Bessie</span><span class="dot gold"></span>
+          </div>
+        </div>
+        <nav class="sysbtns">
+          <button id="btn-help" type="button" title="How to play (H)">?</button>
+          <button id="btn-pause" type="button" title="Pause (P)">⏸</button>
+          <button id="btn-sound" type="button" title="Sound (M)">♪</button>
+          <button id="btn-restart" type="button" title="Restart match (R)">
+            ↻
+          </button>
+        </nav>
+      </header>
+
+      <div id="rinkwrap">
+        <canvas
+          id="rink"
+          width="900"
+          height="1240"
+          aria-label="Curling sheet"
+        ></canvas>
+
+        <!-- delivery controls -->
+        <div id="controls">
+          <div id="aimrow">
+            <label class="curlpick" id="curl-in"
+              ><input type="radio" name="curl" value="-1" checked /><span
+                >↺ in-turn</span
+              ></label
+            >
+            <div id="aimpad" title="Drag to aim · ←/→ keys">
+              <span id="aimtick"></span>
+            </div>
+            <label class="curlpick" id="curl-out"
+              ><input type="radio" name="curl" value="1" /><span
+                >out-turn ↻</span
+              ></label
+            >
+          </div>
+          <div id="throwrow">
+            <button id="btn-sweep" type="button" disabled>sweep!</button>
+            <div id="staminawrap" title="Sweeper's arms">
+              <span class="slab">arms</span>
+              <div id="stamina"><div id="stamina-fill"></div></div>
+            </div>
+            <div id="powerwrap">
+              <div id="powerbar">
+                <div id="powerfill"></div>
+                <div id="sweetband"></div>
+                <div id="powerghost"></div>
+              </div>
+              <span id="powerlab">hold to draw</span>
+            </div>
+            <button id="btn-throw" type="button">throw ⬤</button>
+          </div>
+        </div>
+
+        <div id="toasts"></div>
+      </div>
+
+      <footer id="foot">
+        <span class="keys"
+          >←/→ aim · A/D or pick a turn · hold SPACE / throw to charge, release
+          to let go · hold SHIFT / sweep while it runs · P pause · M sound · R
+          new game</span
+        >
+        <a href="../../">&larr; Arcade catalogue</a>
+      </footer>
+    </div>
+
+    <!-- overlays -->
+    <section id="ovl-start" class="ovl">
+      <div class="card">
+        <h2>Keen Ice</h2>
+        <p class="lead">
+          The pond is swept, the lanterns are lit and Bessie from the next farm
+          fancies her chances. Four ends. Most points takes the bonspiel.
+        </p>
+        <ul class="rules">
+          <li><b>Aim</b> with ←/→ or by dragging the aim pad.</li>
+          <li>
+            Pick an <b>in-turn</b> or <b>out-turn</b> — the handle decides which
+            way the stone bends as it slows.
+          </li>
+          <li>
+            <b>Hold</b> the throw button (or SPACE) to charge, <b>release</b> to
+            let go inside the amber band for true weight.
+          </li>
+          <li>
+            <b>Sweep</b> (SHIFT or the button) while it runs: sweeping carries
+            the stone farther and keeps it straighter. Watch your sweeper's
+            arms.
+          </li>
+          <li>
+            Nearest stone to the button scores one a stone. Guard it, draw round
+            it, or knock Bessie's out of the house.
+          </li>
+        </ul>
+        <p class="hint">
+          Stones that stop short of the far hog line are lifted, off the sheet
+          are gone.
+        </p>
+        <button id="btn-begin" type="button">Take the hack</button>
+        <a class="catlink" href="../../">&larr; Arcade catalogue</a>
+      </div>
+    </section>
+
+    <section id="ovl-pause" class="ovl hidden">
+      <div class="card small">
+        <h2>Paused</h2>
+        <p>The ice will keep. Bessie is warming her mittens.</p>
+        <button id="btn-resume" type="button">Play on</button>
+        <button id="btn-restart-2" type="button" class="ghost">
+          Restart match
+        </button>
+      </div>
+    </section>
+
+    <section id="ovl-end" class="ovl hidden">
+      <div class="card">
+        <h2 id="end-title">Final score</h2>
+        <p id="end-line" class="lead"></p>
+        <p id="end-flavor" class="hint"></p>
+        <button id="btn-again" type="button">Another game</button>
+        <a class="catlink" href="../../">&larr; Arcade catalogue</a>
+      </div>
+    </section>
+
+    <script src="game.js"></script>
+  </body>
+</html>
