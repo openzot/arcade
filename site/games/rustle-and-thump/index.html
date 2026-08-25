@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rustle &amp; Thump</title>
+    <meta
+      name="description"
+      content="You are the foley artist. A muted reel is rolling - stomp the boots, creak the door, drag the thunder sheet and crack the celery as each cue crosses the projector gate."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="topbar">
+        <a id="back" href="../../index.html" title="Back to the arcade"
+          >&#8592;&nbsp;Arcade</a
+        >
+        <h1 id="title">Rustle &amp; Thump</h1>
+        <div id="tools">
+          <button id="soundBtn" type="button">Sound: on</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="restartBtn" type="button">Restart</button>
+        </div>
+      </header>
+
+      <div id="readout">
+        <span id="reelLabel">Reel &ndash;</span>
+        <div id="syncTrack" title="The director's patience with your sync">
+          <div id="syncFill"></div>
+          <div id="syncMark"></div>
+        </div>
+        <span id="scoreLabel">0 pts</span>
+        <span id="comboLabel">&nbsp;</span>
+      </div>
+
+      <div id="frame">
+        <canvas id="scene"></canvas>
+
+        <div id="overlay" class="show">
+          <div class="card" id="card">
+            <h2 id="cardTitle">Rustle &amp; Thump</h2>
+            <p id="cardBody">
+              The picture is mute and tomorrow is the premiere. You are the
+              foley artist: when a cue reaches the projector gate, hit its
+              prop.<br /><br />
+              <b>1 / A</b> coconut boots &middot; <b>2 / S</b> door &middot;
+              <b>3 / D</b> thunder sheet (hold) &middot;
+              <b>4 / F</b> breakage<br />
+              Tap the pads on touch. Keep the sync meter up or the director
+              calls cut. <b>P</b> pause &middot; <b>M</b> mute &middot;
+              <b>R</b> restart reel.
+            </p>
+            <button id="cardBtn" type="button">Roll the reel</button>
+            <p class="fine">
+              Three reels to save. Perfect hits feed your streak.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <footer id="pads">
+        <button class="pad" data-prop="boots" type="button">
+          <canvas class="padArt" width="72" height="52"></canvas>
+          <span class="padName">Boots</span>
+          <span class="padKey">1 / A</span>
+        </button>
+        <button class="pad" data-prop="door" type="button">
+          <canvas class="padArt" width="72" height="52"></canvas>
+          <span class="padName">Door</span>
+          <span class="padKey">2 / S</span>
+        </button>
+        <button class="pad hold" data-prop="storm" type="button">
+          <canvas class="padArt" width="72" height="52"></canvas>
+          <span class="padName">Thunder&nbsp;sheet</span>
+          <span class="padKey">3 / D &middot; hold</span>
+        </button>
+        <button class="pad" data-prop="crash" type="button">
+          <canvas class="padArt" width="72" height="52"></canvas>
+          <span class="padName">Breakage</span>
+          <span class="padKey">4 / F</span>
+        </button>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -578,5 +578,15 @@
     "tagline": "No machine sets these pins. You do.",
     "controls": "mouse / touch drag pins to spots, or arrows move & space picks / places; P pause, M sound, R new shift",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "rustle-and-thump",
+    "name": "Rustle & Thump",
+    "genre": "foley",
+    "mechanic": "perform the soundtrack live to a scrolling muted picture - strike coconut boots, creak the door, hold the thunder sheet through weather beds and crack the breakage as each cue crosses the projector gate, spending the director's sync meter on every fluffed line",
+    "theme": "the foley pit of a 1950s film studio cutting three reels the night before the premiere",
+    "tagline": "The picture is mute. You are the sound.",
+    "controls": "keys 1-4 or A/S/D/F for boots, door, thunder sheet (hold), breakage; tap the pads on touch; P pause, M mute, R restart reel",
+    "created": "2026-08-25"
   }
 ]

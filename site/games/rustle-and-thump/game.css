@@ -1,0 +1,345 @@
+:root {
+  --pit: #171310;
+  --pit2: #241d17;
+  --wood: #3a2c1f;
+  --amber: #e8b464;
+  --cream: #f1e6cf;
+  --ink: #14100c;
+  --green: #7fb069;
+  --red: #d95d39;
+  --gate: #ffd98a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(ellipse at 50% -10%, var(--pit2), var(--pit) 70%);
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  width: min(960px, 100vw);
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 8px;
+  gap: 8px;
+}
+
+/* ---------- top bar ---------- */
+
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+
+#back {
+  color: var(--amber);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+#back:hover {
+  color: var(--cream);
+}
+
+#title {
+  font-size: clamp(18px, 3.4vw, 26px);
+  font-weight: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#tools {
+  display: flex;
+  gap: 6px;
+}
+
+#tools button {
+  background: transparent;
+  border: 1px solid #5a4a38;
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding: 4px 9px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#tools button:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* ---------- readout strip ---------- */
+
+#readout {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+#reelLabel {
+  color: var(--amber);
+  min-width: 130px;
+  white-space: nowrap;
+}
+
+#syncTrack {
+  position: relative;
+  flex: 1;
+  height: 10px;
+  border: 1px solid #5a4a38;
+  border-radius: 5px;
+  background: #0d0a08;
+  overflow: hidden;
+}
+
+#syncFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 80%;
+  background: linear-gradient(
+    90deg,
+    var(--red),
+    var(--amber) 55%,
+    var(--green)
+  );
+  transition: width 0.15s ease-out;
+}
+
+#syncMark {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 25%;
+  width: 2px;
+  background: rgba(241, 230, 207, 0.55);
+}
+
+#scoreLabel,
+#comboLabel {
+  white-space: nowrap;
+}
+
+#comboLabel {
+  color: var(--amber);
+  min-width: 86px;
+  text-align: right;
+}
+
+/* ---------- the frame / screen ---------- */
+
+#frame {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border: 2px solid #000;
+  outline: 1px solid #5a4a38;
+  border-radius: 4px;
+  background: #0a0806;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.8),
+    0 0 0 4px var(--wood),
+    0 0 0 5px #211812;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- overlays ---------- */
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 6, 4, 0.82);
+  z-index: 5;
+  padding: 14px;
+}
+
+#overlay.show {
+  display: flex;
+}
+
+.card {
+  max-width: 520px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  background: linear-gradient(180deg, #2b2118, #1d1610);
+  border: 1px solid #6b563e;
+  border-radius: 6px;
+  padding: 22px 26px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+}
+
+.card h2 {
+  font-weight: normal;
+  font-size: clamp(20px, 4vw, 28px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.card .fine {
+  font-size: 12px;
+  color: #b9a888;
+  margin: 12px 0 0;
+}
+
+.card b {
+  color: var(--amber);
+  font-weight: bold;
+}
+
+#cardBtn {
+  background: var(--amber);
+  border: none;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  padding: 10px 26px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#cardBtn:hover {
+  filter: brightness(1.1);
+}
+
+.grade {
+  font-size: clamp(30px, 6vw, 44px);
+  color: var(--green);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.grade.bad {
+  color: var(--red);
+}
+
+/* ---------- prop pads ---------- */
+
+#pads {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.pad {
+  background: linear-gradient(180deg, #33271b, #241a11);
+  border: 1px solid #5a4a38;
+  border-radius: 6px;
+  color: var(--cream);
+  font-family: inherit;
+  padding: 6px 4px 7px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  touch-action: none;
+}
+
+.pad:hover {
+  border-color: var(--amber);
+}
+
+.pad.hit {
+  border-color: var(--gate);
+  box-shadow: 0 0 14px rgba(255, 217, 138, 0.45);
+  transform: translateY(1px);
+}
+
+.pad.miss {
+  border-color: var(--red);
+  box-shadow: 0 0 12px rgba(217, 93, 57, 0.4);
+}
+
+.padArt {
+  width: 72px;
+  height: 52px;
+  display: block;
+}
+
+.padName {
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+.padKey {
+  font-size: 11px;
+  color: #b9a888;
+}
+
+@media (max-width: 620px) {
+  #pads {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .padArt {
+    width: 58px;
+    height: 42px;
+  }
+
+  #reelLabel {
+    min-width: 0;
+    font-size: 12px;
+  }
+
+  #comboLabel {
+    display: none;
+  }
+
+  #title {
+    letter-spacing: 0.06em;
+  }
+}
