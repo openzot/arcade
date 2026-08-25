@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Gull Rock Light - swing the lamp and walk the herring fleet home through the reefs."
+    />
+    <title>Gull Rock Light</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <canvas
+        id="sea"
+        aria-label="The sea around Gull Rock"
+        role="img"
+      ></canvas>
+
+      <header id="hud">
+        <div class="hud-group">
+          <span class="pill" id="pill-ships"
+            >SHIPS&nbsp;<b id="ships-home">0</b
+            ><span class="dim">/6</span></span
+          >
+          <span class="pill" id="pill-oil"
+            >OIL&nbsp;<span class="bar" id="oil-bar"><i id="oil-fill"></i></span
+          ></span>
+          <span
+            class="pill"
+            id="pill-lamps"
+            title="Hulls you can afford to lose"
+            ><i class="lamp on"></i><i class="lamp on"></i
+            ><i class="lamp on"></i
+          ></span>
+        </div>
+        <div class="hud-group">
+          <span class="pill" id="pill-wind" title="Wind"
+            ><span id="wind-arrow">&#10148;</span></span
+          >
+          <button
+            class="hbtn"
+            id="btn-sound"
+            type="button"
+            aria-label="Toggle sound"
+          >
+            &#9834;
+          </button>
+          <button class="hbtn" id="btn-pause" type="button" aria-label="Pause">
+            II
+          </button>
+          <button
+            class="hbtn"
+            id="btn-restart"
+            type="button"
+            aria-label="Restart"
+          >
+            &#10227;
+          </button>
+        </div>
+      </header>
+
+      <div id="ticker" aria-live="polite"></div>
+
+      <p id="hint">
+        drag or <b>&larr;</b><b>&rarr;</b> aim the lamp &middot; hold
+        <b>space</b> / <b>boost</b> burns bright &middot; <b>p</b> pause
+        &middot; <b>m</b> sound &middot; <b>r</b> restart
+      </p>
+
+      <button id="pad-boost" type="button">BOOST</button>
+      <a id="back" href="../../">&larr; the arcade</a>
+
+      <div id="overlay">
+        <div id="card">
+          <p id="ov-kicker">a night at the lamp</p>
+          <h1 id="ov-title">Gull Rock Light</h1>
+          <p id="ov-text">
+            Six boats are still out in the rising gale. A helmsman steers for
+            whatever your beam shines upon - lay the bright patch ahead of each
+            hull and walk it through the reef channel into harbour before the
+            oil burns dry.
+          </p>
+          <p id="ov-grade" hidden></p>
+          <ul id="ov-keys">
+            <li><b>Drag / &larr; &rarr;</b> - swing the lamp</li>
+            <li><b>Space / BOOST pad</b> - long reach, drinks oil</li>
+            <li>
+              <b>P</b> - pause &nbsp;<b>M</b> - sound &nbsp;<b>R</b> - restart
+            </li>
+          </ul>
+          <button id="ov-btn" type="button">Light the lamp</button>
+        </div>
+      </div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
