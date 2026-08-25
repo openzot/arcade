@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <title>Penumbra</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="hud">
+        <div class="hud-left">
+          <a class="back" href="../../" title="Back to the arcade"
+            >&#8592; Arcade</a
+          >
+          <h1 class="title">
+            <span class="spark" aria-hidden="true"></span>Penumbra
+          </h1>
+        </div>
+        <div class="lightbar" role="img" aria-label="Light remaining">
+          <div class="lightbar-fill" id="light-fill"></div>
+          <span class="lightbar-tag">light</span>
+        </div>
+        <div class="hud-right">
+          <span class="stat">wave <b id="stat-wave">–</b></span>
+          <span class="stat">score <b id="stat-score">0</b></span>
+          <span class="stat stat-dim">best <b id="stat-best">0</b></span>
+          <button
+            class="btn btn-icon"
+            id="btn-pause"
+            type="button"
+            aria-label="Pause"
+          >
+            &#10073;&#10073;
+          </button>
+          <button
+            class="btn btn-icon"
+            id="btn-mute"
+            type="button"
+            aria-label="Mute sound"
+          >
+            &#9835;
+          </button>
+          <button
+            class="btn btn-icon"
+            id="btn-restart"
+            type="button"
+            aria-label="Restart"
+          >
+            &#8635;
+          </button>
+        </div>
+      </header>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="960"
+          height="600"
+          aria-label="Penumbra play field"
+        ></canvas>
+
+        <section class="screen" id="screen-start">
+          <h2 class="screen-title">Penumbra</h2>
+          <p class="tagline">Your light is your life. Spend it loudly.</p>
+          <div class="howto">
+            <p>
+              Your halo is your health &mdash; it never stops draining, and
+              every
+              <em>static bloom</em> that touches you smothers it. Shoot the
+              blooms, catch the <em>embers</em> they drop, and hold the centre
+              until the lattice holds: <strong>ten waves</strong>.
+            </p>
+            <p class="keys">
+              <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move &middot;
+              mouse aim &middot; <kbd>click</kbd> or <kbd>space</kbd> burn
+              &middot; <kbd>P</kbd> pause &middot; <kbd>M</kbd> sound &middot;
+              <kbd>R</kbd> restart
+            </p>
+            <p class="keys keys-touch">
+              touch: left thumb moves &middot; right thumb aims &amp; fires
+            </p>
+          </div>
+          <button class="btn btn-big" id="btn-start" type="button">
+            Kindle the light
+          </button>
+        </section>
+
+        <section class="screen" id="screen-pause" hidden>
+          <h2 class="screen-title">Held breath</h2>
+          <p class="tagline">The dark is patient.</p>
+          <button class="btn btn-big" id="btn-resume" type="button">
+            Resume
+          </button>
+          <button class="btn" id="btn-quit" type="button">Give up</button>
+        </section>
+
+        <section class="screen" id="screen-over" hidden>
+          <h2 class="screen-title" id="over-title">The light went out</h2>
+          <p class="tagline" id="over-line">
+            The static closes over the place you stood.
+          </p>
+          <p class="score-line">
+            score <b id="over-score">0</b> &middot; wave
+            <b id="over-wave">1</b> &middot; best <b id="over-best">0</b>
+          </p>
+          <button class="btn btn-big" id="btn-again" type="button">
+            Burn again
+          </button>
+          <button class="btn" id="btn-endless" type="button" hidden>
+            Keep glowing (endless)
+          </button>
+          <a class="btn" href="../../">Back to the arcade</a>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <p>
+          a game of light spent loudly &mdash; part of the
+          <a href="../../">arcade</a>
+        </p>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

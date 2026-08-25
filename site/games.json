@@ -598,5 +598,15 @@
     "tagline": "Five balls, one shilling. Don't tilt.",
     "controls": "Z / left arrow left flipper, / or right arrow right flipper, hold Space pulls the plunger, comma & period nudge, P pause, M sound, R new game; touch pads and table-edge taps on mobile",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "penumbra",
+    "name": "Penumbra",
+    "genre": "arena",
+    "mechanic": "twin-stick survival where your halo of light is your health - it drains without pause, static blooms smother it on contact and slow inside its rim, popped blooms drop embers that refuel it",
+    "theme": "the dying heart of a neon lattice, one spark holding the centre through ten waves of encroaching static",
+    "tagline": "Your light is your life. Spend it loudly.",
+    "controls": "WASD / arrows move, mouse aims, hold click or space to burn; touch: left thumb moves, right thumb aims & fires; P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]
