@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Changeover · Arcade</title>
+    <meta
+      name="description"
+      content="Run the twin carbon-arc projectors of a 1953 picture palace: thread the standby reel, hit the changeover on the cue dot, and never let the screen go dark."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">← Arcade</a>
+      <h1>Changeover</h1>
+      <p class="tagline">Two projectors. One screen. The picture never dies.</p>
+    </header>
+
+    <main>
+      <div class="stage">
+        <canvas
+          id="booth"
+          width="960"
+          height="600"
+          aria-label="Projection booth view: screen above, two projectors below"
+        ></canvas>
+        <div id="overlay" class="overlay">
+          <div class="card">
+            <h2>Changeover</h2>
+            <p class="ov-tag">
+              Two projectors. One screen. The picture never dies.
+            </p>
+            <p>
+              Saturday matinee at the Rialto, 1953. You are up in the booth with
+              two carbon-arc projectors and six reels of the feature. While one
+              reel plays, thread the next onto the standby projector — then swap
+              them the instant the second cue dot reaches the gate. Let the
+              screen go white or dark for long and the house will turn on you.
+            </p>
+            <ul class="howto">
+              <li><kbd>1</kbd> / <kbd>2</kbd> select projector A / B</li>
+              <li>
+                <kbd>Q</kbd> / <kbd>E</kbd> thread reel onto A / B
+                <em>(or <kbd>T</kbd> threads the standby)</em>
+              </li>
+              <li>
+                <kbd>SPACE</kbd> change over — light the selected projector,
+                douse the other
+              </li>
+              <li>
+                <kbd>←</kbd> / <kbd>→</kbd> trim the selected projector's
+                drifting arc needle into the green
+              </li>
+              <li>
+                <kbd>S</kbd> hold to mend a snapped splice · <kbd>X</kbd> douse
+                in an emergency
+              </li>
+              <li>
+                <kbd>P</kbd> pause · <kbd>M</kbd> sound · <kbd>R</kbd> restart
+              </li>
+            </ul>
+            <button type="button" class="big" data-oact="start">
+              Start the show
+            </button>
+            <p class="fine">
+              Keyboard or touch — every key has an on-screen button.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="deck">
+        <section class="panel">
+          <h2><span class="lamp" id="lamp-a"></span>Projector A</h2>
+          <button type="button" data-act="select" data-i="0">
+            Select <kbd>1</kbd>
+          </button>
+          <button type="button" data-act="thread" data-i="0">
+            Thread <kbd>Q</kbd>
+          </button>
+        </section>
+
+        <section class="panel center">
+          <button type="button" class="big" data-act="change">
+            Changeover <kbd>SPACE</kbd>
+          </button>
+          <div class="pair">
+            <button type="button" data-hold="1" data-act="arc-down">
+              ◀ Arc
+            </button>
+            <button type="button" data-hold="1" data-act="arc-up">Arc ▶</button>
+          </div>
+          <div class="pair">
+            <button type="button" data-act="douse">Douse <kbd>X</kbd></button>
+            <button type="button" data-hold="1" data-act="mend">
+              Mend <kbd>S</kbd>
+            </button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2><span class="lamp" id="lamp-b"></span>Projector B</h2>
+          <button type="button" data-act="select" data-i="1">
+            Select <kbd>2</kbd>
+          </button>
+          <button type="button" data-act="thread" data-i="1">
+            Thread <kbd>E</kbd>
+          </button>
+        </section>
+      </div>
+
+      <div class="sysrow">
+        <button type="button" data-act="pause">Pause <kbd>P</kbd></button>
+        <button type="button" data-act="mute">Sound <kbd>M</kbd></button>
+        <button type="button" data-act="restart">Restart <kbd>R</kbd></button>
+      </div>
+
+      <p class="helpline">
+        Watch the supply reel shrink — thread the standby before the running
+        reel runs out, change over as the red cue lamp burns, keep both arc
+        needles green, and mend snaps fast. Six clean reels win the house.
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

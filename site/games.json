@@ -498,5 +498,15 @@
     "tagline": "Fire eats fast. Outrun it.",
     "controls": "WASD / arrows or hold-drag to run, hold Space or the pad to kindle & feed, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "changeover",
+    "name": "Changeover",
+    "genre": "projection",
+    "mechanic": "run twin carbon-arc projectors on one screen - thread the standby reel while the last one plays, hit the changeover as the second cue dot reaches the gate, trim drifting arc current and mend snapped splices so the picture never dies",
+    "theme": "Saturday matinees in the projection booth above a 1953 single-screen picture palace",
+    "tagline": "Two projectors. One screen. The picture never dies.",
+    "controls": "1 / 2 select a projector, Q / E thread, T threads the standby, space changes over, arrows trim the arc, hold S to mend, X douse, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]
