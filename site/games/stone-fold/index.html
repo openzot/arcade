@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Stone Fold - walk chalk lines into open bracken and raise dry-stone walls while the Herdwick bull prowls."
+    />
+    <title>Stone Fold · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="mast">
+        <h1>Stone&nbsp;Fold</h1>
+        <p class="tagline">Wall the bracken in. Mind the bull.</p>
+      </header>
+
+      <div class="hud" aria-label="fold progress">
+        <span class="hud-fell" id="hud-fell">Fell I</span>
+        <div class="hud-bar">
+          <div class="hud-fill" id="hud-fill"></div>
+          <span class="hud-mark" id="hud-mark" title="target"></span>
+        </div>
+        <span class="hud-goal" id="hud-goal">0% of 58%</span>
+        <span class="hud-lives" id="hud-lives" aria-label="caps left">
+          <svg class="cap" viewBox="0 0 20 12" aria-hidden="true">
+            <path d="M1 11 L4 4 Q10 -1 16 4 L19 11 Q10 8 1 11 Z" />
+          </svg>
+          <svg class="cap" viewBox="0 0 20 12" aria-hidden="true">
+            <path d="M1 11 L4 4 Q10 -1 16 4 L19 11 Q10 8 1 11 Z" />
+          </svg>
+          <svg class="cap" viewBox="0 0 20 12" aria-hidden="true">
+            <path d="M1 11 L4 4 Q10 -1 16 4 L19 11 Q10 8 1 11 Z" />
+          </svg>
+        </span>
+        <span class="hud-score" id="hud-score">0 pts</span>
+      </div>
+
+      <div class="board" id="board">
+        <canvas
+          id="fold"
+          width="864"
+          height="552"
+          aria-label="Stone Fold playfield: open bracken, dry-stone walls, one prowling bull"
+        ></canvas>
+
+        <div class="overlay" id="overlay">
+          <section class="screen" id="screen-title">
+            <h2>Stone Fold</h2>
+            <p class="lede">
+              Close five bracken fells before the bull closes you.
+            </p>
+            <ul class="how">
+              <li>
+                Walk out into the bracken and back to any wall. The chalk you
+                leave sets into dry stone, and every pocket the bull isn&rsquo;t
+                in falls to your fold.
+              </li>
+              <li>
+                Touch the bull &mdash; or let it cross your chalk &mdash; and a
+                cap is lost.
+              </li>
+              <li>
+                Close the posted share of each fell to move on. Three caps. Five
+                fells.
+              </li>
+            </ul>
+            <p class="keys kbd-only">
+              Arrows / WASD walk &middot; swipe walks on touch &middot; P pause
+              &middot; M sound &middot; R restart
+            </p>
+            <button class="btn big" id="btn-start" type="button">
+              Start walling
+            </button>
+          </section>
+
+          <section class="screen" id="screen-intro" hidden>
+            <h2 id="intro-title">Fell I of V</h2>
+            <p class="lede" id="intro-lede">Close 58% of the bracken.</p>
+            <p class="whisper" id="intro-note"></p>
+            <button class="btn big" id="btn-next" type="button">
+              Onto the fell
+            </button>
+            <p class="whisper kbd-only">or press any key</p>
+          </section>
+
+          <section class="screen" id="screen-pause" hidden>
+            <h2>Capped hands</h2>
+            <p class="lede">
+              The bull waits for no one, but it will wait for you.
+            </p>
+            <button class="btn big" id="btn-resume" type="button">
+              Back to the wall
+            </button>
+            <button class="btn" id="btn-restart-p" type="button">
+              Restart the shift
+            </button>
+          </section>
+
+          <section class="screen" id="screen-over" hidden>
+            <h2>The bull keeps the fell</h2>
+            <p class="lede" id="over-line">Your last cap went into the beck.</p>
+            <p class="tally" id="over-tally">0 pts</p>
+            <button class="btn big" id="btn-restart-o" type="button">
+              Wall again
+            </button>
+          </section>
+
+          <section class="screen" id="screen-win" hidden>
+            <h2>Every fell folded</h2>
+            <p class="lede">
+              Five fells of stone and not a gap in them. The kettle&rsquo;s on.
+            </p>
+            <p class="tally" id="win-tally">0 pts</p>
+            <button class="btn big" id="btn-restart-w" type="button">
+              Another shift
+            </button>
+          </section>
+        </div>
+      </div>
+
+      <div class="pads" aria-label="touch controls">
+        <button
+          class="pad pad-up"
+          id="pad-up"
+          type="button"
+          aria-label="walk north"
+        >
+          &#9650;
+        </button>
+        <button
+          class="pad pad-left"
+          id="pad-left"
+          type="button"
+          aria-label="walk west"
+        >
+          &#9664;
+        </button>
+        <button
+          class="pad pad-stop"
+          id="pad-stop"
+          type="button"
+          aria-label="stand still"
+        >
+          &#9632;
+        </button>
+        <button
+          class="pad pad-right"
+          id="pad-right"
+          type="button"
+          aria-label="walk east"
+        >
+          &#9654;
+        </button>
+        <button
+          class="pad pad-down"
+          id="pad-down"
+          type="button"
+          aria-label="walk south"
+        >
+          &#9660;
+        </button>
+      </div>
+
+      <footer class="feet">
+        <p class="howto kbd-only">
+          Arrows / WASD walk &middot; P pause &middot; M sound &middot; R
+          restart
+        </p>
+        <div class="feet-btns">
+          <button class="btn small" id="btn-pause" type="button">Pause</button>
+          <button class="btn small" id="btn-sound" type="button">
+            &#9834; on
+          </button>
+        </div>
+        <nav class="home">
+          <a href="../../">&larr; Back to the arcade</a>
+        </nav>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

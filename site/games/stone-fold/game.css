@@ -1,0 +1,428 @@
+/* Stone Fold — dusk on the fells. */
+
+:root {
+  --ink: #f0e7d3;
+  --dim: #b9ac90;
+  --gold: #d9a441;
+  --rust: #c0562e;
+  --panel: #201b14;
+  --line: #3a332a;
+  --night: #100d09;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #2a2118 0%, var(--night) 62%),
+    var(--night);
+  color: var(--ink);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  display: flex;
+  justify-content: center;
+  padding: 14px 10px 26px;
+  -webkit-text-size-adjust: 100%;
+}
+
+.stage {
+  width: min(96vw, 900px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- header ---------- */
+
+.mast h1 {
+  margin: 0;
+  font-size: clamp(28px, 5.4vw, 44px);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-shadow: 0 2px 0 #000;
+}
+
+.mast h1::first-letter {
+  color: var(--gold);
+}
+
+.tagline {
+  margin: 2px 0 0;
+  color: var(--dim);
+  font-style: italic;
+  font-size: clamp(13px, 2.6vw, 16px);
+}
+
+/* ---------- hud ---------- */
+
+.hud {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: "Courier New", monospace;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+}
+
+.hud-fell {
+  color: var(--gold);
+  min-width: 64px;
+}
+
+.hud-bar {
+  position: relative;
+  flex: 1 1 150px;
+  height: 12px;
+  background: #141009;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.hud-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: linear-gradient(90deg, #7d9455, #a4b36b);
+  transition: width 240ms ease-out;
+}
+
+.hud-mark {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--gold);
+  left: 58%;
+}
+
+.hud-goal {
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.hud-lives {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.cap {
+  width: 21px;
+  height: 13px;
+}
+
+.cap path {
+  fill: var(--ink);
+  stroke: #000;
+  stroke-width: 0.6;
+}
+
+.cap.lost path {
+  fill: none;
+  stroke: var(--rust);
+  opacity: 0.75;
+}
+
+.hud-score {
+  margin-left: auto;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---------- board & overlay ---------- */
+
+.board {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #171208;
+  line-height: 0;
+}
+
+.board.shake {
+  animation: shake 340ms linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-5px, 2px);
+  }
+  40% {
+    transform: translate(4px, -3px);
+  }
+  60% {
+    transform: translate(-3px, -1px);
+  }
+  80% {
+    transform: translate(2px, 2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+canvas#fold {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(12, 9, 5, 0.78);
+  backdrop-filter: blur(2px);
+  line-height: 1.45;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.screen {
+  max-width: 560px;
+  text-align: center;
+  padding: 10px;
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.screen h2 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 4.6vw, 36px);
+  letter-spacing: 0.04em;
+}
+
+.screen .lede {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-style: italic;
+  font-size: clamp(14px, 2.8vw, 17px);
+}
+
+.screen .how {
+  margin: 0 auto 12px;
+  padding: 0;
+  list-style: none;
+  color: var(--dim);
+  font-size: clamp(13px, 2.6vw, 15px);
+  max-width: 46ch;
+}
+
+.screen .how li {
+  margin: 7px 0;
+}
+
+.screen .how li::before {
+  content: "— ";
+  color: var(--gold);
+}
+
+.whisper {
+  color: var(--dim);
+  font-size: 13px;
+  font-style: italic;
+  margin: 10px 0 0;
+}
+
+.tally {
+  font-family: "Courier New", monospace;
+  font-size: 22px;
+  color: var(--ink);
+  margin: 6px 0 14px;
+}
+
+.keys {
+  color: var(--dim);
+  font-size: 13px;
+  margin: 4px 0 14px;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--gold);
+  border-radius: 7px;
+  padding: 9px 20px;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--gold);
+  color: #241c10;
+  outline: none;
+}
+
+.btn.big {
+  font-size: 18px;
+  padding: 11px 26px;
+}
+
+.btn.small {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-color: var(--line);
+  color: var(--dim);
+}
+
+.btn.small:hover,
+.btn.small:focus-visible {
+  border-color: var(--gold);
+}
+
+/* ---------- touch pads ---------- */
+
+.pads {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  grid-template-rows: repeat(2, 56px);
+  gap: 6px;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.pad {
+  font-size: 20px;
+  color: var(--ink);
+  background: rgba(48, 41, 30, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.pad:active,
+.pad.hot {
+  background: var(--gold);
+  color: #241c10;
+}
+
+.pad-up {
+  grid-column: 2;
+  grid-row: 1;
+}
+.pad-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+.pad-stop {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 14px;
+}
+.pad-right {
+  grid-column: 3;
+  grid-row: 2;
+}
+.pad-down {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.pads {
+  grid-template-rows: repeat(3, 56px);
+}
+
+@media (pointer: fine) {
+  .pads {
+    grid-template-columns: repeat(3, 52px);
+    grid-template-rows: repeat(3, 44px);
+    opacity: 0.55;
+  }
+
+  .pad {
+    font-size: 16px;
+  }
+}
+
+/* ---------- footer ---------- */
+
+.feet {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  color: var(--dim);
+  font-size: 13px;
+}
+
+.feet .howto {
+  margin: 0;
+}
+
+.feet-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.home {
+  margin-left: auto;
+}
+
+.home a {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--gold);
+}
+
+.home a:hover,
+.home a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  outline: none;
+}
+
+.kbd-only {
+  /* hidden on coarse pointers where the pads do the talking */
+}
+
+@media (pointer: coarse) {
+  .kbd-only {
+    visibility: hidden;
+    display: none;
+  }
+
+  .feet-btns .btn.small {
+    padding: 9px 16px;
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board.shake {
+    animation: none;
+  }
+
+  .hud-fill {
+    transition: none;
+  }
+}
