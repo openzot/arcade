@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <title>The Morning Boat</title>
+    <meta
+      name="description"
+      content="Draw ferry routes between Hebridean islands and get every croft its post before the tide turns."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <div id="hudTitle">
+          <h1>The Morning Boat</h1>
+          <span class="hud-sub">a Hebridean mail-steamer week</span>
+        </div>
+
+        <div id="hudMid">
+          <div id="dayLabel">Monday</div>
+          <div id="tideTrack" title="The tide">
+            <div id="tideFill"></div>
+            <svg id="tideLug" viewBox="0 0 20 12" aria-hidden="true">
+              <path d="M1 11 Q5 2 10 6 T19 5 L17 11 Z" />
+            </svg>
+          </div>
+        </div>
+
+        <div id="hudRight">
+          <div id="quotaBox">
+            <span id="quotaNum">0 / 0</span>
+            <span class="hud-sub">delivered</span>
+          </div>
+          <div id="hearts" aria-label="islander patience"></div>
+        </div>
+
+        <nav id="hudBtns">
+          <button id="btnHelp" type="button" aria-label="How to play">?</button>
+          <button id="btnMute" type="button" aria-label="Sound">♪</button>
+          <button id="btnPause" type="button" aria-label="Pause">II</button>
+        </nav>
+      </header>
+
+      <div id="seaWrap">
+        <canvas id="sea" width="960" height="600"
+          >Your browser cannot show the sea.</canvas
+        >
+
+        <p id="hint">
+          Tap a pier to begin a route · tap more piers to extend it · tap the
+          first again to close the loop.
+        </p>
+
+        <div id="drawTools" class="hidden">
+          <span id="fleetChip">Steamers: 0</span>
+          <button id="btnCastOff" type="button">Cast off ⏎</button>
+          <button id="btnUndoNode" type="button">Undo</button>
+          <button id="btnScrap" type="button">Scrap</button>
+        </div>
+
+        <section id="introOverlay" class="overlay">
+          <div class="panel">
+            <h2>The Morning Boat</h2>
+            <p class="lede">
+              A scatter of rain-washed islands, one mail steamer, and a tide
+              that waits for nobody.
+            </p>
+
+            <ul class="rules">
+              <li>
+                <b>Draw routes.</b> Tap a pier, then more piers, to lay a route.
+                Tap the first pier again to close it into a loop, press
+                <b>Enter</b> to leave it open. Each route ties up one steamer,
+                which sails it forever.
+              </li>
+              <li>
+                <b>Match the wants.</b> Every islander carries folk&nbsp;☺,
+                post&nbsp;✉ or a crate&nbsp;▣. They land happily only at an
+                island whose badges show their mark.
+              </li>
+              <li>
+                <b>Mind the pier.</b> Seven waiting and the jetty grumbles; let
+                it fill twice and you lose patience. Three lost hearts end the
+                week.
+              </li>
+              <li>
+                <b>Beat the tide.</b> Deliver the day's quota before the tide
+                bar runs out. Pass the day, choose a boon, sail on. Thursday's
+                boat ends the week.
+              </li>
+            </ul>
+            <p class="keys">
+              <b>Mouse / touch</b> draw routes &nbsp;·&nbsp; <b>P</b> pause
+              &nbsp;·&nbsp; <b>M</b> sound &nbsp;·&nbsp; <b>R</b> restart day
+              &nbsp;·&nbsp; <b>Esc</b> scrap draft
+            </p>
+            <button id="btnSail" type="button">Catch the morning boat</button>
+            <a id="backLink" href="../../">← back to the arcade</a>
+          </div>
+        </section>
+
+        <section id="pauseOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2>Fog bank</h2>
+            <p>The boat holds station until you say otherwise.</p>
+            <button id="btnResume" type="button">Sail on</button>
+            <button id="btnRestartFromPause" type="button">Restart day</button>
+          </div>
+        </section>
+
+        <section id="failOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2 id="failTitle">The week is lost</h2>
+            <p id="failWhy">Patience ran out at the piers.</p>
+            <p id="failTally" class="tally"></p>
+            <button id="btnRetryDay" type="button">Try the day again</button>
+            <button id="btnRestartWeekFail" type="button">
+              Restart the week
+            </button>
+            <a class="quiet-link" href="../../">← arcade</a>
+          </div>
+        </section>
+
+        <section id="boonOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2 id="boonTitle">Tuesday dawns</h2>
+            <p id="dayTally" class="tally"></p>
+            <p>The factor offers a kindness. Choose one:</p>
+            <div id="boonChoices"></div>
+          </div>
+        </section>
+
+        <section id="winOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2>The run is yours</h2>
+            <p>
+              Friday comes fair. Every croft on the sound has its post, its
+              paraffin and its news.
+            </p>
+            <p id="weekTally" class="tally"></p>
+            <button id="btnAgain" type="button">Sail the week again</button>
+            <a class="quiet-link" href="../../">← arcade</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

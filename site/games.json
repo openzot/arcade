@@ -558,5 +558,15 @@
     "tagline": "Two things make a third. The Great Work is mostly guessing.",
     "controls": "mouse / touch - drag an essence onto another, or tap two then press Transmute; R restart, M sound, H help",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "morning-boat",
+    "name": "The Morning Boat",
+    "genre": "transit",
+    "mechanic": "draw ferry routes between island piers and cast off steamers that sail them forever, matching folk, post sacks and crates to the islands whose badges accept them before a pier queue boils over or the tide turns",
+    "theme": "a Hebridean mail-steamer week among rain-washed Mull islands, one quota per tide from Monday to Thursday",
+    "tagline": "Draw the run. The boats do the rest.",
+    "controls": "mouse / touch tap piers to draw routes (tap the first again to close the loop), Enter or Cast off button ends an open route, Esc scraps a draft; Undo / Scrap buttons; P pause, M sound, H help, R restart day",
+    "created": "2026-08-25"
   }
 ]
