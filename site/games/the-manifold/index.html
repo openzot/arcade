@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="The Manifold — feed one brass air line between two hardhat divers and raise the Cygnet's silver before the gale breaks. An arcade salvage game."
+    />
+    <title>The Manifold · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <div class="brand">
+        <h1>The Manifold</h1>
+        <span class="sub">two divers &middot; one air line</span>
+      </div>
+      <nav class="tools">
+        <button
+          id="soundBtn"
+          type="button"
+          aria-pressed="false"
+          title="Sound on/off (M)"
+        >
+          SOUND
+        </button>
+        <button id="pauseBtn" type="button" title="Pause (P)">PAUSE</button>
+        <button id="restartBtn" type="button" title="Restart dive (R)">
+          RESTART
+        </button>
+      </nav>
+    </header>
+
+    <main class="stage" id="stage">
+      <canvas
+        id="scene"
+        width="960"
+        height="600"
+        aria-label="Salvage scene: a barge over a sunken clipper with two divers on one air line"
+      ></canvas>
+
+      <!-- touch / mouse control pads -->
+      <div class="pads" id="pads">
+        <button class="pad valve" id="padPort" type="button">
+          <span class="padKey">1</span
+          ><span class="padLabel">PORT<br />AIR</span>
+        </button>
+        <div class="padMid">
+          <button class="pad haul" id="padHaul" type="button" hidden>
+            <span class="padLabel">HAUL</span>
+          </button>
+          <button class="pad stoke" id="padStoke" type="button">
+            <span class="padLabel">STOKE</span>
+          </button>
+        </div>
+        <button class="pad valve" id="padStar" type="button">
+          <span class="padKey">2</span
+          ><span class="padLabel">STAR<br />AIR</span>
+        </button>
+      </div>
+
+      <div class="jiggleRow" id="jiggleRow">
+        <button class="jiggle" id="jigglePort" type="button" hidden>
+          JIGGLE PORT HOSE <span class="padKey">Q</span>
+        </button>
+        <button class="jiggle star" id="jiggleStar" type="button" hidden>
+          JIGGLE STAR HOSE <span class="padKey">E</span>
+        </button>
+      </div>
+
+      <!-- overlays -->
+      <section class="overlay show" id="overlay">
+        <div class="card" id="card">
+          <h2 id="ovTitle">The Manifold</h2>
+          <p class="tagline" id="ovTagline">
+            &ldquo;One hose. Two men. Bring up the silver.&rdquo;
+          </p>
+          <div class="brief" id="ovBody">
+            <p>
+              Wreck of the clipper <em>Cygnet</em>, forty fathom down, and the
+              glass is falling. Two hardhat divers work her decks, but the barge
+              carries a single air line &mdash; the manifold can feed only one
+              man at a time.
+            </p>
+            <ul>
+              <li>
+                <strong>1 / 2</strong> or tap a valve pad &mdash; feed Port or
+                Starboard diver
+              </li>
+              <li>
+                <strong>SPACE</strong> or STOKE pad &mdash; drive the boiler,
+                fill the manifold (mind the heat!)
+              </li>
+              <li><strong>Q / E</strong> &mdash; jiggle a kinked hose clear</li>
+              <li>
+                Keep each chest-gauge in its green band to work; red bursts
+                hoses, empty suits fade men out
+              </li>
+              <li>
+                Quota raised? Hold <strong>W</strong> or HAUL to wind both men
+                up before the gale breaks
+              </li>
+            </ul>
+          </div>
+          <button class="go" id="goBtn" type="button">START DIVE</button>
+          <p class="fine">P pause &middot; M sound &middot; R restart dive</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

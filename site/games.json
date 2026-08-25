@@ -468,6 +468,15 @@
     "tagline": "Five cords. Six lines. Not one ring may die.",
     "controls": "mouse / touch tap a guest then a line; keys 1-8 pick, arrows + Enter move & plug, Esc puts the cord down, P pause, M sound, R new shift",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "the-manifold",
+    "name": "The Manifold",
+    "genre": "salvage",
+    "mechanic": "switch one shared brass air line between two working divers, holding each chest-gauge in its band while stoking the boiler, clearing kinked hoses and hauling the Cygnet's silver up before the gale breaks",
+    "theme": "a Victorian salvage barge anchored over a sunk clipper as a rising gale drives a calm grey sea to breaking",
+    "tagline": "One hose. Two men. Bring up the silver.",
+    "controls": "keys 1 / 2 or tap the valve pads to feed a diver, space or STOKE pad fires the boiler, Q / E jiggle a hose clear, hold W or HAUL to wind up, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]
-
