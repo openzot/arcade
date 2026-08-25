@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pin Money — a bowling-alley pit boy's game</title>
+    <meta
+      name="description"
+      content="Work the splintery pit behind the pins of a smoky 1959 bowling alley: drag the deadwood home, swap cracked wood at the spare bin, and rack all ten before the bowler's patience runs out."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="topbar">
+        <p class="brand">Pin Money</p>
+        <dl class="hud">
+          <div class="stat">
+            <dt>Frame</dt>
+            <dd id="hud-frame">–</dd>
+          </div>
+          <div class="stat">
+            <dt>Rack</dt>
+            <dd id="hud-rack">–</dd>
+          </div>
+          <div class="stat">
+            <dt>Wage</dt>
+            <dd id="hud-wage">–</dd>
+          </div>
+        </dl>
+        <nav class="controls" aria-label="Alley controls">
+          <button id="btn-pause" class="icon" type="button" aria-label="Pause">
+            ⏸
+          </button>
+          <button
+            id="btn-sound"
+            class="icon is-off"
+            type="button"
+            aria-label="Toggle sound"
+          >
+            ♪
+          </button>
+        </nav>
+      </header>
+
+      <div class="stagewrap">
+        <div class="patience" aria-hidden="true">
+          <span class="patience-label">the bowler waits</span>
+          <span class="patience-track"
+            ><span class="patience-fill" id="pat-fill"></span
+          ></span>
+        </div>
+
+        <canvas id="stage" width="900" height="560"></canvas>
+
+        <div
+          class="overlay"
+          id="ov-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="menu-title"
+        >
+          <section class="card">
+            <h1 id="menu-title">Pin Money</h1>
+            <p class="tagline">No machine sets these pins. You do.</p>
+            <ul class="how">
+              <li>
+                Every frame a ball thunders off the lane into your pit. Mind
+                your shins.
+              </li>
+              <li>
+                <b>Drag the deadwood home</b> — any fallen pin will stand in any
+                empty spot. Ten seated pins rack the frame.
+              </li>
+              <li>
+                Hard-hit pins <b>split</b>. They won't stand: carry them to the
+                <b>spare bin</b> and take the fresh one it hands you.
+              </li>
+              <li>
+                The bowler's <b>patience</b> drains while the wood lies about.
+                Empty it and you're sacked. Twelve fast frames earn your wage
+                envelope.
+              </li>
+              <li>Watch for nights the bowler throws twice.</li>
+            </ul>
+            <p class="footnote">
+              Lane six, the Starlite Bowl, autumn 1959. Paid by the frame.
+            </p>
+            <button class="primary" id="btn-play" type="button">
+              Take the pit job
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-pause"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pause-title"
+        >
+          <section class="card">
+            <h2 id="pause-title">Smoke break</h2>
+            <p class="brief">The alley hums on without you. Briefly.</p>
+            <button class="primary" id="btn-resume" type="button">
+              Back to the pit
+            </button>
+            <button class="ghost" id="btn-restart" type="button">
+              Restart the shift
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-sacked"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="sacked-title"
+        >
+          <section class="card">
+            <h2 id="sacked-title">Sacked</h2>
+            <p class="brief" id="sacked-note">
+              The wood lay too long and the bowler told the manager. There are
+              other alleys.
+            </p>
+            <p class="stars" id="sacked-wage"></p>
+            <button class="primary" id="btn-again" type="button">
+              Try another alley
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-paid"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="paid-title"
+        >
+          <section class="card">
+            <h2 id="paid-title">Shift done!</h2>
+            <p class="kicker">Twelve frames and not one riot</p>
+            <p class="brief" id="paid-note"></p>
+            <p class="stars" id="paid-wage"></p>
+            <button class="primary" id="btn-envelope" type="button">
+              Work another shift
+            </button>
+          </section>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <p class="keys">
+          drag pins to spots · <b>space</b> picks &amp; places ·
+          <b>arrows</b> carry · <b>P</b> pause · <b>M</b> sound · <b>R</b> new
+          shift
+        </p>
+        <a class="home" href="../../">← Back to the arcade</a>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

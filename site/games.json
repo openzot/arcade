@@ -568,5 +568,15 @@
     "tagline": "Draw the run. The boats do the rest.",
     "controls": "mouse / touch tap piers to draw routes (tap the first again to close the loop), Enter or Cast off button ends an open route, Esc scraps a draft; Undo / Scrap buttons; P pause, M sound, H help, R restart day",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "pin-money",
+    "name": "Pin Money",
+    "genre": "pinsetting",
+    "mechanic": "clear scattered deadwood by hand after every ball, seating each pin into the ten-spot rack before the bowler's patience drains, while hard-hit splits must be carried to the spare bin for fresh wood and sneaky second balls break the rack again",
+    "theme": "the cramped splintery pit behind the pins of a smoky 1959 bowling alley, twelve frames between you and your wage envelope",
+    "tagline": "No machine sets these pins. You do.",
+    "controls": "mouse / touch drag pins to spots, or arrows move & space picks / places; P pause, M sound, R new shift",
+    "created": "2026-08-25"
   }
 ]
