@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Opus Tessellatum — a mosaic-restoration puzzle</title>
+    <meta
+      name="description"
+      content="Rebuild the buried floors of a Roman villa. Read the run counts along every row and column, set only the tesserae they swear to, and keep the inspector's wax seals uncracked."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="back" href="../../">&larr; Arcade</a>
+      <p class="kicker">
+        Villa of the Gilded Cupid &middot; the museum opens at dawn
+      </p>
+      <h1>Opus Tessellatum</h1>
+      <p class="tagline">
+        Five buried floors, one restorer&rsquo;s bench. The counts along each
+        row and column swear to the pattern &mdash; set every tessera they
+        promise, not one more.
+      </p>
+    </header>
+
+    <main class="stagewrap">
+      <div class="hud">
+        <div class="hud-left">
+          <span id="commission">Floor I &mdash; The Amphora</span>
+          <span id="gridsize">5 &times; 5</span>
+          <span id="clock">00:00</span>
+        </div>
+        <div class="seals" id="seals" aria-label="wax seals remaining">
+          <i></i><i></i><i></i>
+        </div>
+        <div class="hud-btns">
+          <div class="seg" role="group" aria-label="chisel mode">
+            <button id="mode-set" class="segbtn on" aria-pressed="true">
+              Set
+            </button>
+            <button id="mode-void" class="segbtn" aria-pressed="false">
+              Void
+            </button>
+          </div>
+          <button id="undo" disabled>Undo</button>
+          <button id="hint" title="Reveal one true tessera, crack a seal">
+            Hint
+          </button>
+          <button id="pausebtn">Pause</button>
+          <button id="soundbtn" aria-pressed="true">Sound</button>
+          <button id="restartbtn" title="Reset this floor">Restart</button>
+        </div>
+      </div>
+
+      <canvas
+        id="game"
+        width="720"
+        height="1020"
+        aria-label="The mosaic floor: clue counts on the top and left edges, tessera bed in the middle"
+      >
+        Opus Tessellatum: fill the mosaic floor using the row and column counts.
+      </canvas>
+
+      <p id="sr" class="sr-only" role="status" aria-live="polite"></p>
+
+      <div id="overlay" class="overlay">
+        <div
+          class="panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ov-title"
+        >
+          <h2 id="ov-title">Opus Tessellatum</h2>
+          <p id="ov-body"></p>
+          <ul id="ov-list" class="howto"></ul>
+          <p id="ov-note" class="ovnote"></p>
+          <button id="ov-btn">Take up the chisel</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="colophon">
+      <a href="../../">&larr; Back to the arcade</a>
+      <span>Tesserae cut fresh each shift &middot; no two floors alike</span>
+    </footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>

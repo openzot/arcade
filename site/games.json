@@ -538,5 +538,15 @@
     "tagline": "Set it up. Knock it down.",
     "controls": "mouse / touch drag to lay & erase, TEST tips the tile, space or the HUFF pad puffs at your finger, P pause, M sound, R clear",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "opus-tessellatum",
+    "name": "Opus Tessellatum",
+    "genre": "picross",
+    "mechanic": "read the run-count tallies along every row and column to deduce which tesserae to set and which squares must stay bare - one chip in the wrong place cracks a wax seal, three cracks lose the commission",
+    "theme": "a lamplit restorer's bench rebuilding five buried mosaic floors of a Roman villa before the museum opens at dawn",
+    "tagline": "The counts never lie. Fill the floor.",
+    "controls": "mouse / touch tap or drag, right-click voids, Set / Void pads; arrows + space / X, Z undo, H hint, P pause, M sound, R restart floor",
+    "created": "2026-08-25"
   }
 ]
