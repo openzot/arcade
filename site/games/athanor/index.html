@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Athanor · Arcade</title>
+    <meta
+      name="description"
+      content="Combine the four primordials into forty-three essences and complete the Great Work in this alchemical discovery game."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <div class="titles">
+        <h1>Athanor</h1>
+        <p class="tagline">
+          Two things make a third. The Great Work is mostly guessing.
+        </p>
+      </div>
+      <div class="masthead-buttons">
+        <button
+          id="btn-sound"
+          type="button"
+          aria-pressed="true"
+          title="Sound on/off (M)"
+        >
+          Sound
+        </button>
+        <button id="btn-restart" type="button" title="Start over (R)">
+          Restart
+        </button>
+        <button id="btn-help" type="button" title="How to play (H)">
+          Help
+        </button>
+      </div>
+    </header>
+
+    <section id="hud" aria-label="Progress">
+      <div class="hud-cell">
+        <span class="hud-label">Essences</span>
+        <span class="hud-value"
+          ><span id="found-count">4</span>&hairsp;/&hairsp;<span
+            id="total-count"
+            >43</span
+          ></span
+        >
+      </div>
+      <div class="hud-cell grow">
+        <span class="hud-label">The Work</span>
+        <div
+          class="bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          id="progress-bar"
+        >
+          <div class="bar-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      <div class="hud-cell">
+        <span class="hud-label">Score</span>
+        <span class="hud-value" id="score">0</span>
+      </div>
+    </section>
+
+    <main id="lab">
+      <section id="bench" aria-label="Transmutation bench">
+        <p class="bench-hint">
+          Drop one essence onto another &mdash; or tap two, then transmute.
+        </p>
+        <div class="crucible">
+          <div class="slot" id="slot-a" data-slot="a">
+            <span class="slot-face">?</span>
+          </div>
+
+          <span class="plus" aria-hidden="true">+</span>
+          <div class="slot" id="slot-b" data-slot="b">
+            <span class="slot-face">?</span>
+          </div>
+          <span class="arrow" aria-hidden="true">&#10142;</span>
+          <div class="slot outcome" id="slot-out" data-slot="out">
+            <span class="slot-face" id="out-face">&nbsp;</span>
+          </div>
+        </div>
+        <div class="bench-actions">
+          <button id="btn-transmute" type="button">Transmute</button>
+          <button id="btn-clear" type="button">Clear</button>
+          <button
+            id="btn-whisper"
+            type="button"
+            title="Ask the fumes for a nudge (&minus;20 points)"
+          >
+            Whisper hint
+          </button>
+        </div>
+        <p id="toast" role="status" aria-live="polite"></p>
+      </section>
+
+      <aside id="journal" aria-label="Journal">
+        <h2>Journal</h2>
+        <ul id="log"></ul>
+      </aside>
+
+      <section id="shelf-wrap" aria-label="Discovered essences">
+        <h2>Shelf of essences</h2>
+        <ul id="shelf"></ul>
+      </section>
+    </main>
+
+    <div class="overlay" id="overlay-intro">
+      <div class="panel">
+        <h2>Athanor</h2>
+        <p>
+          A thunder-lit garret above the apothecary. On the shelf: four
+          primordials &mdash;
+          <strong>fire</strong>, <strong>water</strong>, <strong>earth</strong>,
+          <strong>air</strong>. In the crucible: everything else, waiting to be
+          found.
+        </p>
+        <ul class="rules">
+          <li>Combine any two essences to attempt a synthesis.</li>
+          <li>
+            Forty-two more essences hide inside the tree, up to the
+            Philosopher's Stone.
+          </li>
+          <li>Wrong pairs gutter the candle but cost nothing but pride.</li>
+          <li>The Whisper hint names a working pair for &minus;20 points.</li>
+          <li>
+            Chain discoveries within a minute of each other for bonus points.
+          </li>
+        </ul>
+        <p class="controls-line">
+          Drag an essence onto another, or tap two and press <em>Transmute</em>.
+          Keys: <em>R</em> restart &middot; <em>M</em> sound &middot;
+          <em>H</em> help.
+        </p>
+        <button id="btn-start" type="button">Light the athanor</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-win" hidden>
+      <div class="panel win-panel">
+        <h2>The Great Work is done</h2>
+        <p id="win-flourish">
+          The Stone sits warm in your palm. Rain still lashes the glass, the
+          furnace still breathes &mdash; but the garret glows like noon.
+        </p>
+        <dl class="tally">
+          <dt>Score</dt>
+          <dd id="win-score">0</dd>
+          <dt>Attempts</dt>
+          <dd id="win-attempts">0</dd>
+          <dt>Accuracy</dt>
+          <dd id="win-accuracy">0%</dd>
+          <dt>Time</dt>
+          <dd id="win-time">0:00</dd>
+        </dl>
+        <button id="btn-again" type="button">Begin the work again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

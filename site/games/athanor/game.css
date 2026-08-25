@@ -1,0 +1,673 @@
+/* Athanor — alchemical discovery game. All styling lives here. */
+
+:root {
+  --ink: #efe4cf;
+  --ink-dim: #a99cb5;
+  --night: #131120;
+  --panel: #1e1930;
+  --panel-edge: #37305a;
+  --ember: #e8963f;
+  --gold: #d9a441;
+  --brass: #8a6d3b;
+  --good: #7fc97f;
+  --bad: #d96a6a;
+  --vial: #6fb3d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      1200px 500px at 50% -10%,
+      rgba(232, 150, 63, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 85% 110%,
+      rgba(111, 179, 217, 0.08),
+      transparent 60%
+    ),
+    var(--night);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.45;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--panel-edge);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 25, 48, 0.92),
+    rgba(19, 17, 32, 0.6)
+  );
+}
+
+.masthead .back {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border: 1px solid var(--brass);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  white-space: nowrap;
+}
+
+.masthead .back:hover,
+.masthead .back:focus-visible {
+  background: rgba(217, 164, 65, 0.15);
+}
+
+.titles {
+  flex: 1 1 auto;
+  min-width: 12rem;
+}
+
+.titles h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(232, 150, 63, 0.35);
+}
+
+.tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-dim);
+  font-size: 0.9rem;
+}
+
+.masthead-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ---------- generic buttons ---------- */
+
+button {
+  font-family: inherit;
+  color: var(--ink);
+  background: linear-gradient(180deg, #2b2445, #201a36);
+  border: 1px solid var(--panel-edge);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+button:hover,
+button:focus-visible {
+  border-color: var(--brass);
+  outline: none;
+  filter: brightness(1.15);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+#btn-transmute {
+  background: linear-gradient(180deg, #a4611f, #7c4514);
+  border-color: var(--ember);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#btn-whisper {
+  border-color: var(--brass);
+  color: var(--gold);
+}
+
+#btn-sound[aria-pressed="false"] {
+  color: var(--ink-dim);
+  text-decoration: line-through;
+}
+
+/* ---------- HUD ---------- */
+
+#hud {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--panel-edge);
+  background: rgba(30, 25, 48, 0.55);
+}
+
+.hud-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 4.5rem;
+}
+
+.hud-cell.grow {
+  flex: 1 1 auto;
+}
+
+.hud-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.hud-value {
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+
+.bar {
+  height: 0.7rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #7c4514, var(--ember), var(--gold));
+  transition: width 0.5s ease;
+}
+
+/* ---------- layout ---------- */
+
+#lab {
+  display: grid;
+  grid-template-columns: minmax(20rem, 27rem) minmax(11rem, 1fr);
+  grid-template-areas:
+    "bench journal"
+    "shelf shelf";
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 74rem;
+  margin: 0 auto;
+}
+
+#bench {
+  grid-area: bench;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: 14px;
+  padding: 1rem;
+  position: relative;
+  box-shadow: inset 0 0 60px rgba(232, 150, 63, 0.06);
+}
+
+#journal {
+  grid-area: journal;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  max-height: 22rem;
+  overflow-y: auto;
+}
+
+#shelf-wrap {
+  grid-area: shelf;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  border-radius: 14px;
+  padding: 0.8rem 1rem 1rem;
+}
+
+#journal h2,
+#shelf-wrap h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: normal;
+}
+
+/* ---------- bench / crucible ---------- */
+
+.bench-hint {
+  margin: 0 0 0.8rem;
+  color: var(--ink-dim);
+  font-style: italic;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.crucible {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0 1rem;
+}
+
+.plus,
+.arrow {
+  font-size: 1.4rem;
+  color: var(--brass);
+}
+
+.slot {
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 50%;
+  border: 2px dashed var(--panel-edge);
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(111, 179, 217, 0.1),
+    rgba(0, 0, 0, 0.3)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  position: relative;
+}
+
+.slot .slot-face {
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  padding: 0.3rem;
+  word-break: break-word;
+  pointer-events: none;
+}
+
+.slot.filled {
+  border-style: solid;
+  border-color: var(--slot-colour, var(--brass));
+  box-shadow: 0 0 16px
+    color-mix(in srgb, var(--slot-colour, var(--brass)) 40%, transparent);
+}
+
+.slot.filled .slot-face {
+  color: var(--ink);
+  text-shadow: 0 0 8px
+    color-mix(in srgb, var(--slot-colour, var(--brass)) 60%, transparent);
+}
+
+.slot.armed {
+  border-color: var(--ember);
+  animation: breathe 1.6s ease-in-out infinite;
+}
+
+.slot.drop-here {
+  border-color: var(--good);
+  box-shadow: 0 0 22px rgba(127, 201, 127, 0.45);
+}
+
+.slot.outcome {
+  width: 6.4rem;
+  height: 6.4rem;
+}
+
+.slot.outcome.revealed {
+  border-style: solid;
+  animation: reveal-pop 0.6s ease;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(232, 150, 63, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(232, 150, 63, 0.55);
+  }
+}
+
+@keyframes reveal-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bench-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#toast {
+  min-height: 1.5rem;
+  margin: 0.7rem 0 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#toast.show {
+  opacity: 1;
+}
+
+#toast.bad {
+  color: var(--bad);
+}
+
+#toast.good {
+  color: var(--good);
+}
+
+.shake {
+  animation: shudder 0.4s ease;
+}
+
+@keyframes shudder {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+
+/* ---------- journal ---------- */
+
+#log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.86rem;
+}
+
+#log li {
+  padding: 0.28rem 0;
+  border-bottom: 1px dotted rgba(137, 109, 59, 0.35);
+  color: var(--ink-dim);
+}
+
+#log li b {
+  color: var(--ink);
+  font-weight: normal;
+}
+
+#log li.good {
+  color: var(--good);
+}
+
+#log li.sys {
+  color: var(--brass);
+  font-style: italic;
+}
+
+#log li.hint {
+  color: var(--vial);
+}
+
+/* ---------- shelf ---------- */
+
+#shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap: 0.55rem;
+}
+
+.chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 4.6rem;
+  border-radius: 10px;
+  border: 1px solid
+    color-mix(in srgb, var(--chip-colour, var(--brass)) 55%, var(--panel-edge));
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      color-mix(in srgb, var(--chip-colour, var(--brass)) 26%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #26203f, #1b1730);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 0.4rem 0.3rem;
+  text-align: center;
+}
+
+.chip:hover,
+.chip:focus-visible {
+  filter: brightness(1.2);
+  outline: none;
+  border-color: var(--chip-colour, var(--gold));
+}
+
+.chip.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 14px rgba(217, 164, 65, 0.55);
+  transform: translateY(-2px);
+}
+
+.chip.new {
+  animation: chip-born 0.55s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+@keyframes chip-born {
+  0% {
+    transform: scale(0.2) rotate(-8deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.chip .glyph {
+  font-size: 1.25rem;
+  line-height: 1;
+  filter: drop-shadow(
+    0 0 6px
+      color-mix(in srgb, var(--chip-colour, var(--brass)) 70%, transparent)
+  );
+}
+
+.chip .name {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.chip .pairs {
+  font-size: 0.62rem;
+  color: var(--ink-dim);
+}
+
+.drag-ghost {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.85;
+  transform: translate(-50%, -60%) rotate(-4deg) scale(1.05);
+}
+
+/* ---------- overlays ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 18, 0.78);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.panel {
+  max-width: 34rem;
+  background: linear-gradient(180deg, #262045, #1a1631);
+  border: 1px solid var(--brass);
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 0 80px rgba(232, 150, 63, 0.18);
+}
+
+.panel h2 {
+  margin: 0 0 0.6rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.panel .rules {
+  margin: 0.6rem 0;
+  padding-left: 1.2rem;
+  color: var(--ink-dim);
+  font-size: 0.92rem;
+}
+
+.panel .rules li {
+  margin: 0.25rem 0;
+}
+
+.controls-line {
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+
+#btn-start,
+#btn-again {
+  display: block;
+  margin: 1rem auto 0;
+  background: linear-gradient(180deg, #a4611f, #7c4514);
+  border-color: var(--ember);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+}
+
+.win-panel {
+  text-align: center;
+}
+
+.tally {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.3rem 1.2rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.tally dt {
+  text-align: right;
+  color: var(--ink-dim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  align-self: center;
+}
+
+.tally dd {
+  margin: 0;
+  text-align: left;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+/* ---------- responsive & motion ---------- */
+
+@media (max-width: 46rem) {
+  #lab {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "bench"
+      "shelf"
+      "journal";
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+
+  #journal {
+    max-height: 12rem;
+  }
+
+  .crucible {
+    gap: 0.35rem;
+  }
+
+  .slot {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+
+  .slot.outcome {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .plus,
+  .arrow {
+    font-size: 1rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .chip {
+    min-height: 3.4rem;
+  }
+
+  button {
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

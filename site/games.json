@@ -548,5 +548,15 @@
     "tagline": "The counts never lie. Fill the floor.",
     "controls": "mouse / touch tap or drag, right-click voids, Set / Void pads; arrows + space / X, Z undo, H hint, P pause, M sound, R restart floor",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "athanor",
+    "name": "Athanor",
+    "genre": "discovery",
+    "mechanic": "combine two essences by drag or tap-and-transmute to grow a forty-three-node synthesis tree from the four primordials up to the philosophers stone, steered by per-essence lead counts and purchasable whisper hints",
+    "theme": "a thunder-lit alchemists garret stacked with vials, retorts and one stubborn athanor furnace",
+    "tagline": "Two things make a third. The Great Work is mostly guessing.",
+    "controls": "mouse / touch - drag an essence onto another, or tap two then press Transmute; R restart, M sound, H help",
+    "created": "2026-08-25"
   }
 ]
