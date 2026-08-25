@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Talkdown</title>
+    <meta
+      name="description"
+      content="Vector tired night flights down onto one wet runway — an arcade approach-control game."
+    />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="cab">
+      <header class="top">
+        <a class="back" href="../../">&larr; the arcade</a>
+        <div class="mast">
+          <h1>TALKDOWN</h1>
+          <p class="sub">ground-controlled approach · coastal field · 1963</p>
+        </div>
+      </header>
+
+      <section class="stage" aria-label="radar scope">
+        <canvas id="scope" width="760" height="760"></canvas>
+        <p class="pausedTag hidden" id="pausedTag">
+          &#10074;&#10074; HOLDING — press P
+        </p>
+
+        <div class="overlay" id="intro">
+          <h2>TALKDOWN</h2>
+          <p class="tag">
+            Eight tired flights, one wet runway, and you are the voice on the
+            scope.
+          </p>
+          <ol class="how">
+            <li>Tap a blip to call that flight up.</li>
+            <li>
+              Tap anywhere on the scope and it turns toward that point. Climb or
+              descend with the buttons or the arrow keys.
+            </li>
+            <li>
+              Deliver each flight onto the dashed centreline below 3,600 ft,
+              heading west. The box flies the approach itself.
+            </li>
+          </ol>
+          <p class="rule">
+            Hold three miles or one thousand feet apart. Dry tanks are a strike
+            — three strikes and you are relieved.
+          </p>
+          <button class="primary" id="startBtn" type="button">
+            START THE SHIFT
+          </button>
+          <p class="keysHint">P pause · M sound · R restart</p>
+        </div>
+
+        <div class="overlay hidden" id="endOv">
+          <h2 id="endTitle">SHIFT COMPLETE</h2>
+          <dl class="stats" id="endStats"></dl>
+          <button class="primary" id="againBtn" type="button">
+            FLY ANOTHER
+          </button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="counters">
+          <span>DOWN<strong id="landedEl">0/8</strong></span>
+          <span>STRIKES<strong id="strikesEl">○○○</strong></span>
+          <span>SCORE<strong id="scoreEl">0</strong></span>
+          <span>CLOCK<strong id="timeEl">00:00</strong></span>
+        </div>
+        <div class="readout" id="readout" aria-live="polite"></div>
+        <div class="btnrow">
+          <button id="upBtn" type="button" disabled>▲ CLIMB +1000</button>
+          <button id="dnBtn" type="button" disabled>▼ DESCEND −1000</button>
+          <button id="pauseBtn" type="button">PAUSE</button>
+          <button id="muteBtn" type="button">SOUND ON</button>
+          <button id="restartBtn" type="button">RESTART</button>
+        </div>
+        <ul class="log" id="radiolog" aria-live="polite"></ul>
+        <p class="keysHint">
+          tab cycle flights · ←/→ turn 15° · ↑/↓ altitude · tap the scope to
+          vector
+        </p>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

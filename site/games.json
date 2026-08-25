@@ -518,5 +518,15 @@
     "tagline": "Twelve needed. Six balls. One bat.",
     "controls": "arrows / WASD pick leg or off, hold loft or block, space or tap swings, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "talkdown",
+    "name": "Talkdown",
+    "genre": "approach",
+    "mechanic": "select inbound aircraft and issue heading and altitude clearances, vectoring each onto the extended centreline for an automatic ILS landing while holding three miles or one thousand feet apart before the tanks run dry",
+    "theme": "a rain-streaked 1963 approach-control cabin where one controller talks the last night flights down onto a single wet runway on a green CRT scope",
+    "tagline": "Eight tired airliners. One wet runway. Your voice on the scope.",
+    "controls": "tap a blip then tap the scope to vector, or Tab cycles + arrows; up/down or buttons set altitude, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]
