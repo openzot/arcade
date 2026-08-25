@@ -458,5 +458,16 @@
     "tagline": "Every letter hides another letter.",
     "controls": "tap a glyph then a tray letter, or just type; arrows or tab move between glyphs, backspace clears, ctrl+Z undoes, esc pauses; buttons for hint, sound and new run",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "the-exchange",
+    "name": "The Exchange",
+    "genre": "telephony",
+    "mechanic": "patch five scarce cords between ringing hotel guests and the six exchange lines they ask for before their patience rings out, juggling busy jacks, gold-rim VIPs and red-hot urgent calls while spawn pressure climbs",
+    "theme": "the manual switchboard of a 1920s seaside grand hotel on the busiest night of the season",
+    "tagline": "Five cords. Six lines. Not one ring may die.",
+    "controls": "mouse / touch tap a guest then a line; keys 1-8 pick, arrows + Enter move & plug, Esc puts the cord down, P pause, M sound, R new shift",
+    "created": "2026-08-25"
   }
 ]
+

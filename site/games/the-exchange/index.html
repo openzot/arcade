@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="The Exchange - patch scarce cords between impatient hotel guests before their ring dies. A night at a 1920s seaside switchboard."
+    />
+    <title>The Exchange · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <div id="brand">
+          <h1>The Exchange</h1>
+          <a href="../../">← All games</a>
+        </div>
+        <div id="stats">
+          <span class="chip" id="scoreChip" title="Tips earned"
+            >TIPS <b id="score">0</b></span
+          >
+          <span class="chip" id="servedChip" title="Calls served this shift"
+            >CALLS <b id="served">0/20</b></span
+          >
+          <span
+            class="chip"
+            id="lostChip"
+            title="Rings you missed — three and the manager comes"
+          >
+            <i class="dot on"></i><i class="dot on"></i><i class="dot on"></i>
+          </span>
+          <span class="chip" id="cordChip" title="Free patch cords"
+            >CORDS
+          </span>
+          <span class="chip hidden" id="streakChip" title="Streak bonus"
+            ><b id="streak">×2</b></span
+          >
+        </div>
+        <nav id="btns">
+          <button type="button" id="pauseBtn" disabled>Pause</button>
+          <button type="button" id="soundBtn">Sound: On</button>
+          <button type="button" id="newBtn">New Shift</button>
+        </nav>
+      </header>
+
+      <div id="boardwrap">
+        <canvas
+          id="game"
+          width="800"
+          height="1060"
+          aria-label="The hotel switchboard"
+        >
+          The Exchange needs JavaScript and canvas to run.
+        </canvas>
+
+        <div id="overlay">
+          <div id="note">
+            <p class="plate">Grand Pier Hotel · Night Exchange</p>
+            <h2 id="ovTitle">The Exchange</h2>
+            <div id="ovBody">
+              <p>
+                You are the night operator. Guests ring down the left; plug a
+                cord into where they want to go before their ring dies. Five
+                cords, six lines, one busy season.
+              </p>
+              <p class="keys">
+                Tap a ringing guest, then a line on the right.<br />
+                Keys: <b>1–8</b> pick a guest · arrows + <b>Enter</b> move &amp;
+                plug · <b>Esc</b> put the cord down · <b>P</b> pause ·
+                <b>M</b> sound · <b>R</b> new shift
+              </p>
+            </div>
+            <button type="button" id="ovBtn">Clock on</button>
+          </div>
+        </div>
+      </div>
+
+      <footer id="hint">
+        Miss three rings and the manager is up the stairs. Serve twenty calls to
+        see the dawn.
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
