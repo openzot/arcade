@@ -528,5 +528,15 @@
     "tagline": "Eight tired airliners. One wet runway. Your voice on the scope.",
     "controls": "tap a blip then tap the scope to vector, or Tab cycles + arrows; up/down or buttons set altitude, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "clatter",
+    "name": "Clatter",
+    "genre": "chain-reaction",
+    "mechanic": "paint runs of dominoes across a village-hall stage between boarded crates and sleeping cats, then tip the brass tile and spend three scarce puffs of breath huffing hesitant lines over until the act's gong rings",
+    "theme": "a rain-streaked toy club rigging its grand finale on a village-hall stage, one wet Saturday afternoon at a time",
+    "tagline": "Set it up. Knock it down.",
+    "controls": "mouse / touch drag to lay & erase, TEST tips the tile, space or the HUFF pad puffs at your finger, P pause, M sound, R clear",
+    "created": "2026-08-25"
   }
 ]

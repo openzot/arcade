@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clatter — a domino-chain parlour game</title>
+    <meta
+      name="description"
+      content="Lay runs of dominoes across a rain-washed village-hall stage, tip the brass tile and huff the stragglers over until the finale gong rings."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="topbar">
+        <p class="brand">Clatter</p>
+        <dl class="hud">
+          <div class="stat">
+            <dt>Act</dt>
+            <dd id="hud-level">–</dd>
+          </div>
+          <div class="stat">
+            <dt>Tray</dt>
+            <dd id="hud-tray">–</dd>
+          </div>
+          <div class="stat">
+            <dt>Puffs</dt>
+            <dd id="hud-puffs">–</dd>
+          </div>
+        </dl>
+        <nav class="controls" aria-label="Table controls">
+          <button id="btn-lay" class="tool is-on" type="button">Lay</button>
+          <button id="btn-erase" class="tool" type="button">Erase</button>
+          <button id="btn-clear" class="tool" type="button">Clear</button>
+          <button id="btn-test" class="go" type="button">Test ▶</button>
+          <button id="btn-pause" class="icon" type="button" aria-label="Pause">
+            ⏸
+          </button>
+          <button
+            id="btn-sound"
+            class="icon is-off"
+            type="button"
+            aria-label="Toggle sound"
+          >
+            ♪
+          </button>
+        </nav>
+      </header>
+
+      <div class="stagewrap">
+        <canvas id="stage" width="900" height="500"></canvas>
+        <button id="btn-huff" type="button" disabled>
+          Huff<span class="key">space</span>
+        </button>
+
+        <div
+          class="overlay"
+          id="ov-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="menu-title"
+        >
+          <section class="card">
+            <h1 id="menu-title">Clatter</h1>
+            <p class="tagline">Set it up. Knock it down.</p>
+            <ul class="how">
+              <li><b>Lay</b> dominoes by dragging across the boards.</li>
+              <li><b>Test ▶</b> tips the brass tile and starts the clatter.</li>
+              <li>
+                <b>Huff</b> — three puffs a night — topples the tiles under your
+                finger when a line hesitates.
+              </li>
+              <li>
+                Mind the boarded crates, and give every sleeping cat a tile's
+                width.
+              </li>
+              <li>
+                Ring the <b>gong</b> before your tray runs dry. Spare puffs and
+                a clean line earn stars.
+              </li>
+            </ul>
+            <p class="footnote">
+              A toy club builds its grand finale, one wet Saturday at a time.
+            </p>
+            <button class="primary" id="btn-play" type="button">
+              Raise the curtain
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-brief"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="brief-name"
+        >
+          <section class="card">
+            <p class="kicker" id="brief-act">Act one</p>
+            <h2 id="brief-name">First Fall</h2>
+            <p class="brief" id="brief-text"></p>
+            <button class="primary" id="btn-go" type="button">
+              Chalk the floor
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-win"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="win-title"
+        >
+          <section class="card">
+            <h2 id="win-title">The gong rings!</h2>
+            <p class="stars" id="win-stars">★☆☆</p>
+            <p class="brief" id="win-note"></p>
+            <button class="primary" id="btn-next" type="button">
+              Next act
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-stall"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="stall-title"
+        >
+          <section class="card">
+            <h2 id="stall-title">The line stalled</h2>
+            <p class="brief" id="stall-note">
+              Somewhere a gap swallowed the wave. The tiles stand ready — chalk
+              again.
+            </p>
+            <button class="primary" id="btn-back" type="button">
+              Back to the floor
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-finale"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="finale-title"
+        >
+          <section class="card">
+            <p class="kicker">Open evening</p>
+            <h2 id="finale-title">The whole hall clatters</h2>
+            <p class="stars" id="finale-stars">★★★</p>
+            <p class="brief" id="finale-note"></p>
+            <button class="primary" id="btn-again" type="button">
+              Build it all again
+            </button>
+          </section>
+        </div>
+
+        <div
+          class="overlay is-hidden"
+          id="ov-pause"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pause-title"
+        >
+          <section class="card">
+            <h2 id="pause-title">Interval</h2>
+            <p class="brief">The hall holds its breath.</p>
+            <button class="primary" id="btn-resume" type="button">
+              Resume
+            </button>
+            <button class="ghost" id="btn-restart" type="button">
+              Restart this act
+            </button>
+          </section>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <p class="keys">
+          drag to lay · <b>space</b> puffs at your finger · <b>P</b> pause ·
+          <b>M</b> sound · <b>R</b> clear
+        </p>
+        <a class="home" href="../../">← Back to the arcade</a>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
