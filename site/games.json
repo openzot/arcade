@@ -508,5 +508,15 @@
     "tagline": "Two projectors. One screen. The picture never dies.",
     "controls": "1 / 2 select a projector, Q / E thread, T threads the standby, space changes over, arrows trim the arc, hold S to mend, X douse, P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "last-over",
+    "name": "Last Over",
+    "genre": "cricket",
+    "mechanic": "read each delivery's line, pace and seam then choose leg or off, loft or block, and time the swing to thread an adaptive ring while the straight ones eye your last two stumps",
+    "theme": "a golden-evening village-green fixture where the last pair must scrape a six-ball chase home against the next village",
+    "tagline": "Twelve needed. Six balls. One bat.",
+    "controls": "arrows / WASD pick leg or off, hold loft or block, space or tap swings, P pause, M sound, R restart",
+    "created": "2026-08-25"
   }
 ]

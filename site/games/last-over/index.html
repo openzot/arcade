@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Last Over · Arcade</title>
+    <meta
+      name="description"
+      content="Last Over - a village-cricket last-over chase: read each delivery, pick leg or off, loft or block, and time the swing to thread the field before the balls run out."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <h1>Last Over</h1>
+        <p class="tag">Twelve needed. Six balls. One bat.</p>
+      </div>
+      <nav class="tools">
+        <a class="chip ghost" href="../../">Catalogue</a>
+        <button class="chip" id="btn-pause" type="button">Pause</button>
+        <button class="chip" id="btn-sound" type="button">Sound: on</button>
+        <button class="chip" id="btn-restart" type="button">Restart</button>
+      </nav>
+    </header>
+
+    <main>
+      <div class="scoreline" aria-live="polite">
+        <span class="cell" id="hud-chase">Chase 1</span>
+        <span class="cell big" id="hud-target">Target 10</span>
+        <span class="cell big" id="hud-need">Need 10 off 6</span>
+        <span class="cell" id="hud-wickets">Wickets ●●</span>
+        <span class="cell" id="hud-ball">Ball 1 of 6</span>
+      </div>
+
+      <div class="stage">
+        <canvas
+          id="pitch"
+          width="900"
+          height="620"
+          role="img"
+          aria-label="Village green from above: bowler running in, batsman waiting at the crease"
+        ></canvas>
+
+        <p class="commentary" id="commentary">
+          Evening sun on the square. In they come.
+        </p>
+
+        <div class="overlay" id="ovl-start">
+          <h2>Stumps in ten minutes</h2>
+          <p class="lede">
+            The light is going and next village want the pitch. You are the last
+            pair. Chase the target inside your six balls — two wickets left, no
+            second innings.
+          </p>
+          <ul class="howto">
+            <li>
+              <strong>Read the ball.</strong> Watch its line and pace off the
+              bowler's hand.
+            </li>
+            <li>
+              <strong>Pick your side</strong> — ◀ Leg or Off ▶ — before the ball
+              arrives. No side picked aims straight.
+            </li>
+            <li>
+              <strong>Hold ▲ Loft</strong> to go over the top (sixes live here,
+              so do catches). Hold ▼ Block to keep it dead.
+            </li>
+            <li>
+              <strong>Swing with Space</strong> as the ball reaches your crease.
+              Early squares it fine opens it; mistime it badly and the stumps
+              rattle.
+            </li>
+            <li>
+              The field drifts toward your favourite gap — keep them guessing.
+            </li>
+          </ul>
+          <button class="go" id="btn-start" type="button">Take guard</button>
+        </div>
+
+        <div class="overlay hidden" id="ovl-banner">
+          <h2 id="banner-title"></h2>
+          <p id="banner-text"></p>
+          <button class="go hidden" id="btn-banner" type="button">
+            Play on
+          </button>
+        </div>
+
+        <div class="overlay hidden" id="ovl-end">
+          <h2 id="end-title"></h2>
+          <p id="end-text"></p>
+          <button class="go" id="btn-again" type="button">Bat again</button>
+        </div>
+
+        <div class="overlay hidden" id="ovl-pause">
+          <h2>Drinks break</h2>
+          <p>The game is paused. Press P or tap below to carry on.</p>
+          <button class="go" id="btn-resume" type="button">Carry on</button>
+        </div>
+      </div>
+
+      <div class="pads" aria-label="Batting controls">
+        <button class="pad" data-shot="leg" type="button">◀ Leg</button>
+        <button class="pad small" data-mod="loft" type="button">▲ Loft</button>
+        <button class="pad swingpad" id="pad-swing" type="button">Swing</button>
+        <button class="pad small" data-mod="block" type="button">
+          ▼ Block
+        </button>
+        <button class="pad" data-shot="off" type="button">Off ▶</button>
+      </div>
+
+      <p class="hint">
+        Keyboard: ◀ / ▶ choose leg or off · hold ▲ loft, ▼ block · SPACE swings
+        · P pause · M sound · R restart
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
