@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="UXB - read the wireless disposal orders, work out the one safe order, and cut every fuze wire before the clockwork delay runs down. A 1940 bomb-disposal shift."
+    />
+    <title>UXB · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">UXB</h1>
+      <div class="top-actions">
+        <button
+          id="btn-pause"
+          class="icon-btn"
+          type="button"
+          aria-label="Pause"
+          title="Pause (P)"
+        >
+          &#10073;&#10073;
+        </button>
+        <button
+          id="btn-sound"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle sound"
+          title="Sound (M)"
+        >
+          &#9834;
+        </button>
+        <button
+          id="btn-restart"
+          class="icon-btn"
+          type="button"
+          aria-label="Restart shift"
+          title="Restart (R)"
+        >
+          &#8635;
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hud" aria-live="polite">
+        <span class="chip chip-device" id="hud-device">DEVICE &#8211;</span>
+        <span class="chip" id="hud-score">0 PTS</span>
+        <span class="chip chip-time" id="hud-time">&#8211;</span>
+        <span class="chip chip-best" id="hud-best"></span>
+      </section>
+
+      <div class="playfield">
+        <aside class="panel" id="panel">
+          <h2 class="panel-title" id="orders-title">Field Orders</h2>
+          <p class="serial" id="orders-serial">&#8212;</p>
+          <ol class="orders" id="orders-list">
+            <li>Stand by&#8230;</li>
+          </ol>
+          <p class="panel-note">
+            One safe order hides in these lines. Cut every wire in it &#8212;
+            tap a wire twice, or arrows + Enter.
+          </p>
+        </aside>
+
+        <div class="stage" id="stage">
+          <canvas
+            id="scene"
+            aria-label="The unexploded bomb and its fuze wires"
+          ></canvas>
+          <p class="probe" id="probe" aria-live="polite">&nbsp;</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="helpbar">
+      <span>Tap a wire twice to cut it</span>
+      <span>&#8593;&#8595; select &#183; Enter cut</span>
+      <span>P pause &#183; M sound &#183; R new shift</span>
+    </footer>
+
+    <div class="overlay" id="overlay">
+      <div
+        class="card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="ov-title"
+      >
+        <p class="kicker" id="ov-kicker">ROYAL ENGINEERS &#183; 1940</p>
+        <h2 class="card-title" id="ov-title">UXB</h2>
+        <div class="card-body" id="ov-body"></div>
+        <div class="actions" id="ov-actions"></div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

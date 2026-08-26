@@ -618,5 +618,15 @@
     "tagline": "The family swears Mrs. Marlowe is everywhere at once. Yesterday agrees.",
     "controls": "WASD / arrows or touch-drag to walk (chores work themselves while you stand at them), Enter rings the next pass early, P pause, M sound, H help, R restart",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "uxb",
+    "name": "UXB",
+    "genre": "defusal",
+    "mechanic": "read the wireless disposal orders that pin every fuze wire's place, work out the one safe cutting sequence they imply, then cut every wire before the clockwork delay burns down - one wire out of order detonates the charge",
+    "theme": "a Royal Engineer's bomb-disposal shift under the London Blitz, five buried parachutes in five nights from four wires to eight",
+    "tagline": "Read the orders. Cut the order. Go home.",
+    "controls": "click or tap a wire twice to cut, arrows select + Enter cuts, P pause, M sound, R new shift",
+    "created": "2026-08-26"
   }
 ]

@@ -1,0 +1,453 @@
+/* UXB - Blitz bomb-disposal. Soot, khaki and brass. */
+
+:root {
+  --soot: #171410;
+  --brass: #c9a86a;
+  --paper: #e9dfc6;
+  --paper-ink: #2b2418;
+  --red: #b23327;
+  --amber: #d99a2b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 90% at 50% -10%, #35301f 0%, transparent 60%),
+    linear-gradient(#191510, #100d09);
+  color: var(--paper);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* ---------- header ---------- */
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(201, 168, 106, 0.25);
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+}
+
+.back {
+  color: var(--brass);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border: 1px solid rgba(201, 168, 106, 0.35);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.back:hover {
+  background: rgba(201, 168, 106, 0.12);
+}
+
+.brand {
+  margin: 0;
+  font-size: clamp(20px, 4vw, 30px);
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
+  font-weight: 700;
+  color: var(--brass);
+  flex: 1;
+  text-align: center;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 34px;
+  font-size: 15px;
+  color: var(--brass);
+  background: rgba(201, 168, 106, 0.08);
+  border: 1px solid rgba(201, 168, 106, 0.35);
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  background: rgba(201, 168, 106, 0.18);
+}
+
+.icon-btn.muted {
+  opacity: 0.55;
+}
+
+/* ---------- hud chips ---------- */
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px 12px 0;
+}
+
+.chip {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  border: 1px solid rgba(201, 168, 106, 0.3);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.chip-time {
+  min-width: 76px;
+  text-align: center;
+}
+
+.chip-time.low {
+  color: #ff8f7a;
+  border-color: rgba(178, 51, 39, 0.7);
+  animation: blink 0.9s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% {
+    background: rgba(178, 51, 39, 0.28);
+  }
+}
+
+.chip-best {
+  color: var(--amber);
+}
+
+.chip-best:empty {
+  display: none;
+}
+
+/* ---------- layout ---------- */
+
+.wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 12px 8px;
+}
+
+.playfield {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 292px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 10px;
+}
+
+/* ---------- orders panel ---------- */
+
+.panel {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(43, 36, 24, 0.04) 0 26px,
+      transparent 26px 27px
+    ),
+    linear-gradient(var(--paper), #ddd0af);
+  color: var(--paper-ink);
+  border-radius: 4px;
+  border: 1px solid #b9a87e;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  padding: 12px 14px;
+  overflow-y: auto;
+  max-height: calc(100vh - 210px);
+}
+
+.panel::before {
+  content: "WIRELESS TRANSCRIPT \2014  MOST SECRET";
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-align: center;
+  color: #8c2f24;
+  border-bottom: 1px dashed #a08c62;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.panel-title {
+  margin: 0 0 2px;
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.serial {
+  margin: 0 0 10px;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 12px;
+  color: #6d5c3c;
+}
+
+.orders {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.orders li {
+  margin-bottom: 9px;
+}
+
+.orders b {
+  color: #8c2f24;
+}
+
+.oc-red {
+  color: #a32e22;
+}
+
+.oc-amber {
+  color: #96660f;
+}
+
+.oc-blue {
+  color: #38618f;
+}
+
+.oc-green {
+  color: #4c6b31;
+}
+
+.orders .ord-num {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-weight: 700;
+}
+
+.panel-note {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #a08c62;
+  font-style: italic;
+  font-size: 12.5px;
+  color: #6d5c3c;
+}
+
+/* ---------- stage ---------- */
+
+.stage {
+  position: relative;
+  border: 1px solid rgba(201, 168, 106, 0.25);
+  border-radius: 4px;
+  background: #0d0b08;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 232px);
+  min-height: 300px;
+  max-height: 680px;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.probe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 6px 10px;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--brass);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85) 40%);
+  pointer-events: none;
+  min-height: 28px;
+}
+
+.probe b {
+  color: #ff8f7a;
+}
+
+/* ---------- helpbar ---------- */
+
+.helpbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  justify-content: center;
+  padding: 8px 10px 12px;
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: rgba(201, 168, 106, 0.75);
+}
+
+/* ---------- overlay ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 6, 4, 0.82);
+  z-index: 10;
+  padding: 16px;
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.card {
+  width: min(560px, 94vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(#efe6cd, #ddd0af);
+  color: var(--paper-ink);
+  border: 1px solid #a08c62;
+  border-radius: 4px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.7);
+  padding: 22px 26px 24px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #8c2f24;
+}
+
+.card-title {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 6vw, 40px);
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  border-bottom: 2px solid rgba(140, 47, 36, 0.35);
+  padding-bottom: 10px;
+}
+
+.card-body {
+  font-size: 15px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.card-body p {
+  margin: 0 0 10px;
+}
+
+.card-body ul {
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+
+.card-body li {
+  margin-bottom: 4px;
+}
+
+.card-body .how {
+  font-family: "Courier New", ui-monospace, monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  background: rgba(43, 36, 24, 0.07);
+  border: 1px dashed #a08c62;
+  border-radius: 3px;
+  padding: 10px 12px;
+  margin: 12px 0;
+}
+
+.card-body .stamp-line {
+  font-family: "Courier New", ui-monospace, monospace;
+  letter-spacing: 0.06em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.actions button {
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  padding: 10px 22px;
+  color: var(--paper);
+  background: #4a4632;
+  border: 1px solid rgba(201, 168, 106, 0.5);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: #5d5840;
+}
+
+.actions button.primary {
+  background: var(--red);
+  border-color: #d8664f;
+}
+
+.actions button.primary:hover {
+  background: #c73f31;
+}
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 720px) {
+  .playfield {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    max-height: none;
+    order: 2;
+  }
+
+  .stage {
+    order: 1;
+  }
+
+  #scene {
+    height: 52vh;
+    min-height: 260px;
+  }
+
+  .brand {
+    letter-spacing: 0.18em;
+  }
+
+  .helpbar span:nth-child(2) {
+    display: none;
+  }
+}
