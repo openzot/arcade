@@ -1,0 +1,404 @@
+/* Hairpin Hall — a village-hall slot-car club night */
+
+:root {
+  --ink: #33261a;
+  --cream: #f3e7cf;
+  --paper: #f3e7cf;
+  --amber: #ffb84d;
+  --red: #d24a32;
+  --grn: #4c8759;
+  --muted: #b09a72;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(120% 90% at 50% 0%, #2e241c 0%, #201812 58%, #17110d 100%)
+      fixed,
+    #17110d;
+  color: var(--cream);
+  font:
+    15px/1.5 Georgia,
+    "Times New Roman",
+    serif;
+  min-height: 100vh;
+}
+
+#wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 14px 26px;
+}
+
+/* ---------- header ---------- */
+
+#bar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+#bar h1 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  color: var(--cream);
+}
+
+#bar .sub {
+  margin: 0;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+#bar .tools {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.back {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--muted);
+  font-size: 13px;
+}
+
+.back:hover {
+  color: var(--cream);
+}
+
+button {
+  font:
+    700 13px/1 Georgia,
+    serif;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  background: transparent;
+  border: 1px solid #7a664a;
+  border-radius: 9px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--cream);
+  color: var(--ink);
+  border-color: var(--cream);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px dashed var(--amber);
+  outline-offset: 2px;
+}
+
+/* ---------- stage ---------- */
+
+#stage {
+  position: relative;
+  margin-top: 10px;
+}
+
+#rink {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow:
+    0 14px 44px rgba(0, 0, 0, 0.55),
+    0 2px 0 rgba(255, 255, 255, 0.04);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+/* ---------- telemetry strip ---------- */
+
+#strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  padding: 9px 4px 0;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+
+.cell b {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cell span {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.cell .ahead {
+  color: #8fce9b;
+}
+
+.cell .behind {
+  color: #ff9d7e;
+}
+
+/* ---------- brake pad & ticker ---------- */
+
+#brakePad {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: none;
+  padding: 18px 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(243, 231, 207, 0.65);
+  background: rgba(210, 74, 50, 0.28);
+  color: var(--cream);
+  touch-action: none;
+}
+
+#brakePad.on {
+  background: rgba(210, 74, 50, 0.75);
+}
+
+@media (pointer: coarse) {
+  #brakePad {
+    display: block;
+  }
+}
+
+#ticker {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%, -8px);
+  opacity: 0;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+  background: rgba(16, 14, 18, 0.88);
+  border: 1px solid #55483a;
+  color: #ffd98a;
+  padding: 6px 15px;
+  border-radius: 999px;
+  font:
+    700 13px/1.3 Georgia,
+    serif;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#ticker.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ticker {
+    transition: none;
+  }
+}
+
+/* ---------- overlays ---------- */
+
+#veil {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: radial-gradient(
+    90% 90% at 50% 40%,
+    rgba(13, 10, 7, 0.62),
+    rgba(13, 10, 7, 0.86)
+  );
+  z-index: 5;
+}
+
+#veil.hidden {
+  display: none;
+}
+
+.panel {
+  background: var(--paper);
+  color: var(--ink);
+  width: min(92%, 560px);
+  max-height: 94%;
+  overflow: auto;
+  padding: 22px 26px 20px;
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.75);
+}
+
+.panel.hidden {
+  display: none;
+}
+
+.panel h2 {
+  margin: 0 0 2px;
+  font-size: 30px;
+  letter-spacing: 0.03em;
+}
+
+.panel .tag {
+  margin: 0 0 10px;
+  font-style: italic;
+  color: #6b5638;
+}
+
+.how {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.how li {
+  margin: 5px 0;
+}
+
+.how .red {
+  color: var(--red);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.how .grn {
+  color: var(--grn);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.pick {
+  margin: 0 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b5638;
+}
+
+.paces {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.paces button {
+  color: var(--ink);
+  border-color: #8a7355;
+  padding: 9px 6px;
+  line-height: 1.25;
+}
+
+.paces button small {
+  display: block;
+  font-weight: 400;
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.75;
+}
+
+#lapTable th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b5638;
+  border-bottom: 1px solid #cdb894;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.panel .row button {
+  color: var(--ink);
+  border-color: var(--ink);
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.panel .row button.primary {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.panel .row button.primary:hover {
+  background: #4d3b29;
+}
+
+#lapTable {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+#lapTable th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b5638;
+  border-bottom: 1px solid #cdb astronomy;
+}
+
+#lapTable th,
+#lapTable td {
+  padding: 4px 8px;
+  border-bottom: 1px solid #dccbaa;
+}
+
+.record {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-style: italic;
+  color: #6b5638;
+}
+
+@media (max-width: 700px) {
+  #bar h1 {
+    font-size: 21px;
+  }
+
+  #bar .sub {
+    display: none;
+  }
+
+  .cell span {
+    font-size: 13px;
+  }
+
+  .panel {
+    padding: 16px 18px 14px;
+  }
+
+  .panel h2 {
+    font-size: 23px;
+  }
+
+  .paces {
+    grid-template-columns: 1fr;
+  }
+}

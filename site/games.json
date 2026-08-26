@@ -628,5 +628,15 @@
     "tagline": "Read the orders. Cut the order. Go home.",
     "controls": "click or tap a wire twice to cut, arrows select + Enter cuts, P pause, M sound, R new shift",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "hairpin-hall",
+    "name": "Hairpin Hall",
+    "genre": "motorsport",
+    "mechanic": "squeeze one trigger to feed a slot-guided club racer - no steering, only throttle and brake discipline, carrying just enough speed through each corner to stay slotted while a rival learns your habits and the marshal re-slots your spins",
+    "theme": "a Friday model-racing-club night in a draughty village hall, six laps around the champion's home circuit under the gas mantles",
+    "tagline": "Two lanes. One trigger. The vicar's record to beat.",
+    "controls": "hold SPACE / click / touch for power, SHIFT or BRAKE pad to brake, P pause, M sound, R restart heat",
+    "created": "2026-08-26"
   }
 ]

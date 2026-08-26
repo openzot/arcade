@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Hairpin Hall - slot-car club night: one trigger, no steering, and the vicar's lap record to beat."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='8' height='8' fill='%23d24a32'/%3E%3Crect x='8' y='8' width='8' height='8' fill='%23d24a32'/%3E%3Crect x='8' width='8' height='8' fill='%23f3e7cf'/%3E%3Crect y='8' width='8' height='8' fill='%23f3e7cf'/%3E%3C/svg%3E"
+    />
+    <title>Hairpin Hall · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="wrap">
+      <header id="bar">
+        <a class="back" href="../../">&lsaquo; Arcade</a>
+        <h1>Hairpin&nbsp;Hall</h1>
+        <p class="sub">
+          slot-car club night &middot; the champion&rsquo;s home circuit
+        </p>
+        <div class="tools">
+          <button id="pauseBtn" type="button">⏸ Pause</button>
+          <button id="muteBtn" type="button">♪ Sound on</button>
+        </div>
+      </header>
+
+      <section id="stage">
+        <canvas
+          id="rink"
+          width="1280"
+          height="820"
+          role="img"
+          aria-label="A slot-car track laid out on trestle tables in a village hall"
+        ></canvas>
+
+        <div id="strip" aria-live="off">
+          <span class="cell"><b>Lap</b><span id="lapCell">–</span></span>
+          <span class="cell"><b>Place</b><span id="posCell">–</span></span>
+          <span class="cell"><b>This lap</b><span id="curCell">–</span></span>
+          <span class="cell"><b>Best lap</b><span id="bestCell">–</span></span>
+          <span class="cell"><b>v Colonel</b><span id="gapCell">–</span></span>
+        </div>
+
+        <button id="brakePad" type="button" aria-label="Hold to brake">
+          BRAKE
+        </button>
+        <div id="ticker">&nbsp;</div>
+
+        <div id="veil">
+          <div class="panel" id="menuPanel">
+            <h2>Hairpin Hall</h2>
+            <p class="tag">
+              Two lanes. One trigger. The vicar&rsquo;s record to beat.
+            </p>
+            <ul class="how">
+              <li>
+                You run the <em class="red">red Alfa</em>; the Colonel has the
+                <em class="grn">green MG</em>. Six laps, first across wins.
+              </li>
+              <li>
+                <b>Hold</b> SPACE / click / touch anywhere for power.
+                <b>Release</b> into corners &mdash; or hold SHIFT / the BRAKE
+                pad to haul it down late.
+              </li>
+              <li>
+                The slot does the steering. Feed in too hard and the car
+                <em>deslots</em>: spin, sit, and wait for the marshal while he
+                sails past.
+              </li>
+              <li>Your fastest lap is chalked on the club board for good.</li>
+            </ul>
+            <p class="pick">Pick your opposition:</p>
+            <div class="paces">
+              <button type="button" data-pace="curate">
+                The New Curate <small>gentle company</small>
+              </button>
+              <button type="button" data-pace="colonel" class="hot">
+                The Colonel <small>a fair fight</small>
+              </button>
+              <button type="button" data-pace="vicar">
+                The Vicar <small>hall record holder</small>
+              </button>
+            </div>
+            <p class="keys">P pause &middot; M sound &middot; R restart heat</p>
+          </div>
+
+          <div class="panel hidden" id="resultPanel">
+            <h2 id="resTitle">Chequered flag</h2>
+            <p class="tag" id="resLine">&nbsp;</p>
+            <table id="lapTable">
+              <thead>
+                <tr>
+                  <th>Lap</th>
+                  <th>You</th>
+                  <th>Colonel</th>
+                </tr>
+              </thead>
+              <tbody id="lapBody"></tbody>
+            </table>
+            <p class="record" id="recordLine">&nbsp;</p>
+            <div class="row">
+              <button type="button" id="rematchBtn" class="primary">
+                Rematch (R)
+              </button>
+              <button type="button" id="menuBtn">Change pace</button>
+            </div>
+          </div>
+
+          <div class="panel hidden" id="pausePanel">
+            <h2>Race paused</h2>
+            <p class="tag">The marshals are having a tea.</p>
+            <div class="row">
+              <button type="button" id="resumeBtn" class="primary">
+                Resume (P)
+              </button>
+              <button type="button" id="restartBtn">Restart heat (R)</button>
+              <button type="button" id="toMenuBtn">Menu</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
