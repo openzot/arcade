@@ -668,5 +668,15 @@
     "tagline": "The storm is upstream. Climb.",
     "controls": "arrows / WASD + space or Z to jump (hold for height), P pause, M sound, R retry; on-screen pads on touch screens",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "fogbound",
+    "name": "Fogbound",
+    "genre": "navigation",
+    "mechanic": "sight landmarks to cut bearing wedges across an Ordnance-style map, plant your pin where they cross, then steer a blind walk home while wind drifts your true course and bogs drink your daylight",
+    "theme": "a map-lost walker crossing five fog-bound moor legs toward stone gates, racing the autumn sundown with a compass only as true as the fix",
+    "tagline": "The map is perfect. You are the question.",
+    "controls": "mouse / touch: tap stones & Sight, click to pin; arrows nudge pin, hold Left/Right or either map half to steer; Enter sights / sets off, F refines, P pause, M sound, R new expedition",
+    "created": "2026-08-26"
   }
 ]

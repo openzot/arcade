@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fogbound · Arcade</title>
+    <meta
+      name="description"
+      content="Fix your position by landmark bearings, then steer a blind walk home across a fog-bound moor before sundown."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="mast">
+      <div class="mast-left">
+        <h1>Fogbound</h1>
+        <p class="tagline">
+          Lost on the moor. The map is right; you are the question.
+        </p>
+      </div>
+      <div class="mast-right">
+        <a class="arcade-link" href="../../">← Arcade</a>
+        <div class="hud">
+          <span id="legLabel">Leg 1 of 5</span>
+          <span class="sun-wrap" title="Daylight left">
+            <span class="sun-icon" aria-hidden="true">☀</span>
+            <span class="sun-bar"><span id="sunFill"></span></span>
+          </span>
+          <button
+            id="btnSound"
+            type="button"
+            aria-label="Toggle sound"
+            aria-pressed="false"
+          >
+            ♪
+          </button>
+          <button
+            id="btnPause"
+            type="button"
+            aria-label="Pause"
+            aria-pressed="false"
+          >
+            ⏸
+          </button>
+          <button id="btnNew" type="button" aria-label="Restart the expedition">
+            ↺
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <div class="board">
+        <canvas
+          id="map"
+          width="960"
+          height="600"
+          aria-label="Survey map of the moor"
+        ></canvas>
+        <div id="overlay" class="overlay">
+          <div class="card">
+            <h2 id="ovTitle">Fogbound</h2>
+            <div id="ovBody" class="ov-body"></div>
+            <button id="ovBtn" type="button">Begin the walk</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="bench">
+        <p id="phaseMsg" class="phase-msg" role="status"></p>
+        <ul id="markList" class="mark-list" aria-label="Landmarks"></ul>
+        <div class="actions">
+          <button id="btnSight" type="button">Sight <kbd>⏎</kbd></button>
+          <button id="btnRefine" type="button">Refine <kbd>F</kbd></button>
+          <button id="btnOff" type="button">Set off <kbd>O</kbd></button>
+        </div>
+        <p class="hint">
+          Fix: click a landmark to select it, Sight to cut its bearing wedge,
+          click the map to plant your pin where the wedges agree. Walk: hold ← /
+          → (or either half of the map) to steer for the gate. P pause · M sound
+          · R new expedition.
+        </p>
+      </aside>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
