@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Song Cylinder - press brass pins into a turning music-box cylinder so the barrel plucks the steel comb through each commissioned tune before the bench candle burns down."
+    />
+    <title>Song Cylinder · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="../../">&#8592; Arcade</a>
+      <h1 class="brand">Song Cylinder</h1>
+      <span class="tag">an automaton workshop bench</span>
+    </header>
+
+    <main class="stage">
+      <div class="set">
+        <canvas
+          id="bench"
+          width="960"
+          height="600"
+          aria-label="Music box workbench. Tap a hole to set or pull a brass pin."
+        ></canvas>
+        <div class="chips">
+          <output id="tuneChip" for="bench">tune 1 of 6</output>
+          <output id="scoreChip" for="bench">score 0</output>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bar">
+      <p class="hint">
+        tap a hole to pin / pull &middot; <b>&larr;</b><b>&uarr;</b><b>&darr;</b
+        ><b>&rarr;</b> move &middot; <b>space</b> pin &middot; <b>T</b> try
+        barrel (or tap the crank) &middot; <b>D</b> wind demo &middot;
+        <b>enter</b> present &middot; <b>P</b> pause &middot; <b>M</b> sound
+        &middot; <b>R</b> new shift
+      </p>
+      <nav class="ops">
+        <button id="demoBtn" type="button">&#127926; wind demo</button>
+        <button id="presentBtn" type="button">present &#10003;</button>
+        <button id="soundBtn" type="button">sound: on</button>
+        <button id="pauseBtn" type="button">pause</button>
+        <button id="restartBtn" type="button">new shift</button>
+        <button id="helpBtn" type="button">?</button>
+      </nav>
+    </footer>
+
+    <div id="veil" class="veil">
+      <section id="panelStart" class="panel">
+        <h2>The six o&rsquo;clock commission</h2>
+        <p class="lede">
+          Winter, 1897. Six tunes wait on the patron&rsquo;s card, and the
+          demonstration begins at eight.
+        </p>
+        <ul class="howto">
+          <li>
+            The <b>card</b> at the top shows the tune exactly: each dark hole
+            wants one brass <b>pin</b> on the cylinder below. Columns are beats;
+            rows are comb tines, high notes on top.
+          </li>
+          <li>
+            <b>Tap a hole</b> to set a pin, tap it again to pull it out. You can
+            pluck-test any pin the moment you set it.
+          </li>
+          <li>
+            Short on faith? Spend a <b>wind</b> to hear the patron&rsquo;s own
+            barrel play the true tune. Two winds per tune.
+          </li>
+          <li>
+            <b>Present</b> the cylinder when it matches. The candle never stops
+            burning, so work briskly &mdash; accuracy and candlelight both
+            become score.
+          </li>
+          <li>
+            Miss the mark and the patron leaves without a box. Pass all six
+            tunes and the workshop makes its name.
+          </li>
+        </ul>
+        <button id="startBtn" type="button">trim the wick &amp; begin</button>
+      </section>
+
+      <section id="panelResult" class="panel hidden">
+        <h2 id="resultTitle">The first hearing</h2>
+        <p id="resultLede" class="lede"></p>
+        <div id="resultStats" class="stats"></div>
+        <button id="nextBtn" type="button">next tune &#8594;</button>
+      </section>
+
+      <section id="panelEnd" class="panel hidden">
+        <h2 id="endTitle"></h2>
+        <p id="endLede" class="lede"></p>
+        <div id="endStats" class="stats"></div>
+        <button id="againBtn" type="button">new shift</button>
+      </section>
+
+      <section id="panelPause" class="panel hidden">
+        <h2>Hands off the bench</h2>
+        <p class="lede">The candle waits with you.</p>
+        <button id="resumeBtn" type="button">back to work</button>
+      </section>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

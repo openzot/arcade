@@ -718,5 +718,15 @@
     "tagline": "Cards face down. Eyes up.",
     "controls": "mouse / touch tap cards and buttons; keys arrows + space select, enter lays, C calls, L lets go, P pause, M sound, R new deal",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "song-cylinder",
+    "name": "Song Cylinder",
+    "genre": "mechanical-music",
+    "mechanic": "press brass pins into the hole grid of a turning music-box cylinder so the barrel plucks the steel comb through each commissioned tune - read the patron's punched card by eye or spend two scarce winds hearing his original played, then present the work before the bench candle burns down",
+    "theme": "a winter automaton workshop's bench in 1897, six tunes to cut before the patron's eight o'clock demonstration",
+    "tagline": "Set every pin. Wind it up. Let it sing.",
+    "controls": "mouse / touch tap holes to set & pull pins, or arrows + space at the cursor; T or tap the crank to try your barrel, D winds the demo, Enter presents, P pause, M sound, R new shift",
+    "created": "2026-08-26"
   }
 ]

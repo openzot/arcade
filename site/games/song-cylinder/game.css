@@ -1,0 +1,320 @@
+/* Song Cylinder - an automaton workshop bench. Warm wood, brass, paper. */
+
+:root {
+  --wood-1: #241811;
+  --wood-2: #31221a;
+  --brass: #c9963f;
+  --brass-bright: #e8c06a;
+  --paper: #f0e3c4;
+  --ink: #2f2317;
+  --seal: #b23a2e;
+  --good: #7da05a;
+  --shadow: rgba(8, 4, 2, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    #3a291d 0%,
+    var(--wood-1) 62%,
+    #170f0a 100%
+  );
+  color: var(--paper);
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- header ---------- */
+
+.top {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 16px 6px;
+}
+
+.back {
+  color: var(--brass-bright);
+  text-decoration: none;
+  font-size: 15px;
+  border-bottom: 1px dotted var(--brass);
+}
+
+.back:hover {
+  color: #fff3d8;
+}
+
+.brand {
+  font-size: clamp(19px, 3.4vw, 27px);
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.tag {
+  font-style: italic;
+  opacity: 0.72;
+  font-size: 14px;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* ---------- stage ---------- */
+
+.stage {
+  width: 100%;
+  max-width: 1000px;
+  padding: 2px 10px 6px;
+}
+
+.set {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 18px 44px var(--shadow),
+    inset 0 0 0 1px rgba(201, 150, 63, 0.25);
+  line-height: 0;
+}
+
+canvas#bench {
+  width: 100%;
+  height: auto;
+  display: block;
+  touch-action: manipulation;
+  cursor: pointer;
+  background: #2b1c13;
+}
+
+.chips {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.chips output {
+  background: rgba(20, 12, 7, 0.78);
+  border: 1px solid rgba(201, 150, 63, 0.5);
+  color: #f4e7c6;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+
+.chips output:first-child {
+  color: var(--brass-bright);
+}
+
+/* ---------- footer controls ---------- */
+
+.bar {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 8px 16px 14px;
+}
+
+.hint {
+  margin: 0;
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.85;
+  flex: 1 1 340px;
+}
+
+.hint b {
+  font-style: normal;
+  color: var(--brass-bright);
+}
+
+.ops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #f7ecd0;
+  background: linear-gradient(#4a3524, #38271a);
+  border: 1px solid var(--brass);
+  border-radius: 7px;
+  padding: 8px 13px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(#5c422c, #46311f);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
+#presentBtn {
+  border-color: var(--brass-bright);
+  color: #ffe9b3;
+}
+
+#helpBtn {
+  min-width: 40px;
+}
+
+/* ---------- veil & panels ---------- */
+
+.veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 3, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 5;
+}
+
+.panel {
+  background: linear-gradient(
+    160deg,
+    #f6ebcf 0%,
+    var(--paper) 55%,
+    #e4d3ac 100%
+  );
+  color: var(--ink);
+  max-width: 560px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 6px;
+  padding: 22px 26px 24px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 1px rgba(90, 60, 30, 0.25);
+  position: relative;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(122, 84, 40, 0.4);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.panel.hidden {
+  display: none;
+}
+
+.panel h2 {
+  margin: 0 0 6px;
+  font-weight: normal;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: #54381c;
+}
+
+.lede {
+  margin: 0 0 12px;
+  font-style: italic;
+  color: #5d4930;
+  font-size: 15px;
+}
+
+.howto {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.howto li {
+  margin-bottom: 7px;
+}
+
+.howto b {
+  color: #7a4a12;
+}
+
+.stats {
+  font-size: 14.5px;
+  line-height: 1.65;
+  margin: 0 0 16px;
+  border-top: 1px dashed rgba(122, 84, 40, 0.5);
+  padding-top: 10px;
+}
+
+.stats b {
+  color: #7a4a12;
+}
+
+.panel button {
+  background: linear-gradient(#7a4a12, #5d370c);
+  border-color: #3c2306;
+}
+
+.panel button:hover:not(:disabled) {
+  background: linear-gradient(#8d5919, #6d420f);
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 720px) {
+  .top {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .tag {
+    margin-left: 0;
+    white-space: normal;
+  }
+
+  .bar {
+    justify-content: center;
+  }
+
+  .hint {
+    text-align: center;
+    flex-basis: 100%;
+  }
+
+  button {
+    padding: 10px 12px;
+  }
+}
