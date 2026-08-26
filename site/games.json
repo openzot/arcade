@@ -698,5 +698,15 @@
     "tagline": "Forwards got you into this mess.",
     "controls": "arrows / WASD: left-right steer, down reverses, up creeps forward; SPACE handbrake; P pause, M sound, R retry bay; steer pads and pedals on touch",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "safelight",
+    "name": "Safelight",
+    "genre": "darkroom",
+    "mechanic": "set the enlarger's base time, flood the blank sheet while shaping its light with a dodge-and-burn wand, then judge the developer tray and lift each print at its true density before the fog takes it",
+    "theme": "a red-lit cellar darkroom printing a wedding roll overnight on eight sheets of paper",
+    "tagline": "The negative never lies. The print is all you.",
+    "controls": "hold SPACE or the EXPOSE pad to print, mouse / touch steers the wand, X or BURN flips it to burn, ENTER or LIFT pulls the sheet, up/down or -/+ set the time, P pause, M sound, R new roll",
+    "created": "2026-08-26"
   }
 ]

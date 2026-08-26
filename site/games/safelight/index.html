@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Safelight</title>
+    <meta
+      name="description"
+      content="A red-lit cellar darkroom. Print a wedding roll overnight: set the enlarger, dodge and burn the blank sheet by hand, then lift each print from the developer at its true density before the fog takes it."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="bar">
+        <a id="home" href="../../">&#8592; Arcade</a>
+        <h1 id="game-title">Safelight</h1>
+        <nav id="tools">
+          <button
+            id="btnSound"
+            type="button"
+            aria-label="Toggle sound"
+            aria-pressed="false"
+          >
+            &#9834;
+          </button>
+          <button id="btnHelp" type="button" aria-label="How to play">?</button>
+          <button id="btnPause" type="button" aria-label="Pause">
+            &#8214;
+          </button>
+          <button id="btnRestart" type="button" aria-label="New roll">
+            &#8635;
+          </button>
+        </nav>
+      </header>
+
+      <div id="readout">
+        <span class="chip" id="chipFrame">ROLL &#8211;</span>
+        <span class="chip" id="chipBase">BASE 10s</span>
+        <span class="chip" id="chipSheets">SHEETS 8</span>
+        <span class="chip" id="chipAlbum">ALBUM 0/4</span>
+        <span class="chip chip-clock" id="chipClock">&#9790; 5:00</span>
+      </div>
+
+      <main id="field">
+        <canvas id="darkroom" width="960" height="600"></canvas>
+
+        <div id="pads">
+          <div class="padcluster" id="clusterBench">
+            <button id="padLess" type="button" aria-label="Less exposure time">
+              &#8722;
+            </button>
+            <span class="padlabel" id="padTimeVal">10s</span>
+            <button id="padMore" type="button" aria-label="More exposure time">
+              &#43;
+            </button>
+            <button
+              id="padBurn"
+              type="button"
+              aria-label="Toggle burn mode"
+              aria-pressed="false"
+            >
+              BURN
+            </button>
+          </div>
+          <div class="padcluster" id="clusterPrint">
+            <button
+              id="padLift"
+              type="button"
+              aria-label="Lift the print from the developer"
+            >
+              LIFT
+            </button>
+            <button
+              id="padExpose"
+              type="button"
+              aria-label="Hold to expose the sheet"
+            >
+              EXPOSE
+            </button>
+          </div>
+        </div>
+
+        <section id="veil" class="hidden" role="dialog" aria-modal="true">
+          <div id="card">
+            <h2 id="cardTitle">Safelight</h2>
+            <p id="cardTag"></p>
+            <div id="cardBody"></div>
+            <div id="cardBtns">
+              <button id="cardBtn2" type="button" class="hidden"></button>
+              <button id="cardBtn" type="button">Start the night</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer id="hint">
+        hold SPACE or EXPOSE to print &#183; steer the wand with mouse / touch
+        &#183; X flips it to BURN &#183; ENTER or LIFT pulls the sheet &#183;
+        &#8593;&#8595; set the time &#183; P pause &#183; M sound &#183; R new
+        roll
+      </footer>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
