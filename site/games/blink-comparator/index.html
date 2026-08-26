@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Blink Comparator</title>
+    <meta
+      name="description"
+      content="A survey astronomy game: flick two photographic plates of the same star field, mark the one dot that jumps, and file the track of a wandering object before moonrise — five nights, three clear skies."
+    />
+    <meta name="theme-color" content="#0b1020" />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <div class="cluster">
+          <a id="back" href="../../index.html" title="Back to the arcade"
+            >◀ Arcade</a
+          >
+          <span id="chip-night">Night I · Plate pair 1 of 3</span>
+        </div>
+        <div class="cluster mid">
+          <span id="moon-wrap" aria-label="time left until moonrise">
+            <i id="moon-fill"></i><em>MOONRISE</em>
+          </span>
+          <span id="hud-score">0 pts</span>
+          <span id="hud-lives" aria-label="clear nights left">●●●</span>
+        </div>
+        <div class="cluster">
+          <button id="btn-help" type="button" aria-label="How to play (H)">
+            ?
+          </button>
+          <button id="btn-pause" type="button" aria-label="Pause (P)">
+            II
+          </button>
+          <button id="btn-mute" type="button" aria-label="Sound (M)">♪</button>
+          <button id="btn-restart" type="button" aria-label="Restart run (R)">
+            ↺
+          </button>
+        </div>
+      </header>
+
+      <div id="playfield">
+        <canvas
+          id="scope"
+          width="960"
+          height="600"
+          aria-label="Two photographic plates of the same star field, seen through a blink comparator"
+        ></canvas>
+
+        <div id="banner" class="hidden">
+          <strong id="banner-big"></strong>
+          <span id="banner-small"></span>
+        </div>
+
+        <p id="hint">Hold SPACE to blink — watch for the star that jumps.</p>
+
+        <button
+          id="pad-blink"
+          class="pad"
+          type="button"
+          aria-label="Toggle automatic blinking"
+          aria-pressed="false"
+        >
+          BLINK
+        </button>
+
+        <section id="overlay-title" class="overlay">
+          <div class="card">
+            <h1>Blink<span>Comparator</span></h1>
+            <p class="tagline">
+              The sky pretends nothing moved. Find what did.
+            </p>
+            <ul class="howto">
+              <li>
+                <b>Blink.</b> Hold <b>SPACE</b> (or the BLINK pad) to flick
+                tonight's plate against last night's. Every star holds still —
+                except one.
+              </li>
+              <li>
+                <b>Mark it.</b> Tap the jumper to log it. A false mark breaks a
+                wax pencil: two per plate pair.
+              </li>
+              <li>
+                <b>Liers.</b> Variable stars pulse but never move. Dust specks
+                sit on one plate only. Satellites streak and are gone.
+              </li>
+              <li>
+                <b>Moonrise.</b> Log the jumper before the timer drains, or the
+                plate fogs and a clear night is spent. Three nights in hand,
+                five to survey.
+              </li>
+              <li>
+                <b>The prize.</b> Five clean nights and your wanderer is
+                confirmed — and named after you.
+              </li>
+            </ul>
+            <button id="btn-start" type="button">Open the dome</button>
+            <p class="tiny">
+              Mouse / touch · arrows aim · ENTER accuses · SPACE blinks · P
+              pause · M sound · R new run
+            </p>
+          </div>
+        </section>
+
+        <section id="overlay-help" class="overlay hidden">
+          <div class="card">
+            <h2>The night assistant's manual</h2>
+            <ul class="howto">
+              <li>
+                Hold SPACE or the BLINK pad — the plate that jumps out is your
+                object.
+              </li>
+              <li>
+                Tap the jumping star to log it. Wrong taps break pencils and
+                cost seconds.
+              </li>
+              <li>Pulsers never move. Specks never appear on both plates.</li>
+            </ul>
+            <button id="btn-help-close" type="button">Back to the scope</button>
+            <p class="tiny">Esc works too</p>
+          </div>
+        </section>
+
+        <section id="overlay-pause" class="overlay hidden">
+          <div class="card">
+            <h2>Dome shuttered</h2>
+            <p class="quiet">The stars will wait. They always do.</p>
+            <button id="btn-resume" type="button">Back to the eyepiece</button>
+            <p class="tiny">P resumes · R restarts the whole survey</p>
+          </div>
+        </section>
+
+        <section id="overlay-night" class="overlay hidden">
+          <div class="card">
+            <h2 id="night-head">Night's ledger</h2>
+            <p id="night-line" class="quiet"></p>
+            <button id="btn-next-night" type="button">
+              Plate the next night
+            </button>
+            <p class="tiny">Enter also works</p>
+          </div>
+        </section>
+
+        <section id="overlay-over" class="overlay hidden">
+          <div class="card">
+            <h2>Clouded out</h2>
+            <p id="over-line" class="quiet"></p>
+            <button id="btn-retry" type="button">Another survey season</button>
+            <p class="tiny">R works too</p>
+          </div>
+        </section>
+
+        <section id="overlay-won" class="overlay hidden">
+          <div class="card">
+            <h2>Filed, confirmed, yours</h2>
+            <p id="won-line" class="quiet"></p>
+            <button id="btn-again" type="button">Survey a new sky</button>
+            <p class="tiny">
+              The committee names it after you. The committee always does.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

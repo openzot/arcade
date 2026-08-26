@@ -738,5 +738,15 @@
     "tagline": "The town sleeps. You push the winter off its streets.",
     "controls": "arrows / WASD drive, turn & reverse (space drives too), swipe or on-screen pads on touch; P pause, M sound, R restart street",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "blink-comparator",
+    "name": "Blink Comparator",
+    "genre": "astronomy",
+    "mechanic": "flick tonight's photographic plate against last night's and mark the one star that jumps position, while variable stars pulse in place, emulsion specks sit on a single exposure and satellites streak through",
+    "theme": "five frost-clear survey nights at a hill observatory, one night assistant plotting a wanderer's track across the sky before moonrise fogs each plate",
+    "tagline": "The sky pretends nothing moved. Find what did.",
+    "controls": "mouse / touch tap the jumping star, hold SPACE or the BLINK pad to flick plates, arrows aim + ENTER accuses, P pause, M sound, R new run",
+    "created": "2026-08-26"
   }
 ]
