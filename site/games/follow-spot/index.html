@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Follow Spot</title>
+    <meta
+      name="description"
+      content="Run the follow spot at the Palace variety theatre: keep your beam on whoever the stage manager calls, swing the gels, and never let the boards go dark."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="house">
+      <header class="marquee">
+        <p class="kicker">
+          <a href="../../">&larr; The Arcade</a
+          ><span class="bulbs" aria-hidden="true"
+            >&#10039; &#10039; &#10039;</span
+          >
+        </p>
+        <h1>Follow Spot</h1>
+        <p class="sub">
+          The Palace Theatre of Varieties &mdash; Friday Big Bill &mdash; you
+          run the spot box
+        </p>
+      </header>
+
+      <section class="booth" id="booth">
+        <canvas
+          id="cv"
+          width="960"
+          height="620"
+          aria-label="The Palace stage seen from the follow-spot box"
+        ></canvas>
+
+        <div class="hud hud-cue" aria-live="polite">
+          <p class="cue-k">Spot on</p>
+          <p class="cue-name" id="cue-name">&mdash;</p>
+          <p class="cue-next" id="cue-next"></p>
+          <p class="cue-gel" id="cue-gel"></p>
+          <p class="cue-streak" id="cue-streak"></p>
+        </div>
+
+        <div class="hud hud-meters">
+          <div class="meter">
+            <span class="m-k">Manager</span>
+            <span class="bar bar-pat"><i id="pat-bar"></i></span>
+          </div>
+          <div class="meter">
+            <span class="m-k">House</span>
+            <span class="bar bar-app"><i id="app-bar"></i></span>
+          </div>
+          <p class="scoreline">Score&nbsp;<b id="score">0</b></p>
+        </div>
+
+        <div class="hud hud-gels" id="gels">
+          <button class="gel on" data-gel="0">Open</button>
+          <button class="gel" data-gel="1">Red</button>
+          <button class="gel" data-gel="2">Blue</button>
+          <button class="gel" data-gel="3">Amber</button>
+          <button class="bump" id="btn-bump" title="Bump the iris (Space)">
+            Bump
+          </button>
+        </div>
+
+        <div class="hud hud-sys">
+          <button id="btn-pause" title="Pause (P)">&#10074;&#10074;</button>
+          <button id="btn-mute" title="Sound (M)">&#128266;</button>
+          <button id="btn-restart" title="New show (R)">&#8635;</button>
+        </div>
+
+        <div class="veil" id="veil">
+          <div class="panel" id="panel"></div>
+        </div>
+      </section>
+
+      <footer class="bill">
+        <p>
+          Steer the beam with mouse / touch or WASD &amp; arrows &middot; keys
+          1&ndash;4 swing a gel &middot; Space bumps the iris wide &middot; P
+          pause &middot; M sound &middot; R new show
+        </p>
+      </footer>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

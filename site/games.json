@@ -638,5 +638,15 @@
     "tagline": "Two lanes. One trigger. The vicar's record to beat.",
     "controls": "hold SPACE / click / touch for power, SHIFT or BRAKE pad to brake, P pause, M sound, R restart heat",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "follow-spot",
+    "name": "Follow Spot",
+    "genre": "followspot",
+    "mechanic": "drive a follow-spot cone from the upper circle to track whichever variety performer the stage manager calls, swinging colour gels on cue, bumping the iris wide for hard pickups and hunting performers by eyeshine through blackouts while the manager's patience drains whenever the beam idles on scenery",
+    "theme": "the spot box of a seaside variety theatre on a big Friday bill, seven turns from a steady ballad to the full company finale",
+    "tagline": "Find them fast. Never let them leave your light.",
+    "controls": "mouse / touch or WASD / arrows steer the beam, keys 1-4 or tap swing a gel, Space or Bump widens the iris, P pause, M sound, R new show",
+    "created": "2026-08-26"
   }
 ]
