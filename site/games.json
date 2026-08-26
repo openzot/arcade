@@ -648,5 +648,15 @@
     "tagline": "Find them fast. Never let them leave your light.",
     "controls": "mouse / touch or WASD / arrows steer the beam, keys 1-4 or tap swing a gel, Space or Bump widens the iris, P pause, M sound, R new show",
     "created": "2026-08-26"
-  }
+  },
+{
+  "slug": "high-panes",
+  "name": "High Panes",
+  "genre": "cleaning",
+  "mechanic": "drag a squeegee to wipe baked-on grime off tower-block glass, rationing bucket suds so dry strokes smear while pigeons re-foul the pane",
+  "theme": "a cradle-hanging window cleaner racing quitting time down six panes of a dusk-lit skyscraper",
+  "tagline": "The city looks better from up here.",
+  "controls": "mouse / touch drag to wipe, WASD / arrows nudge, Space rings the pane, B dips the bucket, P pause, M sound, R restart",
+  "created": "2026-08-26"
+}
 ]

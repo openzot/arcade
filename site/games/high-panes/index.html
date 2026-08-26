@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="High Panes - a window cleaner's last six panes before quitting time."
+    />
+    <title>High Panes · Arcade</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <div id="brand" aria-hidden="true">
+          <span class="brand-word">HIGH</span>
+          <span class="brand-word alt">PANES</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Pay</span>
+          <span class="stat-value" id="pay">£0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Pane</span>
+          <span class="stat-value" id="panes">1 / 6</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Shift</span>
+          <span class="stat-value warn" id="clock">2:45</span>
+        </div>
+        <div class="stat grow">
+          <span class="stat-label">Suds</span>
+          <span class="meter"><i id="suds"></i></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Buckets</span>
+          <span class="stat-value" id="buckets">◆◆◆◆</span>
+        </div>
+      </header>
+
+      <div id="well">
+        <canvas
+          id="pane"
+          aria-label="The window pane you are cleaning"
+        ></canvas>
+        <button id="bellBtn" type="button" hidden>Ring the bell</button>
+      </div>
+
+      <footer id="dock">
+        <p id="hintText">Drag to wipe the glass.</p>
+        <nav id="tools">
+          <a id="backLink" href="../../">← Arcade</a>
+          <button id="pauseBtn" type="button" title="Pause (P)">⏸ Pause</button>
+          <button id="muteBtn" type="button" title="Sound (M)">🔊 Sound</button>
+          <button id="restartBtn" type="button" title="Restart the shift (R)">
+            ↻ Restart
+          </button>
+        </nav>
+      </footer>
+
+      <section id="overlay">
+        <article id="card">
+          <h1 id="ovTitle">HIGH PANES</h1>
+          <p id="ovTag">The city looks better from up here.</p>
+          <div id="ovBody">
+            <p>
+              You hang off a tower block in a swinging cradle with six filthy
+              panes between you and quitting time.
+            </p>
+            <p>
+              <strong>Drag</strong> (or WASD / arrows) to work the squeegee and
+              clear the grime. Wiping dry glass smears - dip the
+              <strong>bucket</strong> (B) for fresh suds. Mind the pigeons.
+              Reach <strong>93% shine</strong>, then press
+              <strong>Space</strong> to ring the bell and drop to the next pane.
+            </p>
+            <p id="ovKeys">
+              Space ring · B bucket · P pause · M sound · R restart
+            </p>
+          </div>
+          <button id="ovBtn" type="button">Start the shift</button>
+        </article>
+      </section>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
