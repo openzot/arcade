@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Floodline</title>
+    <meta
+      name="description"
+      content="Outrun a rising flash flood up a red slot canyon — run, leap crumbling ledges and reach the rim before the water closes over the narrows."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="masthead">
+        <nav class="topline">
+          <a class="back" href="../../">&#8592; Arcade</a>
+          <span class="storm-note" id="storm-note"
+            >storm building upstream</span
+          >
+        </nav>
+        <h1 class="brand">Floodline</h1>
+        <p class="tagline">The storm is upstream. Climb.</p>
+      </header>
+
+      <section class="console" aria-label="run status">
+        <span class="chip chip-level" id="hud-level"
+          >I &middot; Wash Arroyo</span
+        >
+        <span class="chip" id="hud-shards">&#10022; 0/21</span>
+        <span class="chip" id="hud-time">0:00.0</span>
+        <button class="tool" id="btn-sound" aria-label="toggle sound">
+          &#9834;
+        </button>
+        <button class="tool" id="btn-pause" aria-label="pause or resume">
+          &#10074;&#10074;
+        </button>
+        <button class="tool" id="btn-restart" aria-label="retry this ledge run">
+          &#10227;
+        </button>
+      </section>
+
+      <div class="frame">
+        <canvas
+          id="game"
+          width="480"
+          height="640"
+          aria-label="slot canyon climb"
+        ></canvas>
+
+        <div class="gauge" aria-hidden="true">
+          <i class="marker-you" id="gauge-you"></i>
+          <i class="marker-flood" id="gauge-flood"></i>
+        </div>
+
+        <div class="pad pad-left" aria-hidden="true">
+          <button class="key" id="key-left" aria-label="run left">
+            &#9664;
+          </button>
+          <button class="key" id="key-right" aria-label="run right">
+            &#9654;
+          </button>
+        </div>
+        <div class="pad pad-right" aria-hidden="true">
+          <button class="key key-jump" id="key-jump" aria-label="jump">
+            &#9650;
+          </button>
+        </div>
+
+        <div class="badge" id="badge-pause" hidden>
+          paused &mdash; P to resume
+        </div>
+
+        <div class="veil show" id="veil">
+          <section class="panel" id="panel-title">
+            <h2>Floodline</h2>
+            <p class="panel-lede">
+              A desert storm has burst upstream. The narrows are filling. Climb
+              for the rim before the water finds your heels.
+            </p>
+            <ul class="howto">
+              <li>
+                <b>Run</b> with &#8592;&#8594; or A / D (or the on-screen pads)
+              </li>
+              <li>
+                <b>Leap</b> with &#8593;, Space or Z &mdash; hold longer to jump
+                higher
+              </li>
+              <li><b>Crumbling ledges</b> shake, then drop into the flood</li>
+              <li>
+                Gather <b>&#10022; sun shards</b> off the main line for glory
+              </li>
+              <li>
+                Touch the <b>floodwater</b> even once and the canyon takes you
+              </li>
+            </ul>
+            <p class="panel-foot">
+              Three walls of rock between you and the sky.
+            </p>
+            <button class="cta" id="btn-start">Drop in</button>
+          </section>
+
+          <section class="panel" id="panel-clear" hidden>
+            <h2 id="clear-title">Rim reached</h2>
+            <p class="stats" id="clear-stats"></p>
+            <p class="panel-foot" id="clear-note"></p>
+            <button class="cta" id="btn-next">Climb on</button>
+          </section>
+
+          <section class="panel" id="panel-over" hidden>
+            <h2>The flood takes the narrows</h2>
+            <p class="stats" id="over-stats"></p>
+            <p class="panel-foot">
+              The water does not tire. Try the wall again.
+            </p>
+            <button class="cta" id="btn-retry">Once more</button>
+          </section>
+
+          <section class="panel" id="panel-win" hidden>
+            <h2>Rim country</h2>
+            <p class="panel-lede">
+              You pull yourself onto sun-warmed stone as the roar dies below.
+              The whole painted desert opens out ahead.
+            </p>
+            <p class="stats" id="win-stats"></p>
+            <p class="panel-foot" id="win-best"></p>
+            <button class="cta" id="btn-again">Run it again</button>
+          </section>
+        </div>
+      </div>
+
+      <p class="hint">
+        &#8592;&#8594;/AD run &middot; &#8593;/Space/Z jump (hold = higher)
+        &middot; P pause &middot; M sound &middot; R retry
+      </p>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

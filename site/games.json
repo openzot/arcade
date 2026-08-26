@@ -658,5 +658,15 @@
   "tagline": "The city looks better from up here.",
   "controls": "mouse / touch drag to wipe, WASD / arrows nudge, Space rings the pane, B dips the bucket, P pause, M sound, R restart",
   "created": "2026-08-26"
-}
+},
+{
+    "slug": "floodline",
+    "name": "Floodline",
+    "genre": "platformer",
+    "mechanic": "run and leap up crumbling sandstone ledges, outrunning a rising flash flood that drowns the canyon floor",
+    "theme": "a red slot canyon in the desert Southwest as a storm bursts upstream",
+    "tagline": "The storm is upstream. Climb.",
+    "controls": "arrows / WASD + space or Z to jump (hold for height), P pause, M sound, R retry; on-screen pads on touch screens",
+    "created": "2026-08-26"
+  }
 ]
