@@ -678,5 +678,15 @@
     "tagline": "The map is perfect. You are the question.",
     "controls": "mouse / touch: tap stones & Sight, click to pin; arrows nudge pin, hold Left/Right or either map half to steer; Enter sights / sets off, F refines, P pause, M sound, R new expedition",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "the-lure",
+    "name": "The Lure",
+    "genre": "falconry",
+    "mechanic": "swing the baited lure to draw your circling hawk in overhead, then release to cast her stoop onto grazing rabbits - walking flushes them, panic spreads through the warren, wind bends the dive and a hungry hawk pulls up wide",
+    "theme": "an apprentice falconer's five dawns on a misty chalk downland, bagging each morning's quota from a wild rabbit warren before the sun burns the mist away",
+    "tagline": "Hold her hungry. Cast her true.",
+    "controls": "arrows / A D or pads to walk, hold SPACE or LURE pad to swing, release to cast, W or CALL to whistle her back; P pause, M sound, R restart dawn",
+    "created": "2026-08-26"
   }
 ]

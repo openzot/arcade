@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>The Lure</title>
+    <meta
+      name="description"
+      content="A falconry morning on the chalk downs. Swing the lure to draw your circling hawk overhead, then cast her stoop onto the warren before the mist burns off."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="bar">
+        <a id="home" href="../../">&#8592; Arcade</a>
+        <h1 id="game-title">The Lure</h1>
+        <nav id="tools">
+          <button id="btnPause" type="button" aria-label="Pause">
+            &#8214;
+          </button>
+          <button
+            id="btnSound"
+            type="button"
+            aria-label="Toggle sound"
+            aria-pressed="false"
+          >
+            &#9834;
+          </button>
+          <button id="btnHelp" type="button" aria-label="How to play">?</button>
+        </nav>
+      </header>
+      <main id="field">
+        <canvas id="sky"></canvas>
+        <div id="pads">
+          <div class="padcluster">
+            <button id="padLeft" type="button" aria-label="Walk left">
+              &#9664;
+            </button>
+            <button id="padRight" type="button" aria-label="Walk right">
+              &#9654;
+            </button>
+          </div>
+          <button id="padCall" type="button" aria-label="Whistle her back">
+            CALL
+          </button>
+          <button
+            id="padLure"
+            type="button"
+            aria-label="Hold to swing the lure, release to cast"
+          >
+            LURE
+          </button>
+        </div>
+        <section id="veil" class="hidden" role="dialog" aria-modal="true">
+          <div id="card">
+            <h2 id="cardTitle">The Lure</h2>
+            <p id="cardTag"></p>
+            <div id="cardBody"></div>
+            <button id="cardBtn" type="button">Climb the down</button>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

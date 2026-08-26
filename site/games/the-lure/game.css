@@ -1,0 +1,319 @@
+:root {
+  --ink: #22303a;
+  --ink-soft: #4d6170;
+  --paper: #f6ecd9;
+  --paper-edge: #d8c5a3;
+  --accent: #b0512b;
+  --accent-deep: #8c3c1e;
+  --bar-bg: #1e2b33;
+  --bar-fg: #f2ead9;
+  --hawk: #7a5230;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  background: var(--bar-bg);
+  color: var(--ink);
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ---------- top bar ---------- */
+
+#bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  background: linear-gradient(#26363f, var(--bar-bg));
+  color: var(--bar-fg);
+  border-bottom: 2px solid #101a20;
+  z-index: 5;
+}
+
+#home {
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+#home:hover,
+#home:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+#game-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: clamp(0.9rem, 2.6vw, 1.25rem);
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#tools {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#tools button,
+#pads button,
+#cardBtn {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  transition:
+    background 120ms ease,
+    transform 120ms ease;
+}
+
+#tools button {
+  width: 2.1rem;
+  height: 2.1rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#tools button:hover,
+#cardBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+#tools button:active,
+#pads button:active,
+#cardBtn:active {
+  transform: scale(0.94);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #ffd98a;
+  outline-offset: 2px;
+}
+
+/* ---------- playfield ---------- */
+
+#field {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #9db8c4;
+}
+
+#sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+/* ---------- touch pads (coarse pointers only) ---------- */
+
+#pads {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.6rem max(0.6rem, env(safe-area-inset-left))
+    max(0.6rem, env(safe-area-inset-bottom));
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.padcluster {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (pointer: coarse) {
+  #pads {
+    display: flex;
+  }
+}
+
+#pads button {
+  pointer-events: auto;
+  min-width: 3.6rem;
+  height: 3.6rem;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  border: 2px solid rgba(34, 48, 58, 0.55);
+  background: rgba(246, 236, 217, 0.72);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.95rem;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+#padLure {
+  background: rgba(176, 81, 43, 0.82);
+  border-color: var(--accent-deep);
+  color: #fff6ea;
+  min-width: 4.6rem;
+}
+
+#padLure.swinging {
+  background: rgba(140, 60, 30, 0.95);
+  transform: scale(1.06);
+}
+
+/* ---------- overlay card ---------- */
+
+#veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(20, 28, 34, 0.45);
+  z-index: 6;
+}
+
+#veil.hidden {
+  display: none;
+}
+
+#card {
+  width: min(34rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(10, 16, 20, 0.45);
+  padding: 1.4rem 1.5rem 1.3rem;
+  text-align: center;
+}
+
+#cardTitle {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 5vw, 2.1rem);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+#cardTag {
+  margin-top: 0.35rem;
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.98rem;
+}
+
+#cardBody {
+  margin-top: 0.9rem;
+  text-align: left;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+#cardBody h3 {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0.9rem 0 0.3rem;
+}
+
+#cardBody p {
+  margin: 0.25rem 0;
+}
+
+#cardBody .keys b {
+  display: inline-block;
+  min-width: 5.6em;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+#cardBody .statrow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.15rem 0;
+  border-bottom: 1px dotted var(--paper-edge);
+}
+
+#cardBody .statrow span:last-child {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+#cardBody .verdict {
+  margin-top: 0.7rem;
+  font-style: italic;
+  color: var(--accent-deep);
+  text-align: center;
+}
+
+#cardBtn {
+  margin-top: 1.1rem;
+  padding: 0.65rem 1.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: var(--accent);
+  border-color: var(--accent-deep);
+  color: #fff6ea;
+}
+
+#cardBtn:hover {
+  background: var(--accent-deep);
+}
+
+@media (max-width: 30rem) {
+  #bar {
+    padding: 0.3rem 0.5rem;
+  }
+
+  #card {
+    padding: 1rem 0.9rem;
+  }
+
+  #cardBody .keys b {
+    min-width: 4.8em;
+  }
+}
