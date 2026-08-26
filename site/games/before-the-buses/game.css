@@ -1,0 +1,449 @@
+/* Before the Buses — all styling for the pre-dawn snowplough game. */
+
+:root {
+  --ink: #10131f;
+  --paper: #f4ead8;
+  --paper-2: #e9dcc3;
+  --accent: #e08a2d;
+  --accent-deep: #b4611a;
+  --amber: #ffb454;
+  --teal: #7fd4c9;
+  --danger: #d9534f;
+  --night: #171a2b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(
+    120% 90% at 50% -20%,
+    #23284a 0%,
+    var(--night) 58%,
+    #0c0e19 100%
+  );
+  color: var(--paper);
+  font-family: "Avenir Next", Avenir, "Segoe UI", Futura, sans-serif;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── top HUD bar ─────────────────────────────────────────────── */
+
+#hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.45rem 0.7rem;
+  background: rgba(12, 14, 26, 0.72);
+  border-bottom: 2px solid rgba(244, 234, 216, 0.16);
+  flex-wrap: wrap;
+}
+
+.cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+#back {
+  color: var(--paper);
+  opacity: 0.75;
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(244, 234, 216, 0.35);
+  border-radius: 999px;
+  padding: 0.18rem 0.55rem;
+  white-space: nowrap;
+}
+
+#back:hover {
+  opacity: 1;
+}
+
+#chip-level {
+  font-size: 0.82rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--amber);
+  white-space: nowrap;
+}
+
+#clock {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  min-width: 3.6ch;
+  text-align: center;
+  text-shadow: 0 0 14px rgba(255, 180, 84, 0.35);
+}
+
+#clock.late {
+  color: var(--danger);
+}
+
+#streets {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+
+#drift-wrap {
+  position: relative;
+  width: clamp(90px, 16vw, 170px);
+  height: 16px;
+  background: rgba(244, 234, 216, 0.14);
+  border: 1px solid rgba(244, 234, 216, 0.35);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#drift-fill {
+  position: absolute;
+  inset: 2px auto 2px 2px;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #cfd9ea, #ffffff);
+  transition: width 0.15s ease-out;
+}
+
+#drift-wrap.full #drift-fill {
+  background: linear-gradient(90deg, #ff8d66, #ffd23f);
+}
+
+#drift-wrap em {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  color: var(--ink);
+  mix-blend-mode: screen;
+  color: #fff;
+  opacity: 0.85;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+#hud button,
+.overlay .card button {
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 3px 0 var(--ink);
+  font-weight: 700;
+  transition: transform 0.05s ease-out;
+}
+
+#hud button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+#hud button:hover,
+.overlay .card button:hover {
+  transform: translateY(-1px);
+}
+
+#hud button:active,
+.overlay .card button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+/* ── playfield & canvas ──────────────────────────────────────── */
+
+#playfield {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+#town {
+  display: block;
+  background: #10121f;
+  border-radius: 12px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.55),
+    0 0 0 2px rgba(244, 234, 216, 0.12);
+}
+
+/* ── banner + hint ──────────────────────────────────────────── */
+
+#banner {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 0 6px 0 var(--ink);
+  padding: 0.5rem 1.2rem;
+  text-align: center;
+  pointer-events: none;
+  animation: banner-drop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+#banner strong {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+#banner span {
+  display: block;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 0.15rem;
+}
+
+@keyframes banner-drop {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-26px) scale(0.9);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+#hint {
+  position: absolute;
+  bottom: 2.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  max-width: 92%;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  background: rgba(12, 14, 26, 0.62);
+  border: 1px solid rgba(244, 234, 216, 0.22);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#hint.warn {
+  color: #ffd23f;
+  border-color: rgba(255, 210, 63, 0.65);
+}
+
+/* ── overlays ───────────────────────────────────────────────── */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 11, 22, 0.66);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+  padding: 12px;
+}
+
+.card {
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 0 var(--ink),
+    0 24px 60px rgba(0, 0, 0, 0.6);
+  max-width: min(520px, 94vw);
+  max-height: 94%;
+  overflow: auto;
+  padding: 1.4rem 1.5rem 1.2rem;
+  text-align: center;
+}
+
+.card h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6.5vw, 3.1rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  text-shadow: 3px 3px 0 rgba(16, 19, 31, 0.18);
+}
+
+.card h1 span {
+  display: block;
+  color: var(--ink);
+}
+
+.card h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-deep);
+}
+
+.tagline {
+  font-style: italic;
+  opacity: 0.8;
+  margin: 0.6rem 0 0.9rem;
+}
+
+.howto {
+  list-style: none;
+  margin: 0 auto 1.1rem;
+  padding: 0;
+  text-align: left;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  display: grid;
+  gap: 0.42rem;
+  max-width: 40ch;
+}
+
+.howto b {
+  color: var(--accent-deep);
+}
+
+.overlay .card button {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+}
+
+.tiny {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  margin: 0.8rem 0 0;
+}
+
+.quiet {
+  opacity: 0.8;
+  margin: 0.2rem 0 1rem;
+}
+
+.stars {
+  font-size: 1.6rem;
+  letter-spacing: 0.35em;
+  margin: 0.4rem 0 1rem;
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(224, 138, 45, 0.5);
+  min-height: 1.4em;
+}
+
+.stars .dim {
+  opacity: 0.25;
+  text-shadow: none;
+}
+
+/* ── touch pads ─────────────────────────────────────────────── */
+
+.pad {
+  position: absolute;
+  z-index: 4;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  border: 2px solid rgba(244, 234, 216, 0.5);
+  background: rgba(16, 19, 31, 0.55);
+  color: var(--paper);
+  font-size: 1.15rem;
+  touch-action: none;
+}
+
+.pad:active {
+  background: rgba(224, 138, 45, 0.5);
+}
+
+#pad-up {
+  right: 86px;
+  bottom: 96px;
+}
+
+#pad-left {
+  right: 158px;
+  bottom: 24px;
+}
+
+#pad-right {
+  right: 14px;
+  bottom: 24px;
+}
+
+#pad-down {
+  right: 86px;
+  bottom: 24px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pad {
+    display: none;
+  }
+}
+
+/* ── small screens ──────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  #chip-level {
+    display: none;
+  }
+
+  #streets {
+    display: none;
+  }
+
+  .card {
+    padding: 1rem 0.9rem;
+  }
+
+  .howto {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #banner {
+    animation: none;
+  }
+
+  #drift-fill {
+    transition: none;
+  }
+}

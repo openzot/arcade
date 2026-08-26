@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Before the Buses</title>
+    <meta
+      name="description"
+      content="A pre-dawn snowplough game: sweep the sleeping hill-town's streets, dump your drift at the gullies and river bays, and finish before the 7:05 buses run."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main id="stage">
+      <header id="hud">
+        <div class="cluster">
+          <a id="back" href="../../index.html" title="Back to the arcade"
+            >◀ Arcade</a
+          >
+          <span id="chip-level">Foundry Hill</span>
+        </div>
+        <div class="cluster mid">
+          <span id="clock">5:50</span>
+          <span id="streets">32 sweeps</span>
+          <span id="drift-wrap" aria-label="drift on the blade">
+            <i id="drift-fill"></i><em>DRIFT</em>
+          </span>
+        </div>
+        <div class="cluster">
+          <button id="btn-help" type="button" aria-label="How to play (H)">
+            ?
+          </button>
+          <button id="btn-pause" type="button" aria-label="Pause (P)">
+            II
+          </button>
+          <button id="btn-mute" type="button" aria-label="Sound (M)">♪</button>
+          <button
+            id="btn-restart"
+            type="button"
+            aria-label="Restart street (R)"
+          >
+            ↺
+          </button>
+        </div>
+      </header>
+
+      <div id="playfield">
+        <canvas
+          id="town"
+          width="1040"
+          height="720"
+          aria-label="The town, seen from above through snowfall"
+        ></canvas>
+
+        <div id="banner" class="hidden">
+          <strong id="banner-big"></strong>
+          <span id="banner-small"></span>
+        </div>
+
+        <p id="hint"></p>
+
+        <button id="pad-up" class="pad" type="button" aria-label="Forward">
+          ▲
+        </button>
+        <button id="pad-left" class="pad" type="button" aria-label="Turn left">
+          ◀
+        </button>
+        <button
+          id="pad-right"
+          class="pad"
+          type="button"
+          aria-label="Turn right"
+        >
+          ▶
+        </button>
+        <button id="pad-down" class="pad" type="button" aria-label="Reverse">
+          ▼
+        </button>
+
+        <section id="overlay-title" class="overlay">
+          <div class="card">
+            <h1>Before<span>the Buses</span></h1>
+            <p class="tagline">
+              The town sleeps. You push the winter off its streets.
+            </p>
+            <ul class="howto">
+              <li>
+                <b>Drive</b> — ↑ forward, ← → turn, ↓ reverse. Arrows or WASD.
+              </li>
+              <li>
+                <b>The blade gathers.</b> Every tile you sweep piles onto your
+                bumper. A full blade sheds nothing.
+              </li>
+              <li>
+                <b>Dump it.</b> Roll into an amber gully or a riverside bay to
+                tip the drift.
+              </li>
+              <li>
+                <b>Mind the town.</b> Parked cars don't move. Ice carries you
+                on.
+              </li>
+              <li>
+                <b>The clock.</b> Every road swept clean before 7:00 — or the
+                7:05 boggs down.
+              </li>
+            </ul>
+            <button id="btn-start" type="button">Take the plough</button>
+            <p class="tiny">
+              Five streets before dawn · P pause · M sound · R restart street
+            </p>
+          </div>
+        </section>
+
+        <section id="overlay-pause" class="overlay hidden">
+          <div class="card">
+            <h2>Held at the kerb</h2>
+            <p class="quiet">
+              Engine idling. The snow keeps falling either way.
+            </p>
+            <button id="btn-resume" type="button">Drive on</button>
+            <p class="tiny">P resumes · R restarts this street</p>
+          </div>
+        </section>
+
+        <section id="overlay-level" class="overlay hidden">
+          <div class="card">
+            <h2 id="done-head">Street swept</h2>
+            <p id="done-line" class="quiet"></p>
+            <p id="done-stars" class="stars"></p>
+            <button id="btn-next" type="button">Next street</button>
+            <p class="tiny">Enter also works</p>
+          </div>
+        </section>
+
+        <section id="overlay-over" class="overlay hidden">
+          <div class="card">
+            <h2>The 7:05 bogged down</h2>
+            <p id="over-line" class="quiet"></p>
+            <button id="btn-retry" type="button">Another pass</button>
+            <p class="tiny">R works too</p>
+          </div>
+        </section>
+
+        <section id="overlay-won" class="overlay hidden">
+          <div class="card">
+            <h2>Clean streets, warm diesel</h2>
+            <p id="won-line" class="quiet"></p>
+            <button id="btn-again" type="button">
+              Run the whole town again
+            </button>
+            <p class="tiny">
+              The first bus sighs past. Nobody knows it was you.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

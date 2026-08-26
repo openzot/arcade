@@ -728,5 +728,15 @@
     "tagline": "Set every pin. Wind it up. Let it sing.",
     "controls": "mouse / touch tap holes to set & pull pins, or arrows + space at the cursor; T or tap the crank to try your barrel, D winds the demo, Enter presents, P pause, M sound, R new shift",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "before-the-buses",
+    "name": "Before the Buses",
+    "genre": "clearance",
+    "mechanic": "plough sleeping streets cell by cell - every swept tile piles onto your blade as a drifting burden you must tip into amber gullies or riverside bays before it brims, while parked cars wall the lanes and icy bends carry you past your turns",
+    "theme": "a hill-town's blue hour between the last lamplight and the 7:05 buses, five streets of gathering dawn",
+    "tagline": "The town sleeps. You push the winter off its streets.",
+    "controls": "arrows / WASD drive, turn & reverse (space drives too), swipe or on-screen pads on touch; P pause, M sound, R restart street",
+    "created": "2026-08-26"
   }
 ]
