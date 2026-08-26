@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Cheat! · Arcade</title>
+    <meta
+      name="description"
+      content="Lay your cards face down on the rank the table owes - truth or bare-faced lie - while three sharp-eyed regulars decide whether to call you. A penny-ante Cheat game in a boarding-house kitchen."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="room">
+      <header id="hud">
+        <div id="brand-block">
+          <h1 id="brand">Cheat<span class="bang">!</span></h1>
+          <p id="tag">Cards face down. Eyes up.</p>
+        </div>
+        <div id="ledger">
+          <span class="ledger-item"
+            ><span class="coin-dot" aria-hidden="true"></span>purse
+            <b id="pennies-you">12d</b></span
+          >
+          <span class="ledger-item">pot <b id="pot-amt">12d</b></span>
+        </div>
+        <nav id="menu">
+          <button id="btn-new" type="button" title="New deal (R)">
+            New deal
+          </button>
+          <button id="btn-help" type="button" title="House rules (H)">
+            Rules
+          </button>
+          <button
+            id="btn-sound"
+            type="button"
+            title="Sound (M)"
+            aria-pressed="true"
+          >
+            Sound
+          </button>
+          <a id="home" href="../../">&#8592; Arcade</a>
+        </nav>
+      </header>
+
+      <main id="table">
+        <section id="seats" aria-label="The regulars">
+          <article class="seat" id="seat-1">
+            <span class="avatar av-vera" aria-hidden="true"
+              >V<span class="tell-mark">?</span></span
+            >
+            <span class="who"
+              ><b class="pname">Vera</b><i class="pcount">13</i
+              ><i class="ppennies">9d</i></span
+            >
+            <span class="bubble" hidden></span>
+            <span class="turn-glow" aria-hidden="true"></span>
+          </article>
+          <article class="seat" id="seat-2">
+            <span class="avatar av-edith" aria-hidden="true"
+              >E<span class="tell-mark">?</span></span
+            >
+            <span class="who"
+              ><b class="pname">Edith</b><i class="pcount">13</i
+              ><i class="ppennies">9d</i></span
+            >
+            <span class="bubble" hidden></span>
+            <span class="turn-glow" aria-hidden="true"></span>
+          </article>
+          <article class="seat" id="seat-3">
+            <span class="avatar av-nell" aria-hidden="true"
+              >N<span class="tell-mark">?</span></span
+            >
+            <span class="who"
+              ><b class="pname">Nell</b><i class="pcount">13</i
+              ><i class="ppennies">9d</i></span
+            >
+            <span class="bubble" hidden></span>
+            <span class="turn-glow" aria-hidden="true"></span>
+          </article>
+        </section>
+
+        <section id="middle">
+          <div id="pile-wrap">
+            <ul id="pile" aria-label="Discard pile"></ul>
+          </div>
+          <div id="claim-box">
+            <span class="owes-label">the table owes</span>
+            <b id="claim-rank">&mdash;</b>
+          </div>
+          <div id="verdict" role="status" aria-live="polite"></div>
+        </section>
+
+        <section id="you">
+          <div id="status-line">Take a seat&hellip;</div>
+          <ul id="hand" aria-label="Your hand"></ul>
+          <div id="action-row">
+            <button id="btn-play" type="button" disabled>Lay 0</button>
+            <button id="btn-call" type="button" disabled>Call it!</button>
+            <button id="btn-letgo" type="button" disabled>Let it go</button>
+            <span id="call-timer" aria-hidden="true"
+              ><i id="call-timer-fill"></i
+            ></span>
+          </div>
+        </section>
+      </main>
+
+      <div class="overlay" id="title-card">
+        <div class="panel">
+          <h2>Cheat<span class="bang">!</span></h2>
+          <p class="lede">
+            Rain on the glass, tea going cold, and three regulars who never
+            forget a lie.
+          </p>
+          <ul class="how">
+            <li>
+              The table owes one rank at a time, climbing Ace to King and round
+              again.
+            </li>
+            <li>
+              On your go, lay 1&ndash;4 cards <em>face down</em> as that rank
+              &mdash; honest or not.
+            </li>
+            <li>
+              Doubt a rival with <b>Call&nbsp;it!</b> before the timer drains.
+              Right call: they take the whole pile and owe you 2d. Wrong call:
+              you take it.
+            </li>
+            <li>
+              Watch their faces &mdash; sometimes. A tell is a rumour, not
+              gospel.
+            </li>
+            <li>
+              First hand empty sweeps the pot. Everyone else buys the tea.
+            </li>
+          </ul>
+          <p class="keys">
+            Mouse / touch: tap cards, tap buttons &middot; keys:
+            &larr;&nbsp;&rarr; choose, Space picks, Enter lays &middot; C call
+            &middot; L let go &middot; P pause &middot; M sound &middot; R new
+            deal
+          </p>
+          <button id="btn-start" type="button">Sit down &amp; deal</button>
+        </div>
+      </div>
+
+      <div class="overlay hidden" id="pause-card">
+        <div class="panel">
+          <h2>Paused</h2>
+          <p>The kettle&rsquo;s on. Nobody peeks at anybody&rsquo;s cards.</p>
+          <button id="btn-resume" type="button">Back to the table</button>
+        </div>
+      </div>
+
+      <div class="overlay hidden" id="help-card">
+        <div class="panel">
+          <h2>House rules</h2>
+          <ul class="how">
+            <li>
+              Lay 1&ndash;4 cards face down claiming the rank the table owes.
+              Lying is legal; getting caught is not free.
+            </li>
+            <li>
+              A caught lie costs you the pile plus 2d to the caller. A false
+              call costs the caller the same.
+            </li>
+            <li>
+              The owed rank climbs one each turn and wraps King back to Ace.
+            </li>
+            <li>Tells flicker now and then. Trust them like weather lore.</li>
+            <li>First out takes the pot of 12d.</li>
+          </ul>
+          <button id="btn-close-help" type="button">Back to it</button>
+        </div>
+      </div>
+
+      <div class="overlay hidden" id="end-card">
+        <div class="panel">
+          <h2 id="end-title">Out first!</h2>
+          <p id="end-sub"></p>
+          <p id="end-ledger"></p>
+          <button id="btn-again" type="button">Another hand</button>
+        </div>
+      </div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -708,5 +708,15 @@
     "tagline": "The negative never lies. The print is all you.",
     "controls": "hold SPACE or the EXPOSE pad to print, mouse / touch steers the wand, X or BURN flips it to burn, ENTER or LIFT pulls the sheet, up/down or -/+ set the time, P pause, M sound, R new roll",
     "created": "2026-08-26"
+  },
+  {
+    "slug": "cheat",
+    "name": "Cheat!",
+    "genre": "bluffing",
+    "mechanic": "shed your hand by laying face-down cards on the rank the table owes - truth or bare-faced lie - while three sharp-eyed regulars decide whether to call your bluff and you call theirs, pennies swinging on every wrong accusation",
+    "theme": "a rainy Tuesday in a seaside boarding-house kitchen, three regulars around a chipped Formica table",
+    "tagline": "Cards face down. Eyes up.",
+    "controls": "mouse / touch tap cards and buttons; keys arrows + space select, enter lays, C calls, L lets go, P pause, M sound, R new deal",
+    "created": "2026-08-26"
   }
 ]
