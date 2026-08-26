@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Backshift</title>
+    <meta
+      name="description"
+      content="A reversing yard at first light. Take the lorry and its trailer through a wholesale market's loading bays - the trailer answers late, so chase your own hinge before the shift clock dies."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <header id="bar">
+        <a id="home" href="../../">&#8592; Arcade</a>
+        <h1 id="game-title">Backshift</h1>
+        <nav id="tools">
+          <button
+            id="btnSound"
+            type="button"
+            aria-label="Toggle sound"
+            aria-pressed="false"
+          >
+            &#9834;
+          </button>
+          <button id="btnHelp" type="button" aria-label="How to play">?</button>
+          <button id="btnPause" type="button" aria-label="Pause">
+            &#8214;
+          </button>
+          <button id="btnRestart" type="button" aria-label="Retry this bay">
+            &#8635;
+          </button>
+        </nav>
+      </header>
+
+      <div id="readout">
+        <span class="chip" id="chipLevel">BAY 1</span>
+        <span class="chip chip-clock" id="chipClock">&#9201; 3:20</span>
+        <span class="chip" id="chipBumps">&#10033; 0 bumps</span>
+        <span class="chip" id="chipStars">&#9734;&#9734;&#9734;</span>
+      </div>
+
+      <main id="field">
+        <canvas id="yard" width="960" height="600"></canvas>
+
+        <div id="pads" aria-hidden="false">
+          <div class="padcluster" id="clusterSteer">
+            <button id="padLeft" type="button" aria-label="Steer left">
+              &#9664;
+            </button>
+            <button id="padRight" type="button" aria-label="Steer right">
+              &#9654;
+            </button>
+          </div>
+          <div class="padcluster" id="clusterDrive">
+            <button id="padBrake" type="button" aria-label="Handbrake">
+              &#9632;
+            </button>
+            <button id="padFwd" type="button" aria-label="Creep forward">
+              &#9650;
+            </button>
+            <button id="padRev" type="button" aria-label="Reverse">
+              &#9660;
+            </button>
+          </div>
+        </div>
+
+        <section id="veil" class="hidden" role="dialog" aria-modal="true">
+          <div id="card">
+            <h2 id="cardTitle">Backshift</h2>
+            <p id="cardTag"></p>
+            <div id="cardBody"></div>
+            <div id="cardBtns">
+              <button id="cardBtn2" type="button" class="hidden"></button>
+              <button id="cardBtn" type="button">Clock on</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

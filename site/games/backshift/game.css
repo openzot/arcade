@@ -1,0 +1,350 @@
+:root {
+  --ink: #1d2126;
+  --ink-soft: #4d565f;
+  --paper: #f2ead8;
+  --paper-edge: #cdbfa0;
+  --amber: #e6a63c;
+  --amber-deep: #b97c1c;
+  --asphalt: #262a30;
+  --bar-bg: #171a1f;
+  --bar-fg: #efe7d4;
+  --teal: #2e6f6b;
+  --alarm: #d4553a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  background: var(--bar-bg);
+  color: var(--ink);
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#stage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ---------- top bar ---------- */
+
+#bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  background: linear-gradient(#242932, var(--bar-bg));
+  color: var(--bar-fg);
+  border-bottom: 2px solid #0c0e12;
+  z-index: 5;
+}
+
+#home {
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+}
+
+#home:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#game-title {
+  font-size: 1.05rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 1px 0 #000;
+}
+
+#tools {
+  display: flex;
+  gap: 0.3rem;
+}
+
+#tools button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #3c434e;
+  border-radius: 6px;
+  background: #20252c;
+  color: var(--bar-fg);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#tools button:hover {
+  background: #2b313a;
+}
+
+#tools button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+
+#tools button[aria-pressed="true"] {
+  color: var(--amber);
+  border-color: var(--amber-deep);
+}
+
+/* ---------- readout chips ---------- */
+
+#readout {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.5rem;
+  background: #101216;
+  border-bottom: 1px solid #000;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: #cfc6ae;
+  background: #1c2027;
+  border: 1px solid #2e343d;
+  border-radius: 999px;
+  padding: 0.14rem 0.65rem;
+  white-space: nowrap;
+}
+
+.chip-clock {
+  font-variant-numeric: tabular-nums;
+  min-width: 5.2em;
+  text-align: center;
+}
+
+.chip-clock.low {
+  color: #ffb08f;
+  border-color: var(--alarm);
+}
+
+/* ---------- field & canvas ---------- */
+
+#field {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    #23272e 0%,
+    var(--bar-bg) 78%
+  );
+  overflow: hidden;
+  min-height: 0;
+}
+
+#yard {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, calc((100dvh - 7.2rem) * 1.6));
+  max-height: 100%;
+  aspect-ratio: 960 / 600;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px #000,
+    0 18px 44px rgba(0, 0, 0, 0.55);
+  touch-action: none;
+}
+
+/* ---------- touch pads ---------- */
+
+#pads {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: none;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 0.7rem 0.8rem;
+  pointer-events: none;
+}
+
+.padcluster {
+  display: flex;
+  gap: 0.45rem;
+  pointer-events: auto;
+}
+
+#pads button {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 12px;
+  border: 1px solid #4a5160;
+  background: rgba(28, 32, 39, 0.82);
+  color: #e8dfc8;
+  font-size: 1.05rem;
+  cursor: pointer;
+  touch-action: none;
+}
+
+#pads button:active {
+  background: rgba(230, 166, 60, 0.35);
+  border-color: var(--amber);
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #pads {
+    display: flex;
+  }
+
+  #yard {
+    margin-bottom: 4.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #game-title {
+    letter-spacing: 0.12em;
+    font-size: 0.92rem;
+  }
+
+  .chip {
+    font-size: 0.68rem;
+    padding: 0.12rem 0.5rem;
+  }
+}
+
+/* ---------- overlay card ---------- */
+
+#veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 15, 0.62);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  padding: 1rem;
+}
+
+#veil.hidden {
+  display: none;
+}
+
+#card {
+  width: min(30rem, 94%);
+  max-height: 94%;
+  overflow: auto;
+  background: linear-gradient(#faf4e6, var(--paper));
+  border: 1px solid var(--paper-edge);
+  border-radius: 14px;
+  padding: 1.3rem 1.4rem 1.2rem;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+#cardTitle {
+  font-size: 1.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2a3038;
+}
+
+#cardTag {
+  margin-top: 0.3rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+#cardBody {
+  margin-top: 0.85rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #333a42;
+  text-align: left;
+}
+
+#cardBody ul {
+  list-style: none;
+  margin-top: 0.35rem;
+}
+
+#cardBody li {
+  margin: 0.4rem 0;
+  padding-left: 1.1em;
+  position: relative;
+}
+
+#cardBody li::before {
+  content: "\25B8";
+  position: absolute;
+  left: 0;
+  color: var(--amber-deep);
+}
+
+#cardBody .keys {
+  display: inline-block;
+  background: #fff9ea;
+  border: 1px solid var(--paper-edge);
+  border-radius: 5px;
+  padding: 0 0.35em;
+  font-family: ui-monospace, monospace;
+  font-size: 0.86em;
+  white-space: nowrap;
+}
+
+#cardBody .stars {
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  color: var(--amber-deep);
+  text-align: center;
+  display: block;
+  margin: 0.4rem 0;
+}
+
+#cardBtns {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+#cardBtns button {
+  border: 1px solid var(--amber-deep);
+  background: linear-gradient(#f0b954, #dd9c2e);
+  color: #241a06;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+#cardBtns button:hover {
+  filter: brightness(1.06);
+}
+
+#cardBtns button.hidden {
+  display: none;
+}

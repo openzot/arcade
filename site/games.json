@@ -649,17 +649,17 @@
     "controls": "mouse / touch or WASD / arrows steer the beam, keys 1-4 or tap swing a gel, Space or Bump widens the iris, P pause, M sound, R new show",
     "created": "2026-08-26"
   },
-{
-  "slug": "high-panes",
-  "name": "High Panes",
-  "genre": "cleaning",
-  "mechanic": "drag a squeegee to wipe baked-on grime off tower-block glass, rationing bucket suds so dry strokes smear while pigeons re-foul the pane",
-  "theme": "a cradle-hanging window cleaner racing quitting time down six panes of a dusk-lit skyscraper",
-  "tagline": "The city looks better from up here.",
-  "controls": "mouse / touch drag to wipe, WASD / arrows nudge, Space rings the pane, B dips the bucket, P pause, M sound, R restart",
-  "created": "2026-08-26"
-},
-{
+  {
+    "slug": "high-panes",
+    "name": "High Panes",
+    "genre": "cleaning",
+    "mechanic": "drag a squeegee to wipe baked-on grime off tower-block glass, rationing bucket suds so dry strokes smear while pigeons re-foul the pane",
+    "theme": "a cradle-hanging window cleaner racing quitting time down six panes of a dusk-lit skyscraper",
+    "tagline": "The city looks better from up here.",
+    "controls": "mouse / touch drag to wipe, WASD / arrows nudge, Space rings the pane, B dips the bucket, P pause, M sound, R restart",
+    "created": "2026-08-26"
+  },
+  {
     "slug": "floodline",
     "name": "Floodline",
     "genre": "platformer",
@@ -687,6 +687,16 @@
     "theme": "an apprentice falconer's five dawns on a misty chalk downland, bagging each morning's quota from a wild rabbit warren before the sun burns the mist away",
     "tagline": "Hold her hungry. Cast her true.",
     "controls": "arrows / A D or pads to walk, hold SPACE or LURE pad to swing, release to cast, W or CALL to whistle her back; P pause, M sound, R restart dawn",
+    "created": "2026-08-26"
+  },
+  {
+    "slug": "backshift",
+    "name": "Backshift",
+    "genre": "reversing",
+    "mechanic": "reverse a lorry and box trailer through a tight market yard - the trailer answers late, so you chase your own hinge into each bay before the shift clock dies",
+    "theme": "a wholesale market's loading yard at first light, four bays deep in parked vans, pallet stacks and barrels",
+    "tagline": "Forwards got you into this mess.",
+    "controls": "arrows / WASD: left-right steer, down reverses, up creeps forward; SPACE handbrake; P pause, M sound, R retry bay; steer pads and pedals on touch",
     "created": "2026-08-26"
   }
 ]
