@@ -1,0 +1,377 @@
+/* Everywhere at Once — below-stairs bilocation. All style lives here. */
+
+:root {
+  --paper: #efe3cb;
+  --paper-deep: #e4d2ae;
+  --ink: #33261a;
+  --ink-soft: #6b5233;
+  --brass: #a97e1f;
+  --brass-bright: #c9972f;
+  --ghost: rgba(190, 148, 40, 0.55);
+  --card: #f7eeda;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    var(--card) 0%,
+    var(--paper) 55%,
+    var(--paper-deep) 100%
+  );
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  min-height: 100vh;
+}
+
+.stage {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 16px 28px;
+}
+
+.masthead {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.masthead h1 {
+  margin: 2px 0 4px;
+  font-size: clamp(26px, 4.5vw, 40px);
+  letter-spacing: 0.04em;
+  font-weight: normal;
+}
+
+.masthead h1::before {
+  content: "❦ ";
+  color: var(--brass);
+}
+.masthead h1::after {
+  content: " ❦";
+  color: var(--brass);
+}
+
+.tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.home {
+  display: inline-block;
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--brass);
+  border-bottom: 1px dotted var(--brass);
+  padding-bottom: 1px;
+}
+
+.home:hover,
+.home:focus {
+  color: var(--ink);
+}
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 2px;
+}
+
+.passbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.clockbar {
+  position: relative;
+  width: clamp(120px, 24vw, 240px);
+  height: 10px;
+  border: 1px solid var(--brass);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(255, 252, 240, 0.6);
+}
+
+#clockFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  background: linear-gradient(90deg, var(--brass), var(--brass-bright));
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fbf3de, #ecd9ac);
+  border: 1px solid var(--brass);
+  border-radius: 8px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus-visible {
+  filter: brightness(1.06);
+}
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+button[aria-pressed="false"] {
+  opacity: 0.55;
+}
+
+.playfield {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+}
+
+canvas#house {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 960 / 600;
+  height: auto;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(51, 38, 26, 0.25);
+  touch-action: none;
+  display: block;
+  background: #d8bd90;
+}
+
+.ledger {
+  flex: 0 0 250px;
+  background: var(--card);
+  border: 1px solid var(--brass);
+  border-radius: 10px;
+  padding: 10px 12px 12px;
+  align-self: flex-start;
+}
+
+.ledger h2 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: 5px;
+}
+
+.ledger ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.ledger li {
+  padding: 5px 0 5px 22px;
+  position: relative;
+  border-bottom: 1px dashed rgba(169, 126, 31, 0.35);
+}
+
+.ledger li:last-child {
+  border-bottom: 0;
+}
+
+.ledger li .hint {
+  display: block;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.ledger li.done {
+  color: var(--ink-soft);
+}
+.ledger li.done .name {
+  text-decoration: line-through;
+}
+
+.ledger li.done::before {
+  content: "✔";
+  position: absolute;
+  left: 2px;
+  color: #4a7a3a;
+}
+
+.ledger li.todo::before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+  color: var(--brass);
+}
+
+.legend {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.swatch.you {
+  background: #33291f;
+}
+.swatch.ghost {
+  background: var(--ghost);
+  border: 1px solid var(--brass);
+}
+
+.footnote {
+  text-align: center;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+}
+
+/* Overlay veil */
+
+.veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 30, 16, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 20;
+}
+
+.veil[hidden] {
+  display: none;
+}
+
+.card {
+  background: var(--card);
+  border: 2px solid var(--brass);
+  border-radius: 14px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 86vh;
+  overflow: auto;
+  padding: 20px 24px 18px;
+  box-shadow: 0 18px 50px rgba(30, 20, 8, 0.45);
+  text-align: center;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-weight: normal;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+}
+
+.card .prose {
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card .prose p {
+  margin: 8px 0;
+}
+.card .prose em {
+  color: var(--ink-soft);
+}
+
+.card .prose ul {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.card kbd {
+  font-family: inherit;
+  font-size: 12px;
+  border: 1px solid var(--brass);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0 5px;
+  background: #fffaf0;
+  white-space: nowrap;
+}
+
+.card .stars {
+  font-size: 30px;
+  letter-spacing: 6px;
+  color: var(--brass-bright);
+  margin: 4px 0;
+}
+
+.card .scoreline {
+  font-size: 15px;
+  margin: 6px 0 2px;
+}
+
+.veilButtons {
+  margin-top: 14px;
+}
+
+.veilButtons button {
+  font-size: 16px;
+  padding: 10px 22px;
+}
+
+@media (max-width: 900px) {
+  .playfield {
+    flex-direction: column;
+  }
+  .ledger {
+    flex: 1 1 auto;
+  }
+  .ledger ul {
+    columns: 2;
+    column-gap: 18px;
+  }
+  .legend {
+    columns: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .stage {
+    padding: 10px 8px 20px;
+  }
+  .ledger ul,
+  .legend {
+    columns: 1;
+  }
+  .hud {
+    justify-content: center;
+  }
+}

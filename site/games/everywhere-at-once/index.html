@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Everywhere at Once</title>
+    <meta
+      name="description"
+      content="Choreograph your own past selves: every pass replays as a yesterday while you ready a great house for the ball."
+    />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <header class="masthead">
+        <a class="home" href="../../index.html">&larr; The Arcade</a>
+        <h1>Everywhere at Once</h1>
+        <p class="tagline">
+          The family swears Mrs.&nbsp;Marlowe is everywhere at once. Yesterday
+          agrees.
+        </p>
+      </header>
+
+      <div class="hud">
+        <div class="passbox">
+          <span id="passLabel">Pass 1 of 6</span>
+          <span class="clockbar" aria-hidden="true"
+            ><span id="clockFill"></span
+          ></span>
+          <span id="clockText">0:40</span>
+        </div>
+        <nav class="buttons" aria-label="game controls">
+          <button
+            id="btnRing"
+            type="button"
+            title="End this pass early (Enter)"
+          >
+            Ring next pass &crarr;
+          </button>
+          <button id="btnPause" type="button" title="Pause (P)">Pause</button>
+          <button
+            id="btnSound"
+            type="button"
+            title="Sound (M)"
+            aria-pressed="true"
+          >
+            Sound
+          </button>
+          <button id="btnHelp" type="button" title="How to play (H)">
+            How
+          </button>
+          <button
+            id="btnRestart"
+            type="button"
+            title="Start the whole morning over (R)"
+          >
+            Restart
+          </button>
+        </nav>
+      </div>
+
+      <div class="playfield">
+        <canvas id="house" width="960" height="600"></canvas>
+        <aside class="ledger">
+          <h2>Morning ledger</h2>
+          <ul id="tasks"></ul>
+          <p class="legend">
+            <span class="swatch you"></span> you today &middot;
+            <span class="swatch ghost"></span> your yesterdays, repeating
+            exactly
+          </p>
+        </aside>
+      </div>
+
+      <p class="footnote">
+        A ball at six. Ten chores. One pair of hands &mdash; until yesterday
+        lends a few.
+      </p>
+    </main>
+
+    <div class="veil" id="veil" hidden>
+      <div
+        class="card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="veilTitle"
+      >
+        <h2 id="veilTitle">Everywhere at Once</h2>
+        <div id="veilBody"></div>
+        <div class="veilButtons">
+          <button id="veilCta" type="button">Begin the first pass</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

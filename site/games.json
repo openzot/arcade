@@ -608,5 +608,15 @@
     "tagline": "Your light is your life. Spend it loudly.",
     "controls": "WASD / arrows move, mouse aims, hold click or space to burn; touch: left thumb moves, right thumb aims & fires; P pause, M sound, R restart",
     "created": "2026-08-25"
+  },
+  {
+    "slug": "everywhere-at-once",
+    "name": "Everywhere at Once",
+    "genre": "bilocation",
+    "mechanic": "each forty-second pass records your every step, then replays it forever as a translucent yesterday - chores need two pairs of hands at the same moment, so you must choreograph your own past selves",
+    "theme": "below stairs of a great house on ball-day morning, one housekeeper readying five rooms before the first carriage rolls up",
+    "tagline": "The family swears Mrs. Marlowe is everywhere at once. Yesterday agrees.",
+    "controls": "WASD / arrows or touch-drag to walk (chores work themselves while you stand at them), Enter rings the next pass early, P pause, M sound, H help, R restart",
+    "created": "2026-08-26"
   }
 ]
